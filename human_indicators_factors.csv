@@ -1,0 +1,56 @@
+attributeName,code,definition
+human_presence_of_path,FALSE,FALSE
+human_presence_of_path,TRUE,TRUE
+human_footprints,many,many
+human_footprints,n/a,not applicable
+human_footprints,none,none
+human_footprints,some,some
+human_bike_tracks,many,many
+human_bike_tracks,n/a,not applicable
+human_bike_tracks,none,none
+human_bike_tracks,some,some
+human_off_road_vehicle,many,many
+human_off_road_vehicle,n/a,not applicable
+human_off_road_vehicle,none,none
+human_off_road_vehicle,some,some
+human_small_litter,many,many
+human_small_litter,n/a,not applicable
+human_small_litter,none,none
+human_small_litter,some,some
+human_dumped_trash_bags,many,many
+human_dumped_trash_bags,n/a,not applicable
+human_dumped_trash_bags,none,none
+human_dumped_trash_bags,some,some
+human_abandoned_vehicles,many,many
+human_abandoned_vehicles,n/a,not applicable
+human_abandoned_vehicles,none,none
+human_abandoned_vehicles,some,some
+human_graffiti,n/a,not applicable
+human_graffiti,none,none
+human_graffiti,some,some
+human_injured_plants,many,many
+human_injured_plants,n/a,not applicable
+human_injured_plants,none,none
+human_injured_plants,some,some
+human_informal_play,many,many
+human_informal_play,n/a,not applicable
+human_informal_play,none,none
+human_informal_play,some,some
+human_informal_recreation,n/a,n/a
+human_informal_recreation,none,none
+human_informal_recreation,some,some
+human_informal_living,n/a,not applicable
+human_informal_living,none,none
+human_informal_living,some,some
+human_sports_equipment,many,many
+human_sports_equipment,n/a,not applicable
+human_sports_equipment,none,none
+human_sports_equipment,some,some
+human_social_class,middle class,middle class
+human_social_class,n/a,not applicable
+human_social_class,poor,poor
+human_social_class,rich,rich
+human_social_class,upper middle,upper middle
+human_social_class,upper middle class,upper middle class
+human_social_class,working lower,working lower
+human_social_class,working lower class,working lower class

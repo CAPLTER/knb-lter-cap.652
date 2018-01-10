@@ -1,0 +1,4 @@
+attributeName,code,definition
+sweepnet_sample_type,ground sweep,sweepnet was collected from sweeps of the ground
+sweepnet_sample_type,plant,sweepnet collected from a single plant
+sweepnet_sample_type,unknown,substratum from which the sweepnet sample was collected is not known or was not reported

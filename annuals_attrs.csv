@@ -1,0 +1,6 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+vegetation_scientific_name,,,,scientific name of plant,scientific name of plant,character,,,,
+common_name,,,,common name of plant,common name of plant,character,,,NA,missing value
+vegetation_rope_length,,meter,real,,"length of N-S, E-W plot center axes that are in contact with annual plants (as an approximation for cover of annual plots in the plot)",numeric,0,80,NA,missing value

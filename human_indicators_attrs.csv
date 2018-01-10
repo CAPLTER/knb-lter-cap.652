@@ -1,0 +1,22 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+human_presence_of_path,,,,,indication of the presence of a path through the plot,factor,,,NA,missing value
+human_footprints,,,,,indication of the presence of foot prints through the plot,factor,,,NA,missing value
+human_bike_tracks,,,,,indication of the presence of a bicycle tracks through the plot,factor,,,NA,missing value
+human_off_road_vehicle,,,,,indication of the presence of off road vehicle activity in the plot,factor,,,NA,missing value
+human_small_litter,,,,,amount of small litter,factor,,,NA,missing value
+human_dumped_trash_bags,,,,,amount of dumped trash bags,factor,,,NA,missing value
+human_abandoned_vehicles,,,,,amount of abandoned vehicles at the site,factor,,,NA,missing value
+human_graffiti,,,,,amount of graffiti present,factor,,,NA,missing value
+human_injured_plants,,,,,amount of injured plants,factor,,,NA,missing value
+human_informal_play,,,,,amount of informal play occurring at the site,factor,,,NA,missing value
+human_informal_recreation,,,,,amount of informal recreation occurring at the site,factor,,,NA,missing value
+human_informal_living,,,,,"amount of informal living in the plot (homeless camps, water bottles, bonfire sites, privies)",factor,,,NA,missing value
+human_sports_equipment,,,,,amount of sports equipment used within the site,factor,,,NA,missing value
+human_number_cars,,number,whole,,number of cars within a 50 m radius of the plot,numeric,0,700,NA,missing value
+human_number_motorcycles,,number,whole,,number of motorcycles within a 50 m radius of the plot,numeric,0,6,NA,missing value
+human_number_bicycles,,number,whole,,number of bicycles within a 50 m radius of the plot,numeric,0,90,NA,missing value
+human_number_houses,,number,whole,,number of houses within a 50 m radius of the plot,numeric,0,35,NA,missing value
+human_number_rvs,,number,whole,,number of recreational vehicles within a 50 m radius of the plot,numeric,0,8,NA,missing value
+human_social_class,,,,,approximate (perceived) social class of the surrounding area,factor,,,NA,missing value

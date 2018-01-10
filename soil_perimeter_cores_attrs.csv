@@ -1,0 +1,18 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+deep_core_type,,,,,layer of core analyzed,factor,,,,
+pan,,gram,real,,weight of pan used to determine fresh / dry weight ratios,numeric,1,2.37,NA,missing value
+pan_plus_fw,,gram,real,,weight of pan and fresh soil subsample,numeric,4.86,18.99,NA,missing value
+pan_plus_dw60,,gram,real,,weight of pan and dry soil subsample dried at 60 degrees celsius,numeric,4.65,18.59,NA,missing value
+pan_plus_aw,,gram,real,,weight of pan and dry soil subsample dried at 500 degrees celsius,numeric,4.38,18.35,NA,missing value
+soil_n_fw,,gram,real,,fresh weight of soil sample for analyses of nitrogen species,numeric,9.23,11.22,NA,missing value
+n_extract_volume,,milliliter,natural,,volume of KCl extract for analyses of nitrogen species,numeric,50,50,NA,missing value
+nh4_n,,milligramsPerLiter,real,,ammonium-nitrogen (NH4-N) concentration of sample extract,numeric,-0.356,5.88,NA,missing value
+no3_n,,milligramsPerLiter,real,,nitrate-nitrogen (NO3-N) concentration of sample extract,numeric,-0.0539,82.5,NA,missing value
+soil_p_fw,,gram,real,,fresh weight of soil sample for analyses of phosphorus,numeric,2,2.5,NA,missing value
+p_extract_volume,,milliliter,natural,,volume of NaHCO3 extract for analysis of phosphorus,numeric,40,50,NA,missing value
+po4_p,,milligramsPerLiter,real,,phosphate-phosphorus (PO4-P) concentration of sample extract,numeric,-0.2,10.15,NA,missing value
+percent_total_c,,dimensionless,real,,percentage of total carbon,numeric,0.053,5.098,NA,missing value
+percent_inorg_c,,dimensionless,real,,percentage of inorganic carbon,numeric,0.007,3.56,NA,missing value
+percent_total_n,,dimensionless,real,,percentage of total nitrogen,numeric,0.005,0.431,NA,missing value

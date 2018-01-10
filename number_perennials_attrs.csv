@@ -1,0 +1,6 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+vegetation_scientific_name,,,,scientific name of plant,scientific name of plant,character,,,NA,missing value
+common_name,,,,common name of plant,common name of plant,character,,,NA,missing value
+number_plants,,number,whole,,number of plants of this type,numeric,0,2808,,

@@ -1,0 +1,8 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+structure_use,,,,type or use of structure,type or use of structure,character,,,NA,missing value
+height_measured,,meter,real,,"Height of the building if measured in the field with a meter tape. The height of buildings that are too tall to be measured with a meter tape must be estimated from clinometer measurements. Heights should be calculated as: height (m) = (TAN(height_degree_up)-TAN(height_degree_down)) * height_distance where height_degree_up is the angle in degrees of the top of the building; height_degree_down is the angle in degrees of the base of the building; and height_distance is the distance between the building and surveyor when angles were measured. Note that some software, such as Microsoft Excel, require degrees to be in units of radians, and degree should be converted in the calculation.",numeric,1.25,5,NA,missing value
+height_distance,,degree,real,,distance between the building and surveyor when angles were measured,numeric,3,25,NA,missing value
+height_degree_up,,degree,real,,angle in degrees of the top of the building,numeric,-7,60,NA,missing value
+height_degree_down,,degree,real,,angle in degrees of the base of the building,numeric,-28,150,NA,missing value

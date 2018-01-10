@@ -1,0 +1,8 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+elevation,,meter,natural,,survey plot elevation,numeric,249,909,NA,missing value
+slope,,degree,integer,,predominant slope of survey plot,numeric,-31,31,NA,missing value
+weather_on_the_day,,,,general description of weather on the day of sampling,general description of weather on the day of sampling,character,,,NA,missing value
+weather_recent_rain_notes,,,,notes relating to evidence of recent rain at the plot,notes relating to evidence of recent rain at the plot,character,,,NA,missing value
+general_description,,,,general description of the survey plot,general description of the survey plot,character,,,NA,missing value

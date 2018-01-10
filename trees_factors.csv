@@ -1,0 +1,21 @@
+attributeName,code,definition
+vegetation_shape_code,columnar,columnar
+vegetation_shape_code,natural,natural
+vegetation_shape_code,pyramidal,pyramidal
+vegetation_shape_code,rounded,rounded
+vegetation_shape_code,spreading,spreading
+vegetation_shape_code,upright,upright
+vegetation_classification_code,accent,accent
+vegetation_classification_code,foundation,foundation
+vegetation_classification_code,naturalized,naturalized
+vegetation_classification_code,pool,pool
+vegetation_classification_code,shade,shade
+vegetation_classification_code,street,street
+canopy_condition,critical,critical
+canopy_condition,dead,dead
+canopy_condition,dying,dying
+canopy_condition,excellent,excellent
+canopy_condition,fair,fair
+canopy_condition,good,good
+canopy_condition,n/a,not applicable
+canopy_condition,poor,poor

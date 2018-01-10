@@ -1,0 +1,8 @@
+attributeName,code,definition
+vegetation_shape_code,box,box
+vegetation_shape_code,elliptic,elliptic
+vegetation_shape_code,hedged,hedged
+vegetation_shape_code,natural,natural
+hedge_condition,excellent,excellent
+hedge_condition,fair,fair
+hedge_condition,good,good

@@ -1,0 +1,20 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+vegetation_scientific_name,,,,scientific name of plant,scientific name of plant,character,,,NA,missing value
+common_name,,,,common name of plant,common name of plant,character,,,NA,missing value
+vegetation_shape_code,,,,,general shape of the plant,factor,,,NA,missing value
+vegetation_classification_code,,,,,general position or application of plant in the landscape,factor,,,NA,missing value
+height_measured,,meter,real,,"Height of the plant if measured in the field with a meter tape. The height of plants that are too tall to be measured with a meter tape must be estimated from clinometer measurements. Heights should be calculated as: height (m) = (TAN(height_degree_up)-TAN(height_degree_down)) * height_distance where height_degree_up is the angle in degrees of the top of the plant; height_degree_down is the angle in degrees of the base of the plant; and height_distance is the distance between the plant and surveyor when angles were measured. Note that some software, such as Microsoft Excel, require degrees to be in units of radians, and degree should be converted in the calculation.",numeric,0.02,15,NA,missing value
+height_distance,,meter,real,,distance between the plant and surveyor when angles were measured,numeric,0,484,NA,missing value
+height_degree_up,,degree,integer,,angle in degrees of the top of the plant,numeric,0,75,NA,missing value
+height_degree_down,,degree,integer,,angle in degrees of the base of the plant,numeric,-93,39,NA,missing value
+bottom_canopy_height,,meter,real,,hight to the bottom of the tree canopy if measured in the field with a meter tape.,numeric,-16,99.99,NA,missing value
+crown_deg_down,,degree,integer,,angle to bottom of the tree canopy if bottom canopy height was estimated using a clinometer,numeric,-26,35,NA,missing value
+width_ns,,meter,real,,width of the plant along the north-south axis,numeric,0.003,300,NA,missing value
+width_ew,,meter,real,,width of the plant along the east-west axis,numeric,0.002,390,NA,missing value
+stem_diameter,,centimeter,real,,stem diameter,numeric,0.01,188.2,NA,missing value
+stem_height,,,,"Height at which stem was measured. This is often reported as Diameter Breast Height (DBH; ~4.5 feet), or Diameter Ground Height (DBG; measured at the base of the trunk). If value is numeric, height is in inches. Several codes (g, b, n) were used in early years of the survey, and their meaning is unclear.","Height at which stem was measured. This is often reported as Diameter Breast Height (DBH; ~4.5 feet), or Diameter Ground Height (DBG; measured at the base of the trunk). If value is numeric, height is in inches. Several codes (g, b, n) were used in early years of the survey, and their meaning is unclear.",character,,,NA,missing value
+stem_count,,number,whole,,number of stems that contributed to stem_diameter measurement,numeric,0,651,NA,missing value
+missing_branches,,dimensionless,whole,,approximate percentage of branches that missing from what would be considered a perfectly healthy tree,numeric,0,100,NA,missing value
+canopy_condition,,,,,general condition of the tree canopy,factor,,,NA,missing value

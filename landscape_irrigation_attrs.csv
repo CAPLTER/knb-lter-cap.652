@@ -1,0 +1,21 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+appears_maintained,,,,,landscape maintenance quality,factor,,,NA,missing value
+appears_professional,,,,,indication of professional landscaping,factor,,,NA,missing value
+appears_healthy,,,,,were the plants healthy,factor,,,NA,missing value
+appears_injured,,,,,presence of injury to plants,factor,,,NA,missing value
+presence_of_open_ground,,,,,presence of bare soil in the plot,factor,,,NA,missing value
+presence_of_trees,,,,,presence of trees in the plot,factor,,,NA,missing value
+presence_of_shrubs,,,,,presence of shrubs in the plot,factor,,,NA,missing value
+presence_of_cacti_succ,,,,,presence of cacti or succulents in the plot,factor,,,NA,missing value
+presence_of_lawn,,,,,presence of turf in the plot,factor,,,NA,missing value
+presence_of_herbaceous_ground,,,,,presence of herbaceous ground cover in the plot,factor,,,NA,missing value
+presence_of_other,,,,,presence of other types of ground cover in the plot,factor,,,NA,missing value
+presence_of_hand_water,,,,,indication of hand watering in the plot,factor,,,NA,missing value
+presence_of_drip_water,,,,,indication of drip irrigation in the plot,factor,,,NA,missing value
+presence_of_overhead_water,,,,,indication of overhead watering in the plot,factor,,,NA,missing value
+presence_of_flood_water,,,,,indication of flood irrigation in the plot,factor,,,NA,missing value
+presence_of_subterranean_water,,,,,indication of subterranean irrigation in the plot,factor,,,NA,missing value
+presence_of_no_water,,,,,indication of no irrigation at the plot,factor,,,NA,missing value
+presence_of_pervious_irrigation,,,,,indication of pervious irrigation in the plot,factor,,,NA,missing value

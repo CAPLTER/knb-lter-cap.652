@@ -1,0 +1,33 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+neigh_social_class_poor,,,,,perceived poor neighborhood,factor,,,NA,missing value
+neigh_social_class_rich,,,,,perceived wealthy neighborhood,factor,,,NA,missing value
+neigh_social_class_upper_middle,,,,,perceived upper middle class neighborhood,factor,,,NA,missing value
+neigh_social_class_working_lower,,,,,perceived working lower class neighborhood,factor,,,NA,missing value
+neigh_buildings_residential,,,,,residential buildings in neighborhood,factor,,,NA,missing value
+neigh_buildings_commercial,,,,,commercial buildings in neighborhood,factor,,,NA,missing value
+neigh_buildings_institutional,,,,,institutional buildings in neighborhood,factor,,,NA,missing value
+neigh_buildings_industrial,,,,,industrial buildings in neighborhood,factor,,,NA,missing value
+neigh_residence_apartments,,,,,residential apartments in neighborhood,factor,,,NA,missing value
+neigh_residence_multi_family,,,,,multi-family residences in neighborhood,factor,,,NA,missing value
+neigh_residence_single_family,,,,,single-family residences in neighborhood,factor,,,NA,missing value
+neigh_irrigation_drip_trickle,,,,,evidence of drip irrigation in neighborhood,factor,,,NA,missing value
+neigh_irrigation_flood_hand,,,,,evidence of flood irrigation or hand watering in neighborhood,factor,,,NA,missing value
+neigh_irrigation_overhead_spray,,,,,evidence of overhead watering  in neighborhood,factor,,,NA,missing value
+neigh_yard_upkeep_good,,,,,upkeep of yards in neighborhood is good,factor,,,NA,missing value
+neigh_yard_upkeep_poor,,,,,upkeep of yards  in neighborhood is poor,factor,,,NA,missing value
+neigh_yard_upkeep_professionally_maintained,,,,,yards in neighborhood appear professionally maintained,factor,,,NA,missing value
+neigh_landscape_mesic,,,,,mesic landscaping in neighborhood,factor,,,NA,missing value
+neigh_landscape_mixed,,,,,"mixed (mesic, xeric) landscaping in neighborhood",factor,,,NA,missing value
+neigh_landscape_xeric,,,,,xeric landscaping in neighborhood,factor,,,NA,missing value
+neigh_landscape_turf_present,,,,,turf present in neighborhood,factor,,,NA,missing value
+neigh_traffic_collector_street,,,,,collector street(s) in neighborhood,factor,,,NA,missing value
+neigh_traffic_cul_de_sac,,,,,cul de sac in neighborhood,factor,,,NA,missing value
+neigh_traffic_dirt_road,,,,,dirt road(s) in neighborhood,factor,,,NA,missing value
+neigh_traffic_freeway_expressway,,,,,freeway or expressway in neighborhood,factor,,,NA,missing value
+neigh_traffic_highway,,,,,highway in neighborhood,factor,,,NA,missing value
+neigh_traffic_major_city_road,,,,,major city road(s) in neighborhood,factor,,,NA,missing value
+neigh_traffic_none,,,,,no road(s) in neighborhood,factor,,,NA,missing value
+neigh_traffic_paved_local_street,,,,,pavel local street(s) in neighborhood,factor,,,NA,missing value
+neigh_notes,,,,general notes about the neighborhood,general notes about the neighborhood,character,,,NA,missing value

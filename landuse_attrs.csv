@@ -1,0 +1,5 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+landuse_label,,,,land use or land cover description,land use or land cover description,character,,,,
+landuse_percent,,dimensionless,natural,,estimated percent of plot covered by category,numeric,1,100,NA,missing value

@@ -1,0 +1,35 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+sampling_notes,,,,sampling notes made by the field crew,sampling notes made by the field crew,character,,,NA,missing value
+core_height_cm,,centimeter,real,,height of the soil core material collected in the field before processing,numeric,2.5,16.3,NA,missing value
+soil_bulkdensity_fw,,gram,real,,fresh weight of the soil core,numeric,50.9,576.9,NA,missing value
+dw_more_2_mm,,gram,real,,weight of fractions greater than 2 mm,numeric,31.7,477.7,NA,missing value
+dw_less_2_mm,,gram,real,,weight of fractions less than 2 mm,numeric,0,344.1,NA,missing value
+plant_matter,,gram,real,,plant matter weight,numeric,0,9.99,NA,missing value
+conductivity,,siemen,real,,conductivity of soil,numeric,0.037,9.999,NA,missing value
+ph_value,,dimensionless,real,,pH of soil,numeric,6,9.16,NA,missing value
+pan,,gram,real,,weight of pan used to determine soil moisture correction factor,numeric,1,2.37,NA,missing value
+pan_plus_fw,,gram,real,,weight of pan and fresh soil subsample,numeric,4.23,14.83,NA,missing value
+pan_plus_dw60,,gram,real,,weight of pan and soil subsample dried at 60 degrees celsius,numeric,4.23,14.76,NA,missing value
+pan_plus_dw105,,gram,real,,weight of pan and soil subsample dried at 105 degrees celsius,numeric,4.21,14.76,NA,missing value
+soil_texture_fw,,gram,real,,sample weight of soil for texture analysis,numeric,0,78.58,NA,missing value
+temperature,,celsius,real,,initial temperature reading for soil texture,numeric,0,32.5,NA,missing value
+r05,,dimensionless,real,,hydrometer reading of soil solution at 30 seconds,numeric,0,43,NA,missing value
+r1,,dimensionless,real,,hydrometer reading of soil solution at 1 minute,numeric,0,40.5,NA,missing value
+t1,,celsius,real,,temperature reading at 1 minute,numeric,0,32,NA,missing value
+r90,,dimensionless,real,,hydrometer reading of soil solution at 90 minutes,numeric,0,24,NA,missing value
+t90,,celsius,real,,temperature reading at 90 minutes,numeric,0,31.5,NA,missing value
+r1440,,dimensionless,real,,hydrometer reading of soil solution at 24 hours,numeric,0,19,NA,missing value
+t1440,,celsius,real,,temperature reading at 24 hours,numeric,0,28.5,NA,missing value
+notes,,,,soil texture analysis notes,soil texture analysis notes,character,,,NA,missing value
+cal_texture_fw,,gram,whole,,"for blank calibration of texture analysis, sample weight",numeric,0,0,NA,missing value
+cal_temp,,celsius,real,,"for blank calibration of texture analysis, initial temperature reading for soil texture",numeric,19,31.5,NA,missing value
+cal_r05,,dimensionless,real,,"for blank calibration of texture analysis, hydrometer reading of soil solution at 30 seconds",numeric,0,4,NA,missing value
+cal_r1,,dimensionless,real,,"for blank calibration of texture analysis, hydrometer reading of soil solution at 1 minute",numeric,0,3.5,NA,missing value
+cal_t1,,celsius,real,,"for blank calibration of texture analysis, temperature reading at 1 minute",numeric,20,31.5,NA,missing value
+cal_r90,,dimensionless,real,,"for blank calibration of texture analysis, hydrometer reading of soil solution at 90 minutes",numeric,0,3,NA,missing value
+cal_t90,,celsius,real,,"for blank calibration of texture analysis, temperature reading at 90 minutes",numeric,22,30,NA,missing value
+cal_r1440,,dimensionless,real,,"for blank calibration of texture analysis, hydrometer reading of soil solution at 24 hours",numeric,0.5,4,NA,missing value
+cal_t1440,,celsius,real,,"for blank calibration of texture analysis, temperature reading at 24 hours",numeric,21.5,28,NA,missing value
+cal_run_date,YYYY-MM-DD,,,,soil texture analysis date,Date,,,NA,missing value

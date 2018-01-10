@@ -1,0 +1,12 @@
+attributeName,code,definition
+vegetation_shape_code,box,box
+vegetation_shape_code,elliptic,elliptic
+vegetation_shape_code,hedged,hedged
+vegetation_shape_code,natural,natural
+vegetation_shape_code,rounded,rounded
+vegetation_shape_code,spreading,spreading
+vegetation_shape_code,upright,upright
+vegetation_classification_code,accent,accent
+vegetation_classification_code,foundation,foundation
+vegetation_classification_code,naturalized,naturalized
+vegetation_classification_code,pool,pool

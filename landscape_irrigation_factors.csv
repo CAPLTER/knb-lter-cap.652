@@ -1,0 +1,43 @@
+attributeName,code,definition
+appears_maintained,do_not_know,do_not_know
+appears_maintained,n/a,not applicable
+appears_maintained,no,no
+appears_maintained,yes,yes
+appears_professional,do_not_know,do_not_know
+appears_professional,n/a,not applicable
+appears_professional,no,no
+appears_professional,yes,yes
+appears_healthy,do_not_know,do_not_know
+appears_healthy,n/a,not applicable
+appears_healthy,no,no
+appears_healthy,yes,yes
+appears_injured,do_not_know,do_not_know
+appears_injured,n/a,not applicable
+appears_injured,no,no
+appears_injured,yes,yes
+presence_of_open_ground,FALSE,FALSE
+presence_of_open_ground,TRUE,TRUE
+presence_of_trees,FALSE,FALSE
+presence_of_trees,TRUE,TRUE
+presence_of_shrubs,FALSE,FALSE
+presence_of_shrubs,TRUE,TRUE
+presence_of_cacti_succ,FALSE,FALSE
+presence_of_cacti_succ,TRUE,TRUE
+presence_of_lawn,FALSE,FALSE
+presence_of_lawn,TRUE,TRUE
+presence_of_herbaceous_ground,FALSE,FALSE
+presence_of_herbaceous_ground,TRUE,TRUE
+presence_of_other,FALSE,FALSE
+presence_of_other,TRUE,TRUE
+presence_of_hand_water,FALSE,FALSE
+presence_of_hand_water,TRUE,TRUE
+presence_of_drip_water,FALSE,FALSE
+presence_of_drip_water,TRUE,TRUE
+presence_of_overhead_water,FALSE,FALSE
+presence_of_overhead_water,TRUE,TRUE
+presence_of_flood_water,TRUE,TRUE
+presence_of_subterranean_water,FALSE,FALSE
+presence_of_no_water,FALSE,FALSE
+presence_of_no_water,TRUE,TRUE
+presence_of_pervious_irrigation,FALSE,FALSE
+presence_of_pervious_irrigation,TRUE,TRUE

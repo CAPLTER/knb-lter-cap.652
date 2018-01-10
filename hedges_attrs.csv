@@ -1,0 +1,17 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+vegetation_scientific_name,,,,scientific name of plant,scientific name of plant,character,,,,
+common_name,,,,common name of plant,common name of plant,character,,,NA,missing value
+vegetation_shape_code,,,,,general shape of the plant,factor,,,NA,missing value
+stem_diam,,centimeter,real,,metadata not available,numeric,0.8,12,NA,missing value
+height_measured,,meter,real,,"Height of the plant if measured in the field with a meter tape. The height of plants that are too tall to be measured with a meter tape must be estimated from clinometer measurements. Heights should be calculated as: height (m) = (TAN(height_degree_up)-TAN(height_degree_down)) * height_distance where height_degree_up is the angle in degrees of the top of the plant; height_degree_down is the angle in degrees of the base of the plant; and height_distance is the distance between the plant and surveyor when angles were measured. Note that some software, such as Microsoft Excel, require degrees to be in units of radians, and degree should be converted in the calculation.",numeric,0.3,7.1,NA,missing value
+height_distance,,degree,natural,,distance between the plant and surveyor when angles were measured,numeric,4,12,NA,missing value
+height_degree_up,,degree,natural,,angle in degrees of the top of the plant,numeric,13,19,NA,missing value
+height_degree_down,,degree,integer,,angle in degrees of the base of the plant,numeric,-9,16,NA,missing value
+width,,meter,real,,width of the hedge,numeric,0.3,9,NA,missing value
+length,,meter,real,,length of the hedge,numeric,0.45,28,NA,missing value
+crown_height,,meter,real,,"Height of the hedge if measured in the field with a meter tape. The height of hedges that are too tall to be measured with a meter tape must be estimated from clinometer measurements. Heights should be calculated as: height (m) = (TAN(height_degree_up)-TAN(height_degree_down)) * height_distance where height_degree_up is the angle in degrees of the top of the plant; height_degree_down is the angle in degrees of the base of the plant; and height_distance is the distance between the plant and surveyor when angles were measured. Note that some software, such as Microsoft Excel, require degrees to be in units of radians, and degree should be converted in the calculation.",numeric,0,0.7,NA,missing value
+percent_missing,,dimensionless,whole,,"approximate percentage of biovolume that missing from what would be considered a full, healthy shrub",numeric,0,30,NA,missing value
+hedge_condition,,,,,perceived health of the hedge,factor,,,NA,missing value
+number_of_plants,,number,natural,,number of plants that make up the complete hedge,numeric,1,25,NA,missing value

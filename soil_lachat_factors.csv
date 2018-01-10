@@ -1,0 +1,9 @@
+attributeName,code,definition
+deep_core_type,bottom,bottom-layer of the sample core: 10-30 centimeters
+deep_core_type,top,top-layer of the sample core: 0-10 centimeters
+sample_type,Calibration Standard,Solution prepared from the primary dilution standard solution or stock standard solutions. The calibration solutions are used to calibrate the instrument response with respect to analyte concentration. 
+sample_type,Check Standard,standard and blank run through out the run to check calibration during analysis
+sample_type,Method Detection Limit,the lowest level at which an analyte can be detected with 99 percent confidence that the analyte concentration is greater than zero
+sample_type,Unknown,sample for analysis
+analyte_name,Ammonia,ammonium-nitrogen
+analyte_name,NItrate/Nitrite,nitrate-nitrogen

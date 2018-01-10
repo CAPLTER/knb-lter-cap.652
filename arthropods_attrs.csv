@@ -1,0 +1,8 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,,
+site_code,,,,location code,location code,character,,,,
+sweepnet_sample_type,,,,,substratum from which the sweepnet sample was collected,factor,,,,
+substratum,,,,"Name or description of the substratum from which the sweepnet sample was collected, typically this is the scientific name of a plant but may be otherwise if the sample was not collected from a single plant.","Name or description of the substratum from which the sweepnet sample was collected, typically this is the scientific name of a plant but may be otherwise if the sample was not collected from a single plant.",character,,,NA,missing value
+arthropod_scientific_name,,,,scientific name of the arthropod,scientific name of the arthropod,character,,,,
+number_of_arthropods,,number,natural,,number of arthropod of that type collected in that sweepnet sample,numeric,1,696,,
+notes,,,,notes regarding sample collection or processing,notes regarding sample collection or processing,character,,,NA,missing value

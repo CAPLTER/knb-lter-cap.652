@@ -1,0 +1,18 @@
+clinometer calibration
+
+Many of the values for height of vegetation and buildings in the survey200 database where the height was calculated (i.e., from clinometer readings as opposed to directly measured with tape) were nonsensical. The formula supposedly employed for the height calculation was as follows:
+
+when base < 0, height (m) = (TAN(RADIANS(Top))+TAN(RADIANS(Base))) * distance
+when base > 0, height (m) = (TAN(RADIANS(Top))-TAN(RADIANS(Base))) * distance
+
+David Julian had supposedly performed these calculations in the database. It appears generally that the calculated height values in the database were computed correctly, though there are curious results in the early survey years (1999, 2000) that suggest, possibly, that a negative sign was not used for base readings that were below level. To disentangle this problem, I conducted a short exercise with the help of our student worker, Austin, outside the Brickyard Orchid House building on 2017-12-18. In this exercise, I used Austin's height (5'10") and a known (by measurement) height of a building feature to identify the correct maths to calculate height by clinometer. A particularly important aspect is that it was essential to test both types of measurements: where the base is negative, and where the base is positive.
+
+Using notes heights it was determined that the correct formula is as follows and, critically, is not dependent on the sign (positive or negative) of the base.
+
+height (m) = (TAN(RADIANS(Top))-TAN(RADIANS(Base))) * distance (m)
+
+The nature of the maths is that the base reading relative to zero is extremely important, where the two angles should be added when the base is below zero and subtracted (degree up - degree down), and that is the reason for the two different equations based on the sign of the base. However, the two separate equations (i.e., one for when base is negative and another when base is positive) are appropriate only when, in the case of a negative base, although below horizontal, a positive number is used. In the case here, CAP LTER surveyors use a negative sign to denote when the reading is below horizontal. As such, when the equation top-base is employed, a negative value (base below horizontal) translates to the two angles being added since we are subtracting a negative base reading. Conversely, when the angle is positive (i.e., the base reading is above horizontal), the angles are subtracted as appropriate.
+
+The file clinometer_calibrations.pdf is an image that captures the known and estimated heights and angles for this exercise; the files clinometer_calibrations.ods and clinometer_calibrations.csv detail the calculations.
+
+Note that converting the clinometer readings (degrees) to radians is required by some software, such as Excel, LibreOffice, hence the conversion to radians having been included in the calculation above.

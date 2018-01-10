@@ -1,0 +1,32 @@
+attributeName,formatString,unit,numberType,definition,attributeDefinition,columnClasses,minimum,maximum,missingValueCode,missingValueCodeExplanation
+sample_date,YYYY-MM-DD,,,,survey date,Date,,,NA,missing value
+site_code,,,,location code,location code,character,,,NA,missing value
+deep_core_type,,,,,layer of core analyzed,factor,,,NA,missing value
+sample_id,,,,sample identifier,sample identifier,character,,,,
+sample_type,,,,,analysis type,factor,,,,
+replicate_number,,number,natural,,replicate sample number,numeric,1,3,,
+repeat_number,,number,natural,,repeat sample number,numeric,1,19,,
+cup_number,,,,sample position in run,sample position in run,character,,,,
+manual_dilution_factor,,dimensionless,natural,,factor by which sample was manually diluted,numeric,1,1,,
+auto_dilution_factor,,dimensionless,natural,,factor by which sample was auto diluted,numeric,1,1,,
+weight_units,,,,weight units,weight units,character,,,,
+weight,,,,weight,weight,character,,,,
+units,,,,units,units,character,,,NA,missing value
+detection_date,YYYY-MM-DD,,,,analysis date,Date,,,,
+detection_time,HH:MM:SS,,,,analysis time,Date,,,,
+user_name,,,,instrument user,instrument user,character,,,,
+run_file_name,,,,analysis output file name,analysis output file name,character,,,,
+description,,,,sample description,sample description,character,,,NA,missing value
+channel_number,,number,natural,,channel number,numeric,1,2,,
+analyte_name,,,,,name of analyte measured,factor,,,,
+peak_concentration,,,,peak concentration,peak concentration,character,-0.356,82.5,,
+determined_conc,,,,the actual output for the peak concentration for calibration standards etc where the expected concentration has been input,the actual output for the peak concentration for calibration standards etc where the expected concentration has been input,character,Inf,-Inf,NA,missing value
+concentration_units,,,,concentration units,concentration units,character,,,,
+peak_area,,voltSecond,real,,peak area,numeric,-1.73,121,,
+peak_height,,volt,real,,peak height,numeric,-0.0272,4,,
+calibration_equation,,,,equation used to calculate unknown concentration,equation used to calculate unknown concentration,character,,,,
+retention_time,,second,real,,values that are used to set timing for the method each, method has a known RT for the peak,numeric,19,177,
+inject_to_peak_start,,second,real,,timing for the sample to go from injection onto the manifold to the time the peak starts on the run,numeric,14.8,111,,
+conc_x_adf,,,,peak concentration times the auto-diluton value if any,peak concentration times the auto-diluton value if any,character,Inf,-Inf,NA,missing value
+conc_x_mdf,,,,peak concentration times the manual diluton value if any,peak concentration times the manual diluton value if any,character,Inf,-Inf,NA,missing value
+conc_x_adf_x_mdf,,,,peak concentration times both the auto-dilution and manual dilution if any,peak concentration times both the auto-dilution and manual dilution if any,character,Inf,-Inf,NA,missing value
