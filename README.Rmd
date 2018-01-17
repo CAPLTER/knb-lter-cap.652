@@ -17,7 +17,9 @@ output: github_document
 ## caution:
 
 careful of two AA111 sampling_events in 2000, presumably Jan 01 is wrong as it is a full month before the next survey date and is new year's day
+
 2000-05-01 | AA111
+
 2000-01-01 | AA111
 
 ## dataset inventory:
@@ -25,24 +27,25 @@ careful of two AA111 sampling_events in 2000, presumably Jan 01 is wrong as it i
 * 282: trees -> updated with pointer in abstract, no other changes (did not realize until after having loaded in PASTA that there were not any keywords in this data set)
 * 281: soils -> modified and updated to house only 2000 soil data
     * data to keep:
-    * 27_soil_1.csv
-    * 27_soilbulkdensity_1.csv
-    * 27_soil_samples_1.csv
-    * 27_soil_texture_1.csv
-    * 27_soilchemconc_1.csv
-    * 27_soilchemmass_1.csv
-    * 27_soilncphconduct_1.csv
+        + 27_soil_1.csv
+        + 27_soilbulkdensity_1.csv
+        + 27_soil_samples_1.csv
+        + 27_soil_texture_1.csv
+        + 27_soilchemconc_1.csv
+        + 27_soilchemmass_1.csv
+        + 27_soilncphconduct_1.csv
 * 280: shrubs -> updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
-* 278: will become the data set for one-off, snapshot data (i.e., data that are not part of the long-term effort), including:
-    * myco
-    * weather
-    * dowels
-    * traffic
-    * litter
-    * -pollen (these are already captured in 277 so no need to keep here)
-    * land use 100 m?
-    * land use history?
-* 277: pollen -> no change (or maybe a slightly improved abstract)
+* 278: the data set for one-off, snapshot data (i.e., data that are not part of the long-term effort), including:
+    * data to keep:
+        + climate
+        + landuse_100m
+        + litter_bags
+        + mycorrhizae: numspores, sample_sites, species
+        + weather: station, uplload
+        + -land use history (these are already captured in 269 so no need to keep here)
+        + -pollen (these are already captured in 277 so no need to keep here)
+    * also updated abstract and title
+* 277: pollen -> updated with improved abstract & pointer in abstract, and added temporal and geo coverages
 * 276: buildings -> updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
 * 274: neighborhood characteristics -> updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
 * 272: landuse (MAG) -> updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
@@ -50,7 +53,6 @@ careful of two AA111 sampling_events in 2000, presumably Jan 01 is wrong as it i
 * 268: cacti -> updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
 * 267: sweepnets -> updated with pointer in abstract, no other changes
 * 266: annuals -> updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
-
 * 652: new, authoritative data set for ESCA *plots*, including 2015 data (but not survey year 2000 soils)
 * 653: new, authoritative data set for ESCA *parcels*, including 2015 data
 
