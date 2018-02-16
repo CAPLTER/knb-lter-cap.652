@@ -39,6 +39,11 @@ dbExecute(pg, '
           UPDATE survey200.soil_traacs 
             SET analyte = \'phosphorus\';')
 
+# and now the raw N data are available in addition to the phos, so need to make
+# the concentration column not specific to phos
+dbExecute(pg, '
+          ALTER TABLE survey200.soil_traacs
+            RENAME COLUMN phos_mg_l TO conc_mg_l;')
 
 # soil samples ids ----
 
@@ -62,7 +67,7 @@ soilSamples <- dbGetQuery(pg, "
   # mutate(site_code = str_sub(site_code, 1, str_length(site_code) - 1)) # strip off the trailing 1
 
 
-# perimeter, raw traacs data ----------------------------------------------
+# perimeter, raw traacs phos data ----------------------------------------------
 
 raw_traacs_phosphorus <- bind_rows(
   read_excel('./esca_soils_processing_data/soils2005/S200 2005 SRP Traacs raw data.xls', sheet = 1) %>% 
@@ -142,3 +147,86 @@ dbExecute(pg, insert_traacs_2005_query)
 
 # clean up
 if (dbExistsTable(pg, c('survey200', 'temp_traacs'))) dbRemoveTable(pg, c('survey200', 'temp_traacs')) # clean up
+
+
+
+# perimeter, raw traacs nitrate data ----------------------------------------------
+
+raw_traacs_nitrate <- bind_rows(
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 1) %>% 
+    mutate(sample_set = 1),
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 2) %>% 
+    mutate(sample_set = 2),
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 3) %>% 
+    mutate(sample_set = 3),
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 4) %>% 
+    mutate(sample_set = 4),
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 5) %>% 
+    mutate(sample_set = 5),
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 6) %>% 
+    mutate(sample_set = 6),
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 7) %>% 
+    mutate(sample_set = 7),
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 8) %>% 
+    mutate(sample_set = 8),
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 9) %>% 
+    mutate(sample_set = 9),
+  read_excel('./esca_soils_processing_data/soils2005/S200 2005 avail NO3 Traacs raw data.xls', sheet = 10) %>% 
+    mutate(sample_set = 10)
+) %>% 
+  mutate(
+    survey_year = 2005,
+    analyte = 'nitrate'
+  )
+
+raw_traacs_nitrate <- raw_traacs_nitrate %>% 
+  mutate(code_layer = str_extract(Sample, '^(\\S{2,5})\\s(TOP|BOT)')) %>% 
+  separate(code_layer, into = c("site_code", "deep_core_type"), sep = " ") %>% 
+  rename_all(tolower) %>%
+  mutate(
+    deep_core_type = case_when(
+      grepl("top", deep_core_type, ignore.case = T) ~ 'top',
+      grepl("bot", deep_core_type, ignore.case = T) ~ 'bottom'
+    ),
+    sample_set = as.integer(sample_set),
+    sample_sequence = NA
+  ) %>% 
+  left_join(soilSamples[,c("soil_sample_id", "site_code")],
+            by = c("site_code")) %>%
+  select(soil_sample_id, deep_core_type, sample_sequence, sample_id = sample, sample_set, conc_mg_l = `mg n/l`, survey_year, analyte)
+
+dataname <- raw_traacs_nitrate  
+
+if (dbExistsTable(pg, c('survey200', 'temp_traacs'))) dbRemoveTable(pg, c('survey200', 'temp_traacs')) # make sure tbl does not exist
+dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)
+
+insert_traacs_2005_query <- '
+INSERT INTO survey200.soil_traacs (
+  soil_sample_id,
+  deep_core_type,
+  sample_sequence,
+  sample_id,
+  sample_set,
+  phos_mg_l,
+  survey_year,
+  analyte
+)
+(
+  SELECT
+    soil_sample_id,
+    deep_core_type,
+    sample_sequence,
+    sample_id,
+    sample_set,
+    phos_mg_l,
+    survey_year,
+    analyte
+  FROM survey200.temp_traacs 
+);'
+  
+  # insert data
+  dbExecute(pg, insert_traacs_2005_query)
+  
+  # clean up
+  if (dbExistsTable(pg, c('survey200', 'temp_traacs'))) dbRemoveTable(pg, c('survey200', 'temp_traacs')) # clean up
+  

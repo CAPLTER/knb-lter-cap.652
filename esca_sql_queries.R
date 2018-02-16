@@ -881,7 +881,7 @@ get_soil_traacs <- function() {
     se.samp_date AS sample_date,
     s.site_code,
     st.deep_core_type,
-    st.sample_sequence,
+    -- st.sample_sequence,
     st.sample_id,
     st.sample_set,
     st.phos_mg_l
@@ -968,8 +968,8 @@ get_arthropods <- function() {
     LEFT JOIN survey200.vegetation_taxon_list vtl ON ss.vegetation_taxon_id = vtl.vegetation_taxon_id
     JOIN survey200.sweepnet_sample_insect_counts ssic ON ss.sweepnet_sample_id = ssic.sweepnet_sample_id
     JOIN survey200.insect_taxon_list itl ON ssic.insect_taxon_id = itl.insect_taxon_id
-  WHERE
-    EXTRACT (YEAR FROM se.samp_date) <= 2010
+  -- WHERE
+  --   EXTRACT (YEAR FROM se.samp_date) <= 2010
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
     s.site_code,

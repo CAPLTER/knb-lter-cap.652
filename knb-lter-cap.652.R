@@ -17,29 +17,6 @@
 # TRAACS in 2010) - the 2010 TRAACS P data are not actually raw machine output
 # but were pieced together from machine reports and are a reasonable surrogate.
 
-# reml slots ----
-getSlots("dataset")
-  getSlots("distribution")
-  getSlots("keywordSet")
-    getSlots("keyword")
-getSlots("dataTable")
-getSlots("physical")
-  getSlots("dataFormat")
-    getSlots("textFormat")
-  getSlots("size")
-  getSlots("distribution")
-    getSlots("online")
-      getSlots("url")
-getSlots("additionalInfo")
-  getSlots("section")
-  getSlots("para")
-getSlots("metadataProvider")
-  getSlots("individualName")
-  getSlots("userId")
-getSlots("creator")
-  getSlots("individualName")
-  getSlots("userId")
-
 # libraries ----
 library(EML)
 library(RPostgreSQL)
@@ -84,8 +61,8 @@ prod <- mysql_prod
 
 # dataset details to set first ----
 projectid <- 652
-packageIdent <- 'knb-lter-cap.652.1'
-pubDate <- '2018-01-09'
+packageIdent <- 'knb-lter-cap.652.2'
+pubDate <- '2018-02-16'
 
 # data processing ---------------------------------------------------------
 source('esca_sql_queries.R')
@@ -718,8 +695,8 @@ geographicDescription <- "CAP LTER study area"
 coverage <- set_coverage(begin = begindate,
                          end = enddate,
                          geographicDescription = geographicDescription,
-                         west = -111.949, east = -111.910,
-                         north = +33.437, south = +33.430)
+                         west = -112.783, east = -111.579,
+                         north = +33.8267, south = +33.2186)
 
 # see esca_taxonomic_coverage.R in this repo for taxonomic coverage
 coverage@taxonomicCoverage <- c(escaTaxa)
