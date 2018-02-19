@@ -884,7 +884,9 @@ get_soil_traacs <- function() {
     -- st.sample_sequence,
     st.sample_id,
     st.sample_set,
-    st.phos_mg_l
+    st.conc_mg_l,
+    st.survey_year,
+    st.analyte
   FROM
     survey200.sampling_events se
     JOIN survey200.sites s ON se.site_id = s.site_id

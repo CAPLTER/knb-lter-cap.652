@@ -2,7 +2,8 @@ attributeName,formatString,unit,numberType,definition,attributeDefinition,column
 sample_date,YYYY-MM-DD,,,,survey date,Date,,,NA,missing value
 site_code,,,,location code,location code,character,,,NA,missing value
 deep_core_type,,,,,layer of core analyzed,factor,,,NA,missing value
-sample_sequence,,number,natural,,order of sample analysis,numeric,1,604,,
 sample_id,,,,sample identity or type analyzed,sample identity or type analyzed,character,,,,
-sample_set,,number,natural,,sample batch identity,numeric,1,7,,
-phos_mg_l,,milligramsPerLiter,real,,phosphate concentration,numeric,-0.2,8.4,,
+sample_set,,,natural,sample batch identity,sample batch identity,character,1,10,,
+conc_mg_l,,milligramsPerLiter,real,,substance concentration,numeric,-0.287,81.58,,
+survey_year,YYYY,,,,survey year,Date,2005,2010,,
+analyte,,,,,substance quantified,factor,,,,

@@ -1,3 +1,6 @@
 attributeName,code,definition
 deep_core_type,bottom,bottom-layer of the sample core: 10-30 centimeters
 deep_core_type,top,top-layer of the sample core: 0-10 centimeters
+analyte,ammonium,ammonium-nitrogen (mg N L-1)
+analyte,nitrate,nitrate-nitrogen (mg N L-1)
+analyte,phosphorus,phosphorus (mg P L-1)

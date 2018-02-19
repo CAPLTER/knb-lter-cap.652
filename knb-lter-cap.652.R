@@ -24,7 +24,6 @@ library(RMySQL)
 library(tidyverse)
 library(tools)
 library(readxl)
-# library(magrittr)
 library(aws.s3)
 
 # reml-helper-functions ----
@@ -62,7 +61,7 @@ prod <- mysql_prod
 # dataset details to set first ----
 projectid <- 652
 packageIdent <- 'knb-lter-cap.652.2'
-pubDate <- '2018-02-16'
+pubDate <- '2018-02-19'
 
 # data processing ---------------------------------------------------------
 source('esca_sql_queries.R')
@@ -466,8 +465,11 @@ soil_lachat_DT <- createDTFF(dfname = soil_lachat,
 
 soil_traacs <- get_soil_traacs() %>% 
   mutate(
-    deep_core_type = as.factor(deep_core_type)
-  )
+    deep_core_type = as.factor(deep_core_type),
+    analyte = as.factor(analyte),
+    sample_set = as.character(sample_set)
+  ) %>% 
+  arrange(survey_year, analyte, sample_set)
 
 # empty strings to NA (skip the sample_date field [1])
 soil_traacs[,which(!grepl("date", names(soil_traacs), ignore.case = T))][soil_traacs[,which(!grepl("date", names(soil_traacs), ignore.case = T))] == ''] <- NA
@@ -477,7 +479,7 @@ unique_values(soil_traacs)
 
 writeAttributes(soil_traacs) # write data frame attributes to a csv in current dir to edit metadata
 
-soil_traacs_desc <- "Raw soil phosphate data as analyzed by Traacs for soil samples collected in 2010."
+soil_traacs_desc <- "Raw soil nutrient data as analyzed by Traacs for soil samples collected in 2005 and 2010."
 
 factorsToFrame(soil_traacs)
 
@@ -798,6 +800,8 @@ eml <- new("eml",
 
 # write the xml to file   ----
 write_eml(eml, "knb-lter-cap.652.1.xml")
+write_eml(soil_traacs_DT, "soil_traacs.xml")
+write_eml(arthropods_DT, "arthropods.xml")
 
 
 # amazon ------------------------------------------------------------------
@@ -825,9 +829,9 @@ dataToAmz('652_structures_e254142a972c35c14c5b62cfe586bf5f.csv')
 dataToAmz('652_sampling_events_127265c75731f5922b61210dd0f9fc63.csv')
 dataToAmz('652_soil_center_cores_3f4963a5d816a1bc2b3bdf284c43006e.csv')
 dataToAmz('652_soil_lachat_58b545a08d2c80fdbafdfa0ff02edb0a.csv')
-dataToAmz('652_soil_traacs_79fc5d2b402e71e86a9f6240dc6967c2.csv')
+dataToAmz('652_soil_traacs_4365c035a194c3879b0e1eb80cb5c1d6.csv')
 dataToAmz('652_soil_perimeter_cores_62e57ec1a9c312c51df16a0462eb9843.csv')
-dataToAmz('652_arthropods_7c0b907f7f33d7b5c3ab0873ff8a9486.csv')
+dataToAmz('652_arthropods_e9c22403e0f7243f241ed64862e22e05.csv')
 
 
 # metadata file to S3
