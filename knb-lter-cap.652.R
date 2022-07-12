@@ -492,27 +492,25 @@ soil_traacs_DT <- createDTFF(dfname = soil_traacs,
 
 # soil_perimeter_core -----------------------------------------------------
 
-soil_perimeter_cores <- get_soil_perimeter_cores() %>% 
-  mutate(deep_core_type = as.factor(deep_core_type))
+soil_perimeter_cores <- get_soil_perimeter_cores() |>
+  dplyr::mutate(deep_core_type = as.factor(deep_core_type))
 
-# empty strings to NA (skip the sample_date field [1])
-soil_perimeter_cores[,which(!grepl("date", names(soil_perimeter_cores), ignore.case = T))][soil_perimeter_cores[,which(!grepl("date", names(soil_perimeter_cores), ignore.case = T))] == ''] <- NA
-
-# review unique values
-unique_values(soil_perimeter_cores)
-
-# write data frame attributes to a csv in current dir to edit metadata
-writeAttributes(soil_perimeter_cores) 
+soil_perimeter_cores[soil_perimeter_cores == ""] <- NA
 
 soil_perimeter_cores_desc <- "Chemical properties of soils, including nitrate-nitrogen, ammonium-nitrogen, and phosphate, and moisture content. Measurements are made from four cores (1-inch diameter) collected approximately 10-m in each cardinal direction from the survey plot center. Cores from each cardinal direction are split into two depths: 0-10cm and 10-30cm, and homogenized."
 
-factorsToFrame(soil_perimeter_cores)
+try({
+  capeml::write_attributes(soil_perimeter_cores, overwrite = FALSE)
+  capeml::write_factors(soil_perimeter_cores, overwrite = FALSE)
+})
 
-# create data table based on metadata provided in the companion csv
-# use createdataTableFn() if attributes and classes are to be passed directly
-soil_perimeter_cores_DT <- createDTFF(dfname = soil_perimeter_cores,
-                                      description = soil_perimeter_cores_desc,
-                                      dateRangeField = 'sample_date')
+soil_perimeter_cores_DT <- capeml::create_dataTable(
+  dfname         = soil_perimeter_cores,
+  description    = soil_perimeter_cores_desc,
+  dateRangeField = "sample_date",
+  overwrite      = TRUE,
+  projectNaming  = TRUE
+)
 
 
 # arthropods --------------------------------------------------------------

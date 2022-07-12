@@ -1,0 +1,379 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+'esca_sql_queries.R'	knb-lter-cap.652.R	/^source('esca_sql_queries.R')$/;"	s
+'~/Documents/localSettings/aws.s3'	knb-lter-cap.652.R	/^source('~\/Documents\/localSettings\/aws.s3')$/;"	s
+'~/Documents/localSettings/mysql_prod.R'	knb-lter-cap.652.R	/^source('~\/Documents\/localSettings\/mysql_prod.R')$/;"	s
+'~/Documents/localSettings/pg_local.R'	esca_soils_processing_data/soil_processing_2000.R	/^source('~\/Documents\/localSettings\/pg_local.R')$/;"	s
+'~/Documents/localSettings/pg_local.R'	esca_soils_processing_data/soil_processing_2005.R	/^source('~\/Documents\/localSettings\/pg_local.R')$/;"	s
+'~/Documents/localSettings/pg_local.R'	esca_soils_processing_data/soil_processing_2010.R	/^source('~\/Documents\/localSettings\/pg_local.R')$/;"	s
+'~/Documents/localSettings/pg_local.R'	esca_soils_processing_data/soil_processing_2015.R	/^source('~\/Documents\/localSettings\/pg_local.R')$/;"	s
+'~/Documents/localSettings/pg_local.R'	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^source('~\/Documents\/localSettings\/pg_local.R')$/;"	s
+'~/Documents/localSettings/pg_local.R'	knb-lter-cap.652.R	/^source('~\/Documents\/localSettings\/pg_local.R')$/;"	s
+'~/Documents/localSettings/pg_prod.R'	esca_soils_processing_data/soil_processing_2000.R	/^source('~\/Documents\/localSettings\/pg_prod.R')$/;"	s
+'~/Documents/localSettings/pg_prod.R'	esca_soils_processing_data/soil_processing_2005.R	/^source('~\/Documents\/localSettings\/pg_prod.R')$/;"	s
+'~/Documents/localSettings/pg_prod.R'	esca_soils_processing_data/soil_processing_2010.R	/^source('~\/Documents\/localSettings\/pg_prod.R')$/;"	s
+'~/Documents/localSettings/pg_prod.R'	esca_soils_processing_data/soil_processing_2015.R	/^source('~\/Documents\/localSettings\/pg_prod.R')$/;"	s
+'~/Documents/localSettings/pg_prod.R'	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^source('~\/Documents\/localSettings\/pg_prod.R')$/;"	s
+'~/Documents/localSettings/pg_prod.R'	knb-lter-cap.652.R	/^source('~\/Documents\/localSettings\/pg_prod.R')$/;"	s
+'~/localRepos/reml-helper-tools/address_publisher_contact_language_rights.R'	knb-lter-cap.652.R	/^source('~\/localRepos\/reml-helper-tools\/address_publisher_contact_language_rights.R')$/;"	s
+'~/localRepos/reml-helper-tools/createDataTableFromFileFn.R'	knb-lter-cap.652.R	/^source('~\/localRepos\/reml-helper-tools\/createDataTableFromFileFn.R')$/;"	s
+'~/localRepos/reml-helper-tools/createFactorsDataframe.R'	knb-lter-cap.652.R	/^source('~\/localRepos\/reml-helper-tools\/createFactorsDataframe.R')$/;"	s
+'~/localRepos/reml-helper-tools/createKMLFn.R'	knb-lter-cap.652.R	/^source('~\/localRepos\/reml-helper-tools\/createKMLFn.R')$/;"	s
+'~/localRepos/reml-helper-tools/createOtherEntityFn.R'	knb-lter-cap.652.R	/^source('~\/localRepos\/reml-helper-tools\/createOtherEntityFn.R')$/;"	s
+'~/localRepos/reml-helper-tools/createPeople.R'	knb-lter-cap.652.R	/^source('~\/localRepos\/reml-helper-tools\/createPeople.R')$/;"	s
+'~/localRepos/reml-helper-tools/writeAttributesFn.R'	knb-lter-cap.652.R	/^source('~\/localRepos\/reml-helper-tools\/writeAttributesFn.R')$/;"	s
+200 Survey Soil Prep Step-by-Step Instructions	esca_methods.md	/^# 200 Survey Soil Prep Step-by-Step Instructions$/;"	c
+Arriving at the site: first steps	esca_methods.md	/^# Arriving at the site: first steps$/;"	c
+Arthropods (sweep-net samples)	esca_methods.md	/^# Arthropods (sweep-net samples)$/;"	c
+At the lab	esca_methods.md	/^# At the lab$/;"	c
+Before leaving the site	esca_methods.md	/^# Before leaving the site$/;"	c
+CAP LTER Survey200 Field Protocol	esca_methods.md	/^# CAP LTER Survey200 Field Protocol$/;"	c
+CAP LTER particle size analysis protocol	esca_methods.md	/^# CAP LTER particle size analysis protocol$/;"	c
+EML	knb-lter-cap.652.R	/^library(EML)$/;"	l
+Ecological Survey of Central Arizona	README.md	/^Ecological Survey of Central Arizona$/;"	c
+Parcel survey	esca_methods.md	/^# Parcel survey$/;"	c
+Photographs	esca_methods.md	/^# Photographs$/;"	c
+README	README.md	/^README$/;"	c
+RMySQL	knb-lter-cap.652.R	/^library(RMySQL)$/;"	l
+RPostgreSQL	esca_soils_processing_data/soil_processing_2000.R	/^library(RPostgreSQL)$/;"	l
+RPostgreSQL	esca_soils_processing_data/soil_processing_2005.R	/^library(RPostgreSQL)$/;"	l
+RPostgreSQL	esca_soils_processing_data/soil_processing_2010.R	/^library(RPostgreSQL)$/;"	l
+RPostgreSQL	esca_soils_processing_data/soil_processing_2015.R	/^library(RPostgreSQL)$/;"	l
+RPostgreSQL	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^library(RPostgreSQL)$/;"	l
+RPostgreSQL	knb-lter-cap.652.R	/^library(RPostgreSQL)$/;"	l
+Soil Sample and Analyses Protocol	esca_methods.md	/^# Soil Sample and Analyses Protocol$/;"	c
+Soil sampling	esca_methods.md	/^# Soil sampling$/;"	c
+Vegetation	esca_methods.md	/^# Vegetation $/;"	c
+abstract	knb-lter-cap.652.R	/^abstract <- as(set_TextType("abstract.md"), "abstract")$/;"	g
+all_taxa	esca_taxonomic_coverage.R	/^all_taxa <- identify_resolvable_taxa(esca_taxa)$/;"	g
+allow_cap	knb-lter-cap.652.R	/^allow_cap <- new("allow",$/;"	g
+allow_public	knb-lter-cap.652.R	/^allow_public <- new("allow",$/;"	g
+annuals	knb-lter-cap.652.R	/^annuals <- get_annuals()$/;"	g
+annuals[,-1][annuals[,-1]=='']	knb-lter-cap.652.R	/^annuals[,-1][annuals[,-1] == ' '] <- NA$/;"	g
+annuals[,-1][annuals[,-1]=='']	knb-lter-cap.652.R	/^annuals[,-1][annuals[,-1] == ''] <- NA$/;"	g
+annuals_DT	knb-lter-cap.652.R	/^annuals_DT <- createDTFF(dfname = annuals,$/;"	g
+annuals_base_query	esca_sql_queries.R	/^  annuals_base_query <- "$/;"	v
+annuals_data	esca_sql_queries.R	/^  annuals_data <- dbGetQuery(pg, annuals_query)$/;"	v
+annuals_desc	knb-lter-cap.652.R	/^annuals_desc <- "Catalog of all annual plants identified within the study plot."$/;"	g
+annuals_query	esca_sql_queries.R	/^  annuals_query <- sqlInterpolate(ANSI(),$/;"	v
+arthropods	knb-lter-cap.652.R	/^arthropods <- get_arthropods() %>% $/;"	g
+arthropods[,which(!grepl("date",names(arthropods),ignore.case=T))][arthropods[,which(!grepl("date",names(arthropods),ignore.case=T))]=='']	knb-lter-cap.652.R	/^arthropods[,which(!grepl("date", names(arthropods), ignore.case = T))][arthropods[,which(!grepl(/;"	g
+arthropods_DT	knb-lter-cap.652.R	/^arthropods_DT <- createDTFF(dfname = arthropods,$/;"	g
+arthropods_base_query	esca_sql_queries.R	/^  arthropods_base_query <- "$/;"	v
+arthropods_data	esca_sql_queries.R	/^  arthropods_data <- dbGetQuery(pg, arthropods_query)$/;"	v
+arthropods_desc	knb-lter-cap.652.R	/^arthropods_desc <- "Arthropods collected in sweepnet samples at survey plots. Sweepnet samples a/;"	g
+arthropods_query	esca_sql_queries.R	/^  arthropods_query <- sqlInterpolate(ANSI(),$/;"	v
+availableNitrogen	esca_soils_processing_data/soil_processing_2015.R	/^  availableNitrogen <- read_excel('s200 2015 avail N.xlsx') %>% # sheet D$/;"	v
+aws.s3	knb-lter-cap.652.R	/^library(aws.s3)$/;"	l
+begindate	knb-lter-cap.652.R	/^begindate <- as.character(min(sampling_events$sample_date))$/;"	g
+bulkDensity	esca_soils_processing_data/soil_processing_2015.R	/^bulkDensity <- read_excel('s200 2015 bulk density.xlsx', sheet = 1, skip = 1) %>% # sheet E$/;"	g
+carbonNitrogen	esca_soils_processing_data/soil_processing_2015.R	/^  carbonNitrogen <- read_excel('S200 2015 CN.xlsx') %>% # sheet H$/;"	v
+carbon_nitrogen_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^carbon_nitrogen_sites <- unique(perimeterMoistureContent$site_code) %>% $/;"	g
+caution:	README.md	/^caution:$/;"	s
+center_cores	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(soilSamples[,c("soil_sample_id", "site_code")], bulkDensity[,c(1,3:7)], by = c("sit/;"	v
+chrisMartin	knb-lter-cap.652.R	/^chrisMartin <- addCreator('chr', 'martin')$/;"	g
+classifications	esca_taxonomic_coverage.R	/^    classifications <- taxize::classification(sci_names, db = db)$/;"	v
+colnames(lachatData)	esca_soils_processing_data/soil_processing_2010.R	/^  colnames(lachatData) <- gsub(" ", "\\\\_", colnames(lachatData)) # sp to underscore$/;"	v
+colnames(lachatData)	esca_soils_processing_data/soil_processing_2015.R	/^    colnames(lachatData) <- gsub(" ", "\\\\_", colnames(lachatData)) # sp to underscore$/;"	v
+colnames(new)	esca_taxonomic_coverage.R	/^    colnames(new) <- NULL$/;"	v
+coreMoistureContent	esca_soils_processing_data/soil_processing_2015.R	/^coreMoistureContent <- read_excel('s200 2015 bulk density.xlsx', sheet = 2, skip = 1) %>% # shee/;"	g
+corinnaGries	knb-lter-cap.652.R	/^corinnaGries <- addMetadataProvider('c', 'gries')$/;"	g
+coverage	knb-lter-cap.652.R	/^coverage <- set_coverage(begin = begindate,$/;"	g
+coverage@taxonomicCoverage	esca_taxonomic_coverage.R	/^coverage@taxonomicCoverage <- c(escaTaxa)/;"	g
+coverage@taxonomicCoverage	knb-lter-cap.652.R	/^coverage@taxonomicCoverage <- c(escaTaxa)$/;"	g
+creators	knb-lter-cap.652.R	/^creators <- c(as(danChilders, 'creator'),$/;"	g
+custom_units	knb-lter-cap.652.R	/^custom_units <- rbind($/;"	g
+danChilders	knb-lter-cap.652.R	/^danChilders <- addCreator('d', 'childers')$/;"	g
+data entities:	README.md	/^data entities:$/;"	s
+dataToAmz	knb-lter-cap.652.R	/^dataToAmz <- function(fileToUpload) {$/;"	f
+dataname	esca_soils_processing_data/soil_processing_2000.R	/^  dataname <- raw_traacs_ammonium  $/;"	v
+dataname	esca_soils_processing_data/soil_processing_2000.R	/^dataname <- raw_traacs_nitrate  $/;"	g
+dataname	esca_soils_processing_data/soil_processing_2000.R	/^dataname <- raw_traacs_phosphorus $/;"	g
+dataname	esca_soils_processing_data/soil_processing_2005.R	/^  dataname <- raw_traacs_ammonium  $/;"	v
+dataname	esca_soils_processing_data/soil_processing_2005.R	/^dataname <- raw_traacs_nitrate  $/;"	g
+dataname	esca_soils_processing_data/soil_processing_2005.R	/^dataname <- raw_traacs_phosphorus $/;"	g
+dataname	esca_soils_processing_data/soil_processing_2010.R	/^dataname <- raw_lachat_nitrogen$/;"	g
+dataname	esca_soils_processing_data/soil_processing_2010.R	/^dataname <- raw_traacs_phosphorus $/;"	g
+dataname	esca_soils_processing_data/soil_processing_2015.R	/^  dataname <- raw_lachat_nitrogen$/;"	v
+dataname	esca_soils_processing_data/soil_processing_2015.R	/^  dataname <- raw_lachat_phosphorus$/;"	v
+dataset	knb-lter-cap.652.R	/^dataset <- new("dataset",$/;"	g
+dataset inventory:	README.md	/^dataset inventory:$/;"	s
+davidFleming	knb-lter-cap.652.R	/^davidFleming <- addMetadataProvider('d', 'fleming')$/;"	g
+dianeHope	knb-lter-cap.652.R	/^dianeHope <- addCreator('d', 'hope')$/;"	g
+eml	knb-lter-cap.652.R	/^eml <- new("eml",$/;"	g
+emlToAmz	knb-lter-cap.652.R	/^emlToAmz <- function(fileToUpload) {$/;"	f
+enddate	knb-lter-cap.652.R	/^enddate <- as.character(max(sampling_events$sample_date))$/;"	g
+escaTaxa	esca_taxonomic_coverage.R	/^escaTaxa <- set_taxonomicCoverage(resolved_taxa, expand = T, db = 'itis')$/;"	g
+esca_taxa	esca_taxonomic_coverage.R	/^esca_taxa <- bind_rows($/;"	g
+esca_taxa	esca_taxonomic_coverage.R	/^esca_taxa <- read_csv('esca_taxa.csv') %>% $/;"	g
+formRecursiveTree	esca_taxonomic_coverage.R	/^formRecursiveTree <- function(listOfelements) {$/;"	f
+geographicDescription	knb-lter-cap.652.R	/^geographicDescription <- "CAP LTER study area"$/;"	g
+get_annuals	esca_sql_queries.R	/^get_annuals <- function() {$/;"	f
+get_arthropods	esca_sql_queries.R	/^get_arthropods <- function() {$/;"	f
+get_hedges	esca_sql_queries.R	/^get_hedges <- function(research_focus) {$/;"	f
+get_human_indicators	esca_sql_queries.R	/^get_human_indicators <- function(research_focus) {$/;"	f
+get_landscape_irrigation	esca_sql_queries.R	/^get_landscape_irrigation <- function(research_focus) {$/;"	f
+get_landuse	esca_sql_queries.R	/^get_landuse <- function(research_focus) {$/;"	f
+get_neighborhood_characteristics	esca_sql_queries.R	/^get_neighborhood_characteristics <- function(research_focus) {$/;"	f
+get_number_perennials	esca_sql_queries.R	/^get_number_perennials <- function(research_focus) {$/;"	f
+get_parcel_characteristics	esca_sql_queries.R	/^get_parcel_characteristics <- function(research_focus) {$/;"	f
+get_sampling_events	esca_sql_queries.R	/^get_sampling_events <- function(research_focus) {$/;"	f
+get_shrubs_cacti_succulents	esca_sql_queries.R	/^get_shrubs_cacti_succulents <- function(research_focus) {$/;"	f
+get_soil_center_cores	esca_sql_queries.R	/^get_soil_center_cores <- function() {$/;"	f
+get_soil_lachat	esca_sql_queries.R	/^get_soil_lachat <- function() {$/;"	f
+get_soil_perimeter_cores	esca_sql_queries.R	/^get_soil_perimeter_cores <- function() {$/;"	f
+get_soil_texture_2000	esca_sql_queries.R	/^get_soil_texture_2000 <- function() {$/;"	f
+get_soil_traacs	esca_sql_queries.R	/^get_soil_traacs <- function() {$/;"	f
+get_structures	esca_sql_queries.R	/^get_structures <- function(research_focus) {$/;"	f
+get_trees	esca_sql_queries.R	/^get_trees <- function(research_focus) {$/;"	f
+hedges	knb-lter-cap.652.R	/^hedges <- get_hedges('survey200') %>% $/;"	g
+hedges[,-1][hedges[,-1]=='']	knb-lter-cap.652.R	/^hedges[,-1][hedges[,-1] == ' '] <- NA$/;"	g
+hedges[,-1][hedges[,-1]=='']	knb-lter-cap.652.R	/^hedges[,-1][hedges[,-1] == ''] <- NA$/;"	g
+hedges_DT	knb-lter-cap.652.R	/^hedges_DT <- createDTFF(dfname = hedges,$/;"	g
+hedges_base_query	esca_sql_queries.R	/^  hedges_base_query <- "$/;"	v
+hedges_data	esca_sql_queries.R	/^  hedges_data <- dbGetQuery(pg, hedges_query)$/;"	v
+hedges_desc	knb-lter-cap.652.R	/^hedges_desc <- "Biovolume and characteristics of hedges within study plots; up to five hedges of/;"	g
+hedges_query	esca_sql_queries.R	/^  hedges_query <- sqlInterpolate(ANSI(),$/;"	v
+human_indicators	knb-lter-cap.652.R	/^human_indicators <- get_human_indicators('survey200')$/;"	g
+human_indicators	knb-lter-cap.652.R	/^human_indicators <- human_indicators %>% $/;"	g
+human_indicators[,-1][human_indicators[,-1]=='']	knb-lter-cap.652.R	/^human_indicators[,-1][human_indicators[,-1] == ''] <- NA$/;"	g
+human_indicators_DT	knb-lter-cap.652.R	/^human_indicators_DT <- createDTFF(dfname = human_indicators,$/;"	g
+human_indicators_base_query	esca_sql_queries.R	/^  human_indicators_base_query <- "$/;"	v
+human_indicators_data	esca_sql_queries.R	/^  human_indicators_data <- dbGetQuery(pg, human_indicators_query)$/;"	v
+human_indicators_desc	knb-lter-cap.652.R	/^human_indicators_desc <- "The presence of features or characteristics that are reflective of hum/;"	g
+human_indicators_query	esca_sql_queries.R	/^  human_indicators_query <- sqlInterpolate(ANSI(),$/;"	v
+identify_resolvable_taxa	esca_taxonomic_coverage.R	/^identify_resolvable_taxa <- function(taxa_list) {$/;"	f
+info	esca_taxonomic_coverage.R	/^    info <- suppressWarnings(get_tsn(searchterm = taxa_list[i],$/;"	v
+insert_center_cores_query	esca_soils_processing_data/soil_processing_2015.R	/^'INSERT INTO survey200.soil_center_cores$/;"	g
+insert_lachat_2010_query	esca_soils_processing_data/soil_processing_2010.R	/^insert_lachat_2010_query <- '$/;"	g
+insert_lachat_2015_query	esca_soils_processing_data/soil_processing_2015.R	/^  insert_lachat_2015_query <- '$/;"	v
+insert_perimeter_cores_query	esca_soils_processing_data/soil_processing_2015.R	/^  'INSERT INTO survey200.soil_perimeter_cores$/;"	v
+insert_traacs_2000_query	esca_soils_processing_data/soil_processing_2000.R	/^insert_traacs_2000_query <- '$/;"	g
+insert_traacs_2005_query	esca_soils_processing_data/soil_processing_2005.R	/^  insert_traacs_2005_query <- '$/;"	v
+insert_traacs_2005_query	esca_soils_processing_data/soil_processing_2005.R	/^insert_traacs_2005_query <- '$/;"	g
+insert_traacs_2010_query	esca_soils_processing_data/soil_processing_2010.R	/^insert_traacs_2010_query <- '$/;"	g
+jasonKaye	knb-lter-cap.652.R	/^jasonKaye <- addCreator('j', 'kaye')$/;"	g
+jeanStutz	knb-lter-cap.652.R	/^jeanStutz <- addCreator('j', 'stutz')$/;"	g
+keywordSet	knb-lter-cap.652.R	/^  c(new("keywordSet",$/;"	v
+lachatData	esca_soils_processing_data/soil_processing_2010.R	/^    lachatData <- read_csv(datafile)$/;"	v
+lachatData	esca_soils_processing_data/soil_processing_2010.R	/^    lachatData <- read_excel(datafile)$/;"	v
+lachatData	esca_soils_processing_data/soil_processing_2010.R	/^  lachatData <- lachatData %>% $/;"	v
+lachatData	esca_soils_processing_data/soil_processing_2015.R	/^      lachatData <- read_csv(datafile)$/;"	v
+lachatData	esca_soils_processing_data/soil_processing_2015.R	/^      lachatData <- read_excel(datafile)$/;"	v
+lachatData	esca_soils_processing_data/soil_processing_2015.R	/^    lachatData <- lachatData %>% $/;"	v
+lachat_n_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^lachat_n_sites <- unique(bind_rows($/;"	g
+lachat_p_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^lachat_p_sites <- unique(bind_rows($/;"	g
+landscape_irrigation	knb-lter-cap.652.R	/^landscape_irrigation <- get_landscape_irrigation('survey200')$/;"	g
+landscape_irrigation	knb-lter-cap.652.R	/^landscape_irrigation <- landscape_irrigation %>% $/;"	g
+landscape_irrigation[,-1][landscape_irrigation[,-1]=='']	knb-lter-cap.652.R	/^landscape_irrigation[,-1][landscape_irrigation[,-1] == ''] <- NA$/;"	g
+landscape_irrigation[,-1][landscape_irrigation[,-1]=='dontknow']	knb-lter-cap.652.R	/^landscape_irrigation[,-1][landscape_irrigation[,-1] == 'dont know'] <- 'do_not_know'$/;"	g
+landscape_irrigation[,-1][landscape_irrigation[,-1]=='na']	knb-lter-cap.652.R	/^landscape_irrigation[,-1][landscape_irrigation[,-1] == 'na'] <- 'n\/a'$/;"	g
+landscape_irrigation_DT	knb-lter-cap.652.R	/^landscape_irrigation_DT <- createDTFF(dfname = landscape_irrigation,$/;"	g
+landscape_irrigation_base_query	esca_sql_queries.R	/^  landscape_irrigation_base_query <- "$/;"	v
+landscape_irrigation_data	esca_sql_queries.R	/^  landscape_irrigation_data <- dbGetQuery(pg, landscape_irrigation_query)$/;"	v
+landscape_irrigation_desc	knb-lter-cap.652.R	/^landscape_irrigation_desc <- "Characteristics reflective of the landscape type, health, and qual/;"	g
+landscape_irrigation_query	esca_sql_queries.R	/^  landscape_irrigation_query <- sqlInterpolate(ANSI(),$/;"	v
+landuse	knb-lter-cap.652.R	/^landuse <- get_landuse('survey200')$/;"	g
+landuse[,-1][landuse[,-1]=='']	knb-lter-cap.652.R	/^landuse[,-1][landuse[,-1] == ''] <- NA$/;"	g
+landuse_DT	knb-lter-cap.652.R	/^landuse_DT <- createDTFF(dfname = landuse,$/;"	g
+landuse_base_query	esca_sql_queries.R	/^  landuse_base_query <- "$/;"	v
+landuse_data	esca_sql_queries.R	/^  landuse_data <- dbGetQuery(pg, landuse_query)$/;"	v
+landuse_desc	knb-lter-cap.652.R	/^landuse_desc <- "Estimated land use or land cover in the study plot. Plots may consist of multip/;"	g
+landuse_query	esca_sql_queries.R	/^  landuse_query <- sqlInterpolate(ANSI(),$/;"	v
+lauraDugan	knb-lter-cap.652.R	/^lauraDugan <- addMetadataProvider('l', 'dugan')$/;"	g
+listOfelements[[1]]@taxonomicClassification	esca_taxonomic_coverage.R	/^    listOfelements[[1]]@taxonomicClassification <- formRecursiveTree(listOfelements[2:length(lis/;"	v
+lter_access	knb-lter-cap.652.R	/^lter_access <- new("access",$/;"	g
+maggieTseng	knb-lter-cap.652.R	/^maggieTseng <- addMetadataProvider('m', 'tseng')$/;"	g
+metadataProvider	knb-lter-cap.652.R	/^metadataProvider <-c(as(lauraDugan, 'metadataProvider'),$/;"	g
+metadata_dist	knb-lter-cap.652.R	/^metadata_dist <- new("distribution",$/;"	g
+methods	knb-lter-cap.652.R	/^methods <- set_methods("esca_methods.md")$/;"	g
+names(x)	esca_taxonomic_coverage.R	/^        names(x) <- cls[["rank"]]$/;"	v
+names(x)	esca_taxonomic_coverage.R	/^        names(x) <- sci_name$/;"	v
+nancyGrimm	knb-lter-cap.652.R	/^nancyGrimm <- addCreator('n', 'grimm')$/;"	g
+nancyMcIntyre	knb-lter-cap.652.R	/^nancyMcIntyre <- addCreator('n', 'mcintyre')$/;"	g
+neighborhood_characteristics	knb-lter-cap.652.R	/^neighborhood_characteristics <- get_neighborhood_characteristics('survey200') %>% mutate($/;"	g
+neighborhood_characteristics[,-1][neighborhood_characteristics[,-1]=='']	knb-lter-cap.652.R	/^neighborhood_characteristics[,-1][neighborhood_characteristics[,-1] == ''] <- NA$/;"	g
+neighborhood_characteristics_DT	knb-lter-cap.652.R	/^neighborhood_characteristics_DT <- createDTFF(dfname = neighborhood_characteristics,$/;"	g
+neighborhood_characteristics_desc	knb-lter-cap.652.R	/^neighborhood_characteristics_desc <- "General characteristics, such as those relating to perceiv/;"	g
+neighborhood_characterization_base_query	esca_sql_queries.R	/^  neighborhood_characterization_base_query <- "$/;"	v
+neighborhood_characterization_data	esca_sql_queries.R	/^  neighborhood_characterization_data <- dbGetQuery(pg, neighborhood_characterization_query)$/;"	v
+neighborhood_characterization_query	esca_sql_queries.R	/^  neighborhood_characterization_query <- sqlInterpolate(ANSI(),$/;"	v
+new	esca_taxonomic_coverage.R	/^    new <- as.data.frame(t(sci_names))$/;"	v
+number_perennials	knb-lter-cap.652.R	/^number_perennials <- get_number_perennials('survey200') $/;"	g
+number_perennials[,-1][number_perennials[,-1]=='']	knb-lter-cap.652.R	/^number_perennials[,-1][number_perennials[,-1] == ''] <- NA$/;"	g
+number_perennials_DT	knb-lter-cap.652.R	/^number_perennials_DT <- createDTFF(dfname = number_perennials,$/;"	g
+number_perennials_base_query	esca_sql_queries.R	/^  number_perennials_base_query <- "$/;"	v
+number_perennials_data	esca_sql_queries.R	/^  number_perennials_data <- dbGetQuery(pg, number_perennials_query)$/;"	v
+number_perennials_desc	knb-lter-cap.652.R	/^number_perennials_desc <- "The number of perennial plants in the study plot, except Saguaros and/;"	g
+number_perennials_query	esca_sql_queries.R	/^  number_perennials_query  <- sqlInterpolate(ANSI(),$/;"	v
+packageIdent	knb-lter-cap.652.R	/^packageIdent <- 'knb-lter-cap.652.2'$/;"	g
+parcel_characteristics_base_query	esca_sql_queries.R	/^  parcel_characteristics_base_query <- "$/;"	v
+parcel_characteristics_data	esca_sql_queries.R	/^  parcel_characteristics_data <- dbGetQuery(pg, parcel_characteristics_query)$/;"	v
+parcel_characteristics_query	esca_sql_queries.R	/^  parcel_characteristics_query <- sqlInterpolate(ANSI(),$/;"	v
+perimeterMoistureContent	esca_soils_processing_data/soil_processing_2015.R	/^  perimeterMoistureContent <- read_excel('s200 2015 core samples.xls', sheet = 2, skip = 2) %>% /;"	v
+perimeter_2010_n	esca_soils_processing_data/soil_processing_2010.R	/^  dbGetQuery(pg, "$/;"	v
+perimeter_cores	esca_soils_processing_data/soil_processing_2015.R	/^    right_join(soilSamples[,c("soil_sample_id", "site_code")], perimeterMoistureContent, by = c(/;"	v
+perimeter_moisture_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^perimeter_moisture_sites <- unique(perimeterMoistureContent$site_code) %>% $/;"	g
+pg	esca_soils_processing_data/soil_processing_2000.R	/^pg <- pg_local$/;"	g
+pg	esca_soils_processing_data/soil_processing_2000.R	/^pg <- pg_prod$/;"	g
+pg	esca_soils_processing_data/soil_processing_2005.R	/^pg <- pg_local$/;"	g
+pg	esca_soils_processing_data/soil_processing_2005.R	/^pg <- pg_prod$/;"	g
+pg	esca_soils_processing_data/soil_processing_2010.R	/^pg <- pg_local$/;"	g
+pg	esca_soils_processing_data/soil_processing_2010.R	/^pg <- pg_prod$/;"	g
+pg	esca_soils_processing_data/soil_processing_2015.R	/^pg <- pg_local$/;"	g
+pg	esca_soils_processing_data/soil_processing_2015.R	/^pg <- pg_prod$/;"	g
+pg	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^pg <- pg_local$/;"	g
+pg	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^pg <- pg_prod$/;"	g
+pg	knb-lter-cap.652.R	/^pg <- pg_local$/;"	g
+pg	knb-lter-cap.652.R	/^pg <- pg_prod$/;"	g
+phCond	esca_soils_processing_data/soil_processing_2015.R	/^phCond <- read_excel('s200 2015 soil pH and conductivity.xls', skip = 2) %>% # sheet G$/;"	g
+phosphorus	esca_soils_processing_data/soil_processing_2015.R	/^  phosphorus <- read_excel('S200 2015 SRP.xlsx') %>% # sheet J$/;"	v
+prod	knb-lter-cap.652.R	/^prod <- mysql_prod$/;"	g
+projectid	knb-lter-cap.652.R	/^projectid <- 652$/;"	g
+pubDate	knb-lter-cap.652.R	/^pubDate <- '2018-02-19'$/;"	g
+quincyStewart	knb-lter-cap.652.R	/^quincyStewart <- addMetadataProvider('q', 'stewart')$/;"	g
+raw_lachat_nitrogen	esca_soils_processing_data/soil_processing_2010.R	/^raw_lachat_nitrogen <- bind_rows($/;"	g
+raw_lachat_nitrogen	esca_soils_processing_data/soil_processing_2015.R	/^  raw_lachat_nitrogen <- bind_rows($/;"	v
+raw_lachat_phosphorus	esca_soils_processing_data/soil_processing_2015.R	/^  raw_lachat_phosphorus <- bind_rows($/;"	v
+raw_traacs_ammonium	esca_soils_processing_data/soil_processing_2000.R	/^raw_traacs_ammonium <- bind_rows($/;"	g
+raw_traacs_ammonium	esca_soils_processing_data/soil_processing_2000.R	/^raw_traacs_ammonium <- raw_traacs_ammonium %>% $/;"	g
+raw_traacs_ammonium	esca_soils_processing_data/soil_processing_2005.R	/^  raw_traacs_ammonium <- bind_rows($/;"	v
+raw_traacs_ammonium	esca_soils_processing_data/soil_processing_2005.R	/^  raw_traacs_ammonium <- raw_traacs_ammonium %>% $/;"	v
+raw_traacs_nitrate	esca_soils_processing_data/soil_processing_2000.R	/^raw_traacs_nitrate <- bind_rows($/;"	g
+raw_traacs_nitrate	esca_soils_processing_data/soil_processing_2000.R	/^raw_traacs_nitrate <- raw_traacs_nitrate %>% $/;"	g
+raw_traacs_nitrate	esca_soils_processing_data/soil_processing_2005.R	/^raw_traacs_nitrate <- bind_rows($/;"	g
+raw_traacs_nitrate	esca_soils_processing_data/soil_processing_2005.R	/^raw_traacs_nitrate <- raw_traacs_nitrate %>% $/;"	g
+raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2000.R	/^raw_traacs_phosphorus <- bind_rows($/;"	g
+raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2000.R	/^raw_traacs_phosphorus <- raw_traacs_phosphorus %>% $/;"	g
+raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2005.R	/^raw_traacs_phosphorus <- bind_rows($/;"	g
+raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2005.R	/^raw_traacs_phosphorus <- raw_traacs_phosphorus %>% $/;"	g
+raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2010.R	/^raw_traacs_phosphorus <- bind_rows($/;"	g
+raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2010.R	/^raw_traacs_phosphorus <- raw_traacs_phosphorus %>% $/;"	g
+raw_traacs_phosphorus[c(579:nrow(raw_traacs_phosphorus)),]$sample_set	esca_soils_processing_data/soil_processing_2010.R	/^raw_traacs_phosphorus[c(579:nrow(raw_traacs_phosphorus)),]$sample_set <- 7$/;"	g
+readxl	esca_soils_processing_data/soil_processing_2000.R	/^library(readxl)$/;"	l
+readxl	esca_soils_processing_data/soil_processing_2005.R	/^library(readxl)$/;"	l
+readxl	esca_soils_processing_data/soil_processing_2010.R	/^library(readxl)$/;"	l
+readxl	esca_soils_processing_data/soil_processing_2015.R	/^library(readxl)$/;"	l
+readxl	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^library(readxl)$/;"	l
+readxl	knb-lter-cap.652.R	/^library(readxl)$/;"	l
+reported_n_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^reported_n_sites <- unique(availableNitrogen$site_code) %>% $/;"	g
+reported_p_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^reported_p_sites <- unique(phosphorus$site_code) %>% $/;"	g
+resolved_taxa	esca_taxonomic_coverage.R	/^  resolved_taxa <- data.frame(taxon = NA, resolve = NA)$/;"	v
+resolved_taxa	esca_taxonomic_coverage.R	/^resolved_taxa <- c(all_taxa[!is.na(all_taxa$resolve),]$taxon)$/;"	g
+resolved_taxa[i,"resolve"]	esca_taxonomic_coverage.R	/^    resolved_taxa[i,"resolve"] <- info[1]$/;"	v
+resolved_taxa[i,"taxon"]	esca_taxonomic_coverage.R	/^    resolved_taxa[i,"taxon"] <- taxa_list[i]$/;"	v
+royErickson	knb-lter-cap.652.R	/^royErickson <- addMetadataProvider('r', 'erickson')$/;"	g
+s	esca_taxonomic_coverage.R	/^      s <- strsplit(sci_name, " ")[[1]]$/;"	v
+sallyWittlinger	knb-lter-cap.652.R	/^sallyWittlinger <- addMetadataProvider('s', 'wittlinger')$/;"	g
+sample_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^sample_sites <- unique(soilSamples$site_code) %>% $/;"	g
+sampling_events	knb-lter-cap.652.R	/^sampling_events <- get_sampling_events('survey200')$/;"	g
+sampling_events[,-1][sampling_events[,-1]=='']	knb-lter-cap.652.R	/^sampling_events[,-1][sampling_events[,-1] == ''] <- NA$/;"	g
+sampling_events_DT	knb-lter-cap.652.R	/^sampling_events_DT <- createDTFF(dfname = sampling_events,$/;"	g
+sampling_events_base_query	esca_sql_queries.R	/^  sampling_events_base_query <- "$/;"	v
+sampling_events_data	esca_sql_queries.R	/^  sampling_events_data <- dbGetQuery(pg, sampling_events_query)$/;"	v
+sampling_events_desc	knb-lter-cap.652.R	/^sampling_events_desc <- "Date of survey and general characteristics of the study plot, including/;"	g
+sampling_events_query	esca_sql_queries.R	/^  sampling_events_query <- sqlInterpolate(ANSI(),$/;"	v
+sci_names	esca_taxonomic_coverage.R	/^      sci_names <- list(sci_names)$/;"	v
+sci_names	esca_taxonomic_coverage.R	/^    sci_names <- mapply(function(cls, sci_name) {$/;"	v
+set_taxonomicCoverage	esca_taxonomic_coverage.R	/^set_taxonomicCoverage <- function(sci_names, expand=FALSE, db = 'itis') {$/;"	f
+shrubs_cacti_succulents	knb-lter-cap.652.R	/^shrubs_cacti_succulents <- get_shrubs_cacti_succulents('survey200') %>% $/;"	g
+shrubs_cacti_succulents[,-1][shrubs_cacti_succulents[,-1]=='']	knb-lter-cap.652.R	/^shrubs_cacti_succulents[,-1][shrubs_cacti_succulents[,-1] == ''] <- NA$/;"	g
+shrubs_cacti_succulents_DT	knb-lter-cap.652.R	/^shrubs_cacti_succulents_DT <- createDTFF(dfname = shrubs_cacti_succulents,$/;"	g
+shrubs_cacti_succulents_base_query	esca_sql_queries.R	/^  shrubs_cacti_succulents_base_query <- "$/;"	v
+shrubs_cacti_succulents_data	esca_sql_queries.R	/^  shrubs_cacti_succulents_data <- dbGetQuery(pg, shrubs_cacti_succulents_query)$/;"	v
+shrubs_cacti_succulents_desc	knb-lter-cap.652.R	/^shrubs_cacti_succulents_desc <- "Biovolume and characteristics of shrubs and succulent plants wi/;"	g
+shrubs_cacti_succulents_query	esca_sql_queries.R	/^  shrubs_cacti_succulents_query  <- sqlInterpolate(ANSI(),$/;"	v
+soilSamples	esca_soils_processing_data/soil_processing_2005.R	/^soilSamples <- dbGetQuery(pg, "$/;"	g
+soilSamples	esca_soils_processing_data/soil_processing_2010.R	/^soilSamples <- dbGetQuery(pg, "$/;"	g
+soilSamples	esca_soils_processing_data/soil_processing_2015.R	/^soilSamples <- dbGetQuery(pg, "$/;"	g
+soil_center_cores	knb-lter-cap.652.R	/^soil_center_cores <- get_soil_center_cores()$/;"	g
+soil_center_cores[,which(!grepl("date",names(soil_center_cores),ignore.case=T))][soil_center_cores[,which(!grepl("date",names(soil_center_cores),ignore.case=T))]=='']	knb-lter-cap.652.R	/^soil_center_cores[,which(!grepl("date", names(soil_center_cores), ignore.case = T))][soil_center/;"	g
+soil_center_cores_DT	knb-lter-cap.652.R	/^soil_center_cores_DT <- createDTFF(dfname = soil_center_cores,$/;"	g
+soil_center_cores_base_query	esca_sql_queries.R	/^  soil_center_cores_base_query <- "$/;"	v
+soil_center_cores_data	esca_sql_queries.R	/^  soil_center_cores_data <- dbGetQuery(pg, soil_center_cores_query)$/;"	v
+soil_center_cores_desc	knb-lter-cap.652.R	/^soil_center_cores_desc <- "Physical and chemical properties of soils, including bulk density, pa/;"	g
+soil_center_cores_query	esca_sql_queries.R	/^  soil_center_cores_query <- sqlInterpolate(ANSI(),$/;"	v
+soil_lachat	knb-lter-cap.652.R	/^soil_lachat <- get_soil_lachat() %>% $/;"	g
+soil_lachat[,which(!grepl("date",names(soil_lachat),ignore.case=T))][soil_lachat[,which(!grepl("date",names(soil_lachat),ignore.case=T))]=='']	knb-lter-cap.652.R	/^soil_lachat[,which(!grepl("date", names(soil_lachat), ignore.case = T))][soil_lachat[,which(!gre/;"	g
+soil_lachat_DT	knb-lter-cap.652.R	/^soil_lachat_DT <- createDTFF(dfname = soil_lachat,$/;"	g
+soil_lachat_base_query	esca_sql_queries.R	/^  soil_lachat_base_query <- "$/;"	v
+soil_lachat_data	esca_sql_queries.R	/^  soil_lachat_data <- dbGetQuery(pg, soil_lachat_query)$/;"	v
+soil_lachat_desc	knb-lter-cap.652.R	/^soil_lachat_desc <- "Raw soil core chemistry (nitrate-nitrogen, ammonium-nitrogen, phosphate). A/;"	g
+soil_lachat_query	esca_sql_queries.R	/^  soil_lachat_query <- sqlInterpolate(ANSI(),$/;"	v
+soil_perimeter_cores	knb-lter-cap.652.R	/^soil_perimeter_cores <- get_soil_perimeter_cores() %>% $/;"	g
+soil_perimeter_cores[,which(!grepl("date",names(soil_perimeter_cores),ignore.case=T))][soil_perimeter_cores[,which(!grepl("date",names(soil_perimeter_cores),ignore.case=T))]=='']	knb-lter-cap.652.R	/^soil_perimeter_cores[,which(!grepl("date", names(soil_perimeter_cores), ignore.case = T))][soil_/;"	g
+soil_perimeter_cores_DT	knb-lter-cap.652.R	/^soil_perimeter_cores_DT <- createDTFF(dfname = soil_perimeter_cores,$/;"	g
+soil_perimeter_cores_base_query	esca_sql_queries.R	/^  soil_perimeter_cores_base_query <- "$/;"	v
+soil_perimeter_cores_data	esca_sql_queries.R	/^  soil_perimeter_cores_data <- dbGetQuery(pg, soil_perimeter_cores_query)$/;"	v
+soil_perimeter_cores_desc	knb-lter-cap.652.R	/^soil_perimeter_cores_desc <- "Chemical properties of soils, including nitrate-nitrogen, ammonium/;"	g
+soil_perimeter_cores_query	esca_sql_queries.R	/^  soil_perimeter_cores_query <- sqlInterpolate(ANSI(),$/;"	v
+soil_texture_2000_base_query	esca_sql_queries.R	/^  soil_texture_2000_base_query <- "$/;"	v
+soil_texture_2000_data	esca_sql_queries.R	/^  soil_texture_2000_data <- dbGetQuery(pg, soil_texture_2000_query)$/;"	v
+soil_texture_2000_query	esca_sql_queries.R	/^  soil_texture_2000_query <- sqlInterpolate(ANSI(),$/;"	v
+soil_traacs	knb-lter-cap.652.R	/^soil_traacs <- get_soil_traacs() %>% $/;"	g
+soil_traacs[,which(!grepl("date",names(soil_traacs),ignore.case=T))][soil_traacs[,which(!grepl("date",names(soil_traacs),ignore.case=T))]=='']	knb-lter-cap.652.R	/^soil_traacs[,which(!grepl("date", names(soil_traacs), ignore.case = T))][soil_traacs[,which(!gre/;"	g
+soil_traacs_DT	knb-lter-cap.652.R	/^soil_traacs_DT <- createDTFF(dfname = soil_traacs,$/;"	g
+soil_traacs_base_query	esca_sql_queries.R	/^  soil_traacs_base_query <- "$/;"	v
+soil_traacs_data	esca_sql_queries.R	/^  soil_traacs_data <- dbGetQuery(pg, soil_traacs_query)$/;"	v
+soil_traacs_desc	knb-lter-cap.652.R	/^soil_traacs_desc <- "Raw soil nutrient data as analyzed by Traacs for soil samples collected in /;"	g
+soil_traacs_query	esca_sql_queries.R	/^  soil_traacs_query <- sqlInterpolate(ANSI(),$/;"	v
+stevanEarl	knb-lter-cap.652.R	/^stevanEarl <- addMetadataProvider('s', 'earl')$/;"	g
+stringr	esca_soils_processing_data/soil_processing_2000.R	/^library(stringr)$/;"	l
+stringr	esca_soils_processing_data/soil_processing_2005.R	/^library(stringr)$/;"	l
+stringr	esca_soils_processing_data/soil_processing_2010.R	/^library(stringr)$/;"	l
+stringr	esca_soils_processing_data/soil_processing_2015.R	/^library(stringr)$/;"	l
+stringr	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^library(stringr)$/;"	l
+structures	knb-lter-cap.652.R	/^structures <- get_structures('survey200') %>% $/;"	g
+structures[,-1][structures[,-1]=='']	knb-lter-cap.652.R	/^structures[,-1][structures[,-1] == ''] <- NA$/;"	g
+structures_DT	knb-lter-cap.652.R	/^structures_DT <- createDTFF(dfname = structures,$/;"	g
+structures_base_query	esca_sql_queries.R	/^  structures_base_query <- "$/;"	v
+structures_data	esca_sql_queries.R	/^  structures_data <- dbGetQuery(pg, structures_query)$/;"	v
+structures_desc	knb-lter-cap.652.R	/^structures_desc <- "Type and height of any structures within the study plot."$/;"	g
+structures_query	esca_sql_queries.R	/^  structures_query <- sqlInterpolate(ANSI(),$/;"	v
+taxa	esca_taxonomic_coverage.R	/^      taxa <- lapply(taxonRankNames, function(name) {$/;"	v
+taxa	esca_taxonomic_coverage.R	/^    taxa <- lapply(new, function(sci_name) {$/;"	v
+taxa	esca_taxonomic_coverage.R	/^    taxa <- lapply(sci_names, function(sci_name) {$/;"	v
+taxonRankNames	esca_taxonomic_coverage.R	/^      taxonRankNames <- as.list(names(sci_name))$/;"	v
+taxon_classification	esca_taxonomic_coverage.R	/^    taxon_classification <- colnames(sci_names)$/;"	v
+tc	esca_taxonomic_coverage.R	/^      tc <- formRecursiveTree(tc)[[1]]$/;"	v
+tc	esca_taxonomic_coverage.R	/^      tc <- lapply(taxon_classification, function(name) {$/;"	v
+texture	esca_soils_processing_data/soil_processing_2015.R	/^texture <- read_excel('S200 2015 Soil Texture Analysis.xlsx') %>% # sheet I$/;"	g
+texture	esca_soils_processing_data/soil_processing_2015.R	/^texture <- texture %>%$/;"	g
+tidy_raw_lachat	esca_soils_processing_data/soil_processing_2010.R	/^tidy_raw_lachat <- function(datafile) {$/;"	f
+tidy_raw_lachat	esca_soils_processing_data/soil_processing_2015.R	/^  tidy_raw_lachat <- function(datafile) {$/;"	f
+tidyverse	esca_soils_processing_data/soil_processing_2000.R	/^library(tidyverse)$/;"	l
+tidyverse	esca_soils_processing_data/soil_processing_2005.R	/^library(tidyverse)$/;"	l
+tidyverse	esca_soils_processing_data/soil_processing_2010.R	/^library(tidyverse)$/;"	l
+tidyverse	esca_soils_processing_data/soil_processing_2015.R	/^library(tidyverse)$/;"	l
+tidyverse	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^library(tidyverse)$/;"	l
+tidyverse	knb-lter-cap.652.R	/^library(tidyverse)$/;"	l
+title	knb-lter-cap.652.R	/^title <- 'Ecological Survey of Central Arizona: a survey of key ecological indicators in the gre/;"	g
+todos:	README.md	/^todos:$/;"	s
+tools	esca_soils_processing_data/soil_processing_2000.R	/^library(tools)$/;"	l
+tools	esca_soils_processing_data/soil_processing_2005.R	/^library(tools)$/;"	l
+tools	esca_soils_processing_data/soil_processing_2010.R	/^library(tools)$/;"	l
+tools	esca_soils_processing_data/soil_processing_2015.R	/^library(tools)$/;"	l
+tools	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^library(tools)$/;"	l
+tools	knb-lter-cap.652.R	/^library(tools)$/;"	l
+trees	knb-lter-cap.652.R	/^trees <- get_trees('survey200') %>% $/;"	g
+trees[,-1][trees[,-1]=='']	knb-lter-cap.652.R	/^trees[,-1][trees[,-1] == ''] <- NA$/;"	g
+trees_DT	knb-lter-cap.652.R	/^trees_DT <- createDTFF(dfname = trees,$/;"	g
+trees_base_query	esca_sql_queries.R	/^  trees_base_query <- "$/;"	v
+trees_data	esca_sql_queries.R	/^  trees_data <- dbGetQuery(pg, trees_query)$/;"	v
+trees_desc	knb-lter-cap.652.R	/^trees_desc <- "Size and characteristics of trees and Saguaros (Carnegiea gigantea) within study /;"	g
+trees_query	esca_sql_queries.R	/^  trees_query  <- sqlInterpolate(ANSI(),$/;"	v
+unique_values	knb-lter-cap.652.R	/^unique_values <- function(dataframe) {$/;"	f
+unitList	knb-lter-cap.652.R	/^unitList <- set_unitList(custom_units)$/;"	g
+x	esca_taxonomic_coverage.R	/^        x <- as.list(cls[["name"]])$/;"	v
+x	esca_taxonomic_coverage.R	/^        x <- list(list("species" = as.character(sci_name)))$/;"	v
+xml_url	knb-lter-cap.652.R	/^  xml_url <- new("online",$/;"	v
+zoo	esca_soils_processing_data/soil_processing_2000.R	/^library(zoo)$/;"	l
+zoo	esca_soils_processing_data/soil_processing_2005.R	/^library(zoo)$/;"	l
+zoo	esca_soils_processing_data/soil_processing_2010.R	/^library(zoo)$/;"	l
+zoo	esca_soils_processing_data/soil_processing_2015.R	/^library(zoo)$/;"	l
+zoo	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^library(zoo)$/;"	l

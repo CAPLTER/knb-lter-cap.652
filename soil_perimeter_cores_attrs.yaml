@@ -1,0 +1,127 @@
+|
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey date'
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    columnClasses: character
+    definition: ''
+  deep_core_type:
+    attributeName: deep_core_type
+    attributeDefinition: 'layer of core analyzed'
+    columnClasses: factor
+  pan:
+    attributeName: pan
+    attributeDefinition: 'weight of pan used to determine fresh and dry weight ratios'
+    unit: 'gram'
+    numberType: real
+    minimum: 1.0
+    maximum: 2.39
+    columnClasses: numeric
+  pan_plus_fw:
+    attributeName: pan_plus_fw
+    attributeDefinition: 'weight of pan and fresh soil subsample'
+    unit: 'gram'
+    numberType: real
+    minimum: 4.45
+    maximum: 18.99
+    columnClasses: numeric
+  pan_plus_dw60:
+    attributeName: pan_plus_dw60
+    attributeDefinition: 'weight of pan and dry soil subsample dried at 60 degrees celsius'
+    unit: 'gram'
+    numberType: real
+    minimum: 4.36
+    maximum: 18.59
+    columnClasses: numeric
+  pan_plus_aw:
+    attributeName: pan_plus_aw
+    attributeDefinition: 'weight of pan and dry soil subsample dried at 500 degrees celsius'
+    unit: 'gram'
+    numberType: real
+    minimum: 4.3
+    maximum: 18.35
+    columnClasses: numeric
+  soil_n_fw:
+    attributeName: soil_n_fw
+    attributeDefinition: 'fresh weight of soil sample for analyses of nitrogen species'
+    unit: 'gram'
+    numberType: real
+    minimum: 9.23
+    maximum: 11.22
+    columnClasses: numeric
+  n_extract_volume:
+    attributeName: n_extract_volume
+    attributeDefinition: 'volume of KCl extract for analyses of nitrogen species'
+    unit: 'milliliter'
+    numberType: natural
+    minimum: 50
+    maximum: 50
+    columnClasses: numeric
+  nh4_n:
+    attributeName: nh4_n
+    attributeDefinition: 'ammonium-nitrogen (NH4-N) concentration of sample extract'
+    unit: 'milligramsPerLiter'
+    numberType: real
+    minimum: -0.356
+    maximum: 5.88
+    columnClasses: numeric
+  no3_n:
+    attributeName: no3_n
+    attributeDefinition: 'nitrate-nitrogen (NO3-N) concentration of sample extract'
+    unit: 'milligramsPerLiter'
+    numberType: real
+    minimum: -0.534
+    maximum: 127.0
+    columnClasses: numeric
+  soil_p_fw:
+    attributeName: soil_p_fw
+    attributeDefinition: 'weight of soil sample (air dried) for analyses of phosphorus'
+    unit: 'gram'
+    numberType: real
+    minimum: 1.99
+    maximum: 2.5
+    columnClasses: numeric
+  p_extract_volume:
+    attributeName: p_extract_volume
+    attributeDefinition: 'volume of NaHCO3 extract for analysis of phosphorus'
+    unit: 'milliliter'
+    numberType: natural
+    minimum: 40
+    maximum: 50
+    columnClasses: numeric
+  po4_p:
+    attributeName: po4_p
+    attributeDefinition: 'phosphate-phosphorus (PO4-P) concentration of sample extract'
+    unit: 'milligramsPerLiter'
+    numberType: real
+    minimum: -0.307
+    maximum: 10.15
+    columnClasses: numeric
+  percent_total_c:
+    attributeName: percent_total_c
+    attributeDefinition: 'percentage of total carbon'
+    unit: 'percent'
+    numberType: real
+    minimum: 0.053
+    maximum: 5.098
+    columnClasses: numeric
+  percent_inorg_c:
+    attributeName: percent_inorg_c
+    attributeDefinition: 'percentage of inorganic carbon'
+    unit: 'percent'
+    numberType: real
+    minimum: 0.0
+    maximum: 3.56
+    columnClasses: numeric
+  percent_total_n:
+    attributeName: percent_total_n
+    attributeDefinition: 'percentage of total nitrogen'
+    unit: 'percent'
+    numberType: real
+    minimum: 0.0
+    maximum: 0.431
+    columnClasses: numeric
