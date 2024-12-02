@@ -1,6 +1,6 @@
 scope: knb-lter-cap
 identifier: 652
-baseURL: https://data.gios.asu.edu/datasets/cap/
+baseURL: https://gios-data.s3.us-west-2.amazonaws.com/datasets/cap/
 project: lter
 title: 'Ecological Survey of Central Arizona: a survey of key ecological indicators in the greater Phoenix metropolitan area and surrounding Sonoran desert, ongoing since 1999'
 maintenance: regular

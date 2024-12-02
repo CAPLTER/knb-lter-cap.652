@@ -84,13 +84,20 @@ get_parcel_characteristics <- function(research_focus) {
     s.research_focus ~~* ?researchFocus
   ORDER BY 
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
 
-  parcel_characteristics_query <- sqlInterpolate(ANSI(),
-                                                 parcel_characteristics_base_query,
-                                                 researchFocus = research_focus)
-  
-  parcel_characteristics_data <- dbGetQuery(pg, parcel_characteristics_query)
+  parcel_characteristics_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = parcel_characteristics_base_query,
+    researchFocus = research_focus
+  )
+
+  parcel_characteristics_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = parcel_characteristics_query
+  )
   
   return(parcel_characteristics_data)
   
@@ -99,7 +106,6 @@ get_parcel_characteristics <- function(research_focus) {
 # human_indicators --------------------------------------------------------
 
 get_human_indicators <- function(research_focus) {
-  
   human_indicators_base_query <- "
   SELECT
     se.samp_date AS sample_date,
@@ -133,15 +139,22 @@ get_human_indicators <- function(research_focus) {
     JOIN survey200.human_indicators hi ON se.survey_id = hi.survey_id
   WHERE
     s.research_focus ~~* ?researchFocus
-  ORDER BY 
+  ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
-  
-  human_indicators_query <- sqlInterpolate(ANSI(),
-                                           human_indicators_base_query,
-                                           researchFocus = research_focus)
-  
-  human_indicators_data <- dbGetQuery(pg, human_indicators_query)
+    s.site_code
+    ;
+    "
+
+  human_indicators_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = human_indicators_base_query,
+    researchFocus = research_focus
+  )
+
+  human_indicators_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = human_indicators_query
+  )
   
   return(human_indicators_data)
   
@@ -185,13 +198,20 @@ get_landscape_irrigation <- function(research_focus) {
     s.research_focus ~~* ?researchFocus
   ORDER BY 
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
   
-  landscape_irrigation_query <- sqlInterpolate(ANSI(),
-                                               landscape_irrigation_base_query,
-                                               researchFocus = research_focus)
+  landscape_irrigation_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = landscape_irrigation_base_query,
+    researchFocus = research_focus
+  )
   
-  landscape_irrigation_data <- dbGetQuery(pg, landscape_irrigation_query)
+  landscape_irrigation_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = landscape_irrigation_query
+  )
   
   return(landscape_irrigation_data)
   
@@ -226,12 +246,19 @@ get_annuals <- function() {
     vs.survey_type::text = 'annual'::text
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
   
-  annuals_query <- sqlInterpolate(ANSI(),
-                                  annuals_base_query)
+  annuals_query <- DBI::sqlInterpolate(
+    conn = DBI::ANSI(),
+    sql  = annuals_base_query
+  )
   
-  annuals_data <- dbGetQuery(pg, annuals_query)
+  annuals_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = annuals_query
+  )
   
   return(annuals_data)
   
@@ -241,7 +268,6 @@ get_annuals <- function() {
 # shrubs_cacti_succulents -------------------------------------------------
 
 get_shrubs_cacti_succulents <- function(research_focus) {
-  
   shrubs_cacti_succulents_base_query <- "
   -- shrubs
   SELECT
@@ -331,13 +357,20 @@ get_shrubs_cacti_succulents <- function(research_focus) {
     -- AND vs.survey_type::text = 'cacti'::text
   ORDER BY
     year,
-    site_code;"  
+    site_code
+    ;
+    "
   
-  shrubs_cacti_succulents_query  <- sqlInterpolate(ANSI(),
-                                                   shrubs_cacti_succulents_base_query,
-                                                   researchFocus = research_focus)
+  shrubs_cacti_succulents_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = shrubs_cacti_succulents_base_query,
+    researchFocus = research_focus
+  )
   
-  shrubs_cacti_succulents_data <- dbGetQuery(pg, shrubs_cacti_succulents_query)
+  shrubs_cacti_succulents_data <- DBI::dbGetQuery(
+    conn     = pg,
+    statment = shrubs_cacti_succulents_query
+  )
   
   return(shrubs_cacti_succulents_data)
   
@@ -397,13 +430,20 @@ get_trees <- function(research_focus) {
     -- AND vs.survey_type::text = 'tree'::text
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
 
-  trees_query  <- sqlInterpolate(ANSI(),
-                                 trees_base_query,
-                                 researchFocus = research_focus)
+  trees_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = trees_base_query,
+    researchFocus = research_focus
+  )
   
-  trees_data <- dbGetQuery(pg, trees_query)
+  trees_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = trees_query
+  )
   
   return(trees_data)
 
@@ -450,14 +490,21 @@ get_number_perennials <- function(research_focus) {
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
     s.site_code,
-    vtl.vegetation_scientific_name;"
+    vtl.vegetation_scientific_name
+    ;
+    "
 
-  number_perennials_query  <- sqlInterpolate(ANSI(),
-                                             number_perennials_base_query,
-                                             researchFocus = research_focus)
+  number_perennials_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = number_perennials_base_query,
+    researchFocus = research_focus
+  )
   
-  number_perennials_data <- dbGetQuery(pg, number_perennials_query)
-  
+  number_perennials_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = number_perennials_query
+  )
+
   return(number_perennials_data)
 
 }
@@ -514,13 +561,20 @@ get_hedges <- function(research_focus) {
     --AND vs.survey_type::text = 'hedge'::text
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
 
-  hedges_query <- sqlInterpolate(ANSI(),
-                                 hedges_base_query,
-                                 researchFocus = research_focus)
+  hedges_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = hedges_base_query,
+    researchFocus = research_focus
+  )
   
-  hedges_data <- dbGetQuery(pg, hedges_query)
+  hedges_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = hedges_query
+  )
   
   return(hedges_data)
 
@@ -549,14 +603,21 @@ get_landuse <- function(research_focus) {
     s.research_focus::text = ?researchFocus
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
   
 
-  landuse_query <- sqlInterpolate(ANSI(),
-                                  landuse_base_query,
-                                  researchFocus = research_focus)
+  landuse_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = landuse_base_query,
+    researchFocus = research_focus
+  )
   
-  landuse_data <- dbGetQuery(pg, landuse_query)
+  landuse_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = landuse_query
+  )
   
   return(landuse_data)
 
@@ -611,14 +672,21 @@ get_neighborhood_characteristics <- function(research_focus) {
     s.research_focus::text = ?researchFocus
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
   
 
-  neighborhood_characterization_query <- sqlInterpolate(ANSI(),
-                                                        neighborhood_characterization_base_query,
-                                                        researchFocus = research_focus)
+  neighborhood_characterization_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = neighborhood_characterization_base_query,
+    researchFocus = research_focus
+  )
   
-  neighborhood_characterization_data <- dbGetQuery(pg, neighborhood_characterization_query)
+  neighborhood_characterization_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = neighborhood_characterization_query
+  )
   
   return(neighborhood_characterization_data)
 
@@ -653,13 +721,20 @@ get_structures <- function(research_focus) {
     s.research_focus::text = ?researchFocus
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
 
-  structures_query <- sqlInterpolate(ANSI(),
-                                     structures_base_query,
-                                     researchFocus = research_focus)
+  structures_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = structures_base_query,
+    researchFocus = research_focus
+  )
   
-  structures_data <- dbGetQuery(pg, structures_query)
+  structures_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = structures_query
+  )
   
   return(structures_data)
 
@@ -690,18 +765,24 @@ get_sampling_events <- function(research_focus) {
     s.research_focus::text = ?researchFocus
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
   
-  sampling_events_query <- sqlInterpolate(ANSI(),
-                                          sampling_events_base_query,
-                                          researchFocus = research_focus)
+  sampling_events_query <- DBI::sqlInterpolate(
+    conn          = DBI::ANSI(),
+    sql           = sampling_events_base_query,
+    researchFocus = research_focus
+  )
   
-  sampling_events_data <- dbGetQuery(pg, sampling_events_query)
+  sampling_events_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = sampling_events_query
+  )
   
   return(sampling_events_data)
   
 }
-
 
 
 # soil_center_cores -------------------------------------------------------
@@ -757,12 +838,19 @@ get_soil_center_cores <- function() {
     JOIN survey200.soil_center_cores scc ON ss.soil_sample_id = scc.soil_sample_id
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
   
-  soil_center_cores_query <- sqlInterpolate(ANSI(),
-                                            soil_center_cores_base_query)
+  soil_center_cores_query <- DBI::sqlInterpolate(
+    conn = DBI::ANSI(),
+    sql  = soil_center_cores_base_query
+  )
   
-  soil_center_cores_data <- dbGetQuery(pg, soil_center_cores_query)
+  soil_center_cores_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = soil_center_cores_query
+  )
   
   return(soil_center_cores_data)
   
@@ -804,12 +892,19 @@ get_soil_texture_2000 <- function() {
     JOIN survey200.soil_texture_2000 st2 ON se.survey_id = st2.survey_id
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
   
-  soil_texture_2000_query <- sqlInterpolate(ANSI(),
-                                            soil_texture_2000_base_query)
+  soil_texture_2000_query <- DBI::sqlInterpolate(
+    conn = DBI::ANSI(),
+    sql  = soil_texture_2000_base_query
+  )
   
-  soil_texture_2000_data <- dbGetQuery(pg, soil_texture_2000_query)
+  soil_texture_2000_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = soil_texture_2000_query
+  )
   
   return(soil_texture_2000_data)
   
@@ -860,12 +955,19 @@ get_soil_lachat <- function() {
     RIGHT JOIN survey200.soil_lachat sl ON (ss.soil_sample_id = sl.soil_sample_id)
   ORDER BY
     sl.detection_date,
-    sl.detection_time;"
+    sl.detection_time
+    ;
+    "
   
-  soil_lachat_query <- sqlInterpolate(ANSI(),
-                                      soil_lachat_base_query)
+  soil_lachat_query <- DBI::sqlInterpolate(
+    conn = DBI::ANSI(),
+    sql  = soil_lachat_base_query
+  )
   
-  soil_lachat_data <- dbGetQuery(pg, soil_lachat_query)
+  soil_lachat_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = soil_lachat_query
+  )
   
   return(soil_lachat_data)
   
@@ -893,12 +995,19 @@ get_soil_traacs <- function() {
     JOIN survey200.soil_samples ss ON se.survey_id = ss.survey_id
     RIGHT JOIN survey200.soil_traacs st ON (ss.soil_sample_id = st.soil_sample_id)
   ORDER BY
-    st.sample_sequence;"
+    st.sample_sequence
+    ;
+    "
   
-  soil_traacs_query <- sqlInterpolate(ANSI(),
-                                      soil_traacs_base_query)
+  soil_traacs_query <- DBI::sqlInterpolate(
+    conn = DBI::ANSI(),
+    sql  = soil_traacs_base_query
+  )
   
-  soil_traacs_data <- dbGetQuery(pg, soil_traacs_query)
+  soil_traacs_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = soil_traacs_query
+  )
   
   return(soil_traacs_data)
   
@@ -934,17 +1043,24 @@ get_soil_perimeter_cores <- function() {
     JOIN survey200.soil_perimeter_cores spc ON (ss.soil_sample_id = spc.soil_sample_id)
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
-    s.site_code;"
+    s.site_code
+    ;
+    "
   
-  soil_perimeter_cores_query <- sqlInterpolate(ANSI(),
-                                               soil_perimeter_cores_base_query)
+  soil_perimeter_cores_query <- DBI::sqlInterpolate(
+    conn = DBI::ANSI(),
+    sql  = soil_perimeter_cores_base_query
+  )
   
-  soil_perimeter_cores_data <- dbGetQuery(pg, soil_perimeter_cores_query)
+  soil_perimeter_cores_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = soil_perimeter_cores_query
+  )
   
   return(soil_perimeter_cores_data)
   
 }
- 
+
 
 # arthropods --------------------------------------------------------------
 
@@ -975,12 +1091,19 @@ get_arthropods <- function() {
   ORDER BY
     EXTRACT (YEAR FROM se.samp_date),
     s.site_code,
-    vtl.vegetation_scientific_name;"  
+    vtl.vegetation_scientific_name
+    ;
+    "
+
+  arthropods_query <- DBI::sqlInterpolate(
+    conn = DBI::ANSI(),
+    sql  = arthropods_base_query
+  )
   
-  arthropods_query <- sqlInterpolate(ANSI(),
-                                     arthropods_base_query)
-  
-  arthropods_data <- dbGetQuery(pg, arthropods_query)
+  arthropods_data <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = arthropods_query
+  )
   
   return(arthropods_data)
   

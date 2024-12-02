@@ -1,0 +1,19 @@
+human_indicators:
+  type: table
+  dfname: human_indicators
+  description: "The presence of features or characteristics that are reflective of human presence or activity at the study plot."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+landscape_irrigation:
+  type: table
+  dfname: landscape_irrigation
+  description: "Characteristics reflective of the landscape type, health, and quality at the plot."
+  dateRangeField: "~"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+

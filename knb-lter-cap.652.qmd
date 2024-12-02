@@ -1,0 +1,90 @@
+
+```{r}
+#| eval: true
+#| label: capeml
+
+devtools::load_all("~/localRepos/capeml/")
+```
+
+```{r}
+#| eval: true
+#| label: connection
+
+source("~/Documents/localSettings/pg_local.R")
+pg <- pg_local_connect("caplter")
+```
+
+```{r}
+#| eval: true
+#| label: queries
+
+source("esca_sql_queries.R")
+```
+
+## human indicators
+
+
+```{r}
+#| eval: true
+#| label: human_indicators
+
+human_indicators <- get_human_indicators('survey200')
+
+human_indicators <- human_indicators |>
+  dplyr::mutate(
+    human_presence_of_path    = as.factor(human_presence_of_path),
+    human_footprints          = as.factor(human_footprints),
+    human_bike_tracks         = as.factor(human_bike_tracks),
+    human_off_road_vehicle    = as.factor(human_off_road_vehicle),
+    human_small_litter        = as.factor(human_small_litter),
+    human_dumped_trash_bags   = as.factor(human_dumped_trash_bags),
+    human_abandoned_vehicles  = as.factor(human_abandoned_vehicles),
+    human_graffiti            = as.factor(human_graffiti),
+    human_injured_plants      = as.factor(human_injured_plants),
+    human_informal_play       = as.factor(human_informal_play),
+    human_informal_recreation = as.factor(human_informal_recreation),
+    human_informal_living     = as.factor(human_informal_living),
+    human_sports_equipment    = as.factor(human_sports_equipment),
+    human_social_class        = as.factor(human_social_class)
+  )
+
+try({
+  capeml::write_attributes(human_indicators, overwrite = FALSE)
+  capeml::write_factors(human_indicators, overwrite = FALSE)
+})
+```
+
+
+```{r}
+#| eval: true
+#| label: landscape_irrigation
+
+landscape_irrigation <- get_landscape_irrigation("survey200")
+
+landscape_irrigation <- landscape_irrigation |>
+  dplyr::mutate(
+    appears_maintained              = as.factor(appears_maintained),
+    appears_professional            = as.factor(appears_professional),
+    appears_healthy                 = as.factor(appears_healthy),
+    appears_injured                 = as.factor(appears_injured),
+    presence_of_open_ground         = as.factor(presence_of_open_ground),
+    presence_of_trees               = as.factor(presence_of_trees),
+    presence_of_shrubs              = as.factor(presence_of_shrubs),
+    presence_of_cacti_succ          = as.factor(presence_of_cacti_succ),
+    presence_of_lawn                = as.factor(presence_of_lawn),
+    presence_of_herbaceous_ground   = as.factor(presence_of_herbaceous_ground),
+    presence_of_other               = as.factor(presence_of_other),
+    presence_of_hand_water          = as.factor(presence_of_hand_water),
+    presence_of_drip_water          = as.factor(presence_of_drip_water),
+    presence_of_overhead_water      = as.factor(presence_of_overhead_water),
+    presence_of_flood_water         = as.factor(presence_of_flood_water),
+    presence_of_subterranean_water  = as.factor(presence_of_subterranean_water),
+    presence_of_no_water            = as.factor(presence_of_no_water),
+    presence_of_pervious_irrigation = as.factor(presence_of_pervious_irrigation)
+  )
+
+try({
+  capeml::write_attributes(landscape_irrigation, overwrite = FALSE)
+  capeml::write_factors(landscape_irrigation, overwrite = FALSE)
+})
+```
