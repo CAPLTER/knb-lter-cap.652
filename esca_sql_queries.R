@@ -221,283 +221,218 @@ get_landscape_irrigation <- function(research_focus) {
 # annuals -----------------------------------------------------------------
 
 get_annuals <- function() {
-  
-  annuals_base_query <- "
-  SELECT
-    se.samp_date AS sample_date,
-    s.site_code,
-    -- s.research_focus,
-    -- vs.vegetation_sample_id,
-    -- vs.herbarium_voucher_code,
-    -- vs.sample_identified,
-    -- vs.vegetation_taxon_id,
-    vtl.vegetation_scientific_name,
-    vtl.common_name,
-    -- vs.survey_type
-    hi.vegetation_rope_length
-    FROM survey200.sampling_events se
-    JOIN survey200.sites s ON se.site_id = s.site_id
-    JOIN survey200.sampling_events_vegetation_samples sevs ON se.survey_id = sevs.survey_id
-    JOIN survey200.vegetation_samples vs ON sevs.vegetation_sample_id = vs.vegetation_sample_id
-    JOIN survey200.vegetation_taxon_list vtl ON vs.vegetation_taxon_id = vtl.vegetation_taxon_id
-    JOIN survey200.human_indicators hi ON (hi.survey_id = se.survey_id)
+
+  get_annuals_base_query <- glue::glue_sql("
+  WITH unique_annuals AS (
+  SELECT DISTINCT
+    sampling_events.survey_id,
+    sampling_events.samp_date AS sample_date,
+    sites.site_code,
+    vegetation_taxon_list.vegetation_scientific_name
+  FROM survey200.vegetation_samples 
+  JOIN survey200.sampling_events_vegetation_samples ON (vegetation_samples.vegetation_sample_id = sampling_events_vegetation_samples.vegetation_sample_id)
+  JOIN survey200.sampling_events ON (sampling_events.survey_id = sampling_events_vegetation_samples.survey_id)
+  JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+  JOIN survey200.vegetation_taxon_list ON (vegetation_samples.vegetation_taxon_id = vegetation_taxon_list.vegetation_taxon_id)
+  LEFT JOIN survey200.human_indicators ON (human_indicators.survey_id = sampling_events.survey_id)
   WHERE
-    s.research_focus::text = 'survey200'::text AND
-    vs.survey_type::text = 'annual'::text
-  ORDER BY
-    EXTRACT (YEAR FROM se.samp_date),
-    s.site_code
-    ;
-    "
-  
-  annuals_query <- DBI::sqlInterpolate(
-    conn = DBI::ANSI(),
-    sql  = annuals_base_query
+    sites.research_focus::TEXT = 'survey200' AND
+    vegetation_samples.survey_type::TEXT = 'annual'
   )
-  
-  annuals_data <- DBI::dbGetQuery(
+  SELECT
+    unique_annuals.sample_date,
+    unique_annuals.site_code,
+    unique_annuals.vegetation_scientific_name,
+    human_indicators.vegetation_rope_length
+  FROM unique_annuals
+  LEFT JOIN survey200.human_indicators ON (human_indicators.survey_id = unique_annuals.survey_id) 
+  ;
+  ",
+    .con = DBI::ANSI()
+  )
+
+  annuals <- DBI::dbGetQuery(
     conn      = pg,
-    statement = annuals_query
+    statement = get_annuals_base_query
   )
-  
-  return(annuals_data)
-  
+
+  return(annuals)
+
 }
 
 
-# shrubs_cacti_succulents -------------------------------------------------
+# shrub surveys ----------------------------------------------------------------
 
-get_shrubs_cacti_succulents <- function(research_focus) {
-  shrubs_cacti_succulents_base_query <- "
-  -- shrubs
-  SELECT
-    EXTRACT (YEAR FROM samp_date) AS year,
-    se.samp_date AS sample_date,
-    s.site_code,
-    -- s.research_focus,
-    -- vs.vegetation_sample_id,
-    -- vs.herbarium_voucher_code,
-    -- vs.sample_identified,
-    -- vs.vegetation_taxon_id,
-    vtl.vegetation_scientific_name,
-    vtl.common_name,
-    -- vs.survey_type,
-    cvvs.vegetation_shape_code,
-    cvvc.vegetation_classification_code,
-    -- vssp.height,
-    CASE
-      WHEN vssp.height_distance IS NULL THEN vssp.height
-      WHEN vssp.height_distance IS NOT NULL THEN NULL
-    END AS height_measured,
-    vssp.height_distance,
-    vssp.height_degree_up,
-    vssp.height_degree_down,
-    vssp.width_ns,
-    vssp.width_ew,
-    vssp.stem_diameter,
-    NULL AS stem_height --,
-    -- vssp.distance_ns,
-    -- vssp.direction_ns,
-    -- vssp.distance_ew,
-    -- vssp.direction_ew
-  FROM
-    survey200.sampling_events se
-    JOIN survey200.sites s ON se.site_id = s.site_id
-    JOIN survey200.sampling_events_vegetation_samples sevs ON se.survey_id = sevs.survey_id
-    JOIN survey200.vegetation_samples vs ON sevs.vegetation_sample_id = vs.vegetation_sample_id
-    JOIN survey200.vegetation_taxon_list vtl ON vs.vegetation_taxon_id = vtl.vegetation_taxon_id
-    JOIN survey200.vegetation_survey_shrub_perennials vssp ON vs.vegetation_sample_id = vssp.vegetation_sample_id
-    LEFT JOIN survey200.cv_vegetation_shapes cvvs ON vssp.vegetation_shape_id = cvvs.vegetation_shape_id
-    LEFT JOIN survey200.cv_vegetation_classifications cvvc ON vssp.vegetation_classification_id = cvvc.vegetation_classification_id
-  WHERE
-    s.research_focus::text = ?researchFocus
-    -- AND vs.survey_type::text = 'shrub'::text
-  UNION ALL
-  -- cacti_succulents
-  SELECT
-    EXTRACT (YEAR FROM samp_date) AS year,
-    se.samp_date AS sample_date,
-    s.site_code,
-    -- s.research_focus,
-    -- vs.vegetation_sample_id,
-    -- vs.herbarium_voucher_code,
-    -- vs.sample_identified,
-    -- vs.vegetation_taxon_id,
-    vtl.vegetation_scientific_name,
-    vtl.common_name,
-    -- vs.survey_type,
-    NULL AS vegetation_shape_code,
-    cvvc.vegetation_classification_code,
-    -- vscs.height,
-    CASE
-      WHEN vscs.height_distance IS NULL THEN vscs.height
-      WHEN vscs.height_distance IS NOT NULL THEN NULL
-    END AS height_measured,
-    vscs.height_distance,
-    vscs.height_degree_up,
-    vscs.height_degree_down,
-    vscs.width_ns,
-    vscs.width_ew,
-    vscs.stem_diameter,
-    vscs.stem_height --,
-    -- vscs.distance_ns,
-    -- vscs.direction_ns,
-    -- vscs.distance_ew,
-    -- vscs.direction_ew
-  FROM
-    survey200.sampling_events se
-    JOIN survey200.sites s ON se.site_id = s.site_id
-    JOIN survey200.sampling_events_vegetation_samples sevs ON se.survey_id = sevs.survey_id
-    JOIN survey200.vegetation_samples vs ON sevs.vegetation_sample_id = vs.vegetation_sample_id
-    JOIN survey200.vegetation_taxon_list vtl ON vs.vegetation_taxon_id = vtl.vegetation_taxon_id
-    JOIN survey200.vegetation_survey_cacti_succ vscs ON vs.vegetation_sample_id = vscs.vegetation_sample_id
-    LEFT JOIN survey200.cv_vegetation_classifications cvvc ON vscs.vegetation_classification_id = cvvc.vegetation_classification_id
-  WHERE
-    s.research_focus::text = ?researchFocus
-    -- AND vs.survey_type::text = 'cacti'::text
-  ORDER BY
-    year,
-    site_code
-    ;
-    "
-  
-  shrubs_cacti_succulents_query <- DBI::sqlInterpolate(
-    conn          = DBI::ANSI(),
-    sql           = shrubs_cacti_succulents_base_query,
-    researchFocus = research_focus
+get_shrub_surveys <- function() {
+
+  get_shrub_surveys_base_query <- glue::glue_sql("
+    SELECT
+      sites.site_code,
+      -- sites.research_focus,
+      sampling_events.samp_date AS sample_date,
+      vegetation_taxon_list.vegetation_scientific_name,
+      vegetation_survey_shrub_perennials.*,
+      cv_vegetation_classifications.vegetation_classification_code,
+      cv_vegetation_shapes.vegetation_shape_code
+    FROM
+      survey200.vegetation_survey_shrub_perennials
+      JOIN survey200.vegetation_samples ON (vegetation_survey_shrub_perennials.vegetation_sample_id = vegetation_samples.vegetation_sample_id)
+      JOIN survey200.sampling_events_vegetation_samples ON (vegetation_samples.vegetation_sample_id = sampling_events_vegetation_samples.vegetation_sample_id)
+      JOIN survey200.sampling_events ON (sampling_events_vegetation_samples.survey_id = sampling_events.survey_id)
+      JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+      JOIN survey200.vegetation_taxon_list ON (vegetation_samples.vegetation_taxon_id = vegetation_taxon_list.vegetation_taxon_id)
+      LEFT JOIN survey200.cv_vegetation_classifications ON (vegetation_survey_shrub_perennials.vegetation_classification_id = cv_vegetation_classifications.vegetation_classification_id)
+      LEFT JOIN survey200.cv_vegetation_shapes ON (vegetation_survey_shrub_perennials.vegetation_shape_id = cv_vegetation_shapes.vegetation_shape_id)
+    WHERE
+      sites.research_focus = 'survey200'
+    ORDER BY
+      sampling_events.samp_date,
+      sites.site_code,
+      vegetation_taxon_list.vegetation_scientific_name
+    ",
+    .con = DBI::ANSI()
   )
-  
-  shrubs_cacti_succulents_data <- DBI::dbGetQuery(
-    conn     = pg,
-    statment = shrubs_cacti_succulents_query
-  )
-  
-  return(shrubs_cacti_succulents_data)
-  
+
+  shrub_surveys <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = get_shrub_surveys_base_query
+  ) |>
+    # confirm unique shrub_perennial_id
+    pointblank::col_vals_equal(
+      columns       = n,
+      value         = 1,
+      preconditions = \(x) x |> dplyr::count(shrub_perennial_id),
+      actions       = pointblank::warn_on_fail()
+    )
+
+  return(shrub_surveys)
+
 }
+
 
 # trees -------------------------------------------------------------------
 
-get_trees <- function(research_focus) {
-  
-  trees_base_query <- "
-  -- trees
-  SELECT 
-    se.samp_date AS sample_date,
-    s.site_code,
-    -- s.research_focus,
-    -- vs.vegetation_sample_id,
-    -- vs.herbarium_voucher_code,
-    -- vs.sample_identified,
-    -- vs.vegetation_taxon_id,
-    vtl.vegetation_scientific_name,
-    vtl.common_name,
-    -- vs.survey_type,
-    cvvs.vegetation_shape_code,
-    cvvc.vegetation_classification_code,
-    -- vst.height_in_m AS height,
-    CASE
-      WHEN vst.height_distance IS NULL THEN vst.height_in_m
-      WHEN vst.height_distance IS NOT NULL THEN NULL
-    END AS height_measured,
-    vst.height_distance,
-    vst.height_degree_up,
-    vst.height_degree_down,
-    vst.bottom_canopy_height,
-    vst.crown_deg_down,
-    vst.crown_width_ns AS width_ns,
-    vst.crown_width_ew AS width_ew,
-    vst.stem_diameter,
-    vst.stem_diameter_at AS stem_height,
-    vst.stem_count,
-    vst.missing_branches,
-    vst.canopy_condition --,
-    -- vst.distance_ns,
-    -- vst.direction_ns,
-    -- vst.distance_ew,
-    -- vst.direction_ew
-  FROM
-    survey200.sampling_events se
-    JOIN survey200.sites s ON se.site_id = s.site_id
-    JOIN survey200.sampling_events_vegetation_samples sevs ON se.survey_id = sevs.survey_id
-    JOIN survey200.vegetation_samples vs ON sevs.vegetation_sample_id = vs.vegetation_sample_id
-    JOIN survey200.vegetation_taxon_list vtl ON vs.vegetation_taxon_id = vtl.vegetation_taxon_id
-    JOIN survey200.vegetation_survey_trees vst ON vs.vegetation_sample_id = vst.vegetation_sample_id
-    LEFT JOIN survey200.cv_vegetation_classifications cvvc ON vst.vegetation_classification_id = cvvc.vegetation_classification_id
-    LEFT JOIN survey200.cv_vegetation_shapes cvvs ON vst.vegetation_shape_id = cvvs.vegetation_shape_id
-  WHERE
-    s.research_focus::text = ?researchFocus
-    -- AND vs.survey_type::text = 'tree'::text
-  ORDER BY
-    EXTRACT (YEAR FROM se.samp_date),
-    s.site_code
-    ;
-    "
+get_trees <- function(research_focus = "survey200") {
 
-  trees_query <- DBI::sqlInterpolate(
-    conn          = DBI::ANSI(),
-    sql           = trees_base_query,
-    researchFocus = research_focus
+  get_trees_base_query <- glue::glue_sql("
+    SELECT
+      sites.site_code,
+      sites.research_focus,
+      sampling_events.samp_date AS sample_date,
+      vegetation_taxon_list.vegetation_scientific_name,
+      vegetation_survey_trees.*,
+      cv_vegetation_classifications.vegetation_classification_code,
+      cv_vegetation_shapes.vegetation_shape_code
+    FROM
+      survey200.vegetation_survey_trees
+      JOIN survey200.vegetation_samples ON (vegetation_survey_trees.vegetation_sample_id = vegetation_samples.vegetation_sample_id)
+      JOIN survey200.sampling_events_vegetation_samples ON (vegetation_samples.vegetation_sample_id = sampling_events_vegetation_samples.vegetation_sample_id)
+      JOIN survey200.sampling_events ON (sampling_events_vegetation_samples.survey_id = sampling_events.survey_id)
+      JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+      JOIN survey200.vegetation_taxon_list ON (vegetation_samples.vegetation_taxon_id = vegetation_taxon_list.vegetation_taxon_id)
+      LEFT JOIN survey200.cv_vegetation_classifications ON (vegetation_survey_trees.vegetation_classification_id = cv_vegetation_classifications.vegetation_classification_id)
+      LEFT JOIN survey200.cv_vegetation_shapes ON (vegetation_survey_trees.vegetation_shape_id = cv_vegetation_shapes.vegetation_shape_id)
+    WHERE
+      sites.research_focus = { research_focus }
+    ORDER BY
+      sampling_events.samp_date,
+      sites.site_code,
+      vegetation_taxon_list.vegetation_scientific_name
+    ",
+    .con = DBI::ANSI()
   )
-  
-  trees_data <- DBI::dbGetQuery(
+
+  trees <- DBI::dbGetQuery(
     conn      = pg,
-    statement = trees_query
-  )
-  
-  return(trees_data)
+    statement = get_trees_base_query
+  ) |>
+    # confirm unique tree_id
+    pointblank::col_vals_equal(
+      columns       = n,
+      value         = 1,
+      preconditions = \(x) x |> dplyr::count(tree_id),
+      actions       = pointblank::warn_on_fail()
+    )
+
+  return(trees)
 
 }
-
 
 
 # number_perennials -------------------------------------------------------
 
+get_number_perennials <- function() {
 
-get_number_perennials <- function(research_focus) {
+  # we will need to know the plant_count_type_id for parcels so this query will
+  # work only for plots
+
+  # some 2015 counts appear to be duplicated evidenced by identical values in
+  # each quadrant for each taxa; the seemingly duplicated records are
+  # documented in `presumed_2015_dupes.csv` and are excluded from this query
   
   number_perennials_base_query <- "
-  -- number_perennials
-  SELECT
-    se.samp_date AS sample_date,
-    s.site_code,
-    -- counts.survey_id,
-    -- counts.vegetation_taxon_id,
-    vtl.vegetation_scientific_name,
-    vtl.common_name,
-    counts.number_plants
-  FROM
-  (
-    SELECT
-      se.survey_id,
-      vs.vegetation_taxon_id,
-      SUM(vspc.count_survey_value) AS number_plants
-    FROM
-      survey200.sampling_events se
-      JOIN survey200.sites s ON se.site_id = s.site_id
-      JOIN survey200.sampling_events_vegetation_samples sevs ON se.survey_id = sevs.survey_id
-      JOIN survey200.vegetation_samples vs ON sevs.vegetation_sample_id = vs.vegetation_sample_id
-      JOIN survey200.vegetation_survey_plant_counts vspc ON (vspc.vegetation_sample_id = vs.vegetation_sample_id)
-    WHERE
-      s.research_focus::text = ?researchFocus
-    GROUP BY
-      se.survey_id,
-      vs.vegetation_taxon_id
-  ) AS counts
-  LEFT JOIN survey200.vegetation_taxon_list vtl ON (vtl.vegetation_taxon_id = counts.vegetation_taxon_id)
-  JOIN survey200.sampling_events se ON (se.survey_id = counts.survey_id)
-  JOIN survey200.sites s ON se.site_id = s.site_id
-  ORDER BY
-    EXTRACT (YEAR FROM se.samp_date),
-    s.site_code,
-    vtl.vegetation_scientific_name
+    WITH count_sums AS (
+      SELECT
+        sampling_events.survey_id,
+        vegetation_samples.vegetation_taxon_id,
+        SUM(vegetation_survey_plant_counts.count_survey_value) AS number_plants
+      FROM
+        survey200.vegetation_survey_plant_counts
+        JOIN survey200.vegetation_samples ON (vegetation_survey_plant_counts.vegetation_sample_id = vegetation_samples.vegetation_sample_id)
+        JOIN survey200.sampling_events_vegetation_samples ON (vegetation_samples.vegetation_sample_id = sampling_events_vegetation_samples.vegetation_sample_id)
+        JOIN survey200.sampling_events ON (sampling_events_vegetation_samples.survey_id = sampling_events.survey_id)
+      WHERE
+        vegetation_survey_plant_counts.vegetation_sample_id NOT IN (
+          28952,
+          28951,
+          28949,
+          28950,
+          28944,
+          28946,
+          28943,
+          28953,
+          28947,
+          28948,
+          28945,
+          28587,
+          28586,
+          28028,
+          28025,
+          28031,
+          28027,
+          28023,
+          28026,
+          28024,
+          29344,
+          28032,
+          28029
+        )
+      GROUP BY
+        sampling_events.survey_id,
+        vegetation_samples.vegetation_taxon_id
+      )
+      SELECT
+        sites.site_code,
+        sampling_events.samp_date AS sample_date,
+        vegetation_taxon_list.vegetation_scientific_name,
+        count_sums.number_plants
+      FROM count_sums
+      JOIN survey200.sampling_events ON (sampling_events.survey_id = count_sums.survey_id)
+      JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+      JOIN survey200.vegetation_taxon_list ON (vegetation_taxon_list.vegetation_taxon_id = count_sums.vegetation_taxon_id)
+      WHERE
+        sites.research_focus = 'survey200' AND
+        count_sums.number_plants > 0
+      ORDER BY
+        sampling_events.samp_date,
+        sites.site_code
+    )
     ;
     "
 
   number_perennials_query <- DBI::sqlInterpolate(
     conn          = DBI::ANSI(),
-    sql           = number_perennials_base_query,
-    researchFocus = research_focus
+    sql           = number_perennials_base_query
   )
   
   number_perennials_data <- DBI::dbGetQuery(
@@ -508,7 +443,6 @@ get_number_perennials <- function(research_focus) {
   return(number_perennials_data)
 
 }
-
 
 
 # hedges ------------------------------------------------------------------

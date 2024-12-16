@@ -1,3 +1,4 @@
+## setup
 
 ```{r}
 #| eval: true
@@ -21,8 +22,8 @@ pg <- pg_local_connect("caplter")
 source("esca_sql_queries.R")
 ```
 
-## human indicators
 
+## human indicators
 
 ```{r}
 #| eval: true
@@ -55,6 +56,8 @@ try({
 ```
 
 
+## landscape irrigation
+
 ```{r}
 #| eval: true
 #| label: landscape_irrigation
@@ -86,5 +89,96 @@ landscape_irrigation <- landscape_irrigation |>
 try({
   capeml::write_attributes(landscape_irrigation, overwrite = FALSE)
   capeml::write_factors(landscape_irrigation, overwrite = FALSE)
+})
+```
+
+
+## annuals
+
+```{r}
+#| eval: true
+#| label: annuals
+
+annuals <- get_annuals() |>
+  dplyr::mutate(
+    vegetation_rope_length = dplyr::case_when(
+      vegetation_rope_length > 60 ~ 60,
+      TRUE ~ vegetation_rope_length
+    )
+  )
+
+try({
+  capeml::write_attributes(annuals, overwrite = FALSE)
+})
+```
+
+
+## shrub surveys
+
+```{r}
+#| eval: true
+#| label: shrub_surveys
+
+shrubs_surveys <- get_shrub_surveys() |>
+  dplyr::mutate(
+    vegetation_shape_code          = as.factor(vegetation_shape_code),
+    vegetation_classification_code = as.factor(vegetation_classification_code)
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    vegetation_scientific_name,
+    vegetation_classification_code,
+    vegetation_shape_code,
+    height,
+    width_ns,
+    width_ew
+  )
+
+try({
+  capeml::write_attributes(shrubs_surveys, overwrite = FALSE)
+  capeml::write_factors(shrubs_surveys, overwrite = FALSE)
+})
+
+# dplyr::mutate(
+#   calc = dplyr::case_when(
+#     height_degree_down < 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance,
+#     height_degree_down > 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance
+#   )
+
+```
+
+
+## trees
+
+```{r}
+#| eval: true
+#| label: trees
+
+trees <- get_trees("survey200") |>
+  dplyr::mutate(
+    vegetation_shape_code          = as.factor(vegetation_shape_code),
+    vegetation_classification_code = as.factor(vegetation_classification_code),
+    canopy_condition               = as.factor(canopy_condition)
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    vegetation_scientific_name,
+    vegetation_classification_code,
+    vegetation_shape_code,
+    height = height_in_m,
+    crown_width_ns,
+    crown_width_ew,
+    stem_diameter,
+    stem_height = stem_diameter_at,
+    stem_count,
+    missing_branches,
+    canopy_condition
+  )
+
+try({
+  capeml::write_attributes(trees, overwrite = FALSE)
+  capeml::write_factors(trees, overwrite = FALSE)
 })
 ```
