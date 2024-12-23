@@ -115,6 +115,40 @@ try({
 
 ## shrub surveys
 
+Some 2015 counts appear to be duplicated as evidenced by identical values in
+each quadrant for each taxa. One instance from each of the duplicates,
+documented below, is excluded from the query. Note that this is not a database
+or query issue as the duplication is reflected in the tablet output. Because the
+issue cannot be resolved unequivocally, the records are removed from the query
+rather than removed from the database.
+
+```
+site_code ,samp_date  ,vegetation_scientific_name                             ,vegetation_sample_id
+AB10      ,2015-04-09 ,Acacia constricta                                      ,               28952
+AB10      ,2015-04-09 ,Acacia greggii                                         ,               28951
+AB10      ,2015-04-09 ,Calliandra eriophylla                                  ,               28949
+AB10      ,2015-04-09 ,Celtis pallida                                         ,               28950
+AB10      ,2015-04-09 ,Cylindropuntia acanthocarpa                            ,               28944
+AB10      ,2015-04-09 ,Krameria grayi                                         ,               28946
+AB10      ,2015-04-09 ,Leucophyllum laevigatum                                ,               28943
+AB10      ,2015-04-09 ,Phoradendron californicum                              ,               28953
+AB10      ,2015-04-09 ,Senna covesii                                          ,               28947
+AB10      ,2015-04-09 ,Sphaeralcea ambigua                                    ,               28948
+AB10      ,2015-04-09 ,Viguiera deltoidea var. parishii (Greene) Vasey & Rose ,               28945
+F8        ,2015-04-06 ,Ambrosia deltoidea                                     ,               28587
+F8        ,2015-04-06 ,Larrea tridentata                                      ,               28586
+V7        ,2015-04-08 ,Acacia greggii                                         ,               28028
+V7        ,2015-04-08 ,Ambrosia deltoidea                                     ,               28025
+V7        ,2015-04-08 ,Baccharis                                              ,               28031
+V7        ,2015-04-08 ,Cylindropuntia acanthocarpa                            ,               28027
+V7        ,2015-04-08 ,Ferocactus cylindraceus                                ,               28023
+V7        ,2015-04-08 ,Larrea tridentata                                      ,               28026
+V7        ,2015-04-08 ,Lycium                                                 ,               28024
+V7        ,2015-04-08 ,Lycium                                                 ,               29344
+V7        ,2015-04-08 ,Lycium andersonii                                      ,               28032
+V7        ,2015-04-08 ,Ziziphus obtusifolia                                   ,               28029
+```
+
 ```{r}
 #| eval: true
 #| label: shrub_surveys
@@ -180,5 +214,32 @@ trees <- get_trees("survey200") |>
 try({
   capeml::write_attributes(trees, overwrite = FALSE)
   capeml::write_factors(trees, overwrite = FALSE)
+})
+
+trees <- get_trees("survey200") |>
+  dplyr::mutate(
+    vegetation_shape_code          = as.factor(vegetation_shape_code),
+    vegetation_classification_code = as.factor(vegetation_classification_code),
+    canopy_condition               = as.factor(canopy_condition)
+  ) |>
+dplyr::mutate(
+  calc = dplyr::case_when(
+    !is.na(height_degree_down) & !is.na(height_degree_down) & !is.na(height_degree_down) ~ (tan(height_distance) - tan(height_degree_down)) * height_distance,
+    # height_degree_down < 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance,
+    # height_degree_down > 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance
+  )
+)
+```
+
+## perennials
+
+```{r}
+#| eval: true
+#| label: perennials
+
+number_perennials <- get_perennials()
+
+try({
+  capeml::write_attributes(number_perennials, overwrite = FALSE)
 })
 ```

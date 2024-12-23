@@ -361,14 +361,10 @@ get_trees <- function(research_focus = "survey200") {
 
 # number_perennials -------------------------------------------------------
 
-get_number_perennials <- function() {
+get_perennials <- function() {
 
   # we will need to know the plant_count_type_id for parcels so this query will
   # work only for plots
-
-  # some 2015 counts appear to be duplicated evidenced by identical values in
-  # each quadrant for each taxa; the seemingly duplicated records are
-  # documented in `presumed_2015_dupes.csv` and are excluded from this query
   
   number_perennials_base_query <- "
     WITH count_sums AS (
@@ -450,54 +446,28 @@ get_number_perennials <- function() {
 get_hedges <- function(research_focus) {
   
   hedges_base_query <- "
-  -- hedges
   SELECT
-    se.samp_date AS sample_date,
-    s.site_code,
-    -- s.research_focus,
-    -- vs.vegetation_sample_id,
-    -- vs.herbarium_voucher_code,
-    -- vs.sample_identified,
-    -- vs.vegetation_taxon_id,
-    vtl.vegetation_scientific_name,
-    vtl.common_name,
-    -- vs.survey_type,
-    cvvs.vegetation_shape_code,
-    vsh.stem_diam,
-    -- vsh.height,
-    CASE
-      WHEN vsh.height_distance IS NULL THEN vsh.height
-      WHEN vsh.height_distance IS NOT NULL THEN NULL
-    END AS height_measured,
-    vsh.height_distance,
-    vsh.height_degree_up,
-    vsh.height_degree_down,
-    vsh.width,
-    vsh.length,
-    vsh.crown_height,
-    vsh.percent_missing,
-    vsh.hedge_condition,
-    vsh.number_of_plants --,
-    -- vsh.distance_ns,
-    -- vsh.direction_ns,
-    -- vsh.distance_ew,
-    -- vsh.direction_ew
+    sites.site_code,
+    sites.research_focus,
+    sampling_events.samp_date AS sample_date,
+    vegetation_taxon_list.vegetation_scientific_name,
+    vegetation_survey_hedges.*,
+    cv_vegetation_classifications.vegetation_classification_code,
+    cv_vegetation_shapes.vegetation_shape_code
   FROM
-    survey200.sampling_events se
-    JOIN survey200.sites s ON se.site_id = s.site_id
-    JOIN survey200.sampling_events_vegetation_samples sevs ON se.survey_id = sevs.survey_id
-    JOIN survey200.vegetation_samples vs ON sevs.vegetation_sample_id = vs.vegetation_sample_id
-    LEFT JOIN survey200.vegetation_taxon_list vtl ON vs.vegetation_taxon_id = vtl.vegetation_taxon_id
-    JOIN survey200.vegetation_survey_hedges vsh ON vs.vegetation_sample_id = vsh.vegetation_sample_id
-    LEFT JOIN survey200.cv_vegetation_shapes cvvs ON vsh.vegetation_shape_id = cvvs.vegetation_shape_id
-  WHERE
-      s.research_focus::text = ?researchFocus
-    --AND vs.survey_type::text = 'hedge'::text
+    survey200.vegetation_survey_hedges
+  JOIN survey200.vegetation_samples ON (vegetation_survey_hedges.vegetation_sample_id = vegetation_samples.vegetation_sample_id)
+  JOIN survey200.sampling_events_vegetation_samples ON (vegetation_samples.vegetation_sample_id = sampling_events_vegetation_samples.vegetation_sample_id)
+  JOIN survey200.sampling_events ON (sampling_events_vegetation_samples.survey_id = sampling_events.survey_id)
+  JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+  JOIN survey200.vegetation_taxon_list ON (vegetation_samples.vegetation_taxon_id = vegetation_taxon_list.vegetation_taxon_id)
+  LEFT JOIN survey200.cv_vegetation_classifications ON (vegetation_survey_hedges.vegetation_classification_id = cv_vegetation_classifications.vegetation_classification_id)
+  LEFT JOIN survey200.cv_vegetation_shapes ON (vegetation_survey_hedges.vegetation_shape_id = cv_vegetation_shapes.vegetation_shape_id)
   ORDER BY
-    EXTRACT (YEAR FROM se.samp_date),
-    s.site_code
-    ;
-    "
+    sampling_events.samp_date,
+    sites.site_code
+  ;
+  "
 
   hedges_query <- DBI::sqlInterpolate(
     conn          = DBI::ANSI(),
