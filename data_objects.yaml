@@ -16,4 +16,57 @@ landscape_irrigation:
   projectNaming: TRUE
   missingValueCode: ~
   additional_information: ~
-
+annuals:
+  type: table
+  dfname: annuals
+  description: "Catalog of all annual plants identified within the study plot."
+  dateRangeField: "~"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+shrubs_surveys:
+  type: table
+  dfname: shrubs_surveys
+  description: "Biovolume and characteristics of shrubs and succulent plants within study plots; up to five plants of each type are surveyed."
+  dateRangeField: "~"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+trees:
+  type: table
+  dfname: trees
+  description: "Biovolume and characteristics of shrubs and succulent plants within study plots; up to five plants of each type are surveyed."
+  dateRangeField: "~"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+number_perennials:
+  type: table
+  dfname: number_perennials
+  description: "The number of perennial plants in the study plot, except Saguaros and mature trees, the numbers of which are available in the trees data that are part of this data set."
+  dateRangeField: "~"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+hedges:
+  type: table
+  dfname: hedges
+  description: "The number of perennial plants in the study plot, except Saguaros and mature trees, the numbers of which are available in the trees data that are part of this data set."
+  dateRangeField: "~"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+landuse:
+  type: table
+  dfname: landuse
+  description: "The number of perennial plants in the study plot, except Saguaros and mature trees, the numbers of which are available in the trees data that are part of this data set."
+  dateRangeField: "~"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~

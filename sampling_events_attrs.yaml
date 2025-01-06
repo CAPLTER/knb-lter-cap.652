@@ -1,0 +1,79 @@
+|
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  elevation:
+    attributeName: elevation
+    attributeDefinition: 'survey plot elevation'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: natural
+    minimum: 249.0
+    maximum: 909.0
+    columnClasses: numeric
+  slope:
+    attributeName: slope
+    attributeDefinition: 'predominant slope of survey plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'DEG'
+    numberType: integer
+    minimum: -32.0
+    maximum: 15.0
+    columnClasses: numeric
+  aspect:
+    attributeName: aspect
+    attributeDefinition: 'predominant aspect of survey plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  weather_on_the_day:
+    attributeName: weather_on_the_day
+    attributeDefinition: 'general description of weather on the day of sampling'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  weather_recent_rain_notes:
+    attributeName: weather_recent_rain_notes
+    attributeDefinition: 'notes relating to evidence of recent rain at the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  general_description:
+    attributeName: general_description
+    attributeDefinition: 'general description of the survey plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''

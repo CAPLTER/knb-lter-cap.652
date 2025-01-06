@@ -1,0 +1,40 @@
+|
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  vegetation_scientific_name:
+    attributeName: vegetation_scientific_name
+    attributeDefinition: 'scientific name of plant'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  number_plants:
+    attributeName: number_plants
+    attributeDefinition: 'number of plants of this type'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'NUM'
+    numberType: natural
+    minimum: 1.0
+    maximum: 5200.0
+    columnClasses: numeric

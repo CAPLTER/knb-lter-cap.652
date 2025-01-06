@@ -286,7 +286,7 @@ get_shrub_surveys <- function() {
     WHERE
       sites.research_focus = 'survey200'
     ORDER BY
-      sampling_events.samp_date,
+      EXTRACT (YEAR FROM sampling_events.samp_date),
       sites.site_code,
       vegetation_taxon_list.vegetation_scientific_name
     ",
@@ -335,7 +335,7 @@ get_trees <- function(research_focus = "survey200") {
     WHERE
       sites.research_focus = { research_focus }
     ORDER BY
-      sampling_events.samp_date,
+      EXTRACT (YEAR FROM sampling_events.samp_date),
       sites.site_code,
       vegetation_taxon_list.vegetation_scientific_name
     ",
@@ -420,9 +420,8 @@ get_perennials <- function() {
         sites.research_focus = 'survey200' AND
         count_sums.number_plants > 0
       ORDER BY
-        sampling_events.samp_date,
+        EXTRACT (YEAR FROM sampling_events.samp_date),
         sites.site_code
-    )
     ;
     "
 
@@ -434,7 +433,14 @@ get_perennials <- function() {
   number_perennials_data <- DBI::dbGetQuery(
     conn      = pg,
     statement = number_perennials_query
-  )
+  ) |>
+    # confirm unique: site_code, sample_date, vegetation_scientific_name
+    pointblank::col_vals_equal(
+      columns       = n,
+      value         = 1,
+      preconditions = \(x) x |> dplyr::count(site_code, sample_date, vegetation_scientific_name),
+      actions       = pointblank::warn_on_fail()
+    )
 
   return(number_perennials_data)
 
@@ -443,15 +449,21 @@ get_perennials <- function() {
 
 # hedges ------------------------------------------------------------------
 
-get_hedges <- function(research_focus) {
+get_hedges <- function() {
   
   hedges_base_query <- "
   SELECT
     sites.site_code,
-    sites.research_focus,
+    -- sites.research_focus,
     sampling_events.samp_date AS sample_date,
     vegetation_taxon_list.vegetation_scientific_name,
-    vegetation_survey_hedges.*,
+    vegetation_survey_hedges.height,
+    vegetation_survey_hedges.width,
+    vegetation_survey_hedges.length,
+    -- vegetation_survey_hedges.crown_height,
+    vegetation_survey_hedges.percent_missing,
+    vegetation_survey_hedges.hedge_condition,
+    vegetation_survey_hedges.number_of_plants,
     cv_vegetation_classifications.vegetation_classification_code,
     cv_vegetation_shapes.vegetation_shape_code
   FROM
@@ -464,8 +476,8 @@ get_hedges <- function(research_focus) {
   LEFT JOIN survey200.cv_vegetation_classifications ON (vegetation_survey_hedges.vegetation_classification_id = cv_vegetation_classifications.vegetation_classification_id)
   LEFT JOIN survey200.cv_vegetation_shapes ON (vegetation_survey_hedges.vegetation_shape_id = cv_vegetation_shapes.vegetation_shape_id)
   ORDER BY
-    sampling_events.samp_date,
-    sites.site_code
+    EXTRACT (YEAR FROM sampling_events.samp_date),
+    sites.site_code ASC
   ;
   "
 
@@ -490,7 +502,6 @@ get_hedges <- function(research_focus) {
 get_landuse <- function(research_focus) {
   
   landuse_base_query <- "
-  -- landuse 
   SELECT
     -- se.survey_id,
     se.samp_date AS sample_date,
@@ -579,7 +590,6 @@ get_neighborhood_characteristics <- function(research_focus) {
     s.site_code
     ;
     "
-  
 
   neighborhood_characterization_query <- DBI::sqlInterpolate(
     conn          = DBI::ANSI(),
@@ -600,22 +610,20 @@ get_neighborhood_characteristics <- function(research_focus) {
 # structures -------------------------------------------------
 
 get_structures <- function(research_focus) {
-  
   structures_base_query <- "
-  -- structures
   SELECT
     se.samp_date AS sample_date,
     s.site_code,
     -- s.research_focus,
-    hs.structure_use,
+    hs.structure_use --,
     -- hs.height,
-    CASE
-      WHEN hs.height_distance IS NULL THEN hs.height
-      WHEN hs.height_distance IS NOT NULL THEN NULL
-    END AS height_measured,
-    hs.height_distance,
-    hs.height_degree_up,
-    hs.height_degree_down--,
+    -- CASE
+    --   WHEN hs.height_distance IS NULL THEN hs.height
+    --   WHEN hs.height_distance IS NOT NULL THEN NULL
+    -- END AS height_measured,
+    -- hs.height_distance,
+    -- hs.height_degree_up,
+    -- hs.height_degree_down
   FROM
     survey200.sampling_events se
     JOIN survey200.sites s ON se.site_id = s.site_id
@@ -651,25 +659,24 @@ get_structures <- function(research_focus) {
 get_sampling_events <- function(research_focus) {
   
   sampling_events_base_query <- "
-  -- sampling events
   SELECT
-    se.samp_date AS sample_date,
-    s.site_code,
-    s.elevation,
-    s.slope,
-    -- s.aspect,
+    sampling_events.samp_date AS sample_date,
+    sites.site_code,
+    sites.elevation,
+    sites_geography.slope,
+    sites_geography.aspect,
     hi.weather_on_the_day,
     hi.weather_recent_rain_notes,
     hi.general_description
-  FROM
-    survey200.sampling_events se
-    JOIN survey200.sites s ON se.site_id = s.site_id
-    JOIN survey200.human_indicators hi ON se.survey_id = hi.survey_id
+  FROM survey200.sampling_events
+  JOIN survey200.sites ON (sampling_events.site_id = sites.site_id)
+  JOIN survey200.human_indicators hi ON (sampling_events.survey_id = hi.survey_id)
+  LEFT JOIN survey200.sites_geography ON (sites_geography.survey_id = sampling_events.survey_id)
   WHERE
-    s.research_focus::text = ?researchFocus
+    sites.research_focus::text = ?researchFocus
   ORDER BY
-    EXTRACT (YEAR FROM se.samp_date),
-    s.site_code
+    EXTRACT (YEAR FROM sampling_events.samp_date),
+    sites.site_code
     ;
     "
   
@@ -762,7 +769,6 @@ get_soil_center_cores <- function() {
 
 
 # soil_texture_2000 -------------------------------------------------------
-
 
 get_soil_texture_2000 <- function() {
   
@@ -969,33 +975,33 @@ get_soil_perimeter_cores <- function() {
 # arthropods --------------------------------------------------------------
 
 # note that this query is throttled to not include 2015 results as those samples
-# have not been complted at the time of publication. We will need to update the
+# have not been completed at the time of publication. We will need to update the
 # version when David et al. finish the 2015 arthropods.
 
 get_arthropods <- function() {
   
   arthropods_base_query <- "
   SELECT
-    se.samp_date AS sample_date,
-    s.site_code,
-    ss.sweepnet_sample_type,
-    vtl.vegetation_scientific_name AS substratum,
+    sampling_events.samp_date AS sample_date,
+    sites.site_code,
+    sweepnet_samples.sweepnet_sample_type,
+    vegetation_taxon_list.vegetation_scientific_name AS substratum,
     itl.insect_scientific_name AS arthropod_scientific_name,
     ssic.count_of_insect AS number_of_arthropods,
-    ss.notes
+    sweepnet_samples.notes
   FROM
-    survey200.sampling_events se
-    JOIN survey200.sites s ON se.site_id = s.site_id
-    JOIN survey200.sweepnet_samples ss ON se.survey_id = ss.survey_id
-    LEFT JOIN survey200.vegetation_taxon_list vtl ON ss.vegetation_taxon_id = vtl.vegetation_taxon_id
-    JOIN survey200.sweepnet_sample_insect_counts ssic ON ss.sweepnet_sample_id = ssic.sweepnet_sample_id
-    JOIN survey200.insect_taxon_list itl ON ssic.insect_taxon_id = itl.insect_taxon_id
+    survey200.sampling_events
+    JOIN survey200.sites ON (sampling_events.site_id = sites.site_id)
+    JOIN survey200.sweepnet_samples ON (sampling_events.survey_id = sweepnet_samples.survey_id)
+    LEFT JOIN survey200.vegetation_taxon_list ON (sweepnet_samples.vegetation_taxon_id = vegetation_taxon_list.vegetation_taxon_id)
+    JOIN survey200.sweepnet_sample_insect_counts ssic ON (sweepnet_samples.sweepnet_sample_id = ssic.sweepnet_sample_id)
+    JOIN survey200.insect_taxon_list itl ON (ssic.insect_taxon_id = itl.insect_taxon_id)
   -- WHERE
-  --   EXTRACT (YEAR FROM se.samp_date) <= 2010
+  --   EXTRACT (YEAR FROM sampling_events.samp_date) <= 2010
   ORDER BY
-    EXTRACT (YEAR FROM se.samp_date),
-    s.site_code,
-    vtl.vegetation_scientific_name
+    EXTRACT (YEAR FROM sampling_events.samp_date),
+    sites.site_code,
+    vegetation_taxon_list.vegetation_scientific_name
     ;
     "
 

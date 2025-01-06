@@ -115,40 +115,6 @@ try({
 
 ## shrub surveys
 
-Some 2015 counts appear to be duplicated as evidenced by identical values in
-each quadrant for each taxa. One instance from each of the duplicates,
-documented below, is excluded from the query. Note that this is not a database
-or query issue as the duplication is reflected in the tablet output. Because the
-issue cannot be resolved unequivocally, the records are removed from the query
-rather than removed from the database.
-
-```
-site_code ,samp_date  ,vegetation_scientific_name                             ,vegetation_sample_id
-AB10      ,2015-04-09 ,Acacia constricta                                      ,               28952
-AB10      ,2015-04-09 ,Acacia greggii                                         ,               28951
-AB10      ,2015-04-09 ,Calliandra eriophylla                                  ,               28949
-AB10      ,2015-04-09 ,Celtis pallida                                         ,               28950
-AB10      ,2015-04-09 ,Cylindropuntia acanthocarpa                            ,               28944
-AB10      ,2015-04-09 ,Krameria grayi                                         ,               28946
-AB10      ,2015-04-09 ,Leucophyllum laevigatum                                ,               28943
-AB10      ,2015-04-09 ,Phoradendron californicum                              ,               28953
-AB10      ,2015-04-09 ,Senna covesii                                          ,               28947
-AB10      ,2015-04-09 ,Sphaeralcea ambigua                                    ,               28948
-AB10      ,2015-04-09 ,Viguiera deltoidea var. parishii (Greene) Vasey & Rose ,               28945
-F8        ,2015-04-06 ,Ambrosia deltoidea                                     ,               28587
-F8        ,2015-04-06 ,Larrea tridentata                                      ,               28586
-V7        ,2015-04-08 ,Acacia greggii                                         ,               28028
-V7        ,2015-04-08 ,Ambrosia deltoidea                                     ,               28025
-V7        ,2015-04-08 ,Baccharis                                              ,               28031
-V7        ,2015-04-08 ,Cylindropuntia acanthocarpa                            ,               28027
-V7        ,2015-04-08 ,Ferocactus cylindraceus                                ,               28023
-V7        ,2015-04-08 ,Larrea tridentata                                      ,               28026
-V7        ,2015-04-08 ,Lycium                                                 ,               28024
-V7        ,2015-04-08 ,Lycium                                                 ,               29344
-V7        ,2015-04-08 ,Lycium andersonii                                      ,               28032
-V7        ,2015-04-08 ,Ziziphus obtusifolia                                   ,               28029
-```
-
 ```{r}
 #| eval: true
 #| label: shrub_surveys
@@ -216,22 +182,58 @@ try({
   capeml::write_factors(trees, overwrite = FALSE)
 })
 
-trees <- get_trees("survey200") |>
-  dplyr::mutate(
-    vegetation_shape_code          = as.factor(vegetation_shape_code),
-    vegetation_classification_code = as.factor(vegetation_classification_code),
-    canopy_condition               = as.factor(canopy_condition)
-  ) |>
-dplyr::mutate(
-  calc = dplyr::case_when(
-    !is.na(height_degree_down) & !is.na(height_degree_down) & !is.na(height_degree_down) ~ (tan(height_distance) - tan(height_degree_down)) * height_distance,
-    # height_degree_down < 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance,
-    # height_degree_down > 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance
-  )
-)
+# investigating height via clinometer
+
+# trees <- get_trees("survey200") |>
+#   dplyr::mutate(
+#     vegetation_shape_code          = as.factor(vegetation_shape_code),
+#     vegetation_classification_code = as.factor(vegetation_classification_code),
+#     canopy_condition               = as.factor(canopy_condition)
+#   ) |>
+# dplyr::mutate(
+#   calc = dplyr::case_when(
+#     !is.na(height_degree_down) & !is.na(height_degree_down) & !is.na(height_degree_down) ~ (tan(height_distance) - tan(height_degree_down)) * height_distance,
+#     height_degree_down < 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance,
+#     height_degree_down > 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance
+#   )
+# )
 ```
 
 ## perennials
+
+Some 2015 counts appear to be duplicated as evidenced by identical values in
+each quadrant for each taxa. One instance from each of the duplicates,
+documented below, is excluded from the query. Note that this is not a database
+or query issue as the duplication is reflected in the tablet output. Because the
+issue cannot be resolved unequivocally, the records are removed from the query
+rather than removed from the database.
+
+```
+site_code ,samp_date  ,vegetation_scientific_name                             ,vegetation_sample_id
+AB10      ,2015-04-09 ,Acacia constricta                                      ,               28952
+AB10      ,2015-04-09 ,Acacia greggii                                         ,               28951
+AB10      ,2015-04-09 ,Calliandra eriophylla                                  ,               28949
+AB10      ,2015-04-09 ,Celtis pallida                                         ,               28950
+AB10      ,2015-04-09 ,Cylindropuntia acanthocarpa                            ,               28944
+AB10      ,2015-04-09 ,Krameria grayi                                         ,               28946
+AB10      ,2015-04-09 ,Leucophyllum laevigatum                                ,               28943
+AB10      ,2015-04-09 ,Phoradendron californicum                              ,               28953
+AB10      ,2015-04-09 ,Senna covesii                                          ,               28947
+AB10      ,2015-04-09 ,Sphaeralcea ambigua                                    ,               28948
+AB10      ,2015-04-09 ,Viguiera deltoidea var. parishii (Greene) Vasey & Rose ,               28945
+F8        ,2015-04-06 ,Ambrosia deltoidea                                     ,               28587
+F8        ,2015-04-06 ,Larrea tridentata                                      ,               28586
+V7        ,2015-04-08 ,Acacia greggii                                         ,               28028
+V7        ,2015-04-08 ,Ambrosia deltoidea                                     ,               28025
+V7        ,2015-04-08 ,Baccharis                                              ,               28031
+V7        ,2015-04-08 ,Cylindropuntia acanthocarpa                            ,               28027
+V7        ,2015-04-08 ,Ferocactus cylindraceus                                ,               28023
+V7        ,2015-04-08 ,Larrea tridentata                                      ,               28026
+V7        ,2015-04-08 ,Lycium                                                 ,               28024
+V7        ,2015-04-08 ,Lycium                                                 ,               29344
+V7        ,2015-04-08 ,Lycium andersonii                                      ,               28032
+V7        ,2015-04-08 ,Ziziphus obtusifolia                                   ,               28029
+```
 
 ```{r}
 #| eval: true
@@ -241,5 +243,138 @@ number_perennials <- get_perennials()
 
 try({
   capeml::write_attributes(number_perennials, overwrite = FALSE)
+})
+```
+
+## hedges
+
+```{r}
+#| eval: true
+#| label: hedges
+
+hedges <- get_hedges() |>
+  dplyr::mutate(
+    vegetation_shape_code = as.factor(vegetation_shape_code),
+    hedge_condition       = tolower(hedge_condition),
+    hedge_condition       = as.factor(hedge_condition)
+  )
+
+try({
+  capeml::write_attributes(hedges, overwrite = FALSE)
+  capeml::write_factors(hedges, overwrite = FALSE)
+})
+```
+
+## landuse
+
+```{r}
+#| eval: true
+#| label: landuse
+
+landuse <- get_landuse("survey200")
+
+try({
+  capeml::write_attributes(landuse, overwrite = FALSE)
+})
+```
+
+## neighborhood_characteristics
+
+```{r}
+#| eval: true
+#| label: neighborhood_characteristics
+
+neighborhood_characteristics <- get_neighborhood_characteristics("survey200") |>
+  dplyr::mutate(
+    neigh_social_class_poor                     = as.factor(neigh_social_class_poor),
+    neigh_social_class_rich                     = as.factor(neigh_social_class_rich),
+    neigh_social_class_upper_middle             = as.factor(neigh_social_class_upper_middle),
+    neigh_social_class_working_lower            = as.factor(neigh_social_class_working_lower),
+    neigh_buildings_residential                 = as.factor(neigh_buildings_residential),
+    neigh_buildings_commercial                  = as.factor(neigh_buildings_commercial),
+    neigh_buildings_institutional               = as.factor(neigh_buildings_institutional),
+    neigh_buildings_industrial                  = as.factor(neigh_buildings_industrial),
+    neigh_residence_apartments                  = as.factor(neigh_residence_apartments),
+    neigh_residence_multi_family                = as.factor(neigh_residence_multi_family),
+    neigh_residence_single_family               = as.factor(neigh_residence_single_family),
+    neigh_irrigation_drip_trickle               = as.factor(neigh_irrigation_drip_trickle),
+    neigh_irrigation_flood_hand                 = as.factor(neigh_irrigation_flood_hand),
+    neigh_irrigation_overhead_spray             = as.factor(neigh_irrigation_overhead_spray),
+    neigh_yard_upkeep_good                      = as.factor(neigh_yard_upkeep_good),
+    neigh_yard_upkeep_poor                      = as.factor(neigh_yard_upkeep_poor),
+    neigh_yard_upkeep_professionally_maintained = as.factor(neigh_yard_upkeep_professionally_maintained),
+    neigh_landscape_mesic                       = as.factor(neigh_landscape_mesic),
+    neigh_landscape_mixed                       = as.factor(neigh_landscape_mixed),
+    neigh_landscape_xeric                       = as.factor(neigh_landscape_xeric),
+    neigh_landscape_turf_present                = as.factor(neigh_landscape_turf_present),
+    neigh_traffic_collector_street              = as.factor(neigh_traffic_collector_street),
+    neigh_traffic_cul_de_sac                    = as.factor(neigh_traffic_cul_de_sac),
+    neigh_traffic_dirt_road                     = as.factor(neigh_traffic_dirt_road),
+    neigh_traffic_freeway_expressway            = as.factor(neigh_traffic_freeway_expressway),
+    neigh_traffic_highway                       = as.factor(neigh_traffic_highway),
+    neigh_traffic_major_city_road               = as.factor(neigh_traffic_major_city_road),
+    neigh_traffic_none                          = as.factor(neigh_traffic_none),
+    neigh_traffic_paved_local_street            = as.factor(neigh_traffic_paved_local_street)
+  )
+
+try({
+  capeml::write_attributes(neighborhood_characteristics, overwrite = FALSE)
+  capeml::write_factors(neighborhood_characteristics, overwrite = FALSE)
+})
+```
+
+## structures
+
+```{r}
+#| eval: true
+#| label: structures
+
+structures <- get_structures("survey200") |>
+  dplyr::mutate(
+    structure_use = dplyr::case_when(
+      grepl(
+        pattern     = "agave",
+        x           = structure_use,
+        ignore.case = TRUE
+      ) ~ "house",
+      TRUE ~ structure_use
+    )
+  )
+
+try({
+  capeml::write_attributes(structures, overwrite = FALSE)
+})
+```
+
+## sampling_events
+
+```{r}
+#| eval: true
+#| label: sampling_events
+
+sampling_events <- get_sampling_events('survey200')
+
+try({
+  capeml::write_attributes(sampling_events, overwrite = FALSE)
+})
+```
+
+## soil_center_cores
+## soil_lachat
+## soil_traacs
+## soil_perimeter_core
+
+## arthropods
+
+```{r}
+#| eval: true
+#| label: arthropods
+
+arthropods <- get_arthropods() |>
+  dplyr::mutate(sweepnet_sample_type = as.factor(sweepnet_sample_type))
+
+try({
+  capeml::write_attributes(arthropods, overwrite = FALSE)
+  capeml::write_factors(arthropods, overwrite = FALSE)
 })
 ```

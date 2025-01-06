@@ -1,0 +1,10 @@
+|
+  - attribute:
+      attributeName: sweepnet_sample_type
+      levels:
+      - code: ground sweep
+        definition: 'sweepnet was collected from sweeps of the ground'
+      - code: plant
+        definition: 'sweepnet collected from a single plant'
+      - code: unknown
+        definition: 'substratum from which the sweepnet sample was collected is not known or was not reported'

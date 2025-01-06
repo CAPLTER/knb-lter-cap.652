@@ -1,0 +1,66 @@
+|
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  sweepnet_sample_type:
+    attributeName: sweepnet_sample_type
+    attributeDefinition: 'substratum from which the sweepnet sample was collected'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  substratum:
+    attributeName: substratum
+    attributeDefinition: 'Name or description of the substratum from which the sweepnet sample was collected typically this is the scientific name of a plant but may be otherwise if the sample was not collected from a single plant.'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  arthropod_scientific_name:
+    attributeName: arthropod_scientific_name
+    attributeDefinition: 'scientific name of the arthropod'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  number_of_arthropods:
+    attributeName: number_of_arthropods
+    attributeDefinition: 'number of arthropod of that type collected in that sweepnet sample'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'NUM'
+    numberType: natural
+    minimum: 1
+    maximum: 696
+    columnClasses: numeric
+  notes:
+    attributeName: notes
+    attributeDefinition: 'notes regarding sample collection or processing'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''

@@ -1,0 +1,25 @@
+|
+  - attribute:
+      attributeName: hedge_condition
+      levels:
+      - code: excellent
+        definition: excellent
+      - code: fair
+        definition: fair
+      - code: good
+        definition: good
+  - attribute:
+      attributeName: vegetation_shape_code
+      levels:
+      - code: box
+        definition: box
+      - code: elliptic
+        definition: elliptic
+      - code: hedged
+        definition: hedged
+      - code: natural
+        definition: natural
+      - code: rounded
+        definition: rounded
+      - code: spreading
+        definition: spreading
