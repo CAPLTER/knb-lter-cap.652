@@ -701,55 +701,54 @@ get_sampling_events <- function(research_focus) {
 get_soil_center_cores <- function() {
   
   soil_center_cores_base_query <- "
-  SELECT
-    se.samp_date AS sample_date,
-    s.site_code,
-    /*
-      CASE
-    WHEN EXTRACT (YEAR FROM se.samp_date) < 2015 THEN ss.location_description
-    WHEN EXTRACT (YEAR FROM se.samp_date) = 2015 THEN ss.location_description_center
-    END AS core_location_description,
-    */
-    ss.sampling_notes,
-    scc.core_height_cm,
-    scc.soil_bulkdensity_fw,
-    scc.dw_more_2_mm,
-    scc.dw_less_2_mm,
-    scc.plant_matter,
-    scc.conductivity,
-    scc.ph_value,
-    scc.pan,
-    scc.pan_plus_fw,
-    scc.pan_plus_dw60,
-    scc.pan_plus_dw105,
-    scc.soil_texture_fw,
-    scc.temperature,
-    scc.r05,
-    scc.r1,
-    scc.t1,
-    scc.r90,
-    scc.t90,
-    scc.r1440,
-    scc.t1440,
-    scc.notes,
-    scc.cal_texture_fw,
-    scc.cal_temp,
-    scc.cal_r05,
-    scc.cal_r1,
-    scc.cal_t1,
-    scc.cal_r90,
-    scc.cal_t90,
-    scc.cal_r1440,
-    scc.cal_t1440,
-    scc.cal_run_date
-  FROM
-    survey200.sampling_events se
-    JOIN survey200.sites s ON se.site_id = s.site_id
-    JOIN survey200.soil_samples ss ON se.survey_id = ss.survey_id
-    JOIN survey200.soil_center_cores scc ON ss.soil_sample_id = scc.soil_sample_id
-  ORDER BY
-    EXTRACT (YEAR FROM se.samp_date),
-    s.site_code
+    SELECT
+      sampling_events.samp_date AS sample_date,
+      sites.site_code,
+      -- CASE
+      --  WHEN EXTRACT (YEAR FROM se.samp_date) < 2015 THEN ss.location_description
+      --  WHEN EXTRACT (YEAR FROM se.samp_date) = 2015 THEN ss.location_description_center
+      -- END AS core_location_description,
+      -- */
+      soil_samples.sampling_notes,
+      scc.core_height_cm,
+      scc.soil_bulkdensity_fw,
+      scc.dw_more_2_mm,
+      scc.dw_less_2_mm,
+      scc.plant_matter,
+      scc.conductivity,
+      scc.ph_value,
+      scc.pan,
+      scc.pan_plus_fw,
+      scc.pan_plus_dw60,
+      scc.pan_plus_dw105,
+      scc.soil_texture_fw,
+      scc.temperature,
+      scc.r05,
+      scc.r1,
+      scc.t1,
+      scc.r90,
+      scc.t90,
+      scc.r1440,
+      scc.t1440,
+      scc.notes,
+      scc.cal_texture_fw,
+      scc.cal_temp,
+      scc.cal_r05,
+      scc.cal_r1,
+      scc.cal_t1,
+      scc.cal_r90,
+      scc.cal_t90,
+      scc.cal_r1440,
+      scc.cal_t1440,
+      scc.cal_run_date
+    FROM
+      survey200.soil_samples
+    JOIN survey200.sampling_events ON (sampling_events.survey_id = soil_samples.survey_id)
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    JOIN survey200.soil_center_cores scc ON (scc.soil_sample_id = soil_samples.soil_sample_id)
+    ORDER BY
+      EXTRACT (YEAR FROM sampling_events.samp_date),
+      sites.site_code
     ;
     "
   
@@ -757,12 +756,12 @@ get_soil_center_cores <- function() {
     conn = DBI::ANSI(),
     sql  = soil_center_cores_base_query
   )
-  
+
   soil_center_cores_data <- DBI::dbGetQuery(
     conn      = pg,
     statement = soil_center_cores_query
   )
-  
+
   return(soil_center_cores_data)
   
 }
@@ -826,46 +825,49 @@ get_soil_texture_2000 <- function() {
 get_soil_lachat <- function() {
   
   soil_lachat_base_query <- "
-  SELECT
-    se.samp_date AS sample_date,
-    s.site_code,
-    sl.deep_core_type,
-    sl.sample_id,
-    sl.sample_type,
-    sl.replicate_number,
-    sl.repeat_number,
-    sl.cup_number,
-    sl.manual_dilution_factor,
-    sl.auto_dilution_factor,
-    sl.weight_units,
-    sl.weight,
-    sl.units,
-    sl.detection_date,
-    sl.detection_time,
-    sl.user_name,
-    sl.run_file_name,
-    sl.description,
-    sl.channel_number,
-    sl.analyte_name,
-    sl.peak_concentration,
-    sl.determined_conc,
-    sl.concentration_units,
-    sl.peak_area,
-    sl.peak_height,
-    sl.calibration_equation,
-    sl.retention_time,
-    sl.inject_to_peak_start,
-    sl.conc_x_adf,
-    sl.conc_x_mdf,
-    sl.conc_x_adf_x_mdf
-  FROM
-    survey200.sampling_events se
-    JOIN survey200.sites s ON se.site_id = s.site_id
-    JOIN survey200.soil_samples ss ON se.survey_id = ss.survey_id
-    RIGHT JOIN survey200.soil_lachat sl ON (ss.soil_sample_id = sl.soil_sample_id)
-  ORDER BY
-    sl.detection_date,
-    sl.detection_time
+    SELECT
+      sampling_events.samp_date AS sample_date,
+      sites.site_code,
+      sl.deep_core_type,
+      sl.sample_id,
+      sl.sample_type,
+      sl.replicate_number,
+      sl.repeat_number,
+      sl.cup_number,
+      sl.manual_dilution_factor,
+      sl.auto_dilution_factor,
+      sl.weight_units,
+      sl.weight,
+      sl.units,
+      sl.detection_date,
+      sl.detection_time,
+      sl.user_name,
+      sl.run_file_name,
+      sl.description,
+      sl.channel_number,
+      sl.analyte_name,
+      sl.peak_concentration,
+      sl.determined_conc,
+      sl.concentration_units,
+      sl.peak_area,
+      sl.peak_height,
+      sl.calibration_equation,
+      sl.retention_time,
+      sl.inject_to_peak_start,
+      sl.conc_x_adf,
+      sl.conc_x_mdf,
+      sl.conc_x_adf_x_mdf
+    FROM
+      survey200.soil_samples
+    JOIN survey200.sampling_events ON (sampling_events.survey_id = soil_samples.survey_id)
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    RIGHT JOIN survey200.soil_lachat sl ON (soil_samples.soil_sample_id = sl.soil_sample_id)
+    WHERE
+      sample_type ~~* 'unknown' AND
+      sample_id !~~* '%blank%'
+    ORDER BY
+      sl.detection_date,
+      sl.detection_time
     ;
     "
   
@@ -974,34 +976,33 @@ get_soil_perimeter_cores <- function() {
 
 # arthropods --------------------------------------------------------------
 
-# note that this query is throttled to not include 2015 results as those samples
-# have not been completed at the time of publication. We will need to update the
-# version when David et al. finish the 2015 arthropods.
+# Note that this query is throttled to not include 2023 results as those
+# samples have not been completed at the time of publication.
 
 get_arthropods <- function() {
   
   arthropods_base_query <- "
-  SELECT
-    sampling_events.samp_date AS sample_date,
-    sites.site_code,
-    sweepnet_samples.sweepnet_sample_type,
-    vegetation_taxon_list.vegetation_scientific_name AS substratum,
-    itl.insect_scientific_name AS arthropod_scientific_name,
-    ssic.count_of_insect AS number_of_arthropods,
-    sweepnet_samples.notes
-  FROM
-    survey200.sampling_events
-    JOIN survey200.sites ON (sampling_events.site_id = sites.site_id)
-    JOIN survey200.sweepnet_samples ON (sampling_events.survey_id = sweepnet_samples.survey_id)
-    LEFT JOIN survey200.vegetation_taxon_list ON (sweepnet_samples.vegetation_taxon_id = vegetation_taxon_list.vegetation_taxon_id)
+    SELECT
+      sampling_events.samp_date AS sample_date,
+      sites.site_code,
+      sweepnet_samples.sweepnet_sample_type,
+      vegetation_taxon_list.vegetation_scientific_name AS substratum,
+      itl.insect_scientific_name AS arthropod_scientific_name,
+      ssic.count_of_insect AS number_of_arthropods,
+      sweepnet_samples.notes
+    FROM
+      survey200.sweepnet_samples
+    JOIN survey200.sampling_events ON (sampling_events.survey_id = sweepnet_samples.survey_id)
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    LEFT JOIN survey200.vegetation_taxon_list ON (vegetation_taxon_list.vegetation_taxon_id = sweepnet_samples.vegetation_taxon_id)
     JOIN survey200.sweepnet_sample_insect_counts ssic ON (sweepnet_samples.sweepnet_sample_id = ssic.sweepnet_sample_id)
-    JOIN survey200.insect_taxon_list itl ON (ssic.insect_taxon_id = itl.insect_taxon_id)
-  -- WHERE
-  --   EXTRACT (YEAR FROM sampling_events.samp_date) <= 2010
-  ORDER BY
-    EXTRACT (YEAR FROM sampling_events.samp_date),
-    sites.site_code,
-    vegetation_taxon_list.vegetation_scientific_name
+    JOIN survey200.insect_taxon_list itl ON (itl.insect_taxon_id = ssic.insect_taxon_id)
+    WHERE
+      EXTRACT (YEAR FROM sampling_events.samp_date) < 2023
+    ORDER BY
+      EXTRACT (YEAR FROM sampling_events.samp_date),
+      sites.site_code,
+      vegetation_taxon_list.vegetation_scientific_name
     ;
     "
 
