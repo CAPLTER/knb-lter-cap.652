@@ -8,6 +8,7 @@
 !_TAG_FIELD_DESCRIPTION	name	/tag name/
 !_TAG_FIELD_DESCRIPTION	pattern	/pattern/
 !_TAG_FIELD_DESCRIPTION	typeref	/Type and name of a variable or typedef/
+!_TAG_FIELD_DESCRIPTION!Python	nameref	/the original name for the tag/
 !_TAG_FIELD_DESCRIPTION!R	constructor	/function used for making value assigned to the nameattr tag/
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
@@ -19,6 +20,13 @@
 !_TAG_KIND_DESCRIPTION!Markdown	s,section	/sections/
 !_TAG_KIND_DESCRIPTION!Markdown	t,subsubsection	/level 3 sections/
 !_TAG_KIND_DESCRIPTION!Markdown	u,l5subsection	/level 5 sections/
+!_TAG_KIND_DESCRIPTION!Python	I,namespace	/name referring a module defined in other file/
+!_TAG_KIND_DESCRIPTION!Python	Y,unknown	/name referring a class\/variable\/function\/module defined in other module/
+!_TAG_KIND_DESCRIPTION!Python	c,class	/classes/
+!_TAG_KIND_DESCRIPTION!Python	f,function	/functions/
+!_TAG_KIND_DESCRIPTION!Python	i,module	/modules/
+!_TAG_KIND_DESCRIPTION!Python	m,member	/class members/
+!_TAG_KIND_DESCRIPTION!Python	v,variable	/variables/
 !_TAG_KIND_DESCRIPTION!Quarto	l,chunklabel	/chunk labels/
 !_TAG_KIND_DESCRIPTION!R	L,list	/lists explicitly created with `list()'/
 !_TAG_KIND_DESCRIPTION!R	c,vector	/vectors explicitly created with `c()'/
@@ -35,6 +43,7 @@
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_OUTPUT_VERSION	0.0	/current.age/
 !_TAG_PARSER_VERSION!Markdown	1.1	/current.age/
+!_TAG_PARSER_VERSION!Python	0.0	/current.age/
 !_TAG_PARSER_VERSION!Quarto	0.0	/current.age/
 !_TAG_PARSER_VERSION!R	0.0	/current.age/
 !_TAG_PARSER_VERSION!Yaml	0.0	/current.age/
@@ -44,6 +53,11 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	6.1.0	/653ca9204/
+!_TAG_ROLE_DESCRIPTION!Python!module	imported	/imported modules/
+!_TAG_ROLE_DESCRIPTION!Python!module	indirectlyImported	/module imported in alternative name/
+!_TAG_ROLE_DESCRIPTION!Python!module	namespace	/namespace from where classes\/variables\/functions are imported/
+!_TAG_ROLE_DESCRIPTION!Python!unknown	imported	/imported from the other module/
+!_TAG_ROLE_DESCRIPTION!Python!unknown	indirectlyImported	/classes\/variables\/functions\/modules imported in alternative name/
 !_TAG_ROLE_DESCRIPTION!R!library	library	/library attached by library function/
 !_TAG_ROLE_DESCRIPTION!R!library	require	/library attached by require function/
 !_TAG_ROLE_DESCRIPTION!R!source	source	/source loaded by source fucntion/
@@ -53,7 +67,9 @@
 "site_code"	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(soilSamples[,c("soil_sample_id", "site_code")], bulkDensity[,c(1,3:7)], by = c("sit/;"	n	vector:anonVec93c98be80306
 "site_code"	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(texture[,c(1,3:24)], by = c("site_code" = "Sample#"))$/;"	n	vector:anonVec93c98be80906
 "species"	archive/esca_taxonomic_coverage.R	/^        x <- list(list("species" = as.character(sci_name)))$/;"	n	list:anonListe9373b0e0207
+.con	esca_sql_queries.R	/^    .con = DBI::ANSI()$/;"	v	function:get_annuals
 .con	esca_sql_queries.R	/^    .con = DBI::ANSI()$/;"	v	function:get_shrub_surveys
+.con	esca_sql_queries.R	/^    .con = DBI::ANSI()$/;"	v	function:get_trees
 200 Survey Soil Prep Step-by-Step Instructions	methods.md	/^# 200 Survey Soil Prep Step-by-Step Instructions$/;"	c
 Arriving at the site: first steps	methods.md	/^# Arriving at the site: first steps$/;"	c
 Arthropods (sweep-net samples)	methods.md	/^# Arthropods (sweep-net samples)$/;"	c
@@ -70,15 +86,18 @@ Soil Sample and Analyses Protocol	methods.md	/^# Soil Sample and Analyses Protoc
 Soil sampling	methods.md	/^# Soil sampling$/;"	c
 Vegetation	methods.md	/^# Vegetation $/;"	c
 abstract	knb-lter-cap.652.R	/^abstract <- as(set_TextType("abstract.md"), "abstract")$/;"	g
+actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_perennials
+actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_shrub_surveys
+actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_trees
 all_taxa	archive/esca_taxonomic_coverage.R	/^all_taxa <- identify_resolvable_taxa(esca_taxa)$/;"	g
 allow_cap	knb-lter-cap.652.R	/^allow_cap <- new("allow",$/;"	g
 allow_public	knb-lter-cap.652.R	/^allow_public <- new("allow",$/;"	g
+annuals	esca_sql_queries.R	/^  annuals <- DBI::dbGetQuery($/;"	v	function:get_annuals
 annuals	knb-lter-cap.652.R	/^annuals <- get_annuals()$/;"	g
+annuals	knb-lter-cap.652.qmd	/^## annuals$/;"	s
+annuals	knb-lter-cap.652.qmd	/^#| label: annuals$/;"	l
 annuals_DT	knb-lter-cap.652.R	/^annuals_DT <- createDTFF(dfname = annuals,$/;"	g
-annuals_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_annuals
-annuals_data	esca_sql_queries.R	/^  annuals_data <- DBI::dbGetQuery($/;"	v	function:get_annuals
 annuals_desc	knb-lter-cap.652.R	/^annuals_desc <- "Catalog of all annual plants identified within the study plot."$/;"	g
-annuals_query	esca_sql_queries.R	/^  annuals_query <- DBI::sqlInterpolate($/;"	v	function:get_annuals
 anonDataFrame688683300908	knb-lter-cap.652.R	/^  data.frame(id = "voltSecond",$/;"	d
 anonFunc688683300100	knb-lter-cap.652.R	/^  apply(dataframe[,-which(names(dataframe) == "sample_date")], 2, function(x) { unique(x) })$/;"	f	function:unique_values
 anonFunce9373b0e0100	archive/esca_taxonomic_coverage.R	/^    sci_names <- mapply(function(cls, sci_name) {$/;"	f	function:set_taxonomicCoverage
@@ -117,6 +136,8 @@ anonVec93c98be81306	esca_soils_processing_data/soil_processing_2015.R	/^      se
 anonVec93c98be81e06	esca_soils_processing_data/soil_processing_2015.R	/^  dbWriteTable(pg, c('survey200', 'temp_lachat'), value = dataname, row.names = F)$/;"	c
 anonVec93c98be82906	esca_soils_processing_data/soil_processing_2015.R	/^  dbWriteTable(pg, c('survey200', 'perimeter_cores'), value = perimeter_cores, row.names = F) $/;"	c
 arthropods	knb-lter-cap.652.R	/^arthropods <- get_arthropods() %>% $/;"	g
+arthropods	knb-lter-cap.652.qmd	/^## arthropods$/;"	s
+arthropods	knb-lter-cap.652.qmd	/^#| label: arthropods$/;"	l
 arthropods_DT	knb-lter-cap.652.R	/^arthropods_DT <- createDTFF(dfname = arthropods,$/;"	g
 arthropods_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_arthropods
 arthropods_data	esca_sql_queries.R	/^  arthropods_data <- DBI::dbGetQuery($/;"	v	function:get_arthropods
@@ -131,18 +152,21 @@ carbon_nitrogen_sites	esca_soils_processing_data/soils2015/identify_mislabeled_s
 center_cores	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(soilSamples[,c("soil_sample_id", "site_code")], bulkDensity[,c(1,3:7)], by = c("sit/;"	g
 chrisMartin	knb-lter-cap.652.R	/^chrisMartin <- addCreator('chr', 'martin')$/;"	g
 classifications	archive/esca_taxonomic_coverage.R	/^    classifications <- taxize::classification(sci_names, db = db)$/;"	v	function:set_taxonomicCoverage
+columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_perennials
+columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_shrub_surveys
+columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_trees
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_hedges
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_human_indicators
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_landscape_irrigation
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_landuse
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_neighborhood_characteristics
-conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_number_perennials
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_parcel_characteristics
+conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_perennials
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_sampling_events
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_structures
-conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_trees
+conn	esca_sql_queries.R	/^    conn      = pg,$/;"	v	function:get_annuals
 conn	esca_sql_queries.R	/^    conn      = pg,$/;"	v	function:get_shrub_surveys
-conn	esca_sql_queries.R	/^    conn = DBI::ANSI(),$/;"	v	function:get_annuals
+conn	esca_sql_queries.R	/^    conn      = pg,$/;"	v	function:get_trees
 conn	esca_sql_queries.R	/^    conn = DBI::ANSI(),$/;"	v	function:get_arthropods
 conn	esca_sql_queries.R	/^    conn = DBI::ANSI(),$/;"	v	function:get_soil_center_cores
 conn	esca_sql_queries.R	/^    conn = DBI::ANSI(),$/;"	v	function:get_soil_lachat
@@ -182,6 +206,7 @@ enddate	knb-lter-cap.652.R	/^enddate <- as.character(max(sampling_events$sample_
 escaTaxa	archive/esca_taxonomic_coverage.R	/^escaTaxa <- set_taxonomicCoverage(resolved_taxa, expand = T, db = 'itis')$/;"	g
 esca_taxa	archive/esca_taxonomic_coverage.R	/^esca_taxa <- bind_rows($/;"	g
 esca_taxa	archive/esca_taxonomic_coverage.R	/^esca_taxa <- read_csv('esca_taxa.csv') %>% $/;"	g
+file_path	archive/update_yaml.py	/^    file_path = '\/home\/srearl\/localRepos\/knb-lter-cap.652\/neighborhood_characteristics_fact/;"	v
 formRecursiveTree	archive/esca_taxonomic_coverage.R	/^formRecursiveTree <- function(listOfelements) {$/;"	f
 fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_r05 = zoo::na.locf(cal_r05, fromLast = T)) %>% $/;"	g
 fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_r1 = zoo::na.locf(cal_r1, fromLast = T)) %>% $/;"	g
@@ -195,14 +220,15 @@ fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_temp =
 fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_texture_fw = zoo::na.locf(cal_texture_fw, fromLast = T)) %>% $/;"	g
 geographicDescription	knb-lter-cap.652.R	/^geographicDescription <- "CAP LTER study area"$/;"	g
 get_annuals	esca_sql_queries.R	/^get_annuals <- function() {$/;"	f
+get_annuals_base_query	esca_sql_queries.R	/^  get_annuals_base_query <- glue::glue_sql("$/;"	v	function:get_annuals
 get_arthropods	esca_sql_queries.R	/^get_arthropods <- function() {$/;"	f
-get_hedges	esca_sql_queries.R	/^get_hedges <- function(research_focus) {$/;"	f
+get_hedges	esca_sql_queries.R	/^get_hedges <- function() {$/;"	f
 get_human_indicators	esca_sql_queries.R	/^get_human_indicators <- function(research_focus) {$/;"	f
 get_landscape_irrigation	esca_sql_queries.R	/^get_landscape_irrigation <- function(research_focus) {$/;"	f
 get_landuse	esca_sql_queries.R	/^get_landuse <- function(research_focus) {$/;"	f
 get_neighborhood_characteristics	esca_sql_queries.R	/^get_neighborhood_characteristics <- function(research_focus) {$/;"	f
-get_number_perennials	esca_sql_queries.R	/^get_number_perennials <- function(research_focus) {$/;"	f
 get_parcel_characteristics	esca_sql_queries.R	/^get_parcel_characteristics <- function(research_focus) {$/;"	f
+get_perennials	esca_sql_queries.R	/^get_perennials <- function() {$/;"	f
 get_sampling_events	esca_sql_queries.R	/^get_sampling_events <- function(research_focus) {$/;"	f
 get_shrub_surveys	esca_sql_queries.R	/^get_shrub_surveys <- function() {$/;"	f
 get_shrub_surveys_base_query	esca_sql_queries.R	/^  get_shrub_surveys_base_query <- glue::glue_sql("$/;"	v	function:get_shrub_surveys
@@ -212,10 +238,13 @@ get_soil_perimeter_cores	esca_sql_queries.R	/^get_soil_perimeter_cores <- functi
 get_soil_texture_2000	esca_sql_queries.R	/^get_soil_texture_2000 <- function() {$/;"	f
 get_soil_traacs	esca_sql_queries.R	/^get_soil_traacs <- function() {$/;"	f
 get_structures	esca_sql_queries.R	/^get_structures <- function(research_focus) {$/;"	f
-get_trees	esca_sql_queries.R	/^get_trees <- function(research_focus) {$/;"	f
+get_trees	esca_sql_queries.R	/^get_trees <- function(research_focus = "survey200") {$/;"	f
+get_trees_base_query	esca_sql_queries.R	/^  get_trees_base_query <- glue::glue_sql("$/;"	v	function:get_trees
 hedges	knb-lter-cap.652.R	/^hedges <- get_hedges('survey200') %>% $/;"	g
+hedges	knb-lter-cap.652.qmd	/^## hedges$/;"	s
+hedges	knb-lter-cap.652.qmd	/^#| label: hedges$/;"	l
 hedges_DT	knb-lter-cap.652.R	/^hedges_DT <- createDTFF(dfname = hedges,$/;"	g
-hedges_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_hedges
+hedges_base_query	esca_sql_queries.R	/^  "$/;"	v	function:get_hedges
 hedges_data	esca_sql_queries.R	/^  hedges_data <- DBI::dbGetQuery($/;"	v	function:get_hedges
 hedges_desc	knb-lter-cap.652.R	/^hedges_desc <- "Biovolume and characteristics of hedges within study plots; up to five hedges of/;"	g
 hedges_query	esca_sql_queries.R	/^  hedges_query <- DBI::sqlInterpolate($/;"	v	function:get_hedges
@@ -232,6 +261,7 @@ i	archive/esca_taxonomic_coverage.R	/^  for (i in 1:length(taxa_list)){$/;"	v	fu
 id	knb-lter-cap.652.R	/^  data.frame(id = "voltSecond",$/;"	n	dataframe:anonDataFrame688683300908
 identify_resolvable_taxa	archive/esca_taxonomic_coverage.R	/^identify_resolvable_taxa <- function(taxa_list) {$/;"	f
 info	archive/esca_taxonomic_coverage.R	/^    info <- suppressWarnings(get_tsn(searchterm = taxa_list[i],$/;"	v	function:identify_resolvable_taxa
+input_file	archive/update_yaml_definitions.py	/^        input_file = sys.argv[1]$/;"	v
 insert_center_cores_query	esca_soils_processing_data/soil_processing_2015.R	/^);'$/;"	g
 insert_lachat_2010_query	esca_soils_processing_data/soil_processing_2010.R	/^);'$/;"	g
 insert_lachat_2015_query	esca_soils_processing_data/soil_processing_2015.R	/^  );'$/;"	g
@@ -247,6 +277,7 @@ lachatData	esca_soils_processing_data/soil_processing_2010.R	/^    lachatData <-
 lachatData	esca_soils_processing_data/soil_processing_2015.R	/^      lachatData <- read_excel(datafile)$/;"	v	function:tidy_raw_lachat
 lachat_n_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^lachat_n_sites <- unique(bind_rows($/;"	g
 lachat_p_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^lachat_p_sites <- unique(bind_rows($/;"	g
+landscape irrigation	knb-lter-cap.652.qmd	/^## landscape irrigation$/;"	s
 landscape_irrigation	knb-lter-cap.652.R	/^landscape_irrigation <- get_landscape_irrigation('survey200')$/;"	g
 landscape_irrigation	knb-lter-cap.652.R	/^landscape_irrigation <- landscape_irrigation %>% $/;"	g
 landscape_irrigation	knb-lter-cap.652.qmd	/^#| label: landscape_irrigation$/;"	l
@@ -256,6 +287,8 @@ landscape_irrigation_data	esca_sql_queries.R	/^  landscape_irrigation_data <- DB
 landscape_irrigation_desc	knb-lter-cap.652.R	/^landscape_irrigation_desc <- "Characteristics reflective of the landscape type, health, and qual/;"	g
 landscape_irrigation_query	esca_sql_queries.R	/^  landscape_irrigation_query <- DBI::sqlInterpolate($/;"	v	function:get_landscape_irrigation
 landuse	knb-lter-cap.652.R	/^landuse <- get_landuse('survey200')$/;"	g
+landuse	knb-lter-cap.652.qmd	/^## landuse$/;"	s
+landuse	knb-lter-cap.652.qmd	/^#| label: landuse$/;"	l
 landuse_DT	knb-lter-cap.652.R	/^landuse_DT <- createDTFF(dfname = landuse,$/;"	g
 landuse_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_landuse
 landuse_data	esca_sql_queries.R	/^  landuse_data <- DBI::dbGetQuery($/;"	v	function:get_landuse
@@ -271,6 +304,8 @@ multiplierToSI	knb-lter-cap.652.R	/^             multiplierToSI = "unknown",$/;"
 nancyGrimm	knb-lter-cap.652.R	/^nancyGrimm <- addCreator('n', 'grimm')$/;"	g
 nancyMcIntyre	knb-lter-cap.652.R	/^nancyMcIntyre <- addCreator('n', 'mcintyre')$/;"	g
 neighborhood_characteristics	knb-lter-cap.652.R	/^neighborhood_characteristics <- get_neighborhood_characteristics('survey200') %>% mutate($/;"	g
+neighborhood_characteristics	knb-lter-cap.652.qmd	/^## neighborhood_characteristics$/;"	s
+neighborhood_characteristics	knb-lter-cap.652.qmd	/^#| label: neighborhood_characteristics$/;"	l
 neighborhood_characteristics_DT	knb-lter-cap.652.R	/^neighborhood_characteristics_DT <- createDTFF(dfname = neighborhood_characteristics,$/;"	g
 neighborhood_characteristics_desc	knb-lter-cap.652.R	/^neighborhood_characteristics_desc <- "General characteristics, such as those relating to perceiv/;"	g
 neighborhood_characterization_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_neighborhood_characteristics
@@ -279,10 +314,11 @@ neighborhood_characterization_query	esca_sql_queries.R	/^  neighborhood_characte
 new	archive/esca_taxonomic_coverage.R	/^    new <- as.data.frame(t(sci_names))$/;"	v	function:set_taxonomicCoverage
 number_perennials	knb-lter-cap.652.R	/^number_perennials <- get_number_perennials('survey200') $/;"	g
 number_perennials_DT	knb-lter-cap.652.R	/^number_perennials_DT <- createDTFF(dfname = number_perennials,$/;"	g
-number_perennials_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_number_perennials
-number_perennials_data	esca_sql_queries.R	/^  number_perennials_data <- DBI::dbGetQuery($/;"	v	function:get_number_perennials
+number_perennials_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_perennials
+number_perennials_data	esca_sql_queries.R	/^  number_perennials_data <- DBI::dbGetQuery($/;"	v	function:get_perennials
 number_perennials_desc	knb-lter-cap.652.R	/^number_perennials_desc <- "The number of perennial plants in the study plot, except Saguaros and/;"	g
-number_perennials_query	esca_sql_queries.R	/^  number_perennials_query <- DBI::sqlInterpolate($/;"	v	function:get_number_perennials
+number_perennials_query	esca_sql_queries.R	/^  number_perennials_query <- DBI::sqlInterpolate($/;"	v	function:get_perennials
+output_file	archive/update_yaml_definitions.py	/^        output_file = sys.argv[2]$/;"	v
 overwrite	knb-lter-cap.652.R	/^  capeml::write_attributes(soil_perimeter_cores, overwrite = FALSE)$/;"	g
 overwrite	knb-lter-cap.652.R	/^  capeml::write_factors(soil_perimeter_cores, overwrite = FALSE)$/;"	g
 overwrite	knb-lter-cap.652.R	/^  overwrite      = TRUE,$/;"	g
@@ -291,6 +327,8 @@ parcel_characteristics_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_
 parcel_characteristics_data	esca_sql_queries.R	/^  parcel_characteristics_data <- DBI::dbGetQuery($/;"	v	function:get_parcel_characteristics
 parcel_characteristics_query	esca_sql_queries.R	/^  parcel_characteristics_query <- DBI::sqlInterpolate($/;"	v	function:get_parcel_characteristics
 parentSI	knb-lter-cap.652.R	/^             parentSI = "unknown",$/;"	n	dataframe:anonDataFrame688683300908
+perennials	knb-lter-cap.652.qmd	/^## perennials$/;"	s
+perennials	knb-lter-cap.652.qmd	/^#| label: perennials$/;"	l
 perimeterMoistureContent	esca_soils_processing_data/soil_processing_2015.R	/^  perimeterMoistureContent <- read_excel('s200 2015 core samples.xls', sheet = 2, skip = 2) %>% /;"	g
 perimeter_2010_n	esca_soils_processing_data/soil_processing_2010.R	/^  dbGetQuery(pg, "$/;"	g
 perimeter_cores	esca_soils_processing_data/soil_processing_2015.R	/^    right_join(soilSamples[,c("soil_sample_id", "site_code")], perimeterMoistureContent, by = c(/;"	g
@@ -309,6 +347,9 @@ pg	knb-lter-cap.652.R	/^pg <- pg_local$/;"	g
 pg	knb-lter-cap.652.R	/^pg <- pg_prod$/;"	g
 phCond	esca_soils_processing_data/soil_processing_2015.R	/^phCond <- read_excel('s200 2015 soil pH and conductivity.xls', skip = 2) %>% # sheet G$/;"	g
 phosphorus	esca_soils_processing_data/soil_processing_2015.R	/^  phosphorus <- read_excel('S200 2015 SRP.xlsx') %>% # sheet J$/;"	g
+preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(shrub_perennial_id),$/;"	v	function:get_shrub_surveys
+preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(site_code, sample_date, vegetation_scientific_name/;"	v	function:get_perennials
+preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(tree_id),$/;"	v	function:get_trees
 prod	knb-lter-cap.652.R	/^prod <- mysql_prod$/;"	g
 projectNaming	knb-lter-cap.652.R	/^  projectNaming  = TRUE$/;"	g
 projectid	knb-lter-cap.652.R	/^projectid <- 652$/;"	g
@@ -339,11 +380,9 @@ researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	func
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_landscape_irrigation
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_landuse
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_neighborhood_characteristics
-researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_number_perennials
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_parcel_characteristics
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_sampling_events
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_structures
-researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_trees
 resolve	archive/esca_taxonomic_coverage.R	/^  resolved_taxa <- data.frame(taxon = NA, resolve = NA)$/;"	n	dataframe:identify_resolvable_taxa.resolved_taxa
 resolved_taxa	archive/esca_taxonomic_coverage.R	/^  resolved_taxa <- data.frame(taxon = NA, resolve = NA)$/;"	d	function:identify_resolvable_taxa
 resolved_taxa	archive/esca_taxonomic_coverage.R	/^resolved_taxa <- c(all_taxa[!is.na(all_taxa$resolve),]$taxon)$/;"	c
@@ -363,6 +402,8 @@ s	archive/esca_taxonomic_coverage.R	/^      s <- strsplit(sci_name, " ")[[1]]$/;
 sallyWittlinger	knb-lter-cap.652.R	/^sallyWittlinger <- addMetadataProvider('s', 'wittlinger')$/;"	g
 sample_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^sample_sites <- unique(soilSamples$site_code) %>% $/;"	g
 sampling_events	knb-lter-cap.652.R	/^sampling_events <- get_sampling_events('survey200')$/;"	g
+sampling_events	knb-lter-cap.652.qmd	/^## sampling_events$/;"	s
+sampling_events	knb-lter-cap.652.qmd	/^#| label: sampling_events$/;"	l
 sampling_events_DT	knb-lter-cap.652.R	/^sampling_events_DT <- createDTFF(dfname = sampling_events,$/;"	g
 sampling_events_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_sampling_events
 sampling_events_data	esca_sql_queries.R	/^  sampling_events_data <- DBI::dbGetQuery($/;"	v	function:get_sampling_events
@@ -382,7 +423,10 @@ sep	esca_soils_processing_data/soil_processing_2015.R	/^    separate(col = `Samp
 sep	esca_soils_processing_data/soil_processing_2015.R	/^    separate(col = `Sample ID`, into = c("site_code", "deep_core_type"), sep = " ") %>% $/;"	n	vector:anonVec93c98be81206
 sep	esca_soils_processing_data/soil_processing_2015.R	/^    separate(col = sample, into = c("site_code", "deep_core_type"), sep = " ") %>% $/;"	n	vector:anonVec93c98be80f06
 set_taxonomicCoverage	archive/esca_taxonomic_coverage.R	/^set_taxonomicCoverage <- function(sci_names, expand=FALSE, db = 'itis') {$/;"	f
+setup	knb-lter-cap.652.qmd	/^## setup$/;"	s
+shrub surveys	knb-lter-cap.652.qmd	/^## shrub surveys$/;"	s
 shrub_surveys	esca_sql_queries.R	/^  shrub_surveys <- DBI::dbGetQuery($/;"	v	function:get_shrub_surveys
+shrub_surveys	knb-lter-cap.652.qmd	/^#| label: shrub_surveys$/;"	l
 shrubs_cacti_succulents	knb-lter-cap.652.R	/^shrubs_cacti_succulents <- get_shrubs_cacti_succulents('survey200') %>% $/;"	g
 shrubs_cacti_succulents_DT	knb-lter-cap.652.R	/^shrubs_cacti_succulents_DT <- createDTFF(dfname = shrubs_cacti_succulents,$/;"	g
 shrubs_cacti_succulents_desc	knb-lter-cap.652.R	/^shrubs_cacti_succulents_desc <- "Biovolume and characteristics of shrubs and succulent plants wi/;"	g
@@ -390,6 +434,8 @@ soilSamples	esca_soils_processing_data/soil_processing_2005.R	/^soilSamples <- d
 soilSamples	esca_soils_processing_data/soil_processing_2010.R	/^soilSamples <- dbGetQuery(pg, "$/;"	g
 soilSamples	esca_soils_processing_data/soil_processing_2015.R	/^soilSamples <- dbGetQuery(pg, "$/;"	g
 soil_center_cores	knb-lter-cap.652.R	/^soil_center_cores <- get_soil_center_cores()$/;"	g
+soil_center_cores	knb-lter-cap.652.qmd	/^## soil_center_cores$/;"	s
+soil_center_cores	knb-lter-cap.652.qmd	/^#| label: soil_center_cores$/;"	l
 soil_center_cores_DT	knb-lter-cap.652.R	/^soil_center_cores_DT <- createDTFF(dfname = soil_center_cores,$/;"	g
 soil_center_cores_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_soil_center_cores
 soil_center_cores_data	esca_sql_queries.R	/^  soil_center_cores_data <- DBI::dbGetQuery($/;"	v	function:get_soil_center_cores
@@ -401,7 +447,9 @@ soil_lachat_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_soil_lachat
 soil_lachat_data	esca_sql_queries.R	/^  soil_lachat_data <- DBI::dbGetQuery($/;"	v	function:get_soil_lachat
 soil_lachat_desc	knb-lter-cap.652.R	/^soil_lachat_desc <- "Raw soil core chemistry (nitrate-nitrogen, ammonium-nitrogen, phosphate). A/;"	g
 soil_lachat_query	esca_sql_queries.R	/^  soil_lachat_query <- DBI::sqlInterpolate($/;"	v	function:get_soil_lachat
+soil_perimeter_core	knb-lter-cap.652.qmd	/^## soil_perimeter_core$/;"	s
 soil_perimeter_cores	knb-lter-cap.652.R	/^soil_perimeter_cores <- get_soil_perimeter_cores() |>$/;"	g
+soil_perimeter_cores	knb-lter-cap.652.qmd	/^#| label: soil_perimeter_cores$/;"	l
 soil_perimeter_cores_DT	knb-lter-cap.652.R	/^soil_perimeter_cores_DT <- capeml::create_dataTable($/;"	g
 soil_perimeter_cores_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_soil_perimeter_cores
 soil_perimeter_cores_data	esca_sql_queries.R	/^  soil_perimeter_cores_data <- DBI::dbGetQuery($/;"	v	function:get_soil_perimeter_cores
@@ -421,27 +469,26 @@ sql	esca_sql_queries.R	/^    sql           = human_indicators_base_query,$/;"	v	
 sql	esca_sql_queries.R	/^    sql           = landscape_irrigation_base_query,$/;"	v	function:get_landscape_irrigation
 sql	esca_sql_queries.R	/^    sql           = landuse_base_query,$/;"	v	function:get_landuse
 sql	esca_sql_queries.R	/^    sql           = neighborhood_characterization_base_query,$/;"	v	function:get_neighborhood_characteristics
-sql	esca_sql_queries.R	/^    sql           = number_perennials_base_query,$/;"	v	function:get_number_perennials
+sql	esca_sql_queries.R	/^    sql           = number_perennials_base_query$/;"	v	function:get_perennials
 sql	esca_sql_queries.R	/^    sql           = parcel_characteristics_base_query,$/;"	v	function:get_parcel_characteristics
 sql	esca_sql_queries.R	/^    sql           = sampling_events_base_query,$/;"	v	function:get_sampling_events
 sql	esca_sql_queries.R	/^    sql           = structures_base_query,$/;"	v	function:get_structures
-sql	esca_sql_queries.R	/^    sql           = trees_base_query,$/;"	v	function:get_trees
-sql	esca_sql_queries.R	/^    sql  = annuals_base_query$/;"	v	function:get_annuals
 sql	esca_sql_queries.R	/^    sql  = arthropods_base_query$/;"	v	function:get_arthropods
 sql	esca_sql_queries.R	/^    sql  = soil_center_cores_base_query$/;"	v	function:get_soil_center_cores
 sql	esca_sql_queries.R	/^    sql  = soil_lachat_base_query$/;"	v	function:get_soil_lachat
 sql	esca_sql_queries.R	/^    sql  = soil_perimeter_cores_base_query$/;"	v	function:get_soil_perimeter_cores
 sql	esca_sql_queries.R	/^    sql  = soil_texture_2000_base_query$/;"	v	function:get_soil_texture_2000
 sql	esca_sql_queries.R	/^    sql  = soil_traacs_base_query$/;"	v	function:get_soil_traacs
-statement	esca_sql_queries.R	/^    statement = annuals_query$/;"	v	function:get_annuals
 statement	esca_sql_queries.R	/^    statement = arthropods_query$/;"	v	function:get_arthropods
+statement	esca_sql_queries.R	/^    statement = get_annuals_base_query$/;"	v	function:get_annuals
 statement	esca_sql_queries.R	/^    statement = get_shrub_surveys_base_query$/;"	v	function:get_shrub_surveys
+statement	esca_sql_queries.R	/^    statement = get_trees_base_query$/;"	v	function:get_trees
 statement	esca_sql_queries.R	/^    statement = hedges_query$/;"	v	function:get_hedges
 statement	esca_sql_queries.R	/^    statement = human_indicators_query$/;"	v	function:get_human_indicators
 statement	esca_sql_queries.R	/^    statement = landscape_irrigation_query$/;"	v	function:get_landscape_irrigation
 statement	esca_sql_queries.R	/^    statement = landuse_query$/;"	v	function:get_landuse
 statement	esca_sql_queries.R	/^    statement = neighborhood_characterization_query$/;"	v	function:get_neighborhood_characteristics
-statement	esca_sql_queries.R	/^    statement = number_perennials_query$/;"	v	function:get_number_perennials
+statement	esca_sql_queries.R	/^    statement = number_perennials_query$/;"	v	function:get_perennials
 statement	esca_sql_queries.R	/^    statement = parcel_characteristics_query$/;"	v	function:get_parcel_characteristics
 statement	esca_sql_queries.R	/^    statement = sampling_events_query$/;"	v	function:get_sampling_events
 statement	esca_sql_queries.R	/^    statement = soil_center_cores_query$/;"	v	function:get_soil_center_cores
@@ -450,9 +497,10 @@ statement	esca_sql_queries.R	/^    statement = soil_perimeter_cores_query$/;"	v	
 statement	esca_sql_queries.R	/^    statement = soil_texture_2000_query$/;"	v	function:get_soil_texture_2000
 statement	esca_sql_queries.R	/^    statement = soil_traacs_query$/;"	v	function:get_soil_traacs
 statement	esca_sql_queries.R	/^    statement = structures_query$/;"	v	function:get_structures
-statement	esca_sql_queries.R	/^    statement = trees_query$/;"	v	function:get_trees
 stevanEarl	knb-lter-cap.652.R	/^stevanEarl <- addMetadataProvider('s', 'earl')$/;"	g
 structures	knb-lter-cap.652.R	/^structures <- get_structures('survey200') %>% $/;"	g
+structures	knb-lter-cap.652.qmd	/^## structures$/;"	s
+structures	knb-lter-cap.652.qmd	/^#| label: structures$/;"	l
 structures_DT	knb-lter-cap.652.R	/^structures_DT <- createDTFF(dfname = structures,$/;"	g
 structures_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_structures
 structures_data	esca_sql_queries.R	/^  structures_data <- DBI::dbGetQuery($/;"	v	function:get_structures
@@ -469,15 +517,17 @@ texture	esca_soils_processing_data/soil_processing_2015.R	/^texture <- texture %
 tidy_raw_lachat	esca_soils_processing_data/soil_processing_2010.R	/^tidy_raw_lachat <- function(datafile) {$/;"	f
 tidy_raw_lachat	esca_soils_processing_data/soil_processing_2015.R	/^  tidy_raw_lachat <- function(datafile) {$/;"	f
 title	knb-lter-cap.652.R	/^title <- 'Ecological Survey of Central Arizona: a survey of key ecological indicators in the gre/;"	g
+trees	esca_sql_queries.R	/^  trees <- DBI::dbGetQuery($/;"	v	function:get_trees
 trees	knb-lter-cap.652.R	/^trees <- get_trees('survey200') %>% $/;"	g
+trees	knb-lter-cap.652.qmd	/^## trees$/;"	s
+trees	knb-lter-cap.652.qmd	/^#| label: trees$/;"	l
 trees_DT	knb-lter-cap.652.R	/^trees_DT <- createDTFF(dfname = trees,$/;"	g
-trees_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_trees
-trees_data	esca_sql_queries.R	/^  trees_data <- DBI::dbGetQuery($/;"	v	function:get_trees
 trees_desc	knb-lter-cap.652.R	/^trees_desc <- "Size and characteristics of trees and Saguaros (Carnegiea gigantea) within study /;"	g
-trees_query	esca_sql_queries.R	/^  trees_query <- DBI::sqlInterpolate($/;"	v	function:get_trees
 unique_values	knb-lter-cap.652.R	/^unique_values <- function(dataframe) {$/;"	f
 unitList	knb-lter-cap.652.R	/^unitList <- set_unitList(custom_units)$/;"	g
 unitType	knb-lter-cap.652.R	/^             unitType = "unknown",$/;"	n	dataframe:anonDataFrame688683300908
+update_definitions	archive/update_yaml.py	/^def update_definitions(file_path):$/;"	f
+update_definitions	archive/update_yaml_definitions.py	/^def update_definitions(yaml_file_path, output_file_path):$/;"	f
 value	esca_soils_processing_data/soil_processing_2000.R	/^  dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c8ea422906
 value	esca_soils_processing_data/soil_processing_2000.R	/^dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c8ea420406
 value	esca_soils_processing_data/soil_processing_2000.R	/^dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c8ea421706
@@ -489,6 +539,9 @@ value	esca_soils_processing_data/soil_processing_2010.R	/^dbWriteTable(pg, c('su
 value	esca_soils_processing_data/soil_processing_2015.R	/^  dbWriteTable(pg, c('survey200', 'perimeter_cores'), value = perimeter_cores, row.names = F) $/;"	n	vector:anonVec93c98be82906
 value	esca_soils_processing_data/soil_processing_2015.R	/^  dbWriteTable(pg, c('survey200', 'temp_lachat'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c98be81e06
 value	esca_soils_processing_data/soil_processing_2015.R	/^dbWriteTable(pg, c('survey200', 'center_cores'), value = center_cores, row.names = F) $/;"	n	vector:anonVec93c98be80c06
+value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_perennials
+value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_shrub_surveys
+value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_trees
 version history	README.md	/^### version history$/;"	S	section:CAP LTER Ecological Survey of Central Arizona
 x	archive/esca_taxonomic_coverage.R	/^        x <- as.list(cls[["name"]])$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0100
 xml_url	knb-lter-cap.652.R	/^  xml_url <- new("online",$/;"	g

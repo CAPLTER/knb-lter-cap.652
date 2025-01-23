@@ -359,10 +359,159 @@ try({
 })
 ```
 
-## soil_center_cores
-## soil_lachat
-## soil_traacs
 ## soil_perimeter_core
+
+```{r}
+#| eval: true
+#| label: soil_perimeter_cores
+
+perimeter <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    sampling_events.samp_date AS sample_date,
+    sites.site_code,
+    soil_perimeter_cores.*
+  FROM survey200.soil_perimeter_cores
+  JOIN survey200.soil_samples ON (soil_samples.soil_sample_id = soil_perimeter_cores.soil_sample_id)
+  JOIN survey200.sampling_events ON (sampling_events.survey_id = soil_samples.survey_id)
+  JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+  ORDER BY
+    EXTRACT (YEAR FROM sampling_events.samp_date),
+    sites.site_code
+  ;
+  "
+)
+
+soil_perimeter_cores <- perimeter |>
+  dplyr::mutate(
+    dw = dplyr::case_when(
+      is.na(pan_plus_dw60) | is.na(pan) ~ NA_real_,
+      TRUE ~ pan_plus_dw60 - pan
+    ),
+    dw_fw = dplyr::case_when(
+      is.na(dw) | is.na(pan_plus_fw) | is.na(pan) ~ NA_real_,
+      TRUE ~ dw / (pan_plus_fw - pan)
+    ),
+    # mg NH4 / kg dry soil
+    mass_ratio_nh4 = dplyr::case_when(
+      is.na(nh4_n) | is.na(n_extract_volume) | is.na(soil_n_fw) | is.na(dw_fw) ~ NA_real_,
+      TRUE ~ (nh4_n * n_extract_volume) / (soil_n_fw * dw_fw)
+    ),
+    # mg NO3 / kg dry soil
+    mass_ratio_n03 = dplyr::case_when(
+      is.na(no3_n) | is.na(n_extract_volume) | is.na(soil_n_fw) | is.na(dw_fw) ~ NA_real_,
+      TRUE ~ (no3_n * n_extract_volume) / (soil_n_fw * dw_fw)
+    ),
+    # mg PO4 / kg dry soil
+    mass_ratio_p04 = dplyr::case_when(
+      is.na(po4_p) | is.na(p_extract_volume) | is.na(soil_p_fw) | is.na(dw_fw) ~ NA_real_,
+      TRUE ~ (po4_p * p_extract_volume) / (soil_p_fw * dw_fw)
+    ),
+    # soil moisture percentage
+    soil_moisture = dplyr::case_when(
+      is.na(pan_plus_fw) | is.na(pan_plus_dw60) | is.na(dw) ~ NA_real_,
+      TRUE ~ ((pan_plus_fw - pan_plus_dw60) / dw) * 100
+    ),
+    # organic matter percentage
+    soil_organic_matter = dplyr::case_when(
+      is.na(pan_plus_dw60) | is.na(pan_plus_aw) | is.na(dw) ~ NA_real_,
+      TRUE ~ ((pan_plus_dw60 - pan_plus_aw) / dw) * 100
+    ),
+    deep_core_type = as.factor(deep_core_type)
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    deep_core_type,
+    mass_ratio_nh4,
+    mass_ratio_n03,
+    mass_ratio_p04,
+    soil_moisture,
+    soil_organic_matter,
+    tidyselect::contains("percent")
+  )
+
+try({
+  capeml::write_attributes(soil_perimeter_cores, overwrite = FALSE)
+  capeml::write_factors(soil_perimeter_cores, overwrite = FALSE)
+})
+```
+
+## soil_center_cores
+
+```{r}
+#| eval: true
+#| label: soil_center_cores
+
+center <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    sampling_events.samp_date AS sample_date,
+    sites.site_code,
+    soil_center_cores.*
+  FROM survey200.soil_center_cores
+  JOIN survey200.soil_samples ON (soil_samples.soil_sample_id = soil_center_cores.soil_sample_id)
+  JOIN survey200.sampling_events ON (sampling_events.survey_id = soil_samples.survey_id)
+  JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+  ORDER BY
+    EXTRACT (YEAR FROM sampling_events.samp_date),
+    sites.site_code
+  ;
+  "
+)
+
+soil_center_cores <- center |>
+  dplyr::mutate(
+    # g/cm^3
+    bulk_density = dplyr::case_when(
+      is.na(dw_more_2_mm) | is.na(dw_less_2_mm) | is.na(core_height_cm) ~ NA_real_,
+      TRUE ~ (dw_more_2_mm + dw_less_2_mm) / (3.14 * (2.4^2) * core_height_cm)
+    )
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    conductivity,
+    ph_value,
+    bulk_density
+  )
+
+try({
+  capeml::write_attributes(soil_center_cores, overwrite = FALSE)
+  capeml::write_factors(soil_center_cores, overwrite = FALSE)
+})
+
+readxl::read_excel(
+  path  = "~/Dropbox/development/esca_working/soils/from_dropbox/compiled_texture_HH.xlsx",
+  sheet = "All_Data_Calcs_OE_2015",
+  skip  = 5
+) |>
+  janitor::clean_names() |>
+  dplyr::filter(
+    !is.na(sample_number),
+    !grepl(
+      pattern     = "example",
+      x           = sample_number,
+      ignore.case = TRUE
+    ),
+    !grepl(
+      pattern     = "blank",
+      x           = sample_number,
+      ignore.case = TRUE
+    )
+  ) |>
+  dplyr::select(
+    sample_number,
+    m_clay,
+    m_sand,
+    silt_fraction
+  ) |>
+  head()
+
+```
+
 
 ## arthropods
 
