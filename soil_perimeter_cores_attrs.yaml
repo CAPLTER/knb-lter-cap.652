@@ -1,0 +1,123 @@
+|
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  deep_core_type:
+    attributeName: deep_core_type
+    attributeDefinition: 'layer of core analyzed'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  mass_ratio_nh4:
+    attributeName: mass_ratio_nh4
+    attributeDefinition: 'soil ammonium-nitrogen (NH4-N)'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'MilliGM-PER-KiloGM'
+    numberType: real
+    minimum: -1.9565477
+    maximum: 29.7232625
+    columnClasses: numeric
+  mass_ratio_n03:
+    attributeName: mass_ratio_n03
+    attributeDefinition: 'soil nitrate-nitrogen (NO3-N)'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'MilliGM-PER-KiloGM'
+    numberType: real
+    minimum: -2.682169
+    maximum: 638.5098211
+    columnClasses: numeric
+  mass_ratio_p04:
+    attributeName: mass_ratio_p04
+    attributeDefinition: 'soil phosphate-phosphorus (PO4-P)'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'MilliGM-PER-KiloGM'
+    numberType: real
+    minimum: -5.9638098
+    maximum: 231.0307366
+    columnClasses: numeric
+  soil_moisture:
+    attributeName: soil_moisture
+    attributeDefinition: 'soil water content (gram per gram)'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: real
+    minimum: 0.0
+    maximum: 54.3119266
+    columnClasses: numeric
+  soil_organic_matter:
+    attributeName: soil_organic_matter
+    attributeDefinition: 'soil organic matter'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: real
+    minimum: 0.3424658
+    maximum: 11.2970711
+    columnClasses: numeric
+  percent_total_c:
+    attributeName: percent_total_c
+    attributeDefinition: 'percentage of total carbon'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: real
+    minimum: 0.053
+    maximum: 5.098
+    columnClasses: numeric
+  percent_inorg_c:
+    attributeName: percent_inorg_c
+    attributeDefinition: 'percentage of inorganic carbon'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: real
+    minimum: 0.0
+    maximum: 3.56
+    columnClasses: numeric
+  percent_total_n:
+    attributeName: percent_total_n
+    attributeDefinition: 'percentage of total nitrogen'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: real
+    minimum: 0.0
+    maximum: 0.431
+    columnClasses: numeric

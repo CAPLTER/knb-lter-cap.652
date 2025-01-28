@@ -376,6 +376,19 @@ perimeter <- DBI::dbGetQuery(
   JOIN survey200.soil_samples ON (soil_samples.soil_sample_id = soil_perimeter_cores.soil_sample_id)
   JOIN survey200.sampling_events ON (sampling_events.survey_id = soil_samples.survey_id)
   JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+  -- omit conflated 2005 F19 sample data
+  WHERE
+    soil_perimeter_cores.soil_sample_id NOT IN
+    (
+        SELECT
+          soil_sample_id
+        FROM survey200.soil_samples
+        JOIN survey200.sampling_events ON (sampling_events.survey_id = soil_samples.survey_id)
+        JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+        WHERE
+          sites.site_code = 'F19' AND
+          EXTRACT(YEAR FROM sampling_events.samp_date) = 2005
+    )
   ORDER BY
     EXTRACT (YEAR FROM sampling_events.samp_date),
     sites.site_code
@@ -478,38 +491,64 @@ soil_center_cores <- center |>
     bulk_density
   )
 
+(
+  texture <- readxl::read_excel(
+    path  = "~/Dropbox/development/esca_working/soils/from_dropbox/compiled_texture_HH.xlsx",
+    sheet = "All_Data_Calcs_OE_2015",
+    skip  = 5
+  ) |>
+    janitor::clean_names() |>
+    dplyr::filter(
+      !is.na(sample_number),
+      !is.na(survey_year),
+      !grepl(
+        pattern     = "miscoded",
+        x           = note,
+        ignore.case = TRUE
+      ),
+      !grepl(
+        pattern     = "example",
+        x           = sample_number,
+        ignore.case = TRUE
+      ),
+      !grepl(
+        pattern     = "blank",
+        x           = sample_number,
+        ignore.case = TRUE
+      ),
+      !grepl(
+        pattern     = "blanks",
+        x           = survey_year,
+        ignore.case = TRUE
+      )
+    ) |>
+    dplyr::mutate(survey_year = as.integer(survey_year)) |>
+    dplyr::select(
+      sample_number,
+      survey_year,
+      m_clay,
+      m_sand,
+      silt_fraction
+    )
+)
+
+alpha <- soil_center_cores |>
+  dplyr::mutate(
+    source = "scc",
+    survey_year = lubridate::year(sample_date)
+  ) |>
+  dplyr::full_join(
+    y = texture |> dplyr::mutate(source = "texture"),
+    by = c(
+      "survey_year" = "survey_year",
+      "site_code"   = "sample_number"
+    )
+  )
+
 try({
   capeml::write_attributes(soil_center_cores, overwrite = FALSE)
   capeml::write_factors(soil_center_cores, overwrite = FALSE)
 })
-
-readxl::read_excel(
-  path  = "~/Dropbox/development/esca_working/soils/from_dropbox/compiled_texture_HH.xlsx",
-  sheet = "All_Data_Calcs_OE_2015",
-  skip  = 5
-) |>
-  janitor::clean_names() |>
-  dplyr::filter(
-    !is.na(sample_number),
-    !grepl(
-      pattern     = "example",
-      x           = sample_number,
-      ignore.case = TRUE
-    ),
-    !grepl(
-      pattern     = "blank",
-      x           = sample_number,
-      ignore.case = TRUE
-    )
-  ) |>
-  dplyr::select(
-    sample_number,
-    m_clay,
-    m_sand,
-    silt_fraction
-  ) |>
-  head()
-
 ```
 
 
