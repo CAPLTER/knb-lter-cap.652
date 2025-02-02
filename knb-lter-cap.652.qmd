@@ -445,6 +445,7 @@ soil_perimeter_cores <- perimeter |>
     tidyselect::contains("percent")
   )
 
+
 try({
   capeml::write_attributes(soil_perimeter_cores, overwrite = FALSE)
   capeml::write_factors(soil_perimeter_cores, overwrite = FALSE)
@@ -452,6 +453,9 @@ try({
 ```
 
 ## soil_center_cores
+
+be sure to add the notes about duplicates and misidentifications that are in the
+note field to the metadata for sure and maybe in the database as well
 
 ```{r}
 #| eval: true
@@ -481,11 +485,19 @@ soil_center_cores <- center |>
     bulk_density = dplyr::case_when(
       is.na(dw_more_2_mm) | is.na(dw_less_2_mm) | is.na(core_height_cm) ~ NA_real_,
       TRUE ~ (dw_more_2_mm + dw_less_2_mm) / (3.14 * (2.4^2) * core_height_cm)
+    ),
+    notes = dplyr::case_when(
+      notes == "" ~ NA_character_,
+      TRUE ~ notes
     )
+  ) |>
+  dplyr::filter(
+    !(is.na(conductivity) & is.na(ph_value) & is.na(bulk_density))
   ) |>
   dplyr::select(
     sample_date,
     site_code,
+    notes,
     conductivity,
     ph_value,
     bulk_density
@@ -501,6 +513,9 @@ soil_center_cores <- center |>
     dplyr::filter(
       !is.na(sample_number),
       !is.na(survey_year),
+      survey_year != 2000,
+      # remove this depending on how you want to handle the miscodings but is
+      # less of an issue with empty cases removed (i.e. last filter)
       !grepl(
         pattern     = "miscoded",
         x           = note,
@@ -520,34 +535,60 @@ soil_center_cores <- center |>
         pattern     = "blanks",
         x           = survey_year,
         ignore.case = TRUE
+      ),
+      !(is.na(silt_fraction) & is.na(m_clay) & is.na(m_sand))
+    ) |>
+    dplyr::mutate(
+      survey_year = as.integer(survey_year),
+      silt_fraction = as.numeric(silt_fraction),
+      note = dplyr::case_when(
+        note == "" ~ NA_character_,
+        TRUE ~ note
       )
     ) |>
-    dplyr::mutate(survey_year = as.integer(survey_year)) |>
     dplyr::select(
       sample_number,
       survey_year,
+      notes = note,
       m_clay,
       m_sand,
       silt_fraction
     )
 )
 
-alpha <- soil_center_cores |>
-  dplyr::mutate(
-    source = "scc",
-    survey_year = lubridate::year(sample_date)
-  ) |>
+soil_center_cores <- soil_center_cores |>
+  dplyr::mutate(survey_year = lubridate::year(sample_date)) |>
   dplyr::full_join(
-    y = texture |> dplyr::mutate(source = "texture"),
+    y = texture,
     by = c(
       "survey_year" = "survey_year",
       "site_code"   = "sample_number"
     )
+  ) |>
+  dplyr::mutate(
+    notes = dplyr::case_when(
+      is.na(notes.x) ~ notes.y,
+      is.na(notes.y) ~ notes.x,
+      notes.x == notes.y ~ notes.x,
+      TRUE ~ paste(
+        notes.x,
+        notes.y,
+        sep = " ; "
+      )
+    )
+  ) |>
+  dplyr::arrange(
+    survey_year,
+    site_code
+  ) |>
+  dplyr::select(
+    -notes.x,
+    -notes.y,
+    -survey_year
   )
 
 try({
   capeml::write_attributes(soil_center_cores, overwrite = FALSE)
-  capeml::write_factors(soil_center_cores, overwrite = FALSE)
 })
 ```
 

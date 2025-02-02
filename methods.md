@@ -6,7 +6,7 @@ These methods were adapted from the CAP LTER Ecological Survey of Central Arizon
 
 # Arriving at the site: first steps
 
-Upon arriving at a site, use the Trimble GPS to locate the plot center (locate the nail if present (desert sites only)). Create a new folder inthe GPS for the site, and record the location of the plot center. If present, always use the center nail as plot center and record thislocation as plot center in the GPS. Use the Trimble GPS to identify the plot corners and mid-points - mark these with flags or cones. At plots with relatively little topography, it may be easier to use pre-measured 30m ropes laid along the N-S and E-W axes of the plot to delineate the plot boundary. Divide tasks among crew members.
+Upon arriving at a site, use the Trimble GPS to locate the plot center (locate the nail if present (desert sites only)). Create a new folder in the GPS for the site, and record the location of the plot center. If present, always use the center nail as plot center and record this location as plot center in the GPS. Use the Trimble GPS to identify the plot corners and mid-points - mark these with flags or cones. At plots with relatively little topography, it may be easier to use pre-measured 30m ropes laid along the N-S and E-W axes of the plot to delineate the plot boundary. Divide tasks among crew members.
 
 **General plot information**
 
@@ -154,7 +154,7 @@ Treat grasses and herbs as annuals
 * Take a picture of every annual by adding an 'annuals photos' group. For annuals, you can take multiple photos of each plant if desired. Be sure to have at least one photo that features the plant and the herbarium voucher labeled with as much information as possible (site ID, sample number, sampling date, photo number, and taxon if known) included in the backdrop (use a piece of blank, white paper as a background for the specimen and voucher packet).
 * After photographing the specimen and voucher packet, place the specimen in the voucher packet and bundle packets for that site. When placing the specimen into the voucher packet, flatten leaves and spread them out as much as possible.
 * continue to add a 'Survey data for taxon' group for each taxon in the plot
-* Voucher packets are pressed in the lab the day they are collected. When a press is full, place it in the air-dryer in the Herbarium for ≥1 week, then move the press to the Herbarium freezer for ≥2 days. After this time, remove the packets from the press and place them in the survey200 Herbarium cabinet.
+* Voucher packets are pressed in the lab the day they are collected. When a press is full, place it in the air-dryer in the Herbarium for ≥ 1 week, then move the press to the Herbarium freezer for ≥ 2 days. After this time, remove the packets from the press and place them in the ESCA (formerly survey200) Herbarium cabinet.
 
 
 # Soil sampling
@@ -189,7 +189,7 @@ ODK form: s200\_GPI
 
 **Surface soil – overview**
 
-A total of four surface soil (2-cm depth) samples are to be collected, one corresponding to each of the 1" soil core locations. Sweep aside gravel and loose vegetation before collecting sample, but do not collect samples from thick turf. In fact, it may not be possible to collect surface soil samples at sites where thick turf or impervious substrates are predominant. As much as possible, surface-soil samples should be collected in conjunction with the 1" soil cores but it is not essntial that they overlap if one or the other type of sample is not feasible. It is not necessary to record the GPS location of surface soil samples. 
+A total of four surface soil (2-cm depth) samples are to be collected, one corresponding to each of the 1" soil core locations. Sweep aside gravel and loose vegetation before collecting sample, but do not collect samples from thick turf. In fact, it may not be possible to collect surface soil samples at sites where thick turf or impervious substrates are predominant. As much as possible, surface-soil samples should be collected in conjunction with the 1" soil cores but it is not essential that they overlap if one or the other type of sample is not feasible. It is not necessary to record the GPS location of surface soil samples. 
 
 **Surface soil – detailed instruction**
 
@@ -252,7 +252,7 @@ Conduct ground sweeps at sites where only turf or weeds are present. In the abse
 
 # Parcel survey
 
-At all residential sites, survey characteristics of the parcel that most overlaps with the 30x30m study plot – if not accessible, survey the parcel that is most accessible. Data are to be collected for both the front and back yards if accessible.
+At all residential sites, survey characteristics of the parcel that most overlaps with the 30 x 30m study plot – if not accessible, survey the parcel that is most accessible. Data are to be collected for both the front and back yards if accessible.
 
 **General parcel information**
 
