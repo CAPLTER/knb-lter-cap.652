@@ -1,16 +1,13 @@
-# CAP LTER Survey200 Field Protocol
+## CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 Version 2015
 
-These methods were adapted from the CAP LTER Ecological Survey of Central Arizona protocol. This protocol was based initially on the UFORE FOREST SURVEY devised by Dave Nowak (BES), and has been updated with input from CAP LTER PIs and field experience. The protocol adapted was specific to the survey conducted in 2015. The 2015 survey, for the first time, employed the use of digital tablets for data collection in the field, and the steps in this protocol that reference ODK are noting the appropriate form in the tablet to employ for a particular type of data. These methods are otherwise identical to protocols of previous surveys.
+These methods were adapted from the CAP LTER Ecological Survey of Central Arizona field and lab protocol. This protocol was based initially on the UFORE FOREST SURVEY devised by Dave Nowak (BES), and has been updated with input from CAP LTER PIs and field experience. The methods described here are most recently based primarily on the 2015 survey, which for the first time, employed the use of digital tablets for data collection in the field. As such, the methods reference entering data at key locations in tablet forms but are otherwise identical in practice to protocols of previous surveys.
 
+### arriving at the site: first steps
 
-# Arriving at the site: first steps
-
-Upon arriving at a site, use the Trimble GPS to locate the plot center (locate the nail if present (desert sites only)). Create a new folder in the GPS for the site, and record the location of the plot center. If present, always use the center nail as plot center and record this location as plot center in the GPS. Use the Trimble GPS to identify the plot corners and mid-points - mark these with flags or cones. At plots with relatively little topography, it may be easier to use pre-measured 30m ropes laid along the N-S and E-W axes of the plot to delineate the plot boundary. Divide tasks among crew members.
+Upon arriving at a site, use the Trimble GPS to locate the plot center (locate the nail if present (desert sites only)). Create a new folder in the GPS for the site, and record the location of the plot center. If present, always use the center nail as plot center and record this location as plot center in the GPS. Use the Trimble GPS to identify the plot corners and mid-points - mark these with flags or cones. At plots with relatively little topography, it may be easier to use pre-measured 30-m ropes laid along the N-S and E-W axes of the plot to delineate the plot boundary. Divide tasks among crew members.
 
 **General plot information**
-
-ODK form: s200\_GPI
 
 * Note the plot ID (for example, 'V12')
 * Note plot (see parcel instructions below for parcels)
@@ -36,9 +33,9 @@ ODK form: s200\_GPI
     + Estimate % of pervious area irrigated.
     + Veg types present: soil / trees / shrubs / succulents / herbaceous groundcover / other groundcover
 
-# Photographs
+### photographs
 
-**Photos taken at plot center (to be taken with digital SLR fitted with 28mm lens)**
+**Photos taken at plot center**
 
 * Photographer should stand at plot center and take one photo in each cardinal direction
 * Be sure that crew members nor the vehicle are in the field of view for plot center photos.
@@ -51,13 +48,9 @@ ODK form: s200\_GPI
 * At the photographer's discretion, take photos with the tablet to capture the 'essence' of the plot. These are most often taken from outside plot boundary looking toward plot center (and other angles as appropriate) but not necessarily.
 * Describe each photo in the description box.
 
-# Vegetation 
-
-ODK forms: s200\_trees\_plot, s200\_shrub\_survey; s200\_shrub\_count; s200\_hedges\_survey, s200\_annuals
+### vegetation 
 
 **Trees and saguaros**
-
-ODK form: s200\_trees\_plot
 
 * Note the plot ID (for example, 'V12')
 * ALL trees (including all palms) and saguaros in the plot are counted, measured, photographed, and their position recorded
@@ -82,11 +75,7 @@ ODK form: s200\_trees\_plot
 
 **Shrubs, perennial groundcover, and cacti other than saguaros**
 
-ODK forms: s200\_shrub\_survey; s200\_shrub\_count; s200\_hedges\_survey
-
 *shrub count*
-
-ODK forms: s200\_shrub\_count
 
 *ALL shrubs and cacti in the plot are counted by species, segregated by quadrant (to aid counting). Note that this does not include saguaros, which are treated like trees.*
 
@@ -99,8 +88,6 @@ ODK forms: s200\_shrub\_count
 * Quantify the number of this type of shrub in each quadrant of the plot. Note that the quadrant distinction is not overly important and is primarily added to aid counting in plots with high densities of shrubs, so focus on getting an accurate estimate of the number of shrubs and less about their exact location.
 
 *shrub survey*
-
-ODK forms: s200\_shrub\_survey
 
 The characteristics of at least 5 representative individuals of each shrub and cacti species (at least 1 from each quadrant when possible) are recorded in the s200\_shrub\_survey form. As with the shrub count, this does not include saguaros, which are addressed with the trees.
 
@@ -118,8 +105,6 @@ The characteristics of at least 5 representative individuals of each shrub and c
 * Add another 'Survey data for taxon' group for additional taxa.
 
 **Hedges (urban plots only)**
-
-ODK forms: s200\_hedges\_survey
 
 A hedge versus a shrub is an arbitrary distinction to be made by the crew on site. Typically, we consider a shrub or shrubs(s) a hedge if it or, most often, they are positioned and manicured to create a distinct border, and if the growth of the plants is dense.
 
@@ -140,8 +125,6 @@ The taxon, size, and shape of ALL hedges is recorded in the Hedges box of the ve
 
 **Annuals**
 
-ODK forms: s200\_annuals
-
 Treat grasses and herbs as annuals
 
 * Note the plot ID (for example, 'V12')
@@ -157,9 +140,7 @@ Treat grasses and herbs as annuals
 * Voucher packets are pressed in the lab the day they are collected. When a press is full, place it in the air-dryer in the Herbarium for ≥ 1 week, then move the press to the Herbarium freezer for ≥ 2 days. After this time, remove the packets from the press and place them in the ESCA (formerly survey200) Herbarium cabinet.
 
 
-# Soil sampling
-
-ODK form: s200\_GPI
+### soil sampling
 
 **Soil cores - overview**
 
@@ -199,11 +180,9 @@ A total of four surface soil (2-cm depth) samples are to be collected, one corre
 * Collect soil to depth corresponding to the bottom of ring using a spoon, and place soil in Ziploc bag
 * Label Ziploc bag with plot ID, date, and location.
 
-# Arthropods (sweep-net samples)
+### arthropods (sweep-net samples)
 
-ODK form: s200\_GPI
-
-**Arthropods – overview**
+**arthropods – overview**
 
 Collect a sample of vegetation-dwelling insects from three different plants (preferably each a different species) at each site. At least one insect sample should reflect the dominant plant species at each site. The second and third samples should reflect other dominant plants at the site (including one or more ground sweeps if the site is dominated by turf of weeds), and preferred plants as follows:
 
@@ -233,7 +212,7 @@ Conduct ground sweeps at sites where only turf or weeds are present. In the abse
 * note the taxa of each plant from which a sample was collected
 
 
-# Before leaving the site
+### before leaving the site
 
 * Confer with team members that all data were collected and all relevant data forms were addressed
 * Be sure insect jars are stowed upright
@@ -241,22 +220,11 @@ Conduct ground sweeps at sites where only turf or weeds are present. In the abse
 * Be sure to collect all plant voucher packets, and that they are bundled by site
 
 
-# At the lab
-
-* Create a new folder (identified by site ID) for each site visited that day on the designated shared drive.
-* Upload all photos and the GPS file for each site into the respective aforementioned folder. When uploading photos, be sure to copy and paste directly from the camera (by way of a file browser) to the desired location as opposed to using camera-provided software as the software WILL change the name/number of the photo causing quite a problem
-* There is a folder on the shared drive for each tablet (Alpha, Bravo, Charlie). Within each of those folders, create a folder with the first letter of the tablet (a, b, or c) and the date as MMDD (e.g., tablet Bravo for the day March 8, 2015 would have the folder name b0308). Copy the ODK folder in the tablet to the folder on the shared drive that was just created.
-* Add voucher packets to a plant press. When a press is full, place it in the air-dryer in the Herbarium for ≥1 week, then move the press to the Herbarium freezer for ≥2 days. After this time, remove the packets from the press and place them in the survey 200 Herbarium cabinet.
-* Place all soil samples at the designated location in the walk-in lab cooler
-
-
-# Parcel survey
+### parcel survey
 
 At all residential sites, survey characteristics of the parcel that most overlaps with the 30 x 30m study plot – if not accessible, survey the parcel that is most accessible. Data are to be collected for both the front and back yards if accessible.
 
 **General parcel information**
-
-ODK form: s200\_GPI
 
 * Note the plot ID (for example, 'V12')
 * Note parcel
@@ -293,13 +261,9 @@ ODK form: s200\_GPI
   
 Add another 'front or back yard' group as access allows
 
-# Vegetation 
-
-ODK forms: s200\_trees\_parcel, s200\_shrub\_count
+### vegetation 
 
 **Trees and saguaros**
-
-ODK form: s200\_trees\_parcel
 
 * Note the plot ID (for example, 'V12')
 * ALL trees (including all palms) and saguaros in the yard(s) are counted, measured, photographed, and their position recorded
@@ -321,11 +285,7 @@ ODK form: s200\_trees\_parcel
 * Tree height: where possible, measure height of the tree and the bottom of the canopy directly with a measuring tape. Otherwise, from a known (and measured) distance where you can see the top and base of the tree, use a clinometer to record the angle (degree, left-side scale of clinometer) to the top of the tree, and angle to base of the tree (where the trunk emerges from the ground).
 * Canopy dimensions: record the length of the living canopy along the N-S axis and E-W axes using a measuring tape. Measure the height to the bottom of the canopy above the ground. This is best addressed by using a meter tape but can be done with the clinometer if necessary. If using a clinometer, record the angle to the bottom of the canopy from a known distance.
 
-A special note about trees in the parcel: unlike the s200\_shrub\_count and s200\_GPI forms that allow you to address both the front and back yards in a single instance, a new form/instance must be created for each the front and back yards when surveying trees.
-
 **Shrubs and cacti other than saguaros (shrub count):**
-
-ODK forms: s200\_shrub\_count
 
 *ALL shrubs and cacti in the yard(s) are counted by species, segregated by yard position (front, year). Note that this does not include saguaros, which are treated like trees.*
 
@@ -344,7 +304,7 @@ ODK forms: s200\_shrub\_count
 * Add another 'front or back yard' group note that you can end the survey and create a new form/instance of the 'other' yard if not convenient to measure at that time
 
 
-# 200 Survey Soil Prep Step-by-Step Instructions
+### ESCA soil prep step-by-step instructions
 
 version 2015
 
@@ -374,8 +334,7 @@ version 2015
 8. Store processed soils in the cold room.
 
 
-# Soil Sample and Analyses Protocol
-
+### soil sample and analyses protocol
 version 2000
 
 Weixing Zhu
@@ -431,8 +390,8 @@ Dry soil weight used for KCl extraction = Fresh soil weight used for KCl extract
 Soil Extractable N (mg N/kg DW soil) = N concentrations in KCl solution (mg/L) x 50 (volume of KCl used for extraction) / Soil Dry weight used for extraction
 
 
-# CAP LTER particle size analysis protocol
-adapted by Hannah Heavenrich 2017
+### CAP LTER particle size analysis protocol
+adapted by Hannah Heavenrich (2017)
 
 This method is taken from: Gee, G.W., and J.W. Bauder 1986. Particle size analysis. p. 383-411. *In*: A. Klute (ed.) Methods of soil analysis, part 1. Physical and Mineralogical Methods. 2nd ed. Agron. Monogr. 9 ASA and SSSA, Madison, WI. (2ed edition). The method here will separate the sand, silt, and clay fractions. Additional hydrometer readings can be taken if greater discrimination within the size fractions is desired (see Gee and Bauder 1986). 
 
@@ -460,7 +419,7 @@ II Procedure
 A. Place samples out on a bench or table to air dry for one week. It is best to break up structures in samples that are high in clay as these can become very hard upon drying.
 
 B. When the sample is dry it may be necessary to *gently* crush the
-structures with a rubber stopper or mortal & pestal. 
+structures with a rubber stopper or mortal and pestle. 
 
 C. Pass the sample through a 2 mm sieve. A rubber stopper makes a good device to break up and push through soil structures. Be sure that only gentle pressure is applied, too much pressure will distort the sieve mesh.
 
@@ -580,7 +539,7 @@ Comments
 
 Assuming weighing of the samples is accurate, two sources of error exist:
 
-1. Flocculation of clays by soluble salts or gypsum during sedimentation. This can be dealt with in two ways. a) Increasing the concentration of HMP to levels high enough to maintain dispersion (be sure to use same solution in blank), and b) treatment with an acid most commonly 1 *M* HCl adding enough so the sample is acidified to pH 3.5 to 4.0. I would recommend increasing the concentration of HMP first since this is less troublesome than working with HCl.
+1. Flocculation of clays by soluble salts or gypsum during sedimentation. This can be dealt with in two ways: (a) increasing the concentration of HMP to levels high enough to maintain dispersion (be sure to use same solution in blank), and (b) treatment with an acid most commonly 1 *M* HCl adding enough so the sample is acidified to pH 3.5 to 4.0. I would recommend increasing the concentration of HMP first since this is less troublesome than working with HCl.
 2. Hydrometer reading can be a major source of error. Studies have shown that a 1% error in reading will result in a 2% error in clay calculations. (Read at the top of the meniscus since capillary action wicks the H~2~O up the hydrometer stem)
 
 **Soil Moisture Correction Factor**
