@@ -503,93 +503,94 @@ soil_center_cores <- center |>
     bulk_density
   )
 
-(
-  texture <- readxl::read_excel(
-    path  = "~/Dropbox/development/esca_working/soils/from_dropbox/compiled_texture_HH.xlsx",
-    sheet = "All_Data_Calcs_OE_2015",
-    skip  = 5
+texture <- readxl::read_excel(
+  path  = "~/Dropbox/development/esca_working/soils/ESCA soil texture_BAB_Feb2025.xlsx",
+  sheet = "Texture Calcs",
+  na    = c("NA", "N/A", "n/a", "n.a.", "n.a", "")
+) |>
+  janitor::clean_names() |>
+  dplyr::mutate(
+    sample_date = as.Date(sample_date),
+    analysis_date = as.Date(analysis_date),
+    p2_clay = dplyr::case_when(
+      grepl("increases", becky_notes, ignore.case = TRUE) &
+        !grepl("slightly", becky_notes, ignore.case = TRUE) ~ NA,
+      TRUE ~ p2_clay
+    ),
+    sand = dplyr::case_when(
+      grepl("increases", becky_notes, ignore.case = TRUE) &
+        !grepl("slightly", becky_notes, ignore.case = TRUE) ~ NA,
+      TRUE ~ sand
+    ),
+    silt = dplyr::case_when(
+      grepl("increases", becky_notes, ignore.case = TRUE) &
+        !grepl("slightly", becky_notes, ignore.case = TRUE) ~ NA,
+      TRUE ~ silt
+    ),
+    site_code = stringr::str_remove(site_code, "1$")
   ) |>
-    janitor::clean_names() |>
-    dplyr::filter(
-      !is.na(sample_number),
-      !is.na(survey_year),
-      survey_year != 2000,
-      # remove this depending on how you want to handle the miscodings but is
-      # less of an issue with empty cases removed (i.e. last filter)
-      !grepl(
-        pattern     = "miscoded",
-        x           = note,
-        ignore.case = TRUE
-      ),
-      !grepl(
-        pattern     = "example",
-        x           = sample_number,
-        ignore.case = TRUE
-      ),
-      !grepl(
-        pattern     = "blank",
-        x           = sample_number,
-        ignore.case = TRUE
-      ),
-      !grepl(
-        pattern     = "blanks",
-        x           = survey_year,
-        ignore.case = TRUE
-      ),
-      !(is.na(silt_fraction) & is.na(m_clay) & is.na(m_sand))
-    ) |>
-    dplyr::mutate(
-      survey_year = as.integer(survey_year),
-      silt_fraction = as.numeric(silt_fraction),
-      note = dplyr::case_when(
-        note == "" ~ NA_character_,
-        TRUE ~ note
-      )
-    ) |>
-    dplyr::select(
-      sample_number,
-      survey_year,
-      notes = note,
-      m_clay,
-      m_sand,
-      silt_fraction
-    )
-)
+  dplyr::filter(
+    lubridate::year(sample_date) != 2000,
+    # using c05 as a proxy for valid sample
+    # may need to revisit when 2023 data are available
+    !is.na(c05)
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    p2_clay = p2_clay,
+    sand,
+    silt,
+    texture_notes = notes,
+    becky_notes
+  ) |>
+  dplyr::arrange(
+    sample_date,
+    site_code
+  )
 
 soil_center_cores <- soil_center_cores |>
-  dplyr::mutate(survey_year = lubridate::year(sample_date)) |>
   dplyr::full_join(
     y = texture,
     by = c(
-      "survey_year" = "survey_year",
-      "site_code"   = "sample_number"
+      "sample_date",
+      "site_code"
     )
   ) |>
   dplyr::mutate(
     notes = dplyr::case_when(
-      is.na(notes.x) ~ notes.y,
-      is.na(notes.y) ~ notes.x,
-      notes.x == notes.y ~ notes.x,
-      TRUE ~ paste(
-        notes.x,
-        notes.y,
-        sep = " ; "
-      )
+      is.na(notes) ~ texture_notes, # If `notes.x` is NA, use `notes.y`
+      is.na(texture_notes) ~ notes, # If `notes.y` is NA, use `notes.x`
+      notes == texture_notes ~ notes, # If both are the same, keep one
+      TRUE ~ paste(notes, texture_notes, sep = ". ") # If different, concatenate with a semicolon
+    ),
+    notes = dplyr::case_when(
+      is.na(notes) ~ becky_notes,
+      is.na(becky_notes) ~ notes,
+      TRUE ~ paste(notes, becky_notes, sep = ". ")
     )
   ) |>
   dplyr::arrange(
-    survey_year,
+    sample_date,
     site_code
   ) |>
   dplyr::select(
-    -notes.x,
-    -notes.y,
-    -survey_year
+    sample_date,
+    site_code,
+    conductivity,
+    pH = ph_value,
+    bulk_density,
+    p2_clay,
+    sand,
+    silt,
+    notes
   )
+
 
 try({
   capeml::write_attributes(soil_center_cores, overwrite = FALSE)
 })
+
 ```
 
 

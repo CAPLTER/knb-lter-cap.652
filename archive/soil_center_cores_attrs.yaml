@@ -29,8 +29,8 @@
     minimum: 0.037
     maximum: 22.6
     columnClasses: numeric
-  pH:
-    attributeName: pH
+  ph_value:
+    attributeName: ph_value
     attributeDefinition: 'pH of soil'
     propertyURI: ''
     propertyLabel: ''
@@ -53,8 +53,8 @@
     minimum: 0.6688326
     maximum: 2.0870287
     columnClasses: numeric
-  p2_clay:
-    attributeName: p2_clay
+  m_clay:
+    attributeName: m_clay
     attributeDefinition: 'clay portion of soil texture determined by hydrometer method'
     propertyURI: ''
     propertyLabel: ''
@@ -62,11 +62,11 @@
     valueLabel: ''
     unit: 'PERCENT'
     numberType: real
-    minimum: 2.1553232
-    maximum: 40.4080028
+    minimum: -7.1582049
+    maximum: 24.3204861
     columnClasses: numeric
-  sand:
-    attributeName: sand
+  m_sand:
+    attributeName: m_sand
     attributeDefinition: 'sand portion of soil texture determined by hydrometer method'
     propertyURI: ''
     propertyLabel: ''
@@ -74,11 +74,11 @@
     valueLabel: ''
     unit: 'PERCENT'
     numberType: real
-    minimum: 16.2216473
-    maximum: 97.0021452
+    minimum: -37.2666468
+    maximum: 123.3852402
     columnClasses: numeric
-  silt:
-    attributeName: silt
+  silt_fraction:
+    attributeName: silt_fraction
     attributeDefinition: 'silt portion of soil texture determined by hydrometer method'
     propertyURI: ''
     propertyLabel: ''
@@ -86,12 +86,12 @@
     valueLabel: ''
     unit: 'PERCENT'
     numberType: real
-    minimum: 0.8187633
-    maximum: 57.9179525
+    minimum: -8.5579014
+    maximum: 50.8305625
     columnClasses: numeric
   notes:
     attributeName: notes
-    attributeDefinition: 'soil collection or processing notes'
+    attributeDefinition: 'soil processing notes'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
