@@ -56,9 +56,9 @@
     columnClasses: numeric
   width_ns:
     attributeName: width_ns
-    attributeDefinition: ''
+    attributeDefinition: 'width of the plant along the north-south axis; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter' 
     propertyURI: ''
-    propertyLabel: 'width of the plant along the north-south axis; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
+    propertyLabel: ''
     valueURI: ''
     valueLabel: ''
     unit: 'M'

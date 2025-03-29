@@ -156,6 +156,14 @@ get_human_indicators <- function(research_focus) {
     statement = human_indicators_query
   )
   
+  human_indicators_data |>
+    pointblank::col_vals_equal(
+      columns       = n,
+      value         = 1,
+      preconditions = \(x) x |> dplyr::count(sample_date, site_code),
+      actions       = pointblank::warn_on_fail()
+    )
+  
   return(human_indicators_data)
   
 }
@@ -213,6 +221,14 @@ get_landscape_irrigation <- function(research_focus) {
     statement = landscape_irrigation_query
   )
   
+  landscape_irrigation_data |>
+    pointblank::col_vals_equal(
+      columns       = n,
+      value         = 1,
+      preconditions = \(x) x |> dplyr::count(sample_date, site_code),
+      actions       = pointblank::warn_on_fail()
+    )
+  
   return(landscape_irrigation_data)
   
 }
@@ -255,6 +271,14 @@ get_annuals <- function() {
     conn      = pg,
     statement = get_annuals_base_query
   )
+ 
+  annuals |>
+    pointblank::col_vals_equal(
+      columns       = n,
+      value         = 1,
+      preconditions = \(x) x |> dplyr::count(sample_date, site_code),
+      actions       = pointblank::warn_on_fail()
+    )
 
   return(annuals)
 
@@ -297,12 +321,12 @@ get_shrub_surveys <- function() {
     conn      = pg,
     statement = get_shrub_surveys_base_query
   ) |>
-    # confirm unique shrub_perennial_id
     pointblank::col_vals_equal(
       columns       = n,
       value         = 1,
       preconditions = \(x) x |> dplyr::count(shrub_perennial_id),
-      actions       = pointblank::warn_on_fail()
+      actions       = pointblank::warn_on_fail(),
+      label         = "checking for unique shrub_perennial_id" # label works?
     )
 
   return(shrub_surveys)
@@ -601,6 +625,14 @@ get_neighborhood_characteristics <- function(research_focus) {
     conn      = pg,
     statement = neighborhood_characterization_query
   )
+  
+  neighborhood_characterization_data |>
+    pointblank::col_vals_equal(
+      columns       = n,
+      value         = 1,
+      preconditions = \(x) x |> dplyr::count(site_code, sample_date),
+      actions       = pointblank::warn_on_fail()
+    )
   
   return(neighborhood_characterization_data)
 

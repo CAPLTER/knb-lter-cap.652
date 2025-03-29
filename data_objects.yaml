@@ -28,7 +28,7 @@ annuals:
 shrubs_surveys:
   type: table
   dfname: shrubs_surveys
-  description: "Biovolume and characteristics of shrubs and succulent plants within study plots: up to five plants of each type are surveyed."
+  description: "Biovolume and characteristics of shrubs and succulent plants within study plots; up to five plants of each type are surveyed."
   dateRangeField: "sample_date"
   overwrite: TRUE
   projectNaming: TRUE
@@ -37,7 +37,7 @@ shrubs_surveys:
 trees:
   type: table
   dfname: trees
-  description: "Size and characteristics of trees and Saguaros (Carnegiea gigantea) within study plots. Unlike shrubs and smaller plants where the characteristics of up to five individuals of each type are measured, characteristics of all trees and Saguaros in a plot are assessed. As such, these data also reflect the total number of trees and Saguaros in the study plot. An exception to this is seedlings, where trees less than 1 meter in height are simply counted (and not measured); counts of these plants are available in the number_perennials data that is part of this data set."
+  description: "Size and characteristics of trees and Saguaros (Carnegiea gigantea) within study plots. Unlike shrubs and smaller plants where the characteristics of up to five individuals of each type are measured, characteristics of all trees and Saguaros in a plot are assessed. As such, these data also reflect the total number of trees and Saguaros in the study plot. An exception to this is seedlings where trees less than 1 meter in height are simply counted (and not measured); counts of these plants are available in the number_perennials data that is part of this data set."
   dateRangeField: "sample_date"
   overwrite: TRUE
   projectNaming: TRUE
@@ -64,7 +64,7 @@ hedges:
 landuse:
   type: table
   dfname: landuse
-  description: "Estimated land use or land cover in the study plot. Plots may consist of multiple land use or land cover types, with the approximate percentage of each estimated. Land use or land cover types/labels are adapted from land use/land cover designations employed by the Maricopa County Association of Governments."
+  description: "Estimated land use or land cover in the study plot. Plots may consist of multiple land use or land cover types, with the approximate percentage of each estimated. Land use or land cover types/labels are adapted from land use/land cover designations employed by the Maricopa County Association of Governments (MAG)."
   dateRangeField: "sample_date"
   overwrite: TRUE
   projectNaming: TRUE
@@ -82,7 +82,7 @@ neighborhood_characteristics:
 structures:
   type: table
   dfname: structures
-  description: "Type and height of any structures within the study plot."
+  description: "Type of any structures within or touching the study plot."
   dateRangeField: "sample_date"
   overwrite: TRUE
   projectNaming: TRUE
@@ -97,9 +97,9 @@ sampling_events:
   projectNaming: TRUE
   missingValueCode: ~
   additional_information: ~
-soil_perimeter_core:
+soil_perimeter_cores:
   type: table
-  dfname: soil_perimeter_core
+  dfname: soil_perimeter_cores 
   description: "Chemical properties of soils including: nitrate-nitrogen; ammonium-nitrogen; phosphate; and moisture content. Measurements are made from four cores (1-inch diameter) collected approximately 10-m in each cardinal direction from the survey plot center. Cores from each cardinal direction are split into two depths: 0-10cm and 10-30cm, and homogenized."
   dateRangeField: "sample_date"
   overwrite: TRUE
@@ -124,4 +124,3 @@ arthropods:
   projectNaming: TRUE
   missingValueCode: ~
   additional_information: ~
-

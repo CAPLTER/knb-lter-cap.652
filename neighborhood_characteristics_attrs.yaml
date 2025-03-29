@@ -146,8 +146,8 @@
     valueLabel: ''
     columnClasses: factor
   neigh_yard_upkeep_professionally_maintained:
-    attributeName: 'yards in neighborhood appear professionally maintained'
-    attributeDefinition: ''
+    attributeName: neigh_yard_upkeep_professionally_maintained 
+    attributeDefinition: 'yards in neighborhood appear professionally maintained' 
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''

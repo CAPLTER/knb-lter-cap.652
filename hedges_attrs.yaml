@@ -28,7 +28,7 @@
     definition: ''
   height:
     attributeName: height
-    attributeDefinition: 'max height of the hedge'
+    attributeDefinition: 'height of the hedge; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter' 
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -40,7 +40,7 @@
     columnClasses: numeric
   width:
     attributeName: width
-    attributeDefinition: 'width of the hedge'
+    attributeDefinition: 'width of the hedge; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -52,7 +52,7 @@
     columnClasses: numeric
   length:
     attributeName: length
-    attributeDefinition: 'length of the hedge'
+    attributeDefinition: 'length of the hedge; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -84,7 +84,7 @@
     columnClasses: factor
   number_of_plants:
     attributeName: number_of_plants
-    attributeDefinition: 'estiamted number of plants that make up the complete hedge'
+    attributeDefinition: 'estimated number of plants that make up the complete hedge'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''

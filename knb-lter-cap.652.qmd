@@ -586,7 +586,6 @@ soil_center_cores <- soil_center_cores |>
     notes
   )
 
-
 try({
   capeml::write_attributes(soil_center_cores, overwrite = FALSE)
 })
@@ -607,4 +606,49 @@ try({
   capeml::write_attributes(arthropods, overwrite = FALSE)
   capeml::write_factors(arthropods, overwrite = FALSE)
 })
+```
+
+```{r}
+#| eval: TRUE
+#| label: coverages
+
+coverage <- EML::set_coverage(
+  begin                 = as.character(as.Date(min(sampling_events$sample_date))),
+  end                   = as.character(as.Date(max(sampling_events$sample_date))),
+  geographicDescription = capeml::read_package_configuration()[["geographic_description"]],
+  west                  = -112.783,
+  east                  = -111.579,
+  north                 = 33.8267,
+  south                 = 33.2186
+)
+```
+
+```{r}
+#| eval: TRUE
+#| label: build
+
+# devtools::load_all("~/localRepos/capeml")
+
+dataset <- capeml::create_dataset()
+eml     <- capeml::create_eml()
+
+EML::eml_validate(eml)
+capeml::write_cap_eml()
+
+source("~/Documents/localSettings/aws.s3")
+
+lapply(
+  X   = list.files(pattern = "652_"),
+  FUN = capeml::data_to_amz
+)
+
+source("~/Documents/localSettings/edi.R")
+capeml::get_package_evaluation(full_report = FALSE)
+
+report <- capeml::get_package_evaluation(full_report = TRUE)
+xml2::write_xml(report, "/tmp/report.xml")
+
+capeml::create_package(environment = "staging")
+
+EDIutils::logout()
 ```
