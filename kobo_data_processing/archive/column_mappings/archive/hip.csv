@@ -1,0 +1,76 @@
+db_column,db_type,tablet_name
+parcel_survey_id,integer,
+survey_id,integer,
+parcel_survey_type,character,front or back yard
+parcel_residence_type,character,in parcel sheet (not front back sheet)
+parcel_social_class,character,in parcel sheet (not front back sheet)
+parcel_appearance,character,yard upkeep and appearance
+parcel_orderliness,character,yard orderliness (placement of plants riverbed etc)
+presence_of_bird_feeder,boolean,features in the yard/bird feeder
+presence_of_water_feature,boolean,features in the yard/water feature
+presence_of_porch_patio,boolean,features in the yard/front porch
+presence_of_cats,boolean,features in the yard/cats
+presence_of_dogs,boolean,features in the yard/dogs
+presence_of_pet_waste,boolean,features in the yard/pet or animal waste
+presence_of_statues,boolean,features in the yard/religious ornaments or statues
+presence_of_flagpole,boolean,features in the yard/flagpole
+presence_of_cars_yard,boolean,features in the yard/cars in yard but not in the driveway
+presence_of_potted_plant,boolean,features in the yard/potted plants
+presence_of_play_equip,boolean,features in the yard/play equipment
+presence_of_lawn_ornaments,boolean,features in the yard/lawn ornaments
+presence_of_furniture,boolean,features in the yard/chairs or tables
+presence_of_river_bed,boolean,features in the yard/landscaped rock or river bed
+presence_of_yard_topography,boolean,features in the yard/created yard topography
+presence_of_litter,boolean,features in the yard/litter or refuse on the ground
+presence_of_veg_litter,boolean,features in the yard/vegetation litter like leaves
+presence_of_yard_tools,boolean,features in the yard/yard maintenance tools
+presence_of_light_post,boolean,features in the yard/light post
+presence_of_other,boolean,features in the yard/other
+presence_of_irrigation_flood,boolean,watering regimes/flood
+presence_of_irrigation_drip,boolean,watering regimes/drip or trickle
+presence_of_irrigation_hose,boolean,watering regimes/hand watering
+presence_of_irrigation_sprinklers,boolean,watering regimes/overhead spray
+cv_landsc_type_id,integer,predominant landscape type
+cv_amount_grass_id,integer,amount of grass
+cv_weed_grass_id,integer,percent of weeds IN grass area
+cv_weed_xeric_id,integer,percent of weeds in non-grass or xeric areas
+presence_of_weeds_other,boolean,are there weeds in other areas of the yard such as flowerbeds or the driveway
+parcel_pruning_trees,character,evidence of tree pruning such as cut branches
+parcel_pruning_shrubs,character,evidence of shrub pruning such as shaped shrubs
+parcel_grass_patchiness,character,grass patchiness
+parcel_percent_living_grass,integer,percent living grass
+parcel_percent_bare,integer,percent bare ground
+parcel_percent_dead,integer,percent dead or dormant grass
+parcel_percent_weeds,integer,percent weeds
+parcel_percent_other,integer,percent other
+parcel_percent_no_stress,integer,percent very green grass
+parcel_percent_little_stress,integer,percent greenish-yellow grass
+parcel_percent_some_stress,integer,percent yellowish grass
+parcel_percent_moderate_stress,integer,percent moderately green grass
+parcel_percent_severe_stress,integer,percent brownish grass
+cv_lawn_health_id,integer,rate the overall lawn color (including grass and weeds)
+cv_lawn_quality_id,integer,overall lawn quality
+presence_of_lawn_trimmed,boolean,lawn edges trimmed?
+presence_of_recent_cut,boolean,recently mowed?
+parcel_grass_height,integer,grass height (cm)
+parcel_weed_height,integer,weed height (cm)
+parcel_feature_comments,character,notable comment about the yard
+timestamp_val,timestamp,
+,,
+,,
+,,
+,,
+,,
+,,
+,kobo,hip_parcel_grass_color_calc
+,kobo,hip_parcel_composition_calc
+,kobo,estimate to the nearest 5 per cent
+,kobo,estimate to the nearest 5 per cent
+,kobo,total composition
+,kobo,total composition
+,kobo,watering regimes
+,kobo,features in the yard
+,,
+,,
+,empty; not a Dbcolumn,describe the landscape
+,not a DB col,watering regimes/not irrigated

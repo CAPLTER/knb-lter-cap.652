@@ -1,0 +1,133 @@
+|
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  vegetation_scientific_name:
+    attributeName: vegetation_scientific_name
+    attributeDefinition: 'scientific name of plant'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  vegetation_classification_code:
+    attributeName: vegetation_classification_code
+    attributeDefinition: 'general position or application of plant in the landscape'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  vegetation_shape_code:
+    attributeName: vegetation_shape_code
+    attributeDefinition: 'general shape of the plant'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  height:
+    attributeName: height
+    attributeDefinition: 'height of the plant; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: -2.0067275
+    maximum: 284.0
+    columnClasses: numeric
+  crown_width_ns:
+    attributeName: crown_width_ns
+    attributeDefinition: 'width of the canopy along the north-south axis; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: 0.003
+    maximum: 566.0
+    columnClasses: numeric
+  crown_width_ew:
+    attributeName: crown_width_ew
+    attributeDefinition: 'width of the canopy along the east-west axis; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: 0.002
+    maximum: 497.0
+    columnClasses: numeric
+  stem_diameter:
+    attributeName: stem_diameter
+    attributeDefinition: 'stem diameter'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'CentiM'
+    numberType: real
+    minimum: 0.0
+    maximum: 188.2
+    columnClasses: numeric
+  stem_height:
+    attributeName: stem_height
+    attributeDefinition: 'Height at which stem was measured. This is typically reported as Diameter Breast Height (dbh; ~4.5 feet) or Diameter Ground Height (dgh; measured at the base of the trunk). Height is in units of inches if the value is numeric. The meaning of several codes (g; b; n) used in early years of the survey is unclear.'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  stem_count:
+    attributeName: stem_count
+    attributeDefinition: 'number of stems that contributed to stem_diameter measurement'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'NUM'
+    numberType: whole
+    minimum: 0
+    maximum: 651
+    columnClasses: numeric
+  missing_branches:
+    attributeName: missing_branches
+    attributeDefinition: 'approximate percentage of branches that missing from what would be considered a perfectly healthy tree'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: whole
+    minimum: 0
+    maximum: 100
+    columnClasses: numeric
+  canopy_condition:
+    attributeName: canopy_condition
+    attributeDefinition: 'general condition of the tree canopy'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor

@@ -1,0 +1,113 @@
+|
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  vegetation_scientific_name:
+    attributeName: vegetation_scientific_name
+    attributeDefinition: 'scientific name of plant'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  height:
+    attributeName: height
+    attributeDefinition: 'height of the hedge; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter' 
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: 0.28
+    maximum: 7.1
+    columnClasses: numeric
+  width:
+    attributeName: width
+    attributeDefinition: 'width of the hedge; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: 0.3
+    maximum: 9.0
+    columnClasses: numeric
+  length:
+    attributeName: length
+    attributeDefinition: 'length of the hedge; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: 0.37
+    maximum: 30.0
+    columnClasses: numeric
+  percent_missing:
+    attributeName: percent_missing
+    attributeDefinition: 'approximate percentage of biovolume missing from what would be considered a healthy hedge'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: whole
+    minimum: 0
+    maximum: 30
+    columnClasses: numeric
+  hedge_condition:
+    attributeName: hedge_condition
+    attributeDefinition: 'perceived health of the hedge'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  number_of_plants:
+    attributeName: number_of_plants
+    attributeDefinition: 'estimated number of plants that make up the complete hedge'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'NUM'
+    numberType: natural
+    minimum: 1
+    maximum: 25
+    columnClasses: numeric
+  vegetation_classification_code:
+    attributeName: vegetation_classification_code
+    attributeDefinition: 'general position or application of plant in the landscape'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  vegetation_shape_code:
+    attributeName: vegetation_shape_code
+    attributeDefinition: 'general shape of the hedge'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor

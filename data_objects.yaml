@@ -1,0 +1,126 @@
+human_indicators:
+  type: table
+  dfname: human_indicators
+  description: "The presence of features or characteristics that are reflective of human presence or activity at the study plot."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+landscape_irrigation:
+  type: table
+  dfname: landscape_irrigation
+  description: "Characteristics reflective of the landscape type; health; and quality at the plot."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+annuals:
+  type: table
+  dfname: annuals
+  description: "Catalogue of all annual plants identified within the study plot."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+shrubs_surveys:
+  type: table
+  dfname: shrubs_surveys
+  description: "Biovolume and characteristics of shrubs and succulent plants within study plots; up to five plants of each type are surveyed."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+trees:
+  type: table
+  dfname: trees
+  description: "Size and characteristics of trees and Saguaros (Carnegiea gigantea) within study plots. Unlike shrubs and smaller plants where the characteristics of up to five individuals of each type are measured, characteristics of all trees and Saguaros in a plot are assessed. As such, these data also reflect the total number of trees and Saguaros in the study plot. An exception to this is seedlings where trees less than 1 meter in height are simply counted (and not measured); counts of these plants are available in the number_perennials data that is part of this data set."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+number_perennials:
+  type: table
+  dfname: number_perennials
+  description: "The number of perennial plants in the study plot except Saguaros and mature trees the numbers of which are available in the trees data that are part of this data set."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+hedges:
+  type: table
+  dfname: hedges
+  description: "The number of perennial plants in the study plot except Saguaros and mature trees the numbers of which are available in the trees data that are part of this data set."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+landuse:
+  type: table
+  dfname: landuse
+  description: "Estimated land use or land cover in the study plot. Plots may consist of multiple land use or land cover types, with the approximate percentage of each estimated. Land use or land cover types/labels are adapted from land use/land cover designations employed by the Maricopa County Association of Governments (MAG)."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+neighborhood_characteristics:
+  type: table
+  dfname: neighborhood_characteristics
+  description: "General characteristics such as those relating to perceived social class; types of buildings (if present); landscape quality and features; and traffic of the immediate area surrounding the study plot."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+structures:
+  type: table
+  dfname: structures
+  description: "Type of any structures within or touching the study plot."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+sampling_events:
+  type: table
+  dfname: sampling_events
+  description: "Date of survey and general characteristics of the study plot including: the elevation; slope; description of the plot; and a description of the weather on the date of sampling."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+soil_perimeter_cores:
+  type: table
+  dfname: soil_perimeter_cores 
+  description: "Chemical properties of soils including: nitrate-nitrogen; ammonium-nitrogen; phosphate; and moisture content. Measurements are made from four cores (1-inch diameter) collected approximately 10-m in each cardinal direction from the survey plot center. Cores from each cardinal direction are split into two depths: 0-10cm and 10-30cm, and homogenized."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+soil_center_cores:
+  type: table
+  dfname: soil_center_cores
+  description: "Physical and chemical properties of soils including: bulk density; particle size fraction; plant matter; pH; conductivity; moisture content; and texture. Measurements are made on a single core (2-inch diameter, 6-inch depth) taken near the survey plot center."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~
+arthropods:
+  type: table
+  dfname: arthropods
+  description: "Arthropods collected in sweepnet samples at survey plots. Sweepnet samples are collected on up to three plants (typically of different types) or ground sweeps if sampling plants is not feasible. Organisms are identified to the finest possible taxonomic resolution and enumerated. Samples are typically collected from sweeps of the ground at sites lacking vegetation."
+  dateRangeField: "sample_date"
+  overwrite: TRUE
+  projectNaming: TRUE
+  missingValueCode: ~
+  additional_information: ~

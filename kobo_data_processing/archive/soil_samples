@@ -1,0 +1,908 @@
+select usgs_site from firearea.non_usgs_pour_points where usgs_site ~~* '%gav$' ;
+select usgs_site from firearea.non_usgs_pour_points where usgs_site ~~* '%gav\$' ;
+select usgs_site from firearea.non_usgs_pour_points where usgs_site ~ '%gav' ;
+select usgs_site from firearea.non_usgs_pour_points where usgs_site ~ 'gav' ;
+select usgs_site from firearea.non_usgs_pour_points where usgs_site ~ 'gav|rat' ;
+select usgs_site from firearea.non_usgs_pour_points where usgs_site ~ 'gav|rat|hon|bur' ;
+select usgs_site from firearea.non_usgs_pour_points where usgs_site ~ 'gav|rat|hon|bur' ;
+\dt firearea.*
+\q
+\dt firearea.*
+select distinct(usgs_site) from firearea.flowlines ;
+select usgs_site from firearea.fires_catchments limit 3 ;
+select usgs_site from firearea.fires_catchments ;
+select usgs_site from firearea.fires_catchments where usgs_site ~ 'bur|rat|hon|gav' ;
+select usgs_site from firearea.ecoregion_catchments ;
+\dt firearea.*
+\d firearea.mtbs_fire_perimeters
+select * from firearea.mtbs_fire_perimeters where incid_name ~ 'gaviota|alisal' ;
+\x
+select * from firearea.mtbs_fire_perimeters where incid_name ~ 'gaviota|alisal' ;
+select * from firearea.mtbs_fire_perimeters where incid_name ~ 'gaviota|alisal' ;
+select * from firearea.mtbs_fire_perimeters where incid_name ~ 'gaviota' ;
+select * from firearea.mtbs_fire_perimeters where incid_name ~~* 'gaviota' ;
+select * from firearea.mtbs_fire_perimeters where incid_name ~~* 'gaviota' ;
+select * except columns(gemo) from firearea.mtbs_fire_perimeters where incid_name ~~* 'gaviota' ;
+select * from firearea.mtbs_fire_perimeters where incid_name ~~* 'gaviota' ;
+select * from firearea.mtbs_fire_perimeters where incid_name ~~* 'alisal' ;
+\dt firearea.*
+\x
+\dt firearea.*
+\d firearea.fires_catchments 
+CA3451712013120211011
+\q
+\dt firearea.*
+select usgs_site from firearea.flowlines ;
+select distinct(usgs_site) from firearea.flowlines ;
+\d firearea.flowlines 
+\d+ firearea.flowlines 
+\d+ firearea.flowlines 
+select distinct(usgs_site) from firearea.flowlines ;
+truncate firearea.flowlines ;
+select distinct(usgs_site) from firearea.flowlines ;
+\q
+\c caplter
+\dn
+drop schema if exists arthropods cascade ;
+\q
+\l
+\d*
+\
+\l
+\c srearl 
+\dn
+\q
+\l
+create database caplter ;
+\c caplter 
+\dn
+\q
+\c caplter 
+\dt arthropods.*
+\q
+\c caplter 
+\dn
+\dt arthropods.*
+\q
+\l
+\c wildfire 
+\dt firearea.*
+\d firearea.mtbs_fire_perimeters
+select distinct(low_t, mod_t, high_t) from firearea.mtbs_fire_perimeters ;
+\q
+\c caplter 
+\dn
+\q
+\c caplter
+\dn
+\dt survey200.*
+select * from survey200.insect_taxon_list
+;
+\d survey200.insect_taxon_list
+\d survey200.insect_taxon_list
+copy select * from survey200.insect_taxon_list to '/tmp/esca_taxa.csv' delimeter ',' csv header ;
+copy (select * from survey200.insect_taxon_list) to '/tmp/esca_taxa.csv' delimeter ',' csv header ;
+copy (select * from survey200.insect_taxon_list) to '/tmp/esca_taxa.csv' DELIMETER ',' csv header ;
+copy (select * from survey200.insect_taxon_list) TO '/tmp/esca_taxa.csv' DELIMETER ',' CSV HEADER ;
+COPY (select * from survey200.insect_taxon_list) TO '/tmp/esca_taxa.csv' DELIMETER ',' CSV HEADER ;
+\COPY (select * from survey200.insect_taxon_list) TO '/tmp/esca_taxa.csv' DELIMETER ',' CSV HEADER ;
+\COPY (select * from survey200.insect_taxon_list) TO '/tmp/esca_taxa.csv' DELIMETIR ',' CSV HEADER ;
+\COPY (select * from survey200.insect_taxon_list) TO '/tmp/esca_taxa.csv' DELIMETER ',' CSV HEADER ;
+\COPY (select * from survey200.insect_taxon_list) TO '/tmp/esca_taxa.csv' DELIMETER ',' CSV HEADER ;
+\COPY survey200.insect_taxon_list TO '/tmp/esca_taxa.csv' DELIMETER ',' CSV HEADER ;
+\COPY (select * from survey200.insect_taxon_list) TO '/tmp/esca_taxa.csv' DELIMITER ',' CSV HEADER ;
+\q
+\c caplter
+\dn
+\q
+\c caplter
+\dn
+set search_path to urbancndep ;
+\dt
+select * from stems limit 1 ;
+select max(pre_date) from stems ;
+select max(post_date) from stems ;
+\q
+\e
+\q
+select c.table_schema, st.relname as TableName, c.column_name, 
+pgd.description
+from pg_catalog.pg_statio_all_tables as st
+inner join information_schema.columns c
+on c.table_schema = st.schemaname
+and c.table_name = st.relname
+left join pg_catalog.pg_description pgd
+on pgd.objoid=st.relid
+and pgd.objsubid=c.ordinal_position where c.table_schema like '%firearea%';
+select c.table_schema, st.relname as TableName, c.column_name, 
+pgd.description
+from pg_catalog.pg_statio_all_tables as st
+inner join information_schema.columns c
+on c.table_schema = st.schemaname
+and c.table_name = st.relname
+left join pg_catalog.pg_description pgd
+on pgd.objoid=st.relid
+and pgd.objsubid=c.ordinal_position where c.table_schema like '%firearea%';
+SELECT
+  c.table_schema,
+  st.relname as TableName,
+  c.column_name, 
+  pgd.description
+FROM
+  pg_catalog.pg_statio_all_tables AS st
+INNER JOIN information_schema.columns c ON (c.table_schema = st.schemaname AND c.table_name = st.relname)
+LEFT JOIN pg_catalog.pg_description pgd
+ON (pgd.objoid = st.relid AND pgd.objsubid = c.ordinal_position)
+WHERE c.table_schema LIKE '%wildfire%'
+;
+select c.table_schema, st.relname as TableName, c.column_name, 
+pgd.description
+from pg_catalog.pg_statio_all_tables as st
+inner join information_schema.columns c
+on c.table_schema = st.schemaname
+and c.table_name = st.relname
+left join pg_catalog.pg_description pgd
+on pgd.objoid=st.relid
+and pgd.objsubid=c.ordinal_position
+WHERE c.table_schema LIKE '%wildfire%' ;
+select c.table_schema, st.relname as TableName, c.column_name, 
+pgd.description
+from pg_catalog.pg_statio_all_tables as st
+inner join information_schema.columns c
+on c.table_schema = st.schemaname
+and c.table_name = st.relname
+left join pg_catalog.pg_description pgd
+on pgd.objoid=st.relid
+and pgd.objsubid=c.ordinal_position where c.table_schema like '%firearea%';
+SELECT
+  c.table_schema,
+  st.relname as TableName,
+  c.column_name, 
+  pgd.description
+FROM
+  pg_catalog.pg_statio_all_tables AS st
+INNER JOIN information_schema.columns c ON (c.table_schema = st.schemaname AND c.table_name = st.relname)
+LEFT JOIN pg_catalog.pg_description pgd
+ON (pgd.objoid = st.relid AND pgd.objsubid = c.ordinal_position)
+WHERE c.table_schema LIKE '%firearea%'
+;
+\q
+\c caplter 
+\dn
+\q
+\l
+\c wildfire 
+\dt firearea.*
+select * from firearea.catchments limit 1 ;
+select usgs_site from firearea.catchments ;
+select usgs_site from firearea.catchments order by usgs_site ;
+\q
+\c wildfire 
+\dn
+\dt firearea.*
+select usgs_site from firearea.water_chem ;
+select distinct usgs_site from firearea.water_chem ;
+select distinct usgs_site from firearea.water_chem where usgs_site ~~* U.* ;
+select distinct usgs_site from firearea.water_chem where usgs_site ~~* 'U.*' ;
+select distinct usgs_site from firearea.water_chem where usgs_site ~* 'U.*' ;
+select distinct usgs_site from firearea.water_chem where usgs_site ~* '[U.*]' ;
+select distinct usgs_site from firearea.water_chem where usgs_site ~* '[^U.*]' ;
+select distinct usgs_site from firearea.water_chem where usgs_site ~* '$[^U.*]' ;
+select distinct usgs_site from firearea.water_chem where usgs_site ~* '$[U.*]' ;
+select distinct usgs_site from firearea.water_chem where usgs_site ~* '^[U.*]' ;
+select distinct usgs_site from firearea.water_chem where usgs_site ~* '^[^U.*]' ;
+\dt firearea.*
+\q
+\l
+drop database if exists wildfire ;
+create database wildfire ;
+\q
+\dn
+\dt firearea.*
+select * from firearea.discharge_daily limit 3 ;
+\q
+\c wildfire 
+\dt firearea.*
+\d firearea.non_usgs_catchments
+select usgs_site from firearea.non_usgs_catchments ;
+\d firearea.water_chem 
+\d+ firearea.water_chem 
+\d+ firearea.water_chem 
+\c caplter
+\dn
+\dt arthropods.*
+select * from arthropods.arthropod_taxonomy ;
+\x
+select * from arthropods.arthropod_taxonomy limit 3 ;
+\d+ arthropods.arthropod_taxonomy
+\d+ arthropods.arthropod_taxonomy
+\d arthropods.arthropod_taxonomy
+select * from arthropods.arthropod_taxonomy limit 5 ;
+select code, arth_class, arth_order, arth_family, arth_genus_subgenus, display_name, authority, authority_id from arthropods.arthropod_taxonomy ;
+\x
+select code, arth_class, arth_order, arth_family, arth_genus_subgenus, display_name, authority, authority_id from arthropods.arthropod_taxonomy ;
+select code, arth_class, arth_order, arth_family, arth_genus_subgenus, display_name, authority, authority_id from arthropods.arthropod_taxonomy, archive ;
+select code, arth_class, arth_order, arth_family, arth_genus_subgenus, display_name, authority, authority_id, archive from arthropods.arthropod_taxonomy ;
+select code, arth_family, arth_genus_subgenus, display_name, authority, authority_id, archive from arthropods.arthropod_taxonomy ;
+select code, arth_genus_subgenus, display_name, authority, authority_id, archive from arthropods.arthropod_taxonomy ;
+\COPY(select * from arthropods.arthropod_taxonomy) to '~/Desktop/arth_tax.csv' delimiter ',' csv header ;
+\COPY (select * from arthropods.arthropod_taxonomy) to '~/Desktop/arth_tax.csv' delimiter ',' csv header ;
+\d+ arthropods.arthropod_taxonomy
+\d+ arthropods.arthropod_taxonomy
+\q
+\c caplter 
+\dn
+\dt arthropods.*
+\l
+\c srearl 
+\dn
+\c caplter
+\dn
+set search_path to arthropods ;
+\dt
+select * from arthropod_taxonomy ;
+\x
+select * from arthropod_taxonomy limit 3 ;
+\d arthropod_taxonomy
+select * from arthropod_taxonomy limit 3 ;
+select distinct authority from arthropod_taxonomy ;
+\d arthropod_taxonomy
+\d arthropod_taxonomy
+\COPY (select * from arthropods.arthropod_taxonomy) to '~/Desktop/arth_tax2.csv' delimiter ',' csv header ;
+\q
+\c wildfire 
+\dt firearea.*
+\d firearea.fires_catchments 
+select distinct usgs_site from firearea.fires_catchments ;
+select distinct usgs_site from firearea.fires_catchments ;
+\d firearea.non_usgs_catchments
+select usgs_site from firearea.non_usgs_catchments ;
+\dt firearea.*
+\dt firearea.*
+\q
+\l
+\q
+\c wildfire 
+dt firearea.*
+\dt firearea.*
+SELECT
+  non_usgs_catchments.usgs_site,
+  perimeters_transform.event_id,
+  perimeters_transform.ig_date,
+  ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+FROM perimeters_transform
+INNER JOIN firearea.catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+WHERE
+  ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+  ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+;
+SELECT
+  non_usgs_catchments.usgs_site,
+  perimeters_transform.event_id,
+  perimeters_transform.ig_date,
+  ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+FROM perimeters_transform
+INNER JOIN firearea.catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+WHERE
+  ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+  ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+;
+WITH RECURSIVE
+perimeters_transform AS (
+    SELECT
+        gid,
+        event_id,
+        ig_date,
+        ST_Transform(geom, 4326) AS geom
+    FROM
+        firearea.mtbs_fire_perimeters
+),
+fires_catchments AS (
+  SELECT
+    non_usgs_catchments.usgs_site,
+    perimeters_transform.event_id,
+    perimeters_transform.ig_date,
+    ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+  FROM perimeters_transform
+  INNER JOIN firearea.catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+  WHERE
+    ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+    ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+)
+-- INSERT INTO firearea.fires_catchments(
+--   usgs_site,
+--   event_id,
+--   ig_date,
+--   geometry
+-- )
+SELECT
+  DISTINCT fires_catchments.*
+FROM fires_catchments
+ON CONFLICT (usgs_site, event_id) DO NOTHING
+;
+WITH RECURSIVE
+perimeters_transform AS (
+    SELECT
+        gid,
+        event_id,
+        ig_date,
+        ST_Transform(geom, 4326) AS geom
+    FROM
+        firearea.mtbs_fire_perimeters
+),
+fires_catchments AS (
+  SELECT
+    non_usgs_catchments.usgs_site,
+    perimeters_transform.event_id,
+    perimeters_transform.ig_date,
+    ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+  FROM perimeters_transform
+  INNER JOIN firearea.catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+  WHERE
+    ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+    ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+)
+-- INSERT INTO firearea.fires_catchments(
+--   usgs_site,
+--   event_id,
+--   ig_date,
+--   geometry
+-- )
+SELECT
+  DISTINCT fires_catchments.*
+FROM fires_catchments
+-- ON CONFLICT (usgs_site, event_id) DO NOTHING
+;
+\d firearea.non_usgs_catchments
+    SELECT
+        gid,
+        event_id,
+        ig_date,
+        ST_Transform(geom, 4326) AS geom
+    FROM
+        firearea.mtbs_fire_perimeters;
+ITH RECURSIVE
+perimeters_transform AS (
+    SELECT
+        gid,
+        event_id,
+        ig_date,
+        ST_Transform(geom, 4326) AS geom
+    FROM
+        firearea.mtbs_fire_perimeters
+),
+fires_catchments AS (
+  SELECT
+    non_usgs_catchments.usgs_site,
+    perimeters_transform.event_id,
+    perimeters_transform.ig_date,
+    ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+  FROM perimeters_transform
+  INNER JOIN firearea.catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+  WHERE
+    ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+    ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+)
+-- INSERT INTO firearea.fires_catchments(
+--   usgs_site,
+--   event_id,
+--   ig_date,
+--   geometry
+-- )
+SELECT
+  DISTINCT fires_catchments.*
+FROM fires_catchments
+-- ON CONFLICT (usgs_site, event_id) DO NOTHING
+;
+WITH RECURSIVE
+perimeters_transform AS (
+    SELECT
+        gid,
+        event_id,
+        ig_date,
+        ST_Transform(geom, 4326) AS geom
+    FROM
+        firearea.mtbs_fire_perimeters
+),
+fires_catchments AS (
+  SELECT
+    non_usgs_catchments.usgs_site,
+    perimeters_transform.event_id,
+    perimeters_transform.ig_date,
+    ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+  FROM perimeters_transform
+  INNER JOIN firearea.catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+  WHERE
+    ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+    ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+)
+-- INSERT INTO firearea.fires_catchments(
+--   usgs_site,
+--   event_id,
+--   ig_date,
+--   geometry
+-- )
+SELECT
+  DISTINCT fires_catchments.*
+FROM fires_catchments
+-- ON CONFLICT (usgs_site, event_id) DO NOTHING
+;
+WITH RECURSIVE
+perimeters_transform AS (
+    SELECT
+        gid,
+        event_id,
+        ig_date,
+        ST_Transform(geom, 4326) AS geom
+    FROM
+        firearea.mtbs_fire_perimeters
+),
+fires_catchments AS (
+  SELECT
+    non_usgs_catchments.usgs_site,
+    perimeters_transform.event_id,
+    perimeters_transform.ig_date,
+    ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+  FROM perimeters_transform
+  INNER JOIN firearea.non_usgs_catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+  WHERE
+    ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+    ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+)
+-- INSERT INTO firearea.fires_catchments(
+--   usgs_site,
+--   event_id,
+--   ig_date,
+--   geometry
+-- )
+SELECT
+  DISTINCT fires_catchments.*
+FROM fires_catchments
+-- ON CONFLICT (usgs_site, event_id) DO NOTHING
+;
+WITH RECURSIVE
+perimeters_transform AS (
+    SELECT
+        gid,
+        event_id,
+        ig_date,
+        ST_Transform(geom, 4326) AS geom
+    FROM
+        firearea.mtbs_fire_perimeters
+),
+fires_catchments_local AS (
+  SELECT
+    non_usgs_catchments.usgs_site,
+    perimeters_transform.event_id,
+    perimeters_transform.ig_date,
+    ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+  FROM perimeters_transform
+  INNER JOIN firearea.non_usgs_catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+  WHERE
+    ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+    ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+)
+-- INSERT INTO firearea.fires_catchments(
+--   usgs_site,
+--   event_id,
+--   ig_date,
+--   geometry
+-- )
+SELECT
+  DISTINCT fires_catchments_local.*
+FROM fires_catchments_local
+-- ON CONFLICT (usgs_site, event_id) DO NOTHING
+;
+WITH RECURSIVE
+perimeters_transform AS (
+  SELECT
+    gid,
+    event_id,
+    ig_date,
+    ST_Transform(geom, 4326) AS geom
+  FROM
+  firearea.mtbs_fire_perimeters
+),
+fires_catchments_local AS (
+  SELECT
+    non_usgs_catchments.usgs_site,
+    perimeters_transform.event_id,
+    perimeters_transform.ig_date,
+    ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+  FROM perimeters_transform
+  INNER JOIN firearea.non_usgs_catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+  WHERE
+  ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+  ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+)
+INSERT INTO firearea.fires_catchments2(
+  usgs_site,
+  event_id,
+  ig_date,
+  geometry
+  )
+  SELECT
+    DISTINCT fires_catchments_local.*
+  FROM fires_catchments_local
+  ON CONFLICT (usgs_site, event_id) DO NOTHING
+;
+WITH RECURSIVE
+perimeters_transform AS (
+  SELECT
+    gid,
+    event_id,
+    ig_date,
+    ST_Transform(geom, 4326) AS geom
+  FROM
+  firearea.mtbs_fire_perimeters
+),
+fires_catchments_local AS (
+  SELECT
+    non_usgs_catchments.usgs_site,
+    perimeters_transform.event_id,
+    perimeters_transform.ig_date,
+    ST_Intersection(perimeters_transform.geom, non_usgs_catchments.geometry) AS geometry
+  FROM perimeters_transform
+  INNER JOIN firearea.non_usgs_catchments ON ST_Intersects(perimeters_transform.geom, non_usgs_catchments.geometry)
+  WHERE
+  ST_isvalid(perimeters_transform.geom) = 'TRUE' AND
+  ST_isvalid(non_usgs_catchments.geometry) = 'TRUE'
+)
+INSERT INTO firearea.fires_catchments(
+  usgs_site,
+  event_id,
+  ig_date,
+  geometry
+  )
+  SELECT
+    DISTINCT fires_catchments_local.*
+  FROM fires_catchments_local
+  ON CONFLICT (usgs_site, event_id) DO NOTHING
+;
+\dt firearea.*
+\d firearea.fires_catchments
+\dt firearea.*
+\q
+select * from pg_stat_activity ;
+\x
+select * from pg_stat_activity ;
+select * from pg_stat_statements ;
+select * from pg_stat_database ;
+\q
+\c wildfire 
+\dt
+select * from flowline_07227100 limit 3 ;
+\d flowline_07227100
+drop table if exists public.flowline_07227100 ;
+\dt
+\q
+\c wildfire 
+\dn
+\dt firearea.*
+\q
+\l
+\c wildfire 
+\dn
+\dt firearea.*
+\d firearea.non_usgs_catchments
+select distinct usgs_site from firearea.non_usgs_catchments ;
+select distinct usgs_site from firearea.non_usgs_pour_points ;
+\dt
+\dt firearea.*
+drop table if exists firearea.neon_discharge ;
+\dt firearea.*
+select distinct usgs_site from firearea.non_usgs_pour_points ;
+select distinct usgs_site from firearea.non_usgs_pour_points order by usgs_site ;
+\dt firearea.*
+select * usgs_site from firearea.non_usgs_catchments where usgs_site ~~* 'neon' ;
+select usgs_site from firearea.non_usgs_catchments where usgs_site ~~* 'neon' ;
+select usgs_site from firearea.non_usgs_catchments where usgs_site ~~* '%neon%' ;
+select usgs_site from firearea.non_usgs_catchments where usgs_site = 'neon_rebu' ;
+select distinct usgs_site from firearea.non_usgs_catchments ;
+\dt firearea.*
+\d firearea.discharge_daily 
+\dt firearea.*
+select * from firearea.non_usgs_discharge limit 10 ;
+\dt firearea.*
+\dt firearea.non_usgs_discharge 
+\d firearea.non_usgs_discharge 
+\d+ firearea.non_usgs_discharge 
+select * from non_usgs_discharge limit 3 ;
+select * from firearea.non_usgs_discharge limit 3 ;
+\dt firearea.*
+\d firearea.water_chem 
+\q
+\c wildfire 
+\dn
+\dt firearea.*
+select * from firearea.flowline_07227100 limit 1 ;
+select usgs_site from firearea.flowline_07227100 ;
+\d firearea.flowline_07227100
+select usgs_site, nhdplus_comid from firearea.flowline_07227100 ;
+\dt firearea.ecoregion_catchments 
+\d firearea.ecoregion_catchments 
+select usgs_site from firearea.ecoregion_catchments ;
+select usgs_site from firearea.ecoregion_catchments ;
+\dt+ firearea.water_chem 
+\d+ firearea.water_chem 
+\dn
+\dt firearea.*
+\q
+\c wildfire 
+\dt firearea.*
+select distinct usgs_site from firearea.ecoregion_catchments ;
+\dt firearea.*
+select * from firearea.non_usgs_water_chem ;
+\x
+select * from firearea.non_usgs_water_chem limit 3 ;
+select * from firearea.non_usgs_water_chem limit 3 ;
+drop table if exists firearea.non_usgs_water_chem ;
+\dt firearea.*
+\x
+\dt firearea.*
+\q
+\c wildfire 
+select * from firearea.non_usgs_discharge ;
+\d firearea.non_usgs_discharge ;
+\q
+\c wildfire 
+select * from firearea.non_usgs_water_chem ;
+\dt firearea.*
+drop table if exists firearea.non_usgs_discharge ;
+select * from firearea.non_usgs_water_chem ;
+drop table if exists firearea.non_usgs_water_chem ;
+\dt firearea.*
+select * from firearea.non_usgs_water_chem ;
+select * from firearea.non_usgs_water_chem ;
+select * from firearea.non_usgs_water_chem ;
+select * from firearea.non_usgs_water_chem ;
+\dt firearea.*
+\dt firearea.*
+select * from firearea.non_usgs_discharge ;
+\q
+\c caplter 
+\dn
+\q
+\c caplter 
+\cn
+\dn
+\dn
+\q
+\c caplter 
+\dn
+drop schema if exists survey200 ;
+drop schema if exists survey200 cascade ;
+\dn
+\dn
+\dn
+\dn
+\dn
+\q
+\c caplter 
+set search_path to survey200 ;
+\dt
+\d vegetation_taxon_list
+select * from sweepnet_samples ;
+\d arthropods.arthropod_taxonomy
+\d insect_taxon_list
+\d sweepnet_sample_insect_counts
+\d
+\d sampling_events
+\d insect_taxon_list
+\d insect_taxon_list
+\d insect_taxon_list
+\d insect_taxon_list
+\d sweepnet_sample_insect_counts
+\d sweepnet_sample_insect_counts
+select * from sweepnet_sample_insect_counts where insect_taxon_id in (123, 452) ;
+select * from sweepnet_sample_insect_counts where insect_taxon_id in (123, 452) ;
+\x
+select * from sweepnet_sample_insect_counts where insect_taxon_id in (123, 452) ;
+\q
+\c caplter 
+select * from survey200.sites ;
+\d survey200.sweepnet_sample_insect_counts
+\d survey200.sweepnet_samples
+\d survey200.vegetation_taxon_list
+\q
+\c caplter
+set search_path to survey200 ;
+\q
+\c caplter 
+set search_path to survey200 ;
+\d sweepnet_sample_insect_counts
+    SELECT
+      sweepnet_sample_insect_counts.insect_count_id,
+      sweepnet_sample_insect_counts.sweepnet_sample_id,
+      insect_taxon_list.insect_scientific_name,
+      sweepnet_sample_insect_counts.count_of_insect,
+      sweepnet_sample_insect_counts.immature
+    FROM survey200.sweepnet_sample_insect_counts
+    JOIN survey200.insect_taxon_list ON (insect_taxon_list.insect_taxon_id = sweepnet_sample_insect_counts.insect_taxon_id)
+    WHERE sweepnet_sample_insect_counts.sweepnet_sample_id = 124
+    ;
+\q
+\c caplter 
+set search_path to survey200 ;
+\d survey200.sweepnet_sample_insect_counts
+\x
+\d survey200.sweepnet_sample_insect_counts
+\d survey200.insect_taxon_list
+\d survey200.sweepnet_sample_insect_counts
+    SELECT
+      sweepnet_sample_insect_counts.insect_count_id AS id,
+      sweepnet_sample_insect_counts.sweepnet_sample_id,
+      insect_taxon_list.insect_scientific_name,
+      sweepnet_sample_insect_counts.count_of_insect,
+      sweepnet_sample_insect_counts.immature
+    FROM survey200.sweepnet_sample_insect_counts
+    JOIN survey200.insect_taxon_list ON (insect_taxon_list.insect_taxon_id = sweepnet_sample_insect_counts.insect_taxon_id)
+    WHERE sweepnet_sample_insect_counts.insect_count_id = 6019
+    ;
+    SELECT
+      insect_taxon_id,
+      insect_scientific_name
+    FROM survey200.insect_taxon_list
+    WHERE archive IS NULL
+    ORDER BY insect_scientific_name
+    ;
+\d survey200.insect_taxon_list
+    SELECT
+      sweepnet_samples.sweepnet_sample_id,
+      sampling_events.samp_date,
+      sites.site_code,
+      vegetation_taxon_list.vegetation_scientific_name,
+      sweepnet_samples.notes
+    FROM survey200.sweepnet_samples
+    JOIN survey200.sampling_events ON (sampling_events.survey_id = sweepnet_samples.survey_id)
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    JOIN survey200.vegetation_taxon_list ON (vegetation_taxon_list.vegetation_taxon_id = sweepnet_samples.vegetation_taxon_id)
+    WHERE sweepnet_samples.sweepnet_sample_id = 2273
+    ;
+    SELECT
+      sweepnet_sample_insect_counts.insect_count_id AS id,
+      sweepnet_sample_insect_counts.sweepnet_sample_id,
+      insect_taxon_list.insect_scientific_name,
+      sweepnet_sample_insect_counts.count_of_insect,
+      sweepnet_sample_insect_counts.immature
+    FROM survey200.sweepnet_sample_insect_counts
+    JOIN survey200.insect_taxon_list ON (insect_taxon_list.insect_taxon_id = sweepnet_sample_insect_counts.insect_taxon_id)
+    WHERE sweepnet_sample_insect_counts.insect_count_id = 2273
+    ;
+    SELECT
+      sweepnet_sample_insect_counts.insect_count_id AS id,
+      sweepnet_sample_insect_counts.sweepnet_sample_id,
+      insect_taxon_list.insect_scientific_name,
+      sweepnet_sample_insect_counts.count_of_insect,
+      sweepnet_sample_insect_counts.immature
+    FROM survey200.sweepnet_sample_insect_counts
+    JOIN survey200.insect_taxon_list ON (insect_taxon_list.insect_taxon_id = sweepnet_sample_insect_counts.insect_taxon_id)
+    WHERE sweepnet_sample_insect_counts.insect_count_id = 5693
+    ;
+    SELECT
+      sweepnet_sample_insect_counts.insect_count_id AS id,
+      sweepnet_sample_insect_counts.sweepnet_sample_id,
+      insect_taxon_list.insect_scientific_name,
+      sweepnet_sample_insect_counts.count_of_insect,
+      sweepnet_sample_insect_counts.immature
+    FROM survey200.sweepnet_sample_insect_counts
+    JOIN survey200.insect_taxon_list ON (insect_taxon_list.insect_taxon_id = sweepnet_sample_insect_counts.insect_taxon_id)
+    WHERE sweepnet_sample_insect_counts.insect_count_id = 9999
+    ;
+\d survey200.sweepnet_sample_insect_counts
+\q
+\c caplter 
+set search_path to survey200 ;
+\d sweepnet_sample_insect_counts
+select * from sweepnet_sample_insect_counts ;
+select distinct(immature) from sweepnet_sample_insect_counts ;
+\q
+\c caplter 
+set search_path to survey200 ;
+\d insect_taxon_list
+\q
+\c srearl 
+\dn
+set search_path to survey200 ;
+\d insect_taxon_list
+\d sweepnet_sample_insect_counts
+\c caplter 
+set search_path to survey200 ;
+\d insect_taxon_list
+select * from sampling_events limit 1 ;
+select max (samp_date) from sampling_events ;
+\q
+\cn
+\l
+\c wildfire 
+\dn
+set search_path to firearea ;
+\dt
+\d catchments
+select usgs_site from catchments ;
+select usgs_site where usgs_site ~~* '%0722%' from catchments ;
+select usgs_site where usgs_site ~~* %0722% from catchments ;
+select usgs_site where usgs_site ~~* '*0722*' from catchments ;
+select usgs_site from catchments where usgs_site ~~* '%0722%' ;
+\dt
+\d fires_catchments 
+select * from fires_catchments where usgs_site ~~* '%07227100%' ;
+select * from fires_catchments where usgs_site ~~* '%07227100%' ;
+\d fires_catchments 
+\d mtbs_fire_perimeters
+\d mtbs_fire_perimeters
+\d fires_catchments 
+\d catchments
+\q
+\l
+\c srearl
+\dn
+drop schema if exists survey200 cascade ;
+\q
+\c srearl
+\dn
+\d survey200.insect_taxon_list
+\q
+\c caplter 
+\d survey200.insect_taxon_list
+select site_code, research_focus from survey200.sites ;
+select site_code, research_focus from survey200.sites order by research_focus, site_code ;
+\q
+\c caplter 
+set search_path to survey200 ;
+\d sites
+select distinct research_focus from survey200.sites ;
+\d sites
+select site_code, research_focus from survey200.sites order by research_focus, site_code ;
+\d sites
+\d sites
+select * from sites
+;
+select site_code, research_focus from survey200.sites order by research_focus, site_code ;
+\d sites
+INSERT INTO survey200.sites ( site_code, research_focus) VALUES ( ('AC20', 'parcel'), ('V18', 'parcel')) ;
+select site_code, research_focus from survey200.sites order by research_focus, site_code ;
+\d sampling_events
+SELECT sampling_events.site_id, sites.site_code, sites.research_focus, sampling_events.samp_date, sampling_events.start_time, sampling_events.end_time FROM survey200.sampling_events JOIN survey200.sites ON (sites.site_id = sampling_events.site_id) ;
+SELECT sampling_events.site_id, sites.site_code, sites.research_focus, sampling_events.samp_date, sampling_events.start_time, sampling_events.end_time FROM survey200.sampling_events JOIN survey200.sites ON (sites.site_id = sampling_events.site_id) WHERE EXTRACT (YEAR from samp_date) = 2023 ;
+SELECT sampling_events.site_id, sites.site_code, sites.research_focus, sampling_events.samp_date, sampling_events.start_time, sampling_events.end_time FROM survey200.sampling_events JOIN survey200.sites ON (sites.site_id = sampling_events.site_id) WHERE EXTRACT (YEAR from samp_date) = 2023 AND sites.research_focus = 'parcel' ;
+\dt
+\d human_indicators_neighborhoods
+\o
+\o
+\o ~/Dropbox/development/esca_working/hin_cols.csv
+\d human_indicators_neighborhoods
+\o
+\dt sampling_events
+\d sampling_events
+\d sites
+\dt
+\d soil_center_cores
+\d perimeter_cores 
+\dt
+\d soil_samples
+\d research_media
+\d sampling_events
+\d sampling_events
+\d sites
+\d sites
+\d sampling_events
+\d soil_samples
+\dt
+\d research_media_sampling_events
+select * from research_media_sampling_events ;
+\d research_media_sampling_events
+\q
+\c caplter 
+set search_path to survey200 ;
+\dt
+\d sites
+\d sites
+\q
+\c caplter 
+set search_path to survey200 ;
+\dt
+\d sampling_events
+\d sites
+\d soil_center_cores
+\s soil_samples

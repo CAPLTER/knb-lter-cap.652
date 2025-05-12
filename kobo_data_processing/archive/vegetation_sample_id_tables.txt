@@ -1,0 +1,13 @@
+                 table_name                 |     column_name      
+--------------------------------------------+----------------------
+ vegetation_samples                         | vegetation_sample_id
+ vegetation_survey_plant_counts             | vegetation_sample_id
+ base_lens_plant_count_by_vegetation_survey | vegetation_sample_id
+ research_media_vegetation_samples          | vegetation_sample_id
+ sampling_events_vegetation_samples         | vegetation_sample_id
+ vegetation_survey_cacti_succ               | vegetation_sample_id
+ vegetation_survey_hedges                   | vegetation_sample_id
+ vegetation_survey_shrub_perennials         | vegetation_sample_id
+ vegetation_survey_trees                    | vegetation_sample_id
+(9 rows)
+

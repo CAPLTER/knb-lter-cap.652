@@ -1,0 +1,100 @@
+|
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'sample date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  conductivity:
+    attributeName: conductivity
+    attributeDefinition: 'numerical expression of the ability of the soil in an aqueous solution to carry an electrical current'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'MicroS-PER-CentiM'
+    numberType: real
+    minimum: 0.037
+    maximum: 22.6
+    columnClasses: numeric
+  pH:
+    attributeName: pH
+    attributeDefinition: 'pH of soil'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PH'
+    numberType: real
+    minimum: 0.15
+    maximum: 9.16
+    columnClasses: numeric
+  bulk_density:
+    attributeName: bulk_density
+    attributeDefinition: 'bulk density of soil calculated as the grams of dry soil per volume of the soil core'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'GM-PER-CentiM3'
+    numberType: real
+    minimum: 0.6688326
+    maximum: 2.0870287
+    columnClasses: numeric
+  p2_clay:
+    attributeName: p2_clay
+    attributeDefinition: 'clay portion of soil texture determined by hydrometer method'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: real
+    minimum: 2.1553232
+    maximum: 40.4080028
+    columnClasses: numeric
+  sand:
+    attributeName: sand
+    attributeDefinition: 'sand portion of soil texture determined by hydrometer method'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: real
+    minimum: 16.2216473
+    maximum: 97.0021452
+    columnClasses: numeric
+  silt:
+    attributeName: silt
+    attributeDefinition: 'silt portion of soil texture determined by hydrometer method'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'PERCENT'
+    numberType: real
+    minimum: 0.8187633
+    maximum: 57.9179525
+    columnClasses: numeric
+  notes:
+    attributeName: notes
+    attributeDefinition: 'soil collection or processing notes'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''

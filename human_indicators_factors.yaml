@@ -1,0 +1,131 @@
+|
+  - attribute:
+      attributeName: human_presence_of_path
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: human_footprints
+      levels:
+      - code: many
+        definition: many
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_bike_tracks
+      levels:
+      - code: many
+        definition: many
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_off_road_vehicle
+      levels:
+      - code: many
+        definition: many
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_small_litter
+      levels:
+      - code: many
+        definition: many
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_dumped_trash_bags
+      levels:
+      - code: many
+        definition: many
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_abandoned_vehicles
+      levels:
+      - code: many
+        definition: many
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_graffiti
+      levels:
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_injured_plants
+      levels:
+      - code: many
+        definition: many
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_informal_play
+      levels:
+      - code: many
+        definition: many
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_informal_recreation
+      levels:
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_informal_living
+      levels:
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_sports_equipment
+      levels:
+      - code: many
+        definition: many
+      - code: none
+        definition: none
+      - code: some
+        definition: some
+  - attribute:
+      attributeName: human_social_class
+      levels:
+      - code: middle class
+        definition: middle class
+      - code: poor
+        definition: poor
+      - code: rich
+        definition: rich
+      - code: upper middle
+        definition: upper middle
+      - code: upper middle class
+        definition: upper middle class
+      - code: wealthy
+        definition: wealthy
+      - code: working lower
+        definition: working lower
+      - code: working lower class
+        definition: working lower class
+      - code: working or lower class
+        definition: working or lower class

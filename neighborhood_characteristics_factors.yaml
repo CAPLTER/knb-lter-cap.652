@@ -1,0 +1,204 @@
+|
+  - attribute:
+      attributeName: neigh_social_class_poor
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_social_class_rich
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_social_class_upper_middle
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_social_class_working_lower
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_buildings_residential
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_buildings_commercial
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_buildings_institutional
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_buildings_industrial
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_residence_apartments
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_residence_multi_family
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_residence_single_family
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_irrigation_drip_trickle
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_irrigation_flood_hand
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_irrigation_overhead_spray
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_yard_upkeep_good
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_yard_upkeep_poor
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_yard_upkeep_professionally_maintained
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_landscape_mesic
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_landscape_mixed
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_landscape_xeric
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_landscape_turf_present
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_traffic_collector_street
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_traffic_cul_de_sac
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_traffic_dirt_road
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_traffic_freeway_expressway
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_traffic_highway
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_traffic_major_city_road
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_traffic_none
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE
+  - attribute:
+      attributeName: neigh_traffic_paved_local_street
+      levels:
+      - code: 'FALSE'
+        definition: FALSE
+      - code: 'TRUE'
+        definition: TRUE

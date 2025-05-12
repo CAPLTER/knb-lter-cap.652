@@ -1,0 +1,40 @@
+|
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  vegetation_scientific_name:
+    attributeName: vegetation_scientific_name
+    attributeDefinition: 'scientific name of plant'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  vegetation_rope_length:
+    attributeName: vegetation_rope_length
+    attributeDefinition: 'length of N-S, E-W plot center axes that are in contact with any annual plant (serves as an approximation for cover of annual plots in the plot); maximum value of 60 m (30x30 m plot)'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: 0.0
+    maximum: 60.0
+    columnClasses: numeric

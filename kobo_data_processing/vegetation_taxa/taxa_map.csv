@@ -1,0 +1,11 @@
+taxa_raw,taxa_trimmed,taxa_replacement,taxa_removed,taxa_clean,rank,authority,authority_id,score,difference
+Aristolochia watsonii,,,,Aristolochia watsonii,Species,GBIF Backbone Taxonomy,2873999,0.988,
+Matelea producta,,,,Matelea producta,,GBIF Backbone Taxonomy,,0.988,
+Matalea,,,,Matalea,Genus,GBIF Backbone Taxonomy,3574386,0.75,
+Pondranea ricasoliana,,,,Pondranea ricasoliana,,GBIF Backbone Taxonomy,,0.75,
+Saccharum officinarum,,,,Saccharum officinarum,Species,GBIF Backbone Taxonomy,2703912,0.988,
+Kalanchoe orgyalis,,,,Kalanchoe orgyalis,Species,GBIF Backbone Taxonomy,4199216,0.988,
+Gasteria,,,,Gasteria,Genus,GBIF Backbone Taxonomy,2778529,0.75,
+Tecoma,,,,Tecoma,Genus,GBIF Backbone Taxonomy,3172488,0.75,
+Tetraneuris scaposa,,,,Tetraneuris scaposa,Species,GBIF Backbone Taxonomy,3112398,0.988,
+Aristolochia Watsonii,,,,Aristolochia Watsonii,,GBIF Backbone Taxonomy,,0.988,

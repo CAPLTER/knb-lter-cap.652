@@ -1,78 +1,99 @@
-# README
+## CAP LTER Ecological Survey of Central Arizona (ESCA)
 
-## CAP LTER Ecological Survey of Central Arizona
+### version history
 
-### knb-lter-cap.652.4 2022-07-12
+- knb-lter-cap.652.5 2025-05-12
 
-Version four provides a fix to an error that Rebecca M. identified with the soil perimeter data in which 2015 phosphorus concentrations were presented as ppb but should have been presented as ppm in keeping with phos data from 2005 and 2010, and in accordance with the metadata. Though, only the soil perimeter data were updated, this updated relied on a newer capeml workflow and thus a config.yaml file was added as well.
+  - Updated with 2023 survey data, except arthropod and soils data, which are
+    not yet available.
+  - revised arthropod taxonomy
+  - revised vegetation taxonomy; this taxonomy still needs a lot of work with
+    the guidance of a botanist but we were able to improve it greatly with this
+    version by addressing things like misspelled taxa, collapsing synonyms, and
+    splitting taxa from iterations of taxa (e.g., with something like aloe1,
+    aloe2, aloe3, moving the number to a notes field)
+  - Deprecated the cacti table, reclassifying Saguaros as trees and all others
+    as shrubs.
+  - Omitted from publication all clinometer-related data; will revisit,
+    especially for 2023 data, which uses the laser range finder, but, as of this
+    version, we are not confident in the clinometer-related data.
+  - Ensures that the Kobo tablet recipes (as Excel files) are included in this
+    resource.
+  - Kobo data are downloaded as Excel files. These are then exported to CSV.
+    Though the raw 2023 data in Excel format are not included here, the entire
+    workflow from CSV file through loading into the database is otherwise
+    documented.
+  - In addition to the aforementioned updates to both the arthropod and
+    vegetation taxonomies, and dropping the cactus table, this version featured
+    other substantial updates to the database, such as standardizing and
+    enforcing many allowable inputs, a lot more time stamping, making explicit
+    foreign keys, dropping unused views. All of these changes are documented as
+    part of the import -> format -> upload workflow (kobo_data_processing/\*).
 
-### dataset inventory:
+- knb-lter-cap.652.4 2022-07-12
 
-- 282: trees -&gt; updated with pointer in abstract, no other changes (did not realize until after having loaded in PASTA that there were not any keywords in this data set)
-- 281: soils -&gt; modified and updated to house only 2000 soil data
-  - data to keep:
-    - 27\_soil\_1.csv
-    - 27\_soilbulkdensity\_1.csv
-    - 27\_soil\_samples\_1.csv
-    - 27\_soil\_texture\_1.csv
-    - 27\_soilchemconc\_1.csv
-    - 27\_soilchemmass\_1.csv
-    - 27\_soilncphconduct\_1.csv
-- 280: shrubs -&gt; updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
-- 278: the data set for one-off, snapshot data (i.e., data that are not part of the long-term effort), including:
-  - data to keep:
-    - climate
-    - landuse\_100m
-    - litter\_bags
-    - mycorrhizae: numspores, sample\_sites, species
-    - weather: station, uplload
-    - land use history (these are already captured in 269 so no need to keep here)
-    - pollen (these are already captured in 277 so no need to keep here)
-    - also updated abstract and title
-- 277: pollen -&gt; updated with improved abstract & pointer in abstract, and added temporal and geo coverages
-- 276: buildings -&gt; updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
-- 274: neighborhood characteristics -&gt; updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
-- 272: landuse (MAG) -&gt; updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
-- 269: landuse history -&gt; no change
-- 268: cacti -&gt; updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
-- 267: sweepnets -&gt; updated with pointer in abstract, no other changes
-- 266: annuals -&gt; updated with pointer in abstract, and added minimal keyword (CAP-specific and LTER core area)
-- 652: new, authoritative data set for ESCA *plots*, including 2015 data (but not survey year 2000 soils)
-- 653: new, authoritative data set for ESCA *parcels*, including 2015 data
+  - Fix an error that Rebecca M. identified with the soil perimeter data in
+    which 2015 phosphorus concentrations were presented as ppb but should have
+    been presented as ppm in keeping with phosphorus data from 2005 and 2010,
+    and in accordance with the metadata. Though, only the soil perimeter data
+    were updated, this update used a newer
+    [capeml](https://caplter.github.io/capeml/) workflow and thus
+    a `config.yaml` file was added as well.
 
-except for the new, authoritative data sets (knb-lter-cap.652 and knb-lter-cap.653), update means to expand the metadata to include a pointer to the new, authoritative data set, and to imporove the quality of the data and metadata if and as needed but as minimally as possible to generate a passing data set.
+### ESCA-related dataset inventory:
+
+- [knb-lter-cap.652](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=652): ESCA plots
+- [knb-lter-cap.653](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=653): ESCA parcels
+
+The following datasets are historic, reflecting a prior configuration of these
+data in which the individual data topics (e.g. trees, arthropods) were presented
+as unique data packages. All data are now presented in one of two datasets,
+plots or parcels, noted above.
+
+- [knb-lter-cap.282](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=282): trees
+- [knb-lter-cap.281](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=281): soils
+  - modified and updated to house only 2000 soil data, including:
+    - 27_soil_1.csv
+    - 27_soilbulkdensity_1.csv
+    - 27_soil_samples_1.csv
+    - 27_soil_texture_1.csv
+    - 27_soilchemconc_1.csv
+    - 27_soilchemmass_1.csv
+    - 27_soilncphconduct_1.csv
+- [knb-lter-cap.280](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=280): shrubs
+- [knb-lter-cap.278](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=278):
+  one-off, snapshot data that are not part of the long-term effort, including:
+  - climate
+  - landuse_100m
+  - litter_bags
+  - mycorrhizae
+  - weather
+  - land use history (and see knb-lter-cap.269)
+  - pollen (and see knb-lter-cap.277)
+- [knb-lter-cap.277](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=277): pollen (and see knb-cap-lter.278)
+- [knb-lter-cap.276](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=276): buildings
+- [knb-lter-cap.274](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=274): neighborhood characteristics
+- [knb-lter-cap.272](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=278): landuse (MAG)
+- [knb-lter-cap.269](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=269): landuse history
+- [knb-lter-cap.268](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=268): cacti
+- [knb-lter-cap.267](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=267): sweepnets
+- [knb-lter-cap.266](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-cap&identifier=266): annuals
 
 ### data entities:
 
 **plots:**
 
-- human indicators
-- landscape\_irrigation
-- vegetation:
- - annuals
- - shrubs\_succulents
- - trees
- - counts
- - hedges
-- sampling event and site details (bring general\_description, and the weather stuff from human\_indicators in here)
+- annuals
 - arthropods
-- buildings
-- landuse
-- neighborhoods
-- soil:
- - center core (including texture 2005-2015)
- - texture 2000 (2000 as a separate data entity)
- - perimeter:
- - raw lachat: have N & P for 2015, and N for 2010
- - raw traacs: P for 2010
-
-**parcels:**
-
-- vegetation:
- - shrubs\_succulents
- - trees
- - counts
- - hedges
+- hedges
+- human indicators
+- land use
+- landscape irrigation
+- neighborhood characteristics
+- number of perennials
 - sampling event and site details
-- parcel characteristics survey
-- landscape\_irrigation?
+- shrub surveys
+- soil perimeter cores (nutrients)
+- soil center cores (texture, bulk density, conductivity, pH)
+- structures
+- trees

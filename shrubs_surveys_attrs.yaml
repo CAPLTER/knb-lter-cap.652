@@ -1,0 +1,80 @@
+|
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  vegetation_scientific_name:
+    attributeName: vegetation_scientific_name
+    attributeDefinition: 'scientific name of plant'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  vegetation_classification_code:
+    attributeName: vegetation_classification_code
+    attributeDefinition: 'general position or application of plant in the landscape'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  vegetation_shape_code:
+    attributeName: vegetation_shape_code
+    attributeDefinition: 'general shape of the plant'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  height:
+    attributeName: height
+    attributeDefinition: 'height of the plant; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: -3.5543786
+    maximum: 439.0
+    columnClasses: numeric
+  width_ns:
+    attributeName: width_ns
+    attributeDefinition: 'width of the plant along the north-south axis; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter' 
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: 0.0
+    maximum: 664.0
+    columnClasses: numeric
+  width_ew:
+    attributeName: width_ew
+    attributeDefinition: 'width of the plant along the east-west axis; most measurements are in units of meter but collection errors have resulted in some values being recorded in units of centimeter'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: 0.0
+    maximum: 632.0
+    columnClasses: numeric

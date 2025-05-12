@@ -1,0 +1,7599 @@
+---
+title: "ESCA"
+format: gfm
+---
+
+# overview
+
+- This is the workflow for extracting and formatting data from the 2023 ESCA
+survey collected in the field with a Kobo application running on handheld
+tablets. The code in this document reads exported data from Kobo, formats the
+data as appropriate, and loads the data into the CAP LTER survey200 Postgres
+database.
+- Kobo data are downloaded from the Kobo server as Excel files. Separate scripts
+outside of this workflow convert those data to csv format and rename them as
+appropriate for ingestion into this workflow.
+- Some of the workflow, notably around updating arthropod and vegetation
+taxonomies, are iterative processes that included writing intermediate data to
+flat files to save state. To reduce file clutter, these files were added to
+folders sometimes post hoc and, thus, the file paths in this workflow would need
+to be updated to reflect the actual paths of these files.
+- All new taxa must be resolvable against a taxonomy authority (ITIS, GBIF)
+sensu the [arthropod database](https://gitlab.com/caplter/arthropods-database).
+
+
+# utilities
+
+## configuration
+
+```{r}
+#| eval: TRUE
+#| label: db-configuration_local
+
+source("~/Documents/localSettings/pg_local.R")
+pg <- pg_local_connect(db = "caplter")
+
+```
+
+```{r}
+#| eval: TRUE
+#| label: db-configuration_production
+
+source("~/Documents/localSettings/pg_rc.R")
+pg <- pg_rc_connect()
+
+```
+
+## reload the schema
+
+As needed, drop the survey200 schema in the target (localhost only) database,
+and rebuild from the most recent survey200 dump file in the databaseDumps
+directory
+
+```{r}
+#| eval: FALSE
+#| label: reload_the_schema
+
+source("helper_load_schema.R")
+```
+
+## add trigger_set_timestamp
+
+If it does not already exist...
+
+```{r}
+#| eval: FALSE
+
+if (system.file(package = "databaseDevelopmentTools") == "") {
+  devtools::install_gitlab("CAPLTER/databaseDevelopmentTools")
+}
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  CREATE OR REPLACE FUNCTION trigger_set_timestamp()
+  RETURNS TRIGGER AS $$
+  BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+  END;
+  $$ LANGUAGE plpgsql;
+  "
+)
+
+```
+
+# helpers
+
+## read kobo and add survey_id
+
+```{r}
+#| eval: TRUE
+#| label: kobo_fetch
+
+kobo_fetch <- function(subject) {
+
+  sampling_events <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = "
+    SELECT
+      survey_id,
+      kobo_uuid
+    FROM survey200.sampling_events 
+    WHERE
+      EXTRACT (YEAR from samp_date) = 2023
+    ;
+    "
+  )
+
+  subject_data <- readr::read_csv(config::get(subject)) |> 
+    dplyr::mutate(
+      across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+      across(where(is.character), ~ gsub("[\r\n]", "", .))
+    ) |>
+    janitor::clean_names() |> 
+    dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+
+  if ("uuid" %in% colnames(subject_data)) {
+
+    key_col <- "uuid"
+
+  } else if ("submission_uuid" %in% colnames(subject_data)) {
+
+    key_col <- "submission_uuid"
+
+  } else {
+
+    stop("could not identify uuid col")
+
+  }
+
+  this_by <- dplyr::join_by(!!key_col == kobo_uuid)
+
+  subject_data <- subject_data |> 
+    dplyr::left_join(
+      y  = sampling_events,
+      by = this_by
+    ) |> 
+    pointblank::col_vals_not_null(
+      columns = c(survey_id),
+      actions = pointblank::stop_on_fail()
+    ) |> 
+    pointblank::row_count_match(
+      count   = nrow(subject_data),
+      actions = pointblank::stop_on_fail()
+    )
+
+  return(subject_data)
+
+}
+
+```
+
+
+# plot sampling events
+
+```{r}
+#| eval: TRUE
+#| label: remove_site_code_trailing_1
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.sites
+  SET site_code = REGEXP_REPLACE(site_code, '1$', '')
+  ;
+  "
+)
+
+```
+
+
+## pull sites table
+
+Pull sites but with the trailing `1` removed. We really should just make this
+change in the database at some point. Done, see below!
+
+UPDATE: see section `remove site_code trailing 1`
+
+```{r}
+#| eval: TRUE
+#| label: sites_db
+
+sites_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT *
+  FROM survey200.sites
+  ;
+  "
+)
+
+```
+
+Read the main surveys plots data file and add the site id from `site_db.`
+
+```{r}
+#| eval: TRUE
+
+se_plot_data <- readr::read_csv("kobo/ESCA_plot_2024-04-22-18-29-03-ESCA_plot.csv") |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names()
+
+se_plot_data <- se_plot_data |>
+  dplyr::left_join(
+    y = sites_db |>
+      dplyr::select(
+        site_id,
+        site_code,
+        research_focus
+      ) |>
+      dplyr::filter(grepl("survey", research_focus, ignore.case = TRUE)),
+    by = c("site" = "site_code")
+  ) |> 
+  dplyr::mutate(
+    start = format(start, "%H:%M:%S"),
+    end   = format(end, "%H:%M:%S")
+  )
+```
+
+Edit the `survey200.sampling_events` table to store the kobo form uuid then add
+the plot data to the sampling events table.
+
+Note that this worked because each record in the surveys and plots tables are
+unique. This is not the case later in the workflow with, for example, shrubs
+where any given shrub even can have multiple UUIDs (I think resulting from
+collecting data with more than one tablet and/or form).
+
+```{r}
+#| eval: TRUE
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.sampling_events
+  ADD COLUMN kobo_uuid TEXT ;
+  ;
+  "
+)
+
+add_plot_surveys <- se_plot_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.sampling_events (
+      site_id,
+      samp_date,
+      start_time,
+      end_time,
+      crew_members,
+      kobo_uuid
+    )
+    VALUES
+    (
+      { site_id },
+      { date },
+      { start },
+      { end },
+      { crew_members_for_this_survey },
+      { uuid }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_plot_surveys,
+      .f = ~ DBI::dbExecute(statement = .x, conn = pg)
+    )
+  }
+)
+```
+
+
+# vegetation taxon list
+
+Edit VTL to: (1) store taxonomyCleanr output, and (2) add better timestamping.
+
+```{r}
+#| eval: TRUE
+#| label: VTL_setup_tax_cleanr
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.vegetation_taxon_list
+  ADD COLUMN taxa_raw         TEXT,
+  ADD COLUMN taxa_trimmed     TEXT,
+  ADD COLUMN taxa_replacement TEXT,
+  ADD COLUMN taxa_removed     TEXT,
+  ADD COLUMN rank             TEXT,
+  ADD COLUMN authority        TEXT,
+  ADD COLUMN authority_id     TEXT,
+  ADD COLUMN score            DOUBLE PRECISION,
+  ADD COLUMN difference       DOUBLE PRECISION
+  ;
+  "
+)
+
+DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_raw         IS 'taxonomyCleanr' ;")
+DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_trimmed     IS 'taxonomyCleanr' ;")
+DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_replacement IS 'taxonomyCleanr' ;")
+DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_removed     IS 'taxonomyCleanr' ;")
+DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.rank             IS 'taxonomyCleanr' ;")
+DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.score            IS 'taxonomyCleanr' ;")
+DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.difference       IS 'taxonomyCleanr' ;")
+
+databaseDevelopmentTools::add_timestamping(
+  schema = "survey200",
+  table  = "vegetation_taxon_list"
+)
+
+```
+
+
+Add new (or problem) sweepnet plant taxa to VTL.
+
+UNMATCHED TAXA:
+
+ENTRY                 ACTION
+Ambrosia salsola      add to db taxa list
+Atriplex polycarpa    add to db taxa list
+Eromophilla           recoded in kobo data to Eremophila
+Moringa oleifera      add to db taxa list
+Oncosiphon pilulifer  wrongly coded as piluliferum in db; fix db spelling
+Pyrus calleryana      add to db taxa list
+Quercus polymorpha    add to db taxa list
+Suadea nigra          fix spelling (Suaeda nigra) and add to db taxa list
+
+Fix Oncosiphon spelling in the database:
+
+```{r}
+#| eval: TRUE
+
+# Oncosiphon pilulifer wrongly coded as piluliferum in db; fix db spelling
+
+DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT *
+  FROM survey200.vegetation_taxon_list
+  WHERE vegetation_scientific_name ~~* '%Oncosiphon%'
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.vegetation_taxon_list
+  SET vegetation_scientific_name = 'Oncosiphon pilulifer'
+  WHERE vegetation_scientific_name ~~* '%Oncosiphon%'
+  ;
+  "
+)
+```
+
+For all others, add the taxonomyCleanr output for the new taxa to the VTL.
+Addressing the taxonomy can be a one-time step.
+
+```{r}
+#| eval: FALSE
+
+new_taxa <- tibble::tibble(
+  tax_name = c(
+    "Ambrosia salsola",
+    "Atriplex polycarpa",
+    "Moringa oleifera",
+    "Pyrus calleryana",
+    "Quercus polymorpha",
+    "Suaeda nigra"
+  )
+)
+
+my_path <- getwd()
+
+taxonomyCleanr::create_taxa_map(
+  path = my_path,
+  x    = new_taxa,
+  col  = "tax_name"
+)
+
+# taxonomyCleanr::view_taxa_authorities()
+
+taxonomyCleanr::resolve_sci_taxa(
+  path         = my_path,
+  data.sources = c(3, 11)
+) 
+
+file.rename(
+  from = "taxa_map.csv",
+  to   = "new_sweepnet_plants.csv"
+)
+```
+
+Add the new sweepnet plant taxa to the database. Note that this is but the
+first of what is going to be a lot of editing to the `vegetation_taxon_list.`
+
+```{r}
+#| eval: TRUE
+
+new_taxa_refs <- readr::read_csv("new_sweepnet_plants.csv")
+
+new_taxa_query <- new_taxa_refs |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_taxon_list (
+      vegetation_scientific_name,
+      taxa_trimmed,
+      taxa_replacement,
+      taxa_removed,
+      rank,
+      authority,
+      authority_id,
+      score,
+      difference
+    ) VALUES (
+      { taxa_raw },
+      { taxa_trimmed },
+      { taxa_replacement },
+      { taxa_removed },
+      { rank },
+      { authority },
+      { authority_id },
+      { score },
+      { difference }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = new_taxa_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+```
+
+# add sweepnet samples
+
+- read sweepnet samples data from kobo
+- fix names, notes, etc.
+- attach VTL ids
+- attach sampling event ids
+- add new sweepnet samples to database
+
+```{r}
+#| eval: TRUE
+
+sweepnet_samples_data <- readr::read_csv("kobo/ESCA_plot_2024-04-22-18-29-03-sweepnet_samples_repeat.csv") |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names()
+
+vegetation_taxon_list <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "SELECT * FROM survey200.vegetation_taxon_list ;"
+)
+
+sweepnet_samples_data <- sweepnet_samples_data |> 
+  dplyr::mutate(
+    new_sweepnet_vegetation_taxon = gsub("sp.", "", new_sweepnet_vegetation_taxon),
+    new_sweepnet_vegetation_taxon = stringr::str_trim(new_sweepnet_vegetation_taxon, side = c("both")),
+    notes_regarding_sweepnet_sample = dplyr::case_when(
+      grepl("Eromophilla", new_sweepnet_vegetation_taxon, ignore.case = TRUE) ~ "Entered as Eromophilla; assumed to be Eremophila",
+      TRUE ~ notes_regarding_sweepnet_sample
+    ),
+    new_sweepnet_vegetation_taxon = dplyr::case_when(
+      grepl("Suadea", new_sweepnet_vegetation_taxon, ignore.case = TRUE) ~ "Suaeda nigra",
+      TRUE ~ new_sweepnet_vegetation_taxon
+    ),
+    plant_taxon_from_which_arthropods_were_collected = dplyr::case_when(
+      grepl("Eromophilla", new_sweepnet_vegetation_taxon, ignore.case = TRUE) ~ "Eremophila",
+      grepl("null", plant_taxon_from_which_arthropods_were_collected, ignore.case = TRUE) ~ new_sweepnet_vegetation_taxon,
+      sweepnet_sample_type == "ground_sweep" ~ "ground sweep",
+      TRUE ~ plant_taxon_from_which_arthropods_were_collected
+    ),
+    sweepnet_sample_type = gsub("_", " ", sweepnet_sample_type)
+  ) |> 
+  dplyr::left_join(
+    y  = vegetation_taxon_list |> 
+      dplyr::mutate(vsn = vegetation_scientific_name) |> 
+      dplyr::select(
+        vegetation_taxon_id,
+        vegetation_scientific_name,
+        vsn
+      ),
+    by = c("plant_taxon_from_which_arthropods_were_collected" = "vegetation_scientific_name")
+  ) |> 
+  pointblank::col_vals_not_null(
+    columns = c("vegetation_taxon_id")
+  )
+
+se_plot_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    sampling_events.survey_id,
+    sampling_events.site_id,
+    sampling_events.samp_date,
+    sampling_events.kobo_uuid,
+    sites.site_code
+  FROM survey200.sampling_events
+  JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+  WHERE EXTRACT(year FROM samp_date) = 2023
+  ;
+  "
+) |>
+  dplyr::mutate(site_code = gsub("1$", "", site_code))
+
+sweepnet_samples_data <- sweepnet_samples_data |> 
+  dplyr::left_join(
+    y  = se_plot_db,
+    by = c("submission_uuid" = "kobo_uuid")
+  ) |> 
+  pointblank::col_vals_not_null(
+    columns = c("survey_id")
+  )
+
+sweepnet_samples_query <- sweepnet_samples_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.sweepnet_samples (
+      survey_id,
+      sweepnet_sample_type,
+      vegetation_taxon_id,
+      notes
+    ) VALUES (
+      { survey_id },
+      { sweepnet_sample_type },
+      { vegetation_taxon_id },
+      { notes_regarding_sweepnet_sample }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = sweepnet_samples_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+```
+
+
+# arthropod taxa
+
+## database structural changes
+
+- taxonomyCleanr-related and archive columns
+- better timestamping for `sweepnet_sample_insect_counts` and
+`insect_taxon_list`
+- drop `sweepnet_sample_insect_counts_sweepnet_sample_id_insect_taxon_i` to
+facilitate recoding immature taxa in cases where a sample featured both
+immature and non-immature versions of a taxa
+
+```{r}
+#| eval: TRUE
+#| label: arthropod_taxa_cleanr
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.insect_taxon_list
+  ADD COLUMN taxa_raw         TEXT,
+  ADD COLUMN taxa_trimmed     TEXT,
+  ADD COLUMN taxa_replacement TEXT,
+  ADD COLUMN taxa_removed     TEXT,
+  ADD COLUMN rank             TEXT,
+  ADD COLUMN authority        TEXT,
+  ADD COLUMN authority_id     TEXT,
+  ADD COLUMN score            DOUBLE PRECISION,
+  ADD COLUMN difference       DOUBLE PRECISION,
+  ADD COLUMN archive          BOOLEAN
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  COMMENT ON COLUMN survey200.insect_taxon_list.taxa_raw IS 'taxonomyCleanr' ;"
+)
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  COMMENT ON COLUMN survey200.insect_taxon_list.taxa_trimmed IS 'taxonomyCleanr' ;"
+)
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  COMMENT ON COLUMN survey200.insect_taxon_list.taxa_replacement IS 'taxonomyCleanr' ;"
+)
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  COMMENT ON COLUMN survey200.insect_taxon_list.taxa_removed IS 'taxonomyCleanr' ;"
+)
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  COMMENT ON COLUMN survey200.insect_taxon_list.rank IS 'taxonomyCleanr' ;"
+)
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  COMMENT ON COLUMN survey200.insect_taxon_list.score IS 'taxonomyCleanr' ;"
+)
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  COMMENT ON COLUMN survey200.insect_taxon_list.difference IS 'taxonomyCleanr' ;"
+)
+
+databaseDevelopmentTools::add_timestamping(
+  schema = "survey200",
+  table  = "insect_taxon_list"
+)
+
+databaseDevelopmentTools::add_timestamping(
+  schema = "survey200",
+  table  = "sweepnet_sample_insect_counts"
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  DROP INDEX survey200.sweepnet_sample_insect_counts_sweepnet_sample_id_insect_taxon_i
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  CREATE UNIQUE INDEX unique_insect_taxon_list_authority_authority_id_archive
+  ON survey200.insect_taxon_list (authority, authority_id, archive)
+  ;
+  ")
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.insect_taxon_list ADD CONSTRAINT
+  unique_insect_taxon_list_authority_authority_id_archive UNIQUE USING INDEX
+  unique_insect_taxon_list_authority_authority_id_archive
+  ;
+  ")
+
+```
+
+## tag immatures and isolated name changes
+
+- change the names of taxon:
+    + 265 from Araneida to Arachnida
+    + 280 to Megaspilidae
+    + 818 to Sarcophagidae
+    + 822 to Cheiracanthiidae
+    + 675 to Cheiracanthiidae
+    + 826 to Geocoris punctipes
+    + 220 to Araneidae
+- populate immature flag for all sweepnet_sample_insect_counts observations
+associated with `immature` taxa.
+
+from David:
+Araneida is only in listed as an old name in the sheet
+Megaspillidae is listed as an old name and has been corrected to Megaspilidae
+Toryminae is a valid sub-family of Torymidae, it can be found in Hymenoptera of the world
+Sarchophagidae has been corrected on the sheet to Sarcophagidae
+Eutichuridae is only listed in old names
+Nesosteles is only listed in old names
+Geocoris punctipes is valid on ITIS
+
+__rename taxa with only immature variants__
+
+The following two taxa (Araneida and Mantodea) do not have non-immature
+analogues. That is, there is not, for example a `Araneida` that was not
+`Araneida (immature)`. The approach to these two taxa is a bit different in
+that we can simply then drop `(immature)` from the name without recoding the
+taxa id in the `sweepnet_sample_insect_counts` table - recall that any
+observations associated with these taxa were already flagged as immatures in an
+earlier step. Except that we will also change the name of Araneida to Araneae.
+
+id_immature insect_scientific_name  name_immature      
+123  Araneida (immature)     Araneida immature)  -> change name to Araneae
+452  Mantodea (immature)     Mantodea immature) 
+
+```{r}
+#| eval: TRUE
+
+insect_name_changes <- tibble::tribble(
+  ~id, ~new_name,
+  220, "Araneidae",
+  826, "Geocoris punctipes",
+  675, "Balclutha",
+  822, "Cheiracanthiidae",
+  818, "Sarcophagidae",
+  218, "Megaspilidae",
+  265, "Arachnida",
+  452, "Mantodea",
+  123, "Araneae"
+) |> 
+  glue::glue_data_sql("
+    UPDATE survey200.insect_taxon_list
+    SET insect_scientific_name = { new_name }
+    WHERE insect_taxon_id = { id }
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = insect_name_changes,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.sweepnet_sample_insect_counts
+  ADD COLUMN immature BOOLEAN
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.sweepnet_sample_insect_counts
+  SET immature = TRUE
+  WHERE insect_taxon_id IN (
+    SELECT insect_taxon_id
+    FROM survey200.insect_taxon_list
+    WHERE insect_scientific_name ~~* '%immature%'
+  )
+  ;
+  "
+)
+
+```
+
+## David edits
+
+Taxonomic issues and inefficiencies are identified in a working Google Sheet
+and download (ESCA Taxonomic Thesaurus - ESCA datasheet.csv). This chunk
+addresses David's suggestions.
+
+```{r}
+#| eval: TRUE
+
+insect_taxon_edits <- tibble::tribble(
+  ~new, ~old, ~details,
+  45,   44,  "Miridae adults; David edit",
+  716,  827, "Fanniidae; David edit",
+  213,   80, "Coccoidea; David edit",
+  213,  206, "Coccoidea; David edit",
+  668,  319, "Scaphytopius; David edit",
+  157,  639, "Coanthanus; David edit",
+) |> 
+  glue::glue_data_sql("
+    UPDATE survey200.sweepnet_sample_insect_counts
+      SET insect_taxon_id = { new }
+      WHERE insect_taxon_id = { old } ;
+    UPDATE survey200.insect_taxon_list
+      SET archive = TRUE
+      WHERE insect_taxon_id = { old } ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = insect_taxon_edits,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+The taxonomy identifies immatures as separate taxa. We need to revise the
+taxonomy such that the distinction of being an immature is a flag attached to
+the observation rather than a separate taxon. All sweepnet_sample_insect_counts
+observations identified as immatures were flagged in an earlier step. Here, we
+modify both sweepnet_sample_insect_counts such that observations associated
+with immatures are recoded to be the non-immature taxon of the same identity
+(but not distinguished as an immature). Because taxa are not removed from the
+taxonomy table, a second step is to flag all taxa currently identified as
+immature as archive.
+
+## identify immatures
+
+```{r}
+#| eval: TRUE
+
+taxa_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "SELECT * FROM survey200.insect_taxon_list ;"
+)
+
+taxa_db[c("name", "flag")] <- stringr::str_split_fixed(
+  string  = taxa_db[["insect_scientific_name"]],
+  pattern = "\\(",
+  n       = 2
+)
+
+taxa_immature <- taxa_db |> 
+  dplyr::mutate(name = stringr::str_trim(name, side = c("both"))) |> 
+  dplyr::filter(grepl("immature", flag, ignore.case = TRUE)) |> 
+  dplyr::select(
+    id_immature = insect_taxon_id,
+    insect_scientific_name,
+    name_immature = name,
+    flag
+  ) |> 
+  dplyr::left_join(
+    y = taxa_db |> 
+      dplyr::select(
+        insect_taxon_id,
+        insect_scientific_name,
+      ),
+    by = c("name_immature" = "insect_scientific_name")
+  )
+
+```
+
+
+## recode taxa with adult and immature variants
+
+```{r}
+#| eval: TRUE
+
+recode_immatures <- taxa_immature |> 
+  dplyr::filter(!is.na(insect_taxon_id)) |> 
+  glue::glue_data_sql("
+    UPDATE survey200.sweepnet_sample_insect_counts
+      SET insect_taxon_id = { insect_taxon_id }
+      WHERE insect_taxon_id = { id_immature } ;
+    UPDATE survey200.insect_taxon_list
+      SET archive = TRUE
+      WHERE insect_taxon_id = { id_immature } ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = recode_immatures,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+## add authority details to taxa
+
+@dflemin2 would you mind double-checking for me that 123 should definitely be
+Araneae and not Araneida?
+
+David Fleming Yes Araneae works, this is the order for all Spiders so works as
+a catch all. Araneida gets different classifications depending on where you
+look but for our purposes can be viewed as a synonym and placed in the accepted
+Order of Araneae
+
+...be sure that Araneida is not included in resulting taxa
+
+Really need to be careful here with reoding this bit as I was doing most of the
+work in a development mode, and added this code in a more formalized manner
+when the work was seemingly complete.
+
+```{r}
+#| eval: FALSE
+
+updated_taxa <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT 
+    insect_taxon_id,
+    insect_scientific_name
+  FROM survey200.insect_taxon_list
+  WHERE archive IS NULL
+  ;
+  "
+)
+
+my_path <- getwd()
+
+## first pass
+
+taxonomyCleanr::create_taxa_map(
+  path = my_path,
+  x    = updated_taxa,
+  col  = "insect_scientific_name"
+)
+
+taxonomyCleanr::resolve_sci_taxa(
+  path         = my_path,
+  data.sources = c(3, 11)
+) 
+
+file.rename(
+  from = "taxa_map.csv",
+  to   = "taxa_map.insects.itis.csv"
+)
+
+## another pass at unresolved taxa
+
+unresolved <- readr::read_csv("taxa_map.insects.itis.csv") |> 
+  dplyr::filter(
+    is.na(authority_id),
+    !grepl("unknown", taxa_raw, ignore.case = TRUE)
+  )
+
+taxonomyCleanr::create_taxa_map(
+  path = my_path,
+  x    = unresolved,
+  col  = "taxa_raw"
+)
+
+taxonomyCleanr::resolve_sci_taxa(
+  path         = my_path,
+  data.sources = c(3, 11)
+) 
+
+file.rename(
+  from = "taxa_map.csv",
+  to   = "taxa_map.insects.ii.csv"
+)
+
+## address sticky unresolves
+
+still_unresolved <- tibble::tribble(
+  ~taxa_raw,
+  "Araneae",
+  "Toryminae"
+)
+
+taxonomyCleanr::create_taxa_map(
+  path = my_path,
+  x    = still_unresolved,
+  col  = "taxa_raw"
+)
+
+taxonomyCleanr::resolve_sci_taxa(
+  path         = my_path,
+  data.sources = c(3, 11)
+) 
+
+file.rename(
+  from = "taxa_map.csv",
+  to   = "taxa_map.araneae.csv"
+)
+
+## put it all together
+
+round_i <- readr::read_csv("taxa_map.insects.itis.csv")
+
+araneae <- readr::read_csv("taxa_map.araneae.csv") |> 
+  dplyr::filter(!is.na(authority_id)) # remove Toryminae
+
+round_ii <- readr::read_csv("taxa_map.insects.ii.csv") |> 
+  dplyr::bind_rows(araneae) |> 
+  dplyr::mutate(
+    rank = dplyr::case_when(
+      taxa_raw == "Toryminae" ~ "Family",
+      TRUE ~ rank
+    ),
+    authority = dplyr::case_when(
+      taxa_raw == "Toryminae" ~ "https://bugguide.net",
+      TRUE ~ authority
+    ),
+    authority_id = dplyr::case_when(
+      taxa_raw == "Toryminae" ~ 12618,
+      TRUE ~ authority_id
+    )
+  )
+
+final_taxa <- round_i |> 
+  dplyr::filter(!taxa_raw %in% c(round_ii$taxa_raw)) |> 
+  dplyr::bind_rows(
+    round_ii |> 
+      dplyr::filter(!grepl("Araneida", taxa_raw, ignore.case = TRUE))
+  )
+
+readr::write_csv(
+  x    = final_taxa,
+  file = "taxa_map.insects.itis.final.csv"
+)
+
+```
+
+## add authority data
+
+```{r}
+#| eval: TRUE
+
+insect_taxa_auth <- readr::read_csv("taxa_map.insects.itis.final.csv")
+
+add_authority <- insect_taxa_auth |> 
+  dplyr::filter(!is.na(authority_id)) |> 
+  glue::glue_data_sql("
+    UPDATE survey200.insect_taxon_list
+    SET
+      taxa_raw         = { taxa_raw },
+      taxa_trimmed     = { taxa_trimmed },
+      taxa_replacement = { taxa_replacement },
+      taxa_removed     = { taxa_removed },
+      rank             = { rank },
+      authority        = { authority },
+      authority_id     = { authority_id },
+      score            = { score },
+      difference       = { difference }
+    WHERE insect_scientific_name = { taxa_raw }
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_authority,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+
+# TRANSITION I
+
+All work to this additional crew members section is reflected in the production
+version of survey200.
+
+# sites geography
+
+To this point, fields like slope and aspect have been treated as static. That
+is, slope and aspect values in the sites table never change even though these
+metrics are collected each survey. We will add a new `sites_geography` table
+that will house these values dynamically for each survey beginning with the
+2023 survey. As much as possible, values from previous surveys will be added to
+the database.
+
+```{r}
+#| eval: TRUE
+#| label: sites_geography
+
+sampling_events <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    survey_id,
+    kobo_uuid
+  FROM survey200.sampling_events 
+  WHERE
+    EXTRACT (YEAR from samp_date) = 2023
+  ;
+  "
+)
+
+se_plot_data <- readr::read_csv("kobo/ESCA_plot_2024-04-22-18-29-03-ESCA_plot.csv") |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |> 
+  dplyr::select(
+    tidyselect::starts_with("position"),
+    slope,
+    aspect,
+    uuid
+  )
+
+sites_geography <- dplyr::right_join(
+  x  = sampling_events,
+  y  = se_plot_data,
+  by = c("kobo_uuid" = "uuid")
+) |> 
+  dplyr::mutate(
+    id = NA_integer_,
+    id = seq_along(survey_id)
+  ) |> 
+  dplyr::select(
+    id,
+    survey_id,
+    position_of_plot_center_latitude,
+    position_of_plot_center_longitude,
+    position_of_plot_center_altitude,
+    position_of_plot_center_precision,
+    slope,
+    aspect
+  )
+
+databaseDevelopmentTools::r_pg_table(
+  schema = "survey200",
+  table  = "sites_geography",
+  # owner  = this_configuration$owner
+  owner  = "srearl"
+)
+
+databaseDevelopmentTools::add_timestamping(
+  schema = "survey200",
+  table  = "sites_geography"
+)
+
+DBI::dbExecute(pg, "
+  ALTER TABLE survey200.sites_geography
+    ADD CONSTRAINT sites_geography_fk_sampling_events_survey_id
+    FOREIGN KEY (survey_id) REFERENCES survey200.sampling_events(survey_id)
+  ;
+  "
+)
+
+```
+
+
+# additional crew members
+
+```{r}
+#| eval: TRUE
+
+source <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    crew_members,
+    kobo_uuid
+  FROM survey200.sampling_events
+  WHERE EXTRACT (year FROM samp_date) = 2023
+  ;
+  "
+)
+
+additional <- readr::read_csv("kobo/ESCA_plot_2024-04-22-18-29-03-se_crew_members_additional_r....csv") |> 
+  janitor::clean_names()
+
+additional_crew_query <- dplyr::inner_join(
+  x  = source,
+  y  = additional,
+  by = c("kobo_uuid" = "submission_uuid")
+) |> 
+  dplyr::mutate(full_crew = paste(crew_members, additional_crew_members)) |> 
+  glue::glue_data_sql("
+    UPDATE survey200.sampling_events
+    SET crew_members = { full_crew }
+    WHERE kobo_uuid = { kobo_uuid }
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = additional_crew_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+
+# parcel sampling events
+
+## add check constraint to research type
+
+The crew addressed AC20 and V18 as parcel sites, though they have not been
+previously. As such, we need to add these two sites as parcels to the sites
+table. First, we will add a constraint to the sites table to ensure that the
+research_focus is always survey200 or parcel.
+
+```{r}
+#| eval: TRUE
+#| label: research_focus_constraint
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.sites  
+  ADD CONSTRAINT check_research_focus 
+  CHECK (research_focus IN ('parcel', 'survey200'))
+  ;
+  "
+)
+```
+
+## add timestamping to sites
+
+```{r}
+#| eval: TRUE
+#| label: sites_add_timestamping
+
+databaseDevelopmentTools::add_timestamping(
+  schema = "survey200",
+  table  = "sites"
+)
+
+```
+
+## add AC20 and V18 as parcel sites
+
+```{r}
+#| eval: TRUE
+#| label: add_parcel_sites
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  INSERT INTO survey200.sites (
+    site_code,
+    research_focus
+  )
+  VALUES
+    ('AC20', 'parcel'),
+    ('V18', 'parcel')
+  ;
+  "
+)
+```
+
+## add parcel sampling events
+
+```{r}
+#| eval: TRUE
+#| label: add_parcel_surveys
+
+sites_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT *
+  FROM survey200.sites
+  ;
+  "
+)
+
+se_parcel_data <- readr::read_csv("kobo/ESCA_parcel_2024-04-22-18-38-10-ESCA_parcel.csv") |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names()
+
+se_parcel_data <- se_parcel_data |>
+  dplyr::left_join(
+    y = sites_db |>
+      dplyr::select(
+        site_id,
+        site_code,
+        research_focus
+      ) |>
+      dplyr::filter(grepl("parcel", research_focus, ignore.case = TRUE)),
+    by = c("site" = "site_code")
+  ) |> 
+  dplyr::mutate(
+    start = format(start, "%H:%M:%S"),
+    end   = format(end, "%H:%M:%S")
+  )
+
+add_parcel_surveys <- se_parcel_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.sampling_events (
+      site_id,
+      samp_date,
+      start_time,
+      end_time,
+      kobo_uuid
+    )
+    VALUES
+    (
+      { site_id },
+      { date },
+      { start },
+      { end },
+      { uuid }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_parcel_surveys,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+# human indicators
+
+Most of the data in ESCA_plot.csv is housed in the human_indicators table.
+Before adding the 2023 data, we need to address some data cleaning of the
+existing data and add constraints to help minimize future data inconsistencies.
+
+## HI unique constraint: survey_id
+
+```{r}
+#| eval: TRUE
+#| label: hi_unique_survey_id
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  CREATE UNIQUE INDEX unique_human_indicators_survey_id
+  ON survey200.human_indicators (survey_id)
+  ;
+  ")
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_indicators ADD CONSTRAINT
+  unique_human_indicators_survey_id UNIQUE USING INDEX
+  unique_human_indicators_survey_id
+  ;
+  ")
+
+```
+
+## fn update_values
+
+Helper function to update existing values in the database.
+
+```{r}
+#| eval: TRUE
+
+#' @description changes any target value in a database table to an updated value
+#'
+#' @note this is a shotgun approach that will change all targets in the data
+#' (i.e., not those constrained to a particular table).
+#'
+#' @param target_table
+#' (character) the quoted database table to update; this table of the same name
+#' must also exist in the R environment
+#' @param target_value 
+#' (character) the quoted value that should be updated
+#' @param update_value 
+#' (character) the quoted new value; set to NA (unquoted) if the update value
+#' should be NULL
+#' @param execute
+#' (BOOLEAN) executes update statement(s) if TRUE; returns queries if FALSE
+#'
+#' @note The update statements are built based on the data in the target table.
+#' As such, the database table to be updated must exist as a tibble or dataframe
+#' in the R environment, and must have the same name as the database table.
+#' 
+#' @example
+#' 
+#' human_indicators <- DBI::dbGetQuery(
+#'   conn      = pg,
+#'   statement = "
+#'   SELECT *
+#'   FROM survey200.human_indicators
+#'   ;
+#'   "
+#' )
+#' 
+#' update_values(
+#'   target_table = "human_indicators",
+#'   target_value = "n/a",
+#'   update_value = NA,
+#'   execute      = TRUE
+#' )
+
+update_values <- function(
+  target_table = NULL,
+  target_value = NULL,
+  update_value = NULL,
+  execute      = TRUE
+) {
+
+  target_pattern <- paste0("\\b", target_value, "\\b")
+  update_pattern <- paste0("\\b", update_value, "\\b")
+
+  target_columns <- get(target_table) |> 
+    dplyr::select(
+      tidyselect::where(
+        ~ any(
+          grepl(
+            pattern     = target_pattern,
+            x           = .x,
+            ignore.case = TRUE
+          )
+        )
+      )
+    )
+
+  purrr::walk(colnames(target_columns), ~ message(.x))
+
+  update_statement <- tibble::tibble(
+    column_names = colnames(target_columns)
+  ) |> 
+    glue::glue_data_sql("
+      UPDATE survey200.{ target_table }
+      SET { column_names } = { update_value }
+      WHERE { column_names } = { target_value }
+      ;",
+      .con = DBI::ANSI()
+    ) |> 
+    gsub(
+      pattern     = "'",
+      replacement = "",
+      x           = _
+    ) |> 
+    gsub(
+      pattern     = target_pattern,
+      replacement = paste0("'", target_value, "'"),
+      x           = _
+    )
+
+  if (!is.na(update_value)) {
+
+    update_statement <- update_statement |> 
+      gsub(
+        pattern     = update_pattern,
+        replacement = paste0("'", update_value, "'"),
+        x           = _
+      )
+
+  }
+
+  if (execute == TRUE) {
+
+    DBI::dbWithTransaction(
+      conn = pg,
+      {
+        purrr::walk(
+          .x = update_statement,
+          .f = ~ DBI::dbExecute(
+            statement = .x,
+            conn      = pg
+          )
+        )
+      }
+    )
+
+  } else {
+
+    return(update_statement)
+
+  }
+
+}
+
+```
+
+## update human_indicators
+
+```{r}
+#| eval: TRUE
+
+human_indicators <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT *
+  FROM survey200.human_indicators
+  ;
+  "
+)
+
+update_values(
+  target_table = "human_indicators",
+  target_value = "n/a",
+  update_value = NA,
+  execute      = TRUE
+)
+
+# R ignores case but the where statement is case sensitive so need separate
+# replacements for n/a and N/A
+update_values(
+  target_table = "human_indicators",
+  target_value = "N/A",
+  update_value = NA,
+  execute      = TRUE
+)
+
+update_values(
+  target_table = "human_indicators",
+  target_value = "na",
+  update_value = NA,
+  execute      = TRUE
+)
+
+update_values(
+  target_table = "human_indicators",
+  target_value = "dont know",
+  update_value = "do_not_know",
+  execute      = TRUE
+)
+
+update_values(
+  target_table = "human_indicators",
+  target_value = "do not know",
+  update_value = "do_not_know",
+  execute      = TRUE
+)
+
+```
+
+## fn add_constraint
+
+```{r}
+#| eval: TRUE
+
+#' @description adds a check constraint (none, some, many) to select columns of
+#' the human_indicators table
+#'
+#' @param target_table
+#' (character) the quoted database table to update; this table of the same name
+#' must also exist in the R environment
+#' @param target_value 
+#' (character) a quoted value indicative of the column(s) to be updated
+#' @param execute
+#' (BOOLEAN) executes alter table statement(s) if TRUE; returns queries if FALSE
+#'
+#' @note Unlike the update_values function, add_constraint is specific to
+#' adding a specific constraint to the human_indicators table and is not otherwise
+#' generalizeable
+#'
+#' @example
+#' 
+#' add_constraint(
+#'   target_table = "human_indicators",
+#'   target_value = "none",
+#'   execute      = TRUE
+#' )
+
+add_constraint <- function(
+  target_table = NULL,
+  target_value = NULL,
+  execute      = TRUE
+) {
+
+  target_pattern <- paste0("\\b", target_value, "\\b")
+
+  target_columns <- get(target_table) |> 
+    dplyr::select(
+      tidyselect::where(
+        ~ any(
+          grepl(
+            pattern     = target_pattern,
+            x           = .x,
+            ignore.case = TRUE
+          )
+        )
+      ),
+      -weather_recent_rain_notes
+    )
+
+  purrr::walk(colnames(target_columns), ~ message(.x))
+
+  update_statement <- tibble::tibble(
+    column_names = colnames(target_columns)
+  ) |> 
+    glue::glue_data_sql("
+      ALTER TABLE survey200.{ target_table }
+      ADD CONSTRAINT { paste0('check_', column_names) }
+      CHECK ({ column_names } IN (ZZZ))
+      ;",
+      .con = DBI::ANSI()
+    ) |> 
+    gsub(
+      pattern     = "'",
+      replacement = "",
+      x           = _
+    )
+
+  update_statement <- update_statement |>
+    gsub(
+      pattern     = "ZZZ",
+      replacement = "'none', 'some', 'many'",
+      x           = _
+    )
+
+  if (execute == TRUE) {
+
+    DBI::dbWithTransaction(
+      conn = pg,
+      {
+        purrr::walk(
+          .x = update_statement,
+          .f = ~ DBI::dbExecute(
+            statement = .x,
+            conn      = pg
+          )
+        )
+      }
+    )
+
+  } else {
+
+    return(update_statement)
+
+  }
+
+}
+
+```
+
+## add human_indicators constraints
+
+Add a check constraint that limits entries to 'some', 'none', or 'many' in
+select columns.
+
+```{r}
+#| eval: TRUE
+
+human_indicators <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT *
+  FROM survey200.human_indicators
+  ;
+  "
+)
+
+add_constraint(
+  target_table = "human_indicators",
+  target_value = "none",
+  execute      = TRUE
+)
+
+```
+
+## adjust social class
+
+The 2023 entries pertaining to human_social_class have more digits that than
+the varchar(20) limits. Change type from varchar to text to address but we
+first need to drop the human_indicators view that draws on that column.
+
+```{r}
+#| eval: TRUE
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  DROP VIEW IF EXISTS survey200.public_lens_survey200_human_indicators CASCADE
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_indicators
+    ALTER COLUMN human_social_class TYPE TEXT USING human_social_class :: TEXT
+  ;
+  "
+)
+
+```
+
+## HI plots
+
+Here we are formatting and adding to the database most of the data in the
+ESCA_plot.csv file.
+
+```{r}
+#| eval: TRUE
+
+plot_data <- kobo_fetch("plots")
+
+plot_data <- plot_data |> 
+  dplyr::mutate(
+    dplyr::across(
+      tidyselect::where(
+        ~ any(
+          grepl(
+            pattern     = "many or heavy",
+            x           = .x,
+            ignore.case = TRUE
+          )
+        )
+      ), ~ dplyr::case_when(
+        . == "many or heavy" ~ "many",
+        TRUE ~ .
+      )
+    )
+  )
+
+plot_data <- plot_data |> 
+  dplyr::mutate(
+    dplyr::across(
+      tidyselect::where(
+        ~ any(
+          grepl(
+            pattern     = "do not know",
+            x           = .x,
+            ignore.case = TRUE
+          )
+        )
+      ), ~ dplyr::case_when(
+        . == "do not know" ~ "do_not_know",
+        TRUE ~ .
+      )
+    )
+  )
+
+add_plots_data <- plot_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.human_indicators (
+      survey_id,
+      general_description,
+      weather_on_the_day,
+      weather_recent_rain_notes,
+      vegetation_rope_length,
+      human_presence_of_path,
+      human_footprints,
+      human_bike_tracks,
+      human_off_road_vehicle,
+      human_small_litter,
+      human_dumped_trash_bags,
+      human_abandoned_vehicles,
+      human_graffiti,
+      human_injured_plants,
+      human_informal_play,
+      human_informal_recreation,
+      human_informal_living,
+      human_sports_equipment,
+      human_number_cars,
+      human_number_motorcycles,
+      human_number_bycicles,
+      human_number_houses,
+      human_number_rvs,
+      appears_maintained,
+      appears_professional,
+      appears_injured,
+      appears_healthy,
+      presence_of_open_ground,
+      presence_of_trees,
+      presence_of_shrubs,
+      presence_of_cacti_succ,
+      presence_of_lawn,
+      presence_of_herbacous_ground,
+      presence_of_other,
+      presence_of_hand_water,
+      presence_of_drip_water,
+      presence_of_overhead_water,
+      presence_of_flood_water,
+      presence_of_subterranean_water,
+      presence_of_no_water,
+      presence_of_pervious_irrigation,
+      human_social_class
+    ) VALUES (
+      { survey_id },
+      { brief_description_of_the_plot },
+      { the_weather_today },
+      { has_it_rained_recently_when_how_much_what_evidence },
+      { rope_intersection },
+      { path_through_the_plot },
+      { footprints_in_plot },
+      { bike_tracks },
+      { off_road_vehicle_tracks },
+      { small_litter },
+      { dumped_trash_bags },
+      { abandoned_vehicles },
+      { graffiti },
+      { injured_plants },
+      { informal_play_spaces_e_g_play_houses },
+      { informal_recreation_sites_e_g_broken_bottles_shooting_targets },
+      { informal_living_site_e_g_homeless_camps_bottles_bonfires_privies },
+      { sports_equipment_or_facilities },
+      { number_of_cars },
+      { number_of_motorcycles },
+      { number_of_bicycles },
+      { number_of_houses },
+      { number_of_recreational_vehicles },
+      { does_the_landscape_appear_well_maintained },
+      { is_the_landscape_maintained_professionally },
+      { are_there_symptoms_or_signs_of_abiotic_or_biotic_injury },
+      { are_the_plants_healthy_and_vigorous },
+      { indicate_visible_signs_of_human_cultivation_presence_of_open_ground }::boolean,
+      { indicate_visible_signs_of_human_cultivation_presence_of_trees }::boolean,
+      { indicate_visible_signs_of_human_cultivation_presence_of_shrubs }::boolean,
+      { indicate_visible_signs_of_human_cultivation_presence_of_cacti_or_succulents }::boolean,
+      { indicate_visible_signs_of_human_cultivation_presence_of_lawn }::boolean,
+      { indicate_visible_signs_of_human_cultivation_presence_of_herbaceous_ground_cover }::boolean,
+      { indicate_visible_signs_of_human_cultivation_presence_of_other_vegetation_types }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_presence_of_hand_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_presence_of_drip_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_presence_of_overhead_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_presence_of_flood_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_presence_of_subterranean_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_no_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_presence_of_pervious_irrigation }::boolean,
+      { approximate_perceived_social_class_of_the_neighborhood }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_plots_data,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+## HI parcels
+
+Code for adding parcel-related data to the human_indicators table. To be sure,
+this is separate from populating the human_indicators_parcels table.
+
+Move street address from human structures (where it has to be stored for each
+building) to human indicators. The 2023 street addresses will be included in
+the parcels insert query (@insert_HIP).
+
+```{r}
+#| eval: TRUE
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_indicators
+  ADD COLUMN street_address TEXT
+  ;
+  "
+)
+
+DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.human_indicators
+  SET street_address = subquery.street_address
+  FROM (
+    SELECT
+    DISTINCT
+      human_structures_sampling_events.survey_id,
+      human_structures.street_address
+    FROM survey200.human_structures_sampling_events
+    JOIN survey200.sampling_events ON (sampling_events.survey_id = human_structures_sampling_events.survey_id)
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    JOIN survey200.human_structures ON (human_structures.structure_id = human_structures_sampling_events.structure_id)
+    WHERE
+      street_address IS NOT NULL AND
+      sites.research_focus = 'parcel'
+  ) AS subquery
+  WHERE
+    human_indicators.survey_id = subquery.survey_id
+  ;
+  ")
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_structures
+  DROP COLUMN street_address
+  ;
+  "
+)
+
+```
+
+
+As with social class (see HIP), residence type is needlessly stored twice for
+each survey in the HIP table. As such, we will move the residence type from HIP
+to HI, and then drop the column from HIP. The 2023 residence type will be
+included in the parcels insert query (@insert_HIP).
+
+```{r}
+#| eval: TRUE
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_indicators
+  ADD COLUMN residence_type TEXT
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  COMMENT ON COLUMN survey200.human_indicators.residence_type IS 'moved from the HIP table as of the 2023 survey so (historically) applies only to parcels'
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.human_indicators
+  SET residence_type = subquery.parcel_residence_type
+  FROM (
+    SELECT
+      DISTINCT
+      sampling_events.survey_id,
+      sites.research_focus,
+      sampling_events.samp_date,
+      human_indicators_parcels.parcel_residence_type
+    FROM survey200.sampling_events
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    LEFT JOIN survey200.human_indicators_parcels ON (human_indicators_parcels.survey_id = sampling_events.survey_id)
+    WHERE
+      sites.research_focus = 'parcel'
+  ) AS subquery
+  WHERE
+    human_indicators.survey_id = subquery.survey_id
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_indicators_parcels
+  DROP COLUMN parcel_residence_type
+  ;
+  "
+)
+
+```
+
+
+```{r}
+#| eval: TRUE
+#| label: insert_HIP
+
+parcel_data <- kobo_fetch("parcels")
+
+parcel_data <- parcel_data |> 
+  dplyr::mutate(
+    dplyr::across(
+      tidyselect::where(
+        ~ any(
+          grepl(
+            pattern     = "do not know",
+            x           = .x,
+            ignore.case = TRUE
+          )
+        )
+      ), ~ dplyr::case_when(
+        . == "do not know" ~ "do_not_know",
+        TRUE ~ .
+      )
+    ),
+    indicate_type_of_residence = gsub(" ", "_", indicate_type_of_residence)
+  )
+
+add_parcel_hi <- parcel_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.human_indicators (
+      survey_id,
+      general_description,
+      appears_maintained,
+      appears_professional,
+      appears_injured,
+      appears_healthy,
+      presence_of_open_ground,
+      presence_of_trees,
+      presence_of_shrubs,
+      presence_of_cacti_succ,
+      presence_of_lawn,
+      presence_of_herbacous_ground,
+      presence_of_other,
+      presence_of_hand_water,
+      presence_of_drip_water,
+      presence_of_overhead_water,
+      presence_of_flood_water,
+      presence_of_subterranean_water,
+      presence_of_no_water,
+      presence_of_pervious_irrigation,
+      human_social_class,
+      street_address,
+      residence_type
+    ) VALUES (
+      { survey_id },
+      { brief_description_of_the_parcel },
+      { does_the_landscape_appear_well_maintained },
+      { is_the_landscape_maintained_professionally },
+      { are_there_symptoms_or_signs_of_abiotic_or_biotic_injury },
+      { are_the_plants_healthy_and_vigorous },
+      { indicate_visible_signs_of_human_cultivation_ground_cover_open_ground }::boolean,
+      { indicate_visible_signs_of_human_cultivation_ground_cover_trees }::boolean,
+      { indicate_visible_signs_of_human_cultivation_ground_cover_shrubs }::boolean,
+      { indicate_visible_signs_of_human_cultivation_ground_cover_cacti_or_succulents }::boolean,
+      { indicate_visible_signs_of_human_cultivation_ground_cover_lawn }::boolean,
+      { indicate_visible_signs_of_human_cultivation_ground_cover_herbaceous_ground_cover }::boolean,
+      { indicate_visible_signs_of_human_cultivation_ground_cover_other_vegetation_types }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_irrigation_hand_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_irrigation_drip_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_irrigation_overhead_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_irrigation_flood_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_irrigation_subterranean_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_irrigation_no_water }::boolean,
+      { indicate_visible_signs_of_human_added_irrigation_irrigation_pervious_irrigation }::boolean,
+      { approximate_perceived_social_class_of_the_neighborhood },
+      { parcel_street_address },
+      { indicate_type_of_residence }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_parcel_hi,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+## standardize residence_type
+
+```{r}
+#| eval: TRUE
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.human_indicators
+  SET residence_type = 'single_family'
+  WHERE residence_type = 'single familiy'
+  ;
+  ")
+
+```
+
+# human indicators neighborhoods
+
+## HIN unique constraint: survey_id
+
+```{r}
+#| eval: TRUE
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  CREATE UNIQUE INDEX unique_human_indicators_neighborhoods_survey_id
+  ON survey200.human_indicators_neighborhoods (survey_id)
+  ;
+  ")
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_indicators_neighborhoods ADD CONSTRAINT
+  unique_human_indicators_neighborhoods_survey_id UNIQUE USING INDEX
+  unique_human_indicators_neighborhoods_survey_id
+  ;
+  ")
+
+```
+
+Add Human Indicators Neighborhoods data
+
+Note that some HIN data did not translate from the tablet (see
+[issue](https://github.com/CAPLTER/knb-lter-cap.652/issues/12)).
+
+```{r}
+#| eval: TRUE
+
+# HIN <- DBI::dbGetQuery(
+#   conn      = pg,
+#   statement = "
+#   SELECT *
+#   FROM survey200.human_indicators_neighborhoods
+#   ;
+#   "
+# )
+
+plot_data <- kobo_fetch("plots")
+
+add_hin_data <- plot_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.human_indicators_neighborhoods (
+      survey_id,
+      neigh_buildings_residential,
+      neigh_buildings_commercial,
+      neigh_buildings_institutional,
+      neigh_buildings_industrial,
+      neigh_residence_apartments,
+      neigh_residence_multi_family,
+      neigh_residence_single_family,
+      neigh_irrigation_drip_trickle,
+      neigh_irrigation_flood_hand,
+      neigh_irrigation_overhead_spray,
+      neigh_yard_upkeep_good,
+      neigh_yard_upkeep_poor,
+      neigh_yard_upkeep_professionally_maintained,
+      neigh_landscape_mesic,
+      neigh_landscape_mixed,
+      neigh_landscape_xeric,
+      neigh_landscape_turf_present,
+      neigh_traffic_collector_street,
+      neigh_traffic_cul_de_sac,
+      neigh_traffic_dirt_road,
+      neigh_traffic_freeway_expressway,
+      neigh_traffic_highway,
+      neigh_traffic_major_city_road,
+      neigh_traffic_none,
+      neigh_traffic_paved_local_street,
+      neigh_notes
+    ) VALUES (
+      { survey_id },
+      { note_all_the_building_types_in_the_neighborhood_neighborhood_buildings_include_residential }::boolean,
+      { note_all_the_building_types_in_the_neighborhood_neighborhood_buildings_include_commercial }::boolean,
+      { note_all_the_building_types_in_the_neighborhood_neighborhood_buildings_include_institutional }::boolean,
+      { note_all_the_building_types_in_the_neighborhood_neighborhood_buildings_include_industrial }::boolean,
+      { note_all_the_residence_types_in_the_neighborhood_neighborhood_residences_include_apartments }::boolean,
+      { note_all_the_residence_types_in_the_neighborhood_neighborhood_residences_include_multi_family_dwellings }::boolean,
+      { note_all_the_residence_types_in_the_neighborhood_neighborhood_residences_include_single_family_dwellings }::boolean,
+      { note_all_the_irrigation_types_in_the_neighborhood_neighborhood_irrigation_features_drip_or_trickle }::boolean,
+      { note_all_the_irrigation_types_in_the_neighborhood_neighborhood_irrigation_features_flood_or_hand_watering }::boolean,
+      { note_all_the_irrigation_types_in_the_neighborhood_neighborhood_irrigation_features_overhead_spraying }::boolean,
+      { note_the_general_upkeep_of_the_landscape_in_the_neighborhood_neighborhood_yard_upkeep_is_good }::boolean,
+      { note_the_general_upkeep_of_the_landscape_in_the_neighborhood_neighborhood_yard_upkeep_is_poor }::boolean,
+      { note_the_general_upkeep_of_the_landscape_in_the_neighborhood_neighborhood_yard_upkeep_is_professionally_maintained }::boolean,
+      { note_the_landscape_types_in_the_neighborhood_neighborhood_landscape_is_mesic }::boolean,
+      { note_the_landscape_types_in_the_neighborhood_neighborhood_landscape_is_mixed }::boolean,
+      { note_the_landscape_types_in_the_neighborhood_neighborhood_landscape_is_xeric }::boolean,
+      { note_the_landscape_types_in_the_neighborhood_neighborhood_landscape_features_turf }::boolean,
+      { note_the_types_of_roadways_in_the_neighborhood_neighborhood_traffic_features_a_collector_street_99 }::boolean,
+      { note_the_types_of_roadways_in_the_neighborhood_neighborhood_traffic_features_a_cul_de_sac_100 }::boolean,
+      { note_the_types_of_roadways_in_the_neighborhood_neighborhood_traffic_features_a_dirt_road_101 }::boolean,
+      { note_the_types_of_roadways_in_the_neighborhood_neighborhood_traffic_features_a_freeway_or_expressway_102 }::boolean,
+      { note_the_types_of_roadways_in_the_neighborhood_neighborhood_traffic_features_a_highway_103 }::boolean,
+      { note_the_types_of_roadways_in_the_neighborhood_neighborhood_traffic_features_a_major_city_road_104 }::boolean,
+      { note_the_types_of_roadways_in_the_neighborhood_neighborhood_traffic_does_not_feature_roads_of_any_type_105 }::boolean,
+      { note_the_types_of_roadways_in_the_neighborhood_neighborhood_traffic_features_a_paved_local_street_106 }::boolean,
+      { note_any_unusual_features_such_as_if_the_plot_is_surrounded_by_notably_different_neighborhoods }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_hin_data,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+# soil samples
+
+```{r}
+#| eval: TRUE
+
+plot_data <- kobo_fetch("plots")
+
+add_ss_data <- plot_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.soil_samples (
+      survey_id,
+      location_description_north,
+      north_utm_lat,
+      north_utm_long,
+      north_utm_altitude,
+      north_utm_accuracy,
+      location_description_south,
+      south_utm_lat,
+      south_utm_long,
+      south_utm_altitude,
+      south_utm_accuracy,
+      location_description_west,
+      west_utm_lat,
+      west_utm_long,
+      west_utm_altitude,
+      west_utm_accuracy,
+      location_description_east,
+      east_utm_lat,
+      east_utm_long,
+      east_utm_altitude,
+      east_utm_accuracy,
+      location_description_center,
+      center_utm_lat,
+      center_utm_long,
+      center_utm_altitude,
+      center_utm_accuracy,
+      sampling_notes
+    ) VALUES (
+      { survey_id },
+      { soil_core_location_description_north },
+      { soil_core_location_position_north_latitude },
+      { soil_core_location_position_north_longitude },
+      { soil_core_location_position_north_altitude },
+      { soil_core_location_position_north_precision },
+      { soil_core_location_description_south },
+      { soil_core_location_position_south_latitude },
+      { soil_core_location_position_south_longitude },
+      { soil_core_location_position_south_altitude },
+      { soil_core_location_position_south_precision },
+      { soil_core_location_description_west },
+      { soil_core_location_position_west_latitude },
+      { soil_core_location_position_west_longitude },
+      { soil_core_location_position_west_altitude },
+      { soil_core_location_position_west_precision },
+      { soil_core_location_description_east },
+      { soil_core_location_position_east_latitude },
+      { soil_core_location_position_east_longitude },
+      { soil_core_location_position_east_altitude },
+      { soil_core_location_position_east_precision },
+      { soil_core_location_description_center },
+      { soil_core_location_position_center_latitude },
+      { soil_core_location_position_center_longitude },
+      { soil_core_location_position_center_altitude },
+      { soil_core_location_position_center_precision },
+      { notes_regarding_sampling_of_soils }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_ss_data,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+# photos: center, synoptic
+
+## RMSE check constraint
+
+```{r}
+#| eval: TRUE
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.research_media_sampling_events
+  ADD CONSTRAINT check_research_scope
+  CHECK (research_scope IN (
+  'plot center west',
+  'synoptic',
+  'prokariotic',
+  'plot center south',
+  'plot center north',
+  'plot center east'
+  ))
+  ;
+  "
+)
+
+```
+
+## plot synoptic photos
+
+```{r}
+#| eval: TRUE
+
+synoptic_data <- kobo_fetch("plot_synoptic")
+
+synoptic_data <- synoptic_data |> 
+  dplyr::mutate(research_scope = "synoptic") |> 
+  dplyr::select(
+    survey_id,
+    uuid           = submission_uuid,
+    media_title    = synoptic_photo_of_the_plot,
+    research_scope
+  )
+
+add_rm_synoptic <- synoptic_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media (
+      media_title,
+      uuid,
+      media_type_id
+    ) VALUES (
+      { media_title },
+      { uuid },
+      2023
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_rm_synoptic,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+research_media <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    media_id,
+    media_title,
+    uuid
+  FROM survey200.research_media
+  WHERE media_type_id = 2023
+  ;
+  "
+)
+
+add_rmse_synoptic <- dplyr::inner_join(
+  x  = synoptic_data,
+  y  = research_media,
+  by = c("uuid", "media_title")
+) |> 
+  pointblank::col_vals_not_null(
+    columns = c(
+      survey_id,
+      media_id
+    ),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  pointblank::row_count_match(
+    count   = nrow(synoptic_data),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media_sampling_events (
+      media_id,
+      survey_id,
+      research_scope
+    ) VALUES (
+      { media_id },
+      { survey_id },
+      { research_scope }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_rmse_synoptic,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+## add plot center photos to RM and RMSE
+
+```{r}
+#| eval: TRUE
+
+plot_data <- kobo_fetch("plots")
+
+plot_data <- plot_data |> 
+  dplyr::select(
+    survey_id,
+    uuid,
+    contains("center_photo")
+  ) |> 
+  dplyr::select(!contains("url")) |> 
+  tidyr::pivot_longer(
+    cols      = contains("photo"),
+    names_to  = "context",
+    values_to = "media_title"
+  ) |> 
+  dplyr::mutate(
+    research_scope = dplyr::case_when(
+      context == "plot_center_photo_north" ~ "plot center north",
+      context == "plot_center_photo_south" ~ "plot center south",
+      context == "plot_center_photo_west"  ~ "plot center west",
+      context == "plot_center_photo_east"  ~ "plot center east"
+    )
+  ) |> 
+  dplyr::filter(!is.na(media_title))
+
+add_rm_plot_center <- plot_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media (
+      media_title,
+      uuid,
+      media_type_id
+    ) VALUES (
+      { media_title },
+      { uuid },
+      2023
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_rm_plot_center,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+research_media <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    media_id,
+    media_title,
+    uuid
+  FROM survey200.research_media
+  WHERE media_type_id = 2023
+  ;
+  "
+)
+
+add_rmse_plot_center <- dplyr::inner_join(
+  x  = plot_data,
+  y  = research_media,
+  by = c("uuid", "media_title")
+) |> 
+  pointblank::col_vals_not_null(
+    columns = c(
+      survey_id,
+      media_id
+    ),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  pointblank::row_count_match(
+    count   = nrow(plot_data),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media_sampling_events (
+      media_id,
+      survey_id,
+      research_scope
+    ) VALUES (
+      { media_id },
+      { survey_id },
+      { research_scope }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_rmse_plot_center,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+## parcel synoptic photos
+
+```{r}
+#| eval: TRUE
+
+synoptic_data <- kobo_fetch("parcel_synoptic")
+
+synoptic_data <- synoptic_data |> 
+  dplyr::mutate(research_scope = "synoptic") |> 
+  dplyr::select(
+    survey_id,
+    uuid           = submission_uuid,
+    media_title    = synoptic_photo_of_the_parcel,
+    research_scope
+  )
+
+add_rm_synoptic <- synoptic_data |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media (
+      media_title,
+      uuid,
+      media_type_id
+    ) VALUES (
+      { media_title },
+      { uuid },
+      2023
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_rm_synoptic,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+research_media <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    media_id,
+    media_title,
+    uuid
+  FROM survey200.research_media
+  WHERE media_type_id = 2023
+  ;
+  "
+)
+
+add_rmse_synoptic <- dplyr::inner_join(
+  x  = synoptic_data,
+  y  = research_media,
+  by = c("uuid", "media_title")
+) |> 
+  pointblank::col_vals_not_null(
+    columns = c(
+      survey_id,
+      media_id
+    ),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  pointblank::row_count_match(
+    count   = nrow(synoptic_data),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media_sampling_events (
+      media_id,
+      survey_id,
+      research_scope
+    ) VALUES (
+      { media_id },
+      { survey_id },
+      { research_scope }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_rmse_synoptic,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+# structures
+
+## plots
+
+```{r}
+#| eval: TRUE
+
+plot_hs <- kobo_fetch("plot_hs")
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_structures
+  ADD COLUMN index INTEGER
+  ;
+  "
+)
+
+add_plot_hs <- plot_hs |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.human_structures (
+      structure_use,
+      height_distance,
+      height_degree_up,
+      height_degree_down,
+      height,
+      survey_id,
+      index             
+    ) VALUES (
+      { structure_type },
+      { clinometer_distance_m },
+      { top_of_building_degree },
+      { base_of_building_degree },
+      { measured_height_if_not_using_clinometer_m },
+      { survey_id },
+      { index }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_plot_hs,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+hs_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT *
+  FROM survey200.human_structures
+  WHERE EXTRACT (YEAR FROM timestamp_val) = 2024
+  ;
+  "
+)
+
+add_hsse <- dplyr::inner_join(
+  x  = plot_hs,
+  y  = hs_db,
+  by = c("survey_id", "index")
+) |> 
+  pointblank::col_vals_not_null(
+    columns = c(
+      survey_id
+    ),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  pointblank::row_count_match(
+    count   = nrow(plot_hs),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.human_structures_sampling_events (
+      survey_id,
+      structure_id
+    ) VALUES (
+      { survey_id },
+      { structure_id }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_hsse,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_structures
+  DROP COLUMN index
+  ;
+  "
+)
+
+```
+
+## parcels
+
+With parcels, even though a clinometer distance is recorded, the height of
+buildings was measured only by direct measurements (i.e., there are not any
+clinometer degree readings). As such, we will filter the few records where the
+building height is NA, and only include the measured building height in our
+INSERT INTO `survey200.human_structures` statement.
+
+```{r}
+#| eval: TRUE
+
+parcel_hs <- kobo_fetch("parcel_hs") |> 
+  dplyr::filter(!is.na(measured_height_if_not_using_clinometer_m))
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_structures
+  ADD COLUMN index INTEGER
+  ;
+  "
+)
+
+add_parcel_hs <- parcel_hs |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.human_structures (
+      structure_use,
+      height,
+      survey_id,
+      index             
+    ) VALUES (
+      { structure_type },
+      { measured_height_if_not_using_clinometer_m },
+      { survey_id },
+      { index }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_parcel_hs,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+hs_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT *
+  FROM survey200.human_structures
+  WHERE EXTRACT (YEAR FROM timestamp_val) = 2024
+  ;
+  "
+)
+
+add_parcel_hsse <- dplyr::inner_join(
+  x  = parcel_hs,
+  y  = hs_db,
+  by = c("survey_id", "index")
+) |> 
+  pointblank::col_vals_not_null(
+    columns = c(
+      survey_id
+    ),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  pointblank::row_count_match(
+    count   = nrow(parcel_hs),
+    actions = pointblank::stop_on_fail()
+  ) |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.human_structures_sampling_events (
+      survey_id,
+      structure_id
+    ) VALUES (
+      { survey_id },
+      { structure_id }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_parcel_hsse,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.human_structures
+  DROP COLUMN index
+  ;
+  "
+)
+
+```
+
+
+# lse
+
+## plots
+
+```{r}
+#| eval: TRUE
+
+lse_plots <- kobo_fetch("plot_lse")
+
+lse_classes <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    landuse_classification_id,
+    landuse_label
+  FROM survey200.landuse_classification 
+  ;
+  "
+)
+
+lse_plots <- lse_plots |> 
+  dplyr::left_join(
+    y  = lse_classes,
+    by = c("land_use_class" = "landuse_label")
+  ) |> 
+  dplyr::filter(!is.na(land_use_class_percent))
+
+add_lse_plots <- lse_plots |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.landuses_sampling_events (
+      survey_id,
+      landuse_classification_id,
+      landuse_percent
+    ) VALUES (
+      { survey_id },
+      { landuse_classification_id },
+      { land_use_class_percent }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_lse_plots,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+## parcels
+
+```{r}
+#| eval: TRUE
+
+lse_parcels <- kobo_fetch("parcel_lse")
+
+lse_classes <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    landuse_classification_id,
+    landuse_label
+  FROM survey200.landuse_classification 
+  ;
+  "
+)
+
+lse_parcels <- lse_parcels |> 
+  dplyr::left_join(
+    y  = lse_classes,
+    by = c("land_use_class" = "landuse_label")
+  ) |> 
+  dplyr::filter(!is.na(land_use_class_percent))
+
+add_lse_parcels <- lse_parcels |> 
+  glue::glue_data_sql("
+    INSERT INTO survey200.landuses_sampling_events (
+      survey_id,
+      landuse_classification_id,
+      landuse_percent
+    ) VALUES (
+      { survey_id },
+      { landuse_classification_id },
+      { land_use_class_percent }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_lse_parcels,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+# human indicators parcels
+
+## Standardize existing HIP data.
+
+Add timestamping to HIP table.
+
+```{r}
+#| eval: TRUE
+#| label: add-timestamping-HIP
+
+databaseDevelopmentTools::add_timestamping(
+  schema = "survey200",
+  table  = "human_indicators_parcels"
+)
+
+```
+
+```{r}
+#| eval: TRUE
+#| label: standardize-HIP
+
+# parcel_appearance
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.human_indicators_parcels
+  SET parcel_appearance = 'good'
+  WHERE parcel_appearance = 'neigh_yard_upkeep_good' 
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.human_indicators_parcels
+  SET parcel_appearance = 'poor'
+  WHERE parcel_appearance = 'neigh_yard_upkeep_poor' 
+  ;
+  "
+)
+
+# parcel_orderliness
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.human_indicators_parcels
+  SET parcel_orderliness = 'highly_structured_designed'
+  WHERE parcel_orderliness = 'highly structured or designed' 
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.human_indicators_parcels
+  SET parcel_orderliness = 'lacking_order_structure'
+  WHERE parcel_orderliness = 'lacking order or structure' 
+  ;
+  "
+)
+
+```
+
+## harvest HIP CV data
+
+```{r}
+#| eval: TRUE
+#| label: controlled-vocabulary-HIP
+
+# survey200 | cv_parcel_amount_grass             | table | srearl
+
+cv_amount_grass_id <- cv_landsc_type_id <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = "
+  SELECT cv_amount_grass_id, cv_amount_grass_code
+  FROM survey200.cv_parcel_amount_grass
+  ;
+  "
+)
+# survey200 | cv_parcel_landscape_type           | table | srearl
+
+cv_landsc_type_id <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = "
+  SELECT cv_landsc_type_id, cv_landsc_type_code
+  FROM survey200.cv_parcel_landscape_type
+  ;
+  "
+)
+
+# survey200 | cv_parcel_lawn_health              | table | srearl
+
+cv_lawn_health_id <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = "
+  SELECT cv_lawn_health_id, cv_lawn_health_code
+  FROM survey200.cv_parcel_lawn_health
+  ;
+  "
+)
+
+# survey200 | cv_parcel_lawn_quality             | table | srearl
+
+cv_lawn_quality_id <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = "
+    SELECT
+      cv_lawn_quality_id,
+      cv_lawn_quality_code,
+      cv_lawn_quality_description
+    FROM survey200.cv_parcel_lawn_quality
+    ;
+    "
+)
+
+# survey200 | cv_parcel_weeds                    | table | srearl
+
+# CV for foth xeric (cv_weed_xeric_id) and grass weeds
+
+# cv_weed_id <- DBI::dbGetQuery(
+#     conn      = pg,
+#     statement = "
+#   SELECT cv_weed_id, cv_weed_code
+#   FROM survey200.cv_parcel_weeds
+#   ;
+#   "
+# )
+
+```
+
+The two fields related to the amount of weeds in grass and xeric areas are
+facilitated via a controlled vocabulary table. Because the tablet options
+related to these two measures do not match the codes in the CV table, we need to
+hardcode the mapping.
+
+cv_weed_id cv_weed_code
+1     no grass
+2     no weeds
+3          few
+4       medium
+5         many
+6  infestation
+
+sink("/tmp/grass")
+front_back |>
+    dplyr::distinct(percent_of_weeds_in_grass_area)
+sink()
+
+no grass area
+less than 10 percent
+10 to 25 percent
+25 to 50 percent
+more than 50 percent
+
+sink("/tmp/xeric")
+front_back |>
+    dplyr::distinct(percent_of_weeds_in_non_grass_or_xeric_areas)
+sink()
+
+no grass area
+less than 10 percent
+10 to 25 percent
+more than 50 percent                        
+
+```{r}
+#| eval: TRUE
+#| label: format_front_back
+
+front_back <- kobo_fetch("front_back")
+
+front_back_formatted <- front_back |>
+  dplyr::mutate(
+    yard_upkeep_and_appearance = dplyr::case_when(
+      grepl(
+        pattern     = "professionally maintained",
+        x           = yard_upkeep_and_appearance,
+        ignore.case = TRUE
+      ) ~ "professionally or well maintained",
+      TRUE ~ yard_upkeep_and_appearance
+    ),
+    yard_orderliness_placement_of_plants_riverbed_etc = dplyr::case_when(
+      grepl(
+        pattern     = "lacking order or structure",
+        x           = yard_orderliness_placement_of_plants_riverbed_etc,
+        ignore.case = TRUE
+      ) ~ "lacking_order_structure",
+      grepl(
+        pattern     = "highly structured or designed",
+        x           = yard_orderliness_placement_of_plants_riverbed_etc,
+        ignore.case = TRUE
+      ) ~ "highly_structured_designed",
+      TRUE ~ yard_orderliness_placement_of_plants_riverbed_etc
+    )
+  ) |>
+  dplyr::rename(
+    parcel_appearance  = yard_upkeep_and_appearance,
+    parcel_orderliness = yard_orderliness_placement_of_plants_riverbed_etc
+  ) |>
+  dplyr::left_join(
+    y  = cv_amount_grass_id,
+    by = c("amount_of_grass" = "cv_amount_grass_code")
+  ) |>
+  dplyr::left_join(
+    y  = cv_landsc_type_id,
+    by = c("predominant_landscape_type" = "cv_landsc_type_code")
+  ) |>
+  dplyr::left_join(
+    y  = cv_lawn_health_id,
+    by = c("rate_the_overall_lawn_color_including_grass_and_weeds" = "cv_lawn_health_code")
+  ) |>
+  dplyr::mutate(
+    cv_lawn_quality_id = dplyr::case_when(
+      grepl(
+        pattern     = "^mostly",
+        x           = overall_lawn_quality,
+        ignore.case = TRUE
+      ) ~ 3,
+      grepl(
+        pattern     = "evenly",
+        x           = overall_lawn_quality,
+        ignore.case = TRUE
+      ) ~ 5,
+      grepl(
+        pattern     = "^very",
+        x           = overall_lawn_quality,
+        ignore.case = TRUE
+      ) ~ 10,
+      grepl(
+        pattern     = "^monoculture",
+        x           = overall_lawn_quality,
+        ignore.case = TRUE
+      ) ~ 1,
+      TRUE ~ NA_integer_
+    )
+  ) |>
+  dplyr::mutate(
+    percent_of_weeds_in_grass_area = dplyr::case_when(
+      grepl(
+        pattern     = "grass",
+        x           = percent_of_weeds_in_grass_area,
+        ignore.case = TRUE
+      ) ~ 1,
+      grepl(
+        pattern     = "^less",
+        x           = percent_of_weeds_in_grass_area,
+        ignore.case = TRUE
+      ) ~ 3,
+      grepl(
+        pattern     = "^10",
+        x           = percent_of_weeds_in_grass_area,
+        ignore.case = TRUE
+      ) ~ 4,
+      grepl(
+        pattern     = "^25",
+        x           = percent_of_weeds_in_grass_area,
+        ignore.case = TRUE
+      ) ~ 5,
+      grepl(
+        pattern     = "^more",
+        x           = percent_of_weeds_in_grass_area,
+        ignore.case = TRUE
+      ) ~ 6
+    )
+  ) |>
+  dplyr::mutate(
+    percent_of_weeds_in_non_grass_or_xeric_areas = dplyr::case_when(
+      grepl(
+        pattern     = "grass",
+        x           = percent_of_weeds_in_non_grass_or_xeric_areas,
+        ignore.case = TRUE
+      ) ~ 1,
+      grepl(
+        pattern     = "^less",
+        x           = percent_of_weeds_in_non_grass_or_xeric_areas,
+        ignore.case = TRUE
+      ) ~ 3,
+      grepl(
+        pattern     = "^10",
+        x           = percent_of_weeds_in_non_grass_or_xeric_areas,
+        ignore.case = TRUE
+      ) ~ 4,
+      grepl(
+        pattern     = "^25",
+        x           = percent_of_weeds_in_non_grass_or_xeric_areas,
+        ignore.case = TRUE
+      ) ~ 5,
+      grepl(
+        pattern     = "^more",
+        x           = percent_of_weeds_in_non_grass_or_xeric_areas,
+        ignore.case = TRUE
+      ) ~ 6
+    )
+  ) |>
+  dplyr::mutate(
+    grass_patchiness = dplyr::case_when(
+      grepl(
+        pattern     = "^grass",
+        x           = grass_patchiness,
+        ignore.case = TRUE
+      ) ~ "even grass",
+      grepl(
+        pattern     = "^there",
+        x           = grass_patchiness,
+        ignore.case = TRUE
+      ) ~ "patches"
+    )
+  ) |>
+  dplyr::mutate(
+    front_or_back_yard = dplyr::case_when(
+      grepl(
+        pattern     = "rear",
+        x           = front_or_back_yard,
+        ignore.case = TRUE
+      ) ~ "back",
+      TRUE ~ front_or_back_yard
+    )
+  ) |>
+  dplyr::mutate(
+    evidence_of_tree_pruning_such_as_cut_branches = dplyr::case_when(
+      grepl(
+        pattern     = "^veg",
+        x           = evidence_of_tree_pruning_such_as_cut_branches,
+        ignore.case = TRUE
+      ) ~ "no specimen",
+      TRUE ~ evidence_of_tree_pruning_such_as_cut_branches
+    )
+  ) |>
+  dplyr::mutate(
+    evidence_of_shrub_pruning_such_as_shaped_shrubs = dplyr::case_when(
+      grepl(
+        pattern     = "^veg",
+        x           = evidence_of_shrub_pruning_such_as_shaped_shrubs,
+        ignore.case = TRUE
+      ) ~ "no specimen",
+      TRUE ~ evidence_of_shrub_pruning_such_as_shaped_shrubs
+    )
+  ) |>
+  dplyr::mutate(
+    front_or_back_yard = dplyr::case_when(
+      index == 23 & survey_id == 1168 ~ "front",
+      TRUE ~ front_or_back_yard
+    )
+  )
+
+```
+
+```{r}
+#| eval: TRUE
+#| label: front_back_insert
+
+add_front_back <- front_back_formatted |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.human_indicators_parcels (
+      survey_id,
+      parcel_survey_type,
+      parcel_appearance,
+      parcel_orderliness,
+      presence_of_bird_feeder,
+      presence_of_water_feature,
+      presence_of_porch_patio,
+      presence_of_cats,
+      presence_of_dogs,
+      presence_of_pet_waste,
+      presence_of_statues,
+      presence_of_flagpole,
+      presence_of_cars_yard,
+      presence_of_potted_plant,
+      presence_of_play_equip,
+      presence_of_lawn_ornaments,
+      presence_of_furniture,
+      presence_of_river_bed,
+      presence_of_yard_topography,
+      presence_of_litter,
+      presence_of_veg_litter,
+      presence_of_yard_tools,
+      presence_of_light_post,
+      presence_of_other,
+      presence_of_irrigation_flood,
+      presence_of_irrigation_drip,
+      presence_of_irrigation_hose,
+      presence_of_irrigation_sprinklers,
+      cv_landsc_type_id,
+      cv_amount_grass_id,
+      cv_weed_grass_id,
+      cv_weed_xeric_id,
+      presence_of_weeds_other,
+      parcel_pruning_trees,
+      parcel_pruning_shrubs,
+      parcel_grass_patchiness,
+      parcel_percent_living_grass,
+      parcel_percent_bare,
+      parcel_percent_dead,
+      parcel_percent_weeds,
+      parcel_percent_other,
+      parcel_percent_no_stress,
+      parcel_percent_little_stress,
+      parcel_percent_some_stress,
+      parcel_percent_moderate_stress,
+      parcel_percent_severe_stress,
+      cv_lawn_health_id,
+      cv_lawn_quality_id,
+      presence_of_lawn_trimmed,
+      presence_of_recent_cut,
+      parcel_grass_height,
+      parcel_weed_height,
+      parcel_feature_comments
+    )
+    VALUES
+    (
+      { survey_id },
+      { front_or_back_yard },
+      { parcel_appearance },
+      { parcel_orderliness },
+      { features_in_the_yard_bird_feeder }::boolean,
+      { features_in_the_yard_water_feature }::boolean,
+      { features_in_the_yard_front_porch }::boolean,
+      { features_in_the_yard_cats }::boolean,
+      { features_in_the_yard_dogs }::boolean,
+      { features_in_the_yard_pet_or_animal_waste }::boolean,
+      { features_in_the_yard_religious_ornaments_or_statues }::boolean,
+      { features_in_the_yard_flagpole }::boolean,
+      { features_in_the_yard_cars_in_yard_but_not_in_the_driveway }::boolean,
+      { features_in_the_yard_potted_plants }::boolean,
+      { features_in_the_yard_play_equipment }::boolean,
+      { features_in_the_yard_lawn_ornaments }::boolean,
+      { features_in_the_yard_chairs_or_tables }::boolean,
+      { features_in_the_yard_landscaped_rock_or_river_bed }::boolean,
+      { features_in_the_yard_created_yard_topography }::boolean,
+      { features_in_the_yard_litter_or_refuse_on_the_ground }::boolean,
+      { features_in_the_yard_vegetation_litter_like_leaves }::boolean,
+      { features_in_the_yard_yard_maintenance_tools }::boolean,
+      { features_in_the_yard_light_post }::boolean,
+      { features_in_the_yard_other }::boolean,
+      { watering_regimes_flood }::boolean,
+      { watering_regimes_drip_or_trickle }::boolean,
+      { watering_regimes_hand_watering }::boolean,
+      { watering_regimes_overhead_spray }::boolean,
+      { cv_landsc_type_id },
+      { cv_amount_grass_id },
+      { percent_of_weeds_in_grass_area },
+      { percent_of_weeds_in_non_grass_or_xeric_areas },
+      { are_there_weeds_in_other_areas_of_the_yard_such_as_flowerbeds_or_the_driveway },
+      { evidence_of_tree_pruning_such_as_cut_branches },
+      { evidence_of_shrub_pruning_such_as_shaped_shrubs },
+      { grass_patchiness },
+      { percent_living_grass },
+      { percent_bare_ground },
+      { percent_dead_or_dormant_grass },
+      { percent_weeds },
+      { percent_other },
+      { percent_very_green_grass },
+      { percent_moderately_green_grass },
+      { percent_greenish_yellow_grass },
+      { percent_yellowish_grass },
+      { percent_brownish_grass },
+      { cv_lawn_health_id },
+      { cv_lawn_quality_id },
+      { lawn_edges_trimmed },
+      { recently_mowed },
+      { grass_height_cm },
+      { weed_height_cm },
+      { notable_comment_about_the_yard }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_front_back,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+# add S9 parcel sampling event
+
+The S9 parcel is not included in the parcel data. We will add it manually. 
+
+```{r}
+#| eval: TRUE
+#| label: add_S9_parcel
+
+glue::glue_sql("
+  INSERT INTO survey200.sampling_events (
+    site_id,
+    samp_date
+  ) VALUES (
+    161,
+    '2023-05-15'
+  )
+  ;
+  ") |>
+    DBI::dbExecute(
+        conn = pg
+    )
+
+```
+
+# fix the date problem
+
+There are discrepencies between the dates in the shrub surveys, and plot and
+parcel data. We can use the date written on the soils samples to verify the
+correct date (except for AD19 for which we will use the tech calendar as soil
+samples were not collected at that site).
+
+```{r}
+#| eval: TRUE
+#| label: fix_dates
+
+shrub_survey <- readr::read_csv(config::get("shrub_survey")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+dates_shrubs <- shrub_survey |>
+  dplyr::mutate(
+    ss_date = date,
+    ss_site = site,
+    ss_focus = survey_type
+  ) |>
+  dplyr::select(
+    site,
+    date,
+    date,
+    survey_type,
+    ss_date,
+    ss_site,
+    ss_focus
+  )
+
+se_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      sampling_events.survey_id,
+      sampling_events.site_id,
+      sampling_events.samp_date,
+      sites.site_code,
+      sites.research_focus
+    FROM survey200.sampling_events
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    WHERE EXTRACT(year FROM samp_date) = 2023
+    ;
+    "
+)
+
+dates_se <- se_db |>
+  dplyr::mutate(
+    research_focus = dplyr::case_when(
+      grepl(
+        pattern     = "survey200",
+        x           = research_focus,
+        ignore.case = TRUE
+      ) ~ "plot",
+      TRUE ~ research_focus
+    )
+  )
+
+mismatched_dates_sites <- dplyr::full_join(
+  x = dates_shrubs,
+  y = dates_se,
+  by = c(
+    "site" = "site_code",
+    "survey_type" = "research_focus"
+  )
+) |>
+  dplyr::filter(date != samp_date) |>
+  dplyr::distinct(site)
+
+dates_from_soils <- readr::read_csv("~/Dropbox/development/esca_working/dates_from_soils.csv") |>
+  janitor::clean_names() |>
+  dplyr::mutate(
+    coll_date = as.Date(
+      x      = coll_date,
+      format = "%m/%d/%Y"
+    )
+  ) |>
+  dplyr::select(
+    site,
+    coll_date
+  ) |>
+  dplyr::right_join(
+    y  = mismatched_dates_sites,
+    by = "site"
+  )
+
+# the soil data did not have a date for AD19 so we will add it from the tech
+# calendar
+
+dates_from_soils <- dates_from_soils |>
+  dplyr::mutate(
+    coll_date = dplyr::case_when(
+      site == "AD19" ~ as.Date("2023-06-01"),
+      TRUE ~ coll_date
+    )
+  )
+
+# they are all plots so do not need to distinguish between plots and parcels
+
+old_date_query <- glue::glue_sql("
+  SELECT
+    sampling_events.survey_id,
+    sampling_events.site_id,
+    sampling_events.samp_date AS old_date,
+    sites.site_code,
+    sites.research_focus
+  FROM survey200.sampling_events
+  JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+  WHERE
+    site_code IN ({ dates_from_soils$site* })
+    AND EXTRACT(year FROM samp_date) = 2023
+  ",
+  .con = DBI::ANSI()
+)
+
+old_dates <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = old_date_query
+) |>
+  dplyr::inner_join(
+    y  = dates_from_soils,
+    by = c("site_code" = "site")
+  ) |>
+  dplyr::filter(site_code != "F12") # db value is the correct
+
+update_se_dates <- old_dates |>
+  glue::glue_data_sql("
+    UPDATE survey200.sampling_events
+    SET samp_date = { coll_date }
+    WHERE survey_id = { survey_id }
+    ;",
+    .con = DBI::ANSI()
+  )
+
+# need to verify this workflow
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = update_se_dates,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn      = pg
+      )
+    )
+  }
+)
+
+```
+
+# add timestamping to sampling events
+
+Add timestamping to the sampling events table. The relevant columns, created_at
+and updated_at, already exist but the defaults are wrong and the trigger does
+not exist (hence not using the databaseDevelopmentTools::add_timestamping
+function).
+
+```{r}
+#| eval: TRUE
+#| label: sampling_events_timestamping
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    ALTER TABLE ONLY survey200.sampling_events
+    ALTER COLUMN created_at SET DEFAULT NOW()
+    ;
+    "
+)
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    ALTER TABLE ONLY survey200.sampling_events
+    ALTER COLUMN updated_at SET DEFAULT NOW()
+    ;
+    "
+)
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    DO $do$ BEGIN IF EXISTS (SELECT 1 FROM pg_trigger WHERE NOT tgisinternal AND tgname = 'set_timestamp') THEN ELSE CREATE OR REPLACE FUNCTION trigger_set_timestamp() RETURNS TRIGGER AS $$ BEGIN NEW.updated_at = NOW(); RETURN NEW; END; $$ LANGUAGE plpgsql; END IF; END $do$
+    "
+)
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    CREATE TRIGGER set_timestamp BEFORE UPDATE ON survey200.sampling_events
+    FOR EACH ROW EXECUTE PROCEDURE trigger_set_timestamp()
+    ;
+    "
+)
+
+```
+
+
+# TRANSITION II
+
+`survey200_20240923` and dumps (approximately immediately) prior reflect the
+database up to TRANSITION II.
+
+`survey200_20240923.bak` reflects the database before updates documented between
+TRANSITION I and TRANSITION II.
+
+
+# shrubs
+
+## db maintenance
+
+Remove shrubs from the 2010 survey that were double-counted as count AND hedge.
+
+```{r}
+#| eval: TRUE
+#| label: delete_double_counted_shrubs
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  DELETE FROM survey200.vegetation_survey_plant_counts WHERE plant_count_id IN (
+    SELECT
+      vegetation_survey_plant_counts.plant_count_id
+    FROM survey200.sampling_events
+    JOIN survey200.sampling_events_vegetation_samples ON (sampling_events_vegetation_samples.survey_id = sampling_events.survey_id)
+    JOIN survey200.vegetation_samples ON (sampling_events_vegetation_samples.vegetation_sample_id = vegetation_samples.vegetation_sample_id)
+    JOIN survey200.sites ON (sampling_events.site_id = sites.site_id)
+    LEFT JOIN survey200.vegetation_survey_plant_counts ON (vegetation_survey_plant_counts.vegetation_sample_id = vegetation_samples.vegetation_sample_id)
+    JOIN survey200.cv_plant_count_survey_types ON (cv_plant_count_survey_types.plant_count_type_id = vegetation_survey_plant_counts.plant_count_type_id)
+    WHERE
+      sites.research_focus = 'parcel'
+      AND EXTRACT (YEAR FROM sampling_events.samp_date) = 2010
+      AND cv_plant_count_survey_types.plant_count_type_code = 'hedge'
+      AND vegetation_survey_plant_counts.count_survey_value = 0
+  )
+  ;
+  "
+)
+
+# should delete 707
+
+```
+
+Add timestamping to the vegetation samples table. The relevant columns,
+created_at and updated_at, already exist but the defaults are wrong and the
+trigger does not exist (hence not using the
+databaseDevelopmentTools::add_timestamping function).
+
+```{r}
+#| eval: TRUE
+#| label: enable_vs_timestamping
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    ALTER TABLE ONLY survey200.vegetation_samples
+    ALTER COLUMN created_at SET DEFAULT NOW()
+    ;
+    "
+)
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    ALTER TABLE ONLY survey200.vegetation_samples
+    ALTER COLUMN updated_at SET DEFAULT NOW()
+    ;
+    "
+)
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    DO $do$ BEGIN IF EXISTS (SELECT 1 FROM pg_trigger WHERE NOT tgisinternal AND tgname = 'set_timestamp') THEN ELSE CREATE OR REPLACE FUNCTION trigger_set_timestamp() RETURNS TRIGGER AS $$ BEGIN NEW.updated_at = NOW(); RETURN NEW; END; $$ LANGUAGE plpgsql; END IF; END $do$
+    "
+)
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    CREATE TRIGGER set_timestamp BEFORE UPDATE ON survey200.vegetation_samples
+    FOR EACH ROW EXECUTE PROCEDURE trigger_set_timestamp()
+    ;
+    "
+)
+
+```
+
+Change `vegetation_samples.herbarium_voucher_code` from type STRING to BOOLEAN.
+This requires dropping the views that depend on that column.
+
+```{r}
+#| eval: TRUE
+#| label: boolean_voucher_code
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    DROP VIEW IF EXISTS 
+      survey200.public_lens_survey200_vegetation_annuals,
+      survey200.public_lens_survey200_vegetation_cacti_succs,
+      survey200.public_lens_survey200_vegetation_hedges,
+      survey200.public_lens_survey200_vegetation_shrub_perennials,
+      survey200.public_lens_survey200_vegetation_trees
+    ;
+    "
+)
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    UPDATE survey200.vegetation_samples
+    SET herbarium_voucher_code = 
+      CASE
+        WHEN herbarium_voucher_code = 'true' THEN 'TRUE'
+        WHEN herbarium_voucher_code = 'yes' THEN 'TRUE'
+        WHEN herbarium_voucher_code = 'no' THEN 'FALSE'
+        ELSE herbarium_voucher_code
+    END
+    ;
+    "
+)
+
+DBI::dbExecute(
+    conn      = pg,
+    statement = "
+    ALTER TABLE survey200.vegetation_samples
+    ALTER COLUMN herbarium_voucher_code TYPE BOOLEAN USING 
+      CASE
+        WHEN herbarium_voucher_code = 'TRUE' THEN TRUE
+        WHEN herbarium_voucher_code = 'FALSE' THEN FALSE
+        ELSE NULL
+      END
+    ;
+    "
+)
+
+```
+
+Edit the `survey200.sampling_events_vegetation_samples` table to store the kobo
+form uuid. Note that this was done separately for sampling events but shrubs is
+a different form and, thus, there is not a connection between the uuid from
+sampling events and shrubs.
+
+```{r}
+#| eval: FALSE
+#| label: shrub_uuid
+
+# DBI::dbExecute(
+#   conn      = pg,
+#   statement = "
+#   ALTER TABLE survey200.sampling_events_vegetation_samples
+#   ADD COLUMN kobo_uuid TEXT []
+#   ;
+#   "
+# )
+
+```
+
+## shrub taxa
+
+Pull the VTL for next steps.
+
+```{r}
+#| eval: TRUE
+#| label: VTL_for_shrubs
+
+vtl <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = "
+    SELECT
+      vegetation_taxon_id,
+      vegetation_scientific_name
+    FROM survey200.vegetation_taxon_list
+    ;
+    "
+)
+
+```
+
+Isolate plant taxa from all shrub repeats.
+
+```{r}
+#| eval: TRUE
+#| label: isolate_shrub_taxa
+
+shrub_repeat <- readr::read_csv(config::get("shrub_repeat")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x)))) |>
+  dplyr::mutate(
+    tablet_taxon = dplyr::case_when(
+      (measurement_type == "count" | is.na(measurement_type)) & !grepl(
+        pattern     = "null",
+        x           = taxon_2,
+        ignore.case = TRUE
+      ) ~ taxon_2,
+      measurement_type == "survey" & !grepl(
+        pattern     = "null",
+        x           = taxon_12,
+        ignore.case = TRUE
+      ) ~ taxon_12,
+      # Aizoaceae entered as new but already in VTL
+      new_taxon_3 == "Aizoaceae" ~ "Aizoaceae",
+    ),
+    new_taxon = dplyr::case_when(
+      (measurement_type == "count" | is.na(measurement_type)) & grepl(
+        pattern     = "null",
+        x           = taxon_2,
+        ignore.case = TRUE
+      ) ~ new_taxon_3,
+      measurement_type == "survey" & grepl(
+        pattern     = "null",
+        x           = taxon_12,
+        ignore.case = TRUE
+      ) ~ new_taxon_13
+    ),
+    new_taxon = dplyr::case_when(
+      # Aizoaceae entered as new but already in VTL
+      new_taxon_3 == "Aizoaceae" ~ NA,
+      TRUE ~ new_taxon
+    )
+  )
+
+```
+
+Check how well are we matching tablet taxa (not new) with the VTL?
+All tablet taxa are matched so we can focus on the new taxa and unknowns!
+
+```{r}
+#| eval: TRUE
+#| label: match_tablet_taxa
+
+shrub_taxa_matched <- shrub_repeat |>
+  dplyr::filter(!is.na(tablet_taxon)) |>
+  dplyr::filter(!is.null(tablet_taxon)) |>
+  dplyr::filter(
+    !grepl(
+      pattern     = "null",
+      x           = tablet_taxon,
+      ignore.case = TRUE
+    )
+  ) |>
+  dplyr::distinct(tablet_taxon) |>
+  dplyr::left_join(
+    y  = vtl,
+    by = c("tablet_taxon" = "vegetation_scientific_name")
+  )
+
+```
+
+Isolate new shrub taxa that need to be added to the VTL.
+
+```{r}
+#| eval: TRUE
+#| label: new_shrub_taxa
+
+shrub_taxa_unmatched <- shrub_repeat |>
+  dplyr::mutate(
+    taxon_edit = dplyr::case_when(
+      grepl(
+        pattern     = "monocot",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "unknown",
+      grepl(
+        pattern     = "unknown",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "unknown",
+      grepl(
+        pattern     = "Aristolochia watsonii",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "Aristolochia watsonii",
+      grepl(
+        pattern     = "Pondranea ricasoliana",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "Podranea ricasoliana",
+      grepl(
+        pattern     = "Gossypium harknesii",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "Gossypium harknessii",
+      grepl(
+        pattern     = "Matalea",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "Matelea",
+      new_taxon == "X" ~ "unknown",
+      TRUE ~ new_taxon
+    )
+  ) |>
+  dplyr::mutate(
+    taxon_edit = gsub(
+      pattern     = " sp.| sp",
+      replacement = "",
+      x           = taxon_edit
+    )
+  ) |>
+  dplyr::filter(!is.na(taxon_edit)) |>
+  dplyr::left_join(
+    y  = vtl,
+    by = c("taxon_edit" = "vegetation_scientific_name")
+  ) |>
+  dplyr::distinct(
+    new_taxon,
+    taxon_edit
+  )
+
+```
+
+THE CONTENT OF THIS CODE BLOCK IS COMMENTED OUT BECAUSE IT WAS A ONE-TIME RUN;
+THE OUTPUT IS STORED IN A FILE THAT IS READ IN THE NEXT CHUNK
+
+```{r}
+#| eval: FALSE
+#| label: resolve_unknown_shrub_taxa
+
+# shrub_unmatched_gbif <- shrub_taxa_unmatched |>
+#     dplyr::filter(
+#         !grepl(
+#             pattern     = "unknown",
+#             x           = taxon_edit,
+#             ignore.case = TRUE
+#         )
+#     ) |>
+#     dplyr::distinct(taxon_edit) |>
+#     dplyr::mutate(
+#         taxa_db_id = taxadb::get_ids(
+#             names    = taxon_edit,
+#             provider = "gbif",
+#             format   = "bare"
+#         ),
+#         authority = dplyr::case_when(
+#             is.na(taxa_db_id) ~ NA,
+#             TRUE ~ "GBIF"
+#         )
+#     )
+
+# readr::write_csv(
+#     x    = shrub_unmatched_gbif,
+#     file = "vegetation_taxa/shrub_unmatched_gbif.csv"
+# )
+
+```
+
+Add the new shrub plant taxa to the database. Note that this is part of ongoing
+editing to the `vegetation_taxon_list`.
+
+```{r}
+#| eval: TRUE
+#| label: add_new_shrub_taxa
+
+shrub_unmatched_gbif <- readr::read_csv("vegetation_taxa/shrub_unmatched_gbif.csv")
+
+new_shrub_taxa_query <- shrub_unmatched_gbif |>
+  dplyr::distinct(
+    taxon_edit,
+    authority,
+    taxa_db_id
+  ) |>
+  tibble::add_row(
+    taxon_edit = "unknown",
+    authority  = NA,
+    taxa_db_id = NA
+  ) |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_taxon_list (
+      vegetation_scientific_name,
+      authority,
+      authority_id
+    ) VALUES (
+      { taxon_edit },
+      { authority },
+      { taxa_db_id }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = new_shrub_taxa_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+re-pull the VTL with new taxa added
+
+```{r}
+#| eval: TRUE
+#| label: VTL_again
+
+vtl <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_taxon_id,
+      vegetation_scientific_name
+    FROM survey200.vegetation_taxon_list
+    ;
+    "
+)
+
+```
+
+Now that we have all the taxa in the VTL, we can match the new shrub taxa to the
+survey records. There are two empty records, one from U20 and another from W19,
+that will be omitted.
+
+```{r}
+#| eval: TRUE
+#| label: add_shrub_tax_id
+
+shrub_taxa_newly_matched <- vtl |>
+  dplyr::inner_join(
+    y  = shrub_taxa_unmatched,
+    by = c("vegetation_scientific_name" = "taxon_edit")
+  )
+
+shrub_repeat_with_tax_id <- shrub_repeat |>
+  dplyr::left_join(
+    y = vtl |>
+      dplyr::select(
+        vegetation_taxon_id,
+        vegetation_scientific_name
+      ),
+    by = c("tablet_taxon" = "vegetation_scientific_name")
+  ) |>
+  dplyr::left_join(
+    y  = shrub_taxa_newly_matched,
+    by = c("new_taxon" = "new_taxon")
+  ) |>
+  dplyr::mutate(
+    vegetation_taxon_id = dplyr::case_when(
+      !is.na(vegetation_taxon_id.x) ~ vegetation_taxon_id.x,
+      !is.na(vegetation_taxon_id.y) ~ vegetation_taxon_id.y
+    )
+  ) |>
+  dplyr::filter(!is.na(vegetation_taxon_id))
+
+```
+
+## shrubs to vegetation samples
+
+Add a temporary index column for keying before modifying as needed and inserting
+into the `vegetation_samples` table.
+
+Prep shrub data for adding to vegetation_samples.
+
+```{r}
+#| eval: TRUE
+#| label: shrubs_to_vs
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+    ALTER TABLE survey200.vegetation_samples
+    ADD COLUMN index INTEGER
+    ;
+    "
+)
+
+shrub_repeat_with_tax_id <- shrub_repeat_with_tax_id |>
+  dplyr::mutate(
+    taxon_observation = dplyr::case_when(
+      measurement_type == "count" | is.na(measurement_type) ~ observation_note_5,
+      measurement_type == "survey" ~ observation_note_15
+    ),
+    taxon_identified = dplyr::case_when(
+      measurement_type == "count" | is.na(measurement_type) ~ identified_6,
+      measurement_type == "survey" ~ identified_16
+    ),
+    taxon_voucher = dplyr::case_when(
+      measurement_type == "count" | is.na(measurement_type) ~ voucher_7,
+      measurement_type == "survey" ~ voucher_17
+    ),
+    is_a_hedge = dplyr::case_when(
+      measurement_type == "count" | is.na(measurement_type) ~ hedge_8,
+      measurement_type == "survey" ~ hedge_18
+    )
+  ) |>
+  dplyr::mutate(
+    measurement_type = dplyr::case_when(
+      is.na(measurement_type) ~ "count",
+      measurement_type == "survey" ~ "shrub",
+      TRUE ~ measurement_type
+    )
+  ) |>
+  dplyr::mutate(
+    measurement_type = dplyr::case_when(
+      measurement_type == "shrub" & is_a_hedge == "yes" ~ "hedge",
+      TRUE ~ measurement_type
+    )
+  )
+
+add_shrubs_vs_query <- shrub_repeat_with_tax_id |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_samples (
+      herbarium_voucher_code,
+      sample_identified,
+      vegetation_taxon_id,
+      survey_type,
+      tablet_taxon_note,
+      uuid,
+      index
+    ) VALUES (
+      { taxon_voucher }::BOOLEAN,
+      { taxon_identified }::BOOLEAN,
+      { vegetation_taxon_id },
+      { measurement_type },
+      { taxon_observation },
+      { submission_uuid },
+      { index }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_shrubs_vs_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+The vegetation_samples_id is now available, pull it and add it to the shrub data
+for adding to other tables.
+
+```{r}
+#| eval: TRUE
+#| label: add_vs_id
+
+shrubs_vs <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_sample_id,
+      uuid,
+      index
+    FROM survey200.vegetation_samples
+    WHERE index IS NOT NULL
+    ;
+    "
+) |>
+  dplyr::full_join(
+    y = shrub_repeat_with_tax_id,
+    by = c(
+      "uuid"  = "submission_uuid",
+      "index" = "index"
+    )
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(vegetation_sample_id, uuid, index),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(shrub_repeat_with_tax_id),
+    actions = pointblank::stop_on_fail()
+  )
+
+```
+
+## shrubs SEVS
+
+```{r}
+#| eval: TRUE
+#| label: shrubs_sampling_events
+
+shrub_survey <- readr::read_csv(config::get("shrub_survey")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+se_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      sampling_events.survey_id,
+      sampling_events.site_id,
+      sampling_events.samp_date,
+      sites.site_code,
+      sites.research_focus
+    FROM survey200.sampling_events
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    WHERE EXTRACT(year FROM samp_date) = 2023
+    ;
+    "
+)
+
+shrub_survey <- shrub_survey |>
+  dplyr::left_join(
+    y = se_db |>
+      dplyr::select(
+        survey_id,
+        site_id,
+        site_code,
+        research_focus
+      ) |>
+      dplyr::mutate(
+        research_focus = dplyr::case_when(
+          grepl(
+            pattern     = "survey200",
+            x           = research_focus,
+            ignore.case = TRUE
+          ) ~ "plot",
+          TRUE ~ research_focus
+        )
+      ),
+    by = c(
+      "site"        = "site_code",
+      "survey_type" = "research_focus"
+    )
+  ) |>
+  dplyr::mutate(
+    start = format(start, "%H:%M:%S"),
+    end   = format(end, "%H:%M:%S")
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(shrub_survey),
+    actions = pointblank::stop_on_fail()
+  )
+
+```
+
+Populate the SEVS table, first adding timestamping.
+
+```{r}
+#| eval: TRUE
+#| label: shrubs_sevs
+
+databaseDevelopmentTools::add_timestamping(
+  schema = "survey200",
+  table  = "sampling_events_vegetation_samples"
+)
+
+shrubs_vs <- shrubs_vs |>
+  dplyr::inner_join(
+    y = shrub_survey |>
+      dplyr::select(-index),
+    by = c("uuid" = "uuid")
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(survey_id, vegetation_sample_id),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(shrubs_vs),
+    actions = pointblank::stop_on_fail()
+  )
+
+add_shrubs_sevs_query <- shrubs_vs |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.sampling_events_vegetation_samples (
+      survey_id,
+      vegetation_sample_id
+    ) VALUES (
+      { survey_id },
+      { vegetation_sample_id }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_shrubs_sevs_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+## shrubs to plant counts
+
+Hedges continue to present a particular challenge as data from this survey
+indicate that they were both counted and surveyed. When counted, the number of
+plants in the hedge was not estimated and, so, we assign a value of one. In
+previous surveys, hedges have been counted and surveyed, or not counted with
+the number surveyed reflecting the number of shrubs (sensu trees). For the 2023
+survey, a hedge flag is added to the `vegetation_survey_plant_counts` table to
+distinguish hedges from non-hedged shrubs. Additionally, there is one shrub
+count among the 2010 survey data that is flagged as a hedge. In that case, the
+flag is facilitated by a 'hedge' category type among the
+`cv_plant_count_survey_types`. Later in this workflow, the new hedge flag in
+the `vegetation_survey_plant_counts` will be associted with that lone 2010 data
+point, and the 'hedge' value removed from the `cv_plant_count_survey_types`
+table (see `cv_type_to_flag`).
+
+```{r}
+#| eval: TRUE
+#| label: plots_shrub_counts
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+    ALTER TABLE survey200.vegetation_survey_plant_counts
+    ADD COLUMN hedge BOOLEAN DEFAULT FALSE
+    ;
+    "
+)
+
+add_plots_shrub_counts <- shrubs_vs |>
+  dplyr::select(
+    survey_type,
+    measurement_type,
+    vegetation_sample_id,
+    number_of_plants,
+    is_a_hedge
+  ) |>
+  dplyr::filter(
+    survey_type == "plot",
+    measurement_type == "count"
+  ) |>
+  dplyr::mutate(
+    number_of_plants = dplyr::case_when(
+      is.na(number_of_plants) & is_a_hedge == "yes" ~ 1,
+      TRUE ~ number_of_plants
+    )
+  ) |>
+  dplyr::filter(
+    !is.na(number_of_plants)
+  )
+
+add_plots_shrub_counts_query <- add_plots_shrub_counts |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_survey_plant_counts (
+      vegetation_sample_id,
+      plant_count_type_id,
+      count_survey_value,
+      hedge
+    ) VALUES (
+      { vegetation_sample_id },
+      9,
+      { number_of_plants },
+      { is_a_hedge }::BOOLEAN
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_plots_shrub_counts_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+parcel front yard shrub counts
+
+```{r}
+#| eval: TRUE
+#| label: front_shrub_counts
+
+add_front_shrub_counts <- shrubs_vs |>
+  dplyr::select(
+    survey_type,
+    measurement_type,
+    vegetation_sample_id,
+    number_of_plants_front
+  ) |>
+  dplyr::filter(
+    # survey_type == "parcel",
+    measurement_type == "count",
+    number_of_plants_front > 0
+  )
+
+add_front_shrub_counts_query <- add_front_shrub_counts |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_survey_plant_counts (
+      vegetation_sample_id,
+      plant_count_type_id,
+      count_survey_value
+    ) VALUES (
+      { vegetation_sample_id },
+      5,
+      { number_of_plants_front }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_front_shrub_counts_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+parcel back yard shrub counts
+
+```{r}
+#| eval: TRUE
+#| label: rear_shrub_counts
+
+add_rear_shrub_counts <- shrubs_vs |>
+  dplyr::select(
+    survey_type,
+    measurement_type,
+    vegetation_sample_id,
+    number_of_plants_back
+  ) |>
+  dplyr::filter(
+    survey_type == "parcel",
+    measurement_type == "count",
+    number_of_plants_back > 0
+  )
+
+add_rear_shrub_counts_query <- add_rear_shrub_counts |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_survey_plant_counts (
+      vegetation_sample_id,
+      plant_count_type_id,
+      count_survey_value
+    ) VALUES (
+      { vegetation_sample_id },
+      6,
+      { number_of_plants_back }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_rear_shrub_counts_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+parcel hedges
+
+Parcel counts of hedges do not have a number of plants value, which is how we
+distinguish front versus back. Thus, we are unable to identify whether counts
+of the hedges in parcels reflects the front yard or back yard. As such, we add a
+new category "parcel" that does not distinguish front versus back yard type to
+the cv_plant_count_survey_types table.
+
+```{r}
+#| eval: TRUE
+#| label: parcel_shrub_count_hedges
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+    INSERT INTO survey200.cv_plant_count_survey_types (
+        plant_count_type_code,
+        plant_count_type_description
+    ) VALUES (
+        'parcel',
+        'count of plant in a parcel where yard type (front or back) is not distinguished'
+    )
+    ;
+    "
+)
+
+add_parcel_hedge_counts <- shrubs_vs |>
+  dplyr::select(
+    survey_type,
+    measurement_type,
+    vegetation_sample_id,
+    is_a_hedge
+  ) |>
+  dplyr::filter(
+    survey_type == "parcel",
+    measurement_type == "count",
+    is_a_hedge == "yes"
+  )
+
+add_parcel_hedge_counts_query <- add_parcel_hedge_counts |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_survey_plant_counts (
+      vegetation_sample_id,
+      plant_count_type_id,
+      count_survey_value,
+      hedge
+    ) VALUES (
+      { vegetation_sample_id },
+      10,
+      1,
+      { is_a_hedge }::BOOLEAN
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_parcel_hedge_counts_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+The new hedge flag in the `vegetation_survey_plant_counts` will be associated
+with that lone 2010 data point, and the 'hedge' value removed from the
+`cv_plant_count_survey_types` table (see `## shrubs to plant counts` for more
+detail).
+
+```{r}
+#| eval: TRUE
+#| label: cv_type_to_flag
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+    UPDATE survey200.vegetation_survey_plant_counts SET
+      hedge = TRUE,
+      plant_count_type_id = 10
+    WHERE plant_count_id = 3841
+    ;
+    "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+    DELETE FROM survey200.cv_plant_count_survey_types
+    WHERE plant_count_type_code = 'hedge'
+    ;
+    "
+)
+
+```
+
+## shrubs to shrubs survey
+
+There is clear conflation in the units of the dimensions of shrubs. Except for
+the tails, there is not a way to accurately disentangle when the reported value
+is a meter versus centimeter. Here, we enter the data into the database as
+reported without attempting to correct the error. This will be addressed on the
+pull side, likely by not publishing shrub dimensions for this survey, and likely
+one or more additional surveys as the data in the database suggest that this was
+a problem in at least one other previous survey as well.
+
+```{r}
+#| eval: TRUE
+#| label: shrubs_vssp
+
+shrub_measures <- readr::read_csv(config::get("shrub_measures")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+db_shrub_class <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_classification_id,
+      vegetation_classification_code
+    FROM survey200.cv_vegetation_classifications
+    ;
+    "
+)
+
+db_shrub_shape <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_shape_id,
+      vegetation_shape_code
+    FROM survey200.cv_vegetation_shapes
+    ;
+    "
+)
+
+add_vssp <- shrub_measures |>
+  dplyr::left_join(
+    y = shrubs_vs |>
+      dplyr::select(
+        measurement_type,
+        vegetation_sample_id,
+        uuid,
+        index
+      ),
+    by = c(
+      "submission_uuid" = "uuid",
+      "parent_index"    = "index"
+    )
+  ) |>
+  dplyr::left_join(
+    y  = db_shrub_class,
+    by = c("shrub_class" = "vegetation_classification_code")
+  ) |>
+  dplyr::left_join(
+    y  = db_shrub_shape,
+    by = c("shrub_shape" = "vegetation_shape_code")
+  ) |>
+  dplyr::filter(
+    measurement_type == "shrub",
+    height_of_plant_m < 10000
+  )
+
+add_vssp_query <- add_vssp |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_survey_shrub_perennials (
+      vegetation_sample_id,
+      vegetation_shape_id,
+      vegetation_classification_id,
+      height,
+      height_distance,
+      height_degree_up,
+      height_degree_down,
+      width_ns,
+      width_ew,
+      stem_diameter,
+      distance_ns,
+      direction_ns,
+      distance_ew,
+      direction_ew
+    ) VALUES (
+      { vegetation_sample_id },
+      { vegetation_shape_id },
+      { vegetation_classification_id },
+      { height_of_plant_m },
+      NULL,
+      NULL,
+      NULL,
+      { plant_width_north_south_m },
+      { plant_width_east_west_m },
+      NULL,
+      NULL,
+      NULL,
+      NULL,
+      NULL
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_vssp_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+```{r}
+#| eval: TRUE
+#| label: shrubs_hedges
+
+add_shrub_hedges <- shrub_measures |>
+  dplyr::left_join(
+    y = shrubs_vs |>
+      dplyr::select(
+        measurement_type,
+        vegetation_sample_id,
+        uuid,
+        index
+      ),
+    by = c(
+      "submission_uuid" = "uuid",
+      "parent_index"    = "index"
+    )
+  ) |>
+  dplyr::left_join(
+    y  = db_shrub_class,
+    by = c("shrub_class" = "vegetation_classification_code")
+  ) |>
+  dplyr::left_join(
+    y  = db_shrub_shape,
+    by = c("shrub_shape" = "vegetation_shape_code")
+  ) |>
+  dplyr::filter(
+    measurement_type == "hedge",
+    height_of_plant_m < 10000
+  )
+
+add_shrub_hedges_query <- add_shrub_hedges |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_survey_hedges (
+      vegetation_sample_id,
+      vegetation_shape_id,
+      stem_diam,
+      height_distance,
+      height_degree_up,
+      height_degree_down,
+      height,
+      width,
+      length,
+      crown_height,
+      percent_missing,
+      hedge_condition,
+      number_of_plants,
+      distance_ns,
+      direction_ns,
+      distance_ew,
+      direction_ew,
+      gps_id,
+      vegetation_classification_id
+    ) VALUES (
+      { vegetation_sample_id },
+      { vegetation_shape_id },
+      NULL,
+      { clinometer_distance_m },
+      NULL,
+      NULL,
+      { height_of_plant_m },
+      { plant_width_north_south_m },
+      { plant_width_east_west_m },
+      NULL,
+      NULL,
+      NULL,
+      NULL,
+      NULL,
+      NULL,
+      NULL,
+      NULL,
+      NULL,
+      { vegetation_classification_id }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_shrub_hedges_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+## shrub images
+
+```{r}
+#| eval: TRUE
+#| label: shrubs_images
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+    ALTER TABLE survey200.research_media
+    ADD COLUMN index INTEGER
+    ;
+    "
+)
+
+shrub_count_images <- readr::read_csv(config::get("shrub_count_images")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+shrub_survey_images <- readr::read_csv(config::get("shrub_survey_images")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+vegetation_samples <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_sample_id,
+      uuid,
+      index
+    FROM survey200.vegetation_samples
+    WHERE index IS NOT NULL
+    ;
+    "
+)
+
+shrub_images <- dplyr::bind_rows(
+  shrub_count_images |>
+    dplyr::inner_join(
+      y = vegetation_samples,
+      by = c(
+        "submission_uuid" = "uuid",
+        "parent_index"    = "index"
+      )
+    ) |>
+    pointblank::col_vals_not_null(
+      columns = c(vegetation_sample_id, shrub_image, submission_uuid),
+      actions = pointblank::stop_on_fail()
+    ) |>
+    pointblank::row_count_match(
+      count   = nrow(shrub_count_images),
+      actions = pointblank::stop_on_fail()
+    ),
+  shrub_survey_images |>
+    dplyr::inner_join(
+      y = vegetation_samples,
+      by = c(
+        "submission_uuid" = "uuid",
+        "parent_index"    = "index"
+      )
+    ) |>
+    pointblank::col_vals_not_null(
+      columns = c(vegetation_sample_id, shrub_image, submission_uuid),
+      actions = pointblank::stop_on_fail()
+    ) |>
+    pointblank::row_count_match(
+      count   = nrow(shrub_survey_images),
+      actions = pointblank::stop_on_fail()
+    )
+) |>
+  dplyr::mutate(index = dplyr::row_number()) |>
+  dplyr::select(
+    vegetation_sample_id,
+    shrub_image,
+    submission_uuid,
+    index
+  )
+
+add_shrub_images_research_media <- shrub_images |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media (
+      media_type_id,
+      media_title,
+      uuid,
+      index
+    ) VALUES (
+      '2023'::INTEGER,
+      { shrub_image },
+      { submission_uuid },
+      { index }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_shrub_images_research_media,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+shrub_images_media_id <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      media_id,
+      uuid,
+      index
+    FROM survey200.research_media
+    WHERE index IS NOT NULL
+    ;
+    "
+)
+
+add_shrub_rmvs <- shrub_images_media_id |>
+  dplyr::inner_join(
+    y  = shrub_images,
+    by = c("index")
+  ) |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media_vegetation_samples (
+      media_id,
+      vegetation_sample_id
+    ) VALUES (
+      { media_id },
+      { vegetation_sample_id }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_shrub_rmvs,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+# Here we are explicit to remove the index column from the research_media table
+# so as to avoid confusion because, in this case, it does not actually reflect
+# the index data in the Kobo form but rather an arbitrary number to facilitate
+# the join.
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.research_media
+  DROP COLUMN index
+  ;
+  "
+)
+
+```
+
+# TRANSITION III
+
+`survey200_20241016.bak` and dumps (approximately immediately) prior reflect the
+database UP TO TRANSITION II.
+
+`survey200_20241016` and after reflects the database THROUGH TRANSITION III.
+
+# trees
+
+## tree taxa
+
+Pull the VTL for next steps.
+
+```{r}
+#| eval: TRUE
+#| label: VTL_for_trees
+
+vtl <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_taxon_id,
+      vegetation_scientific_name
+    FROM survey200.vegetation_taxon_list
+    ;
+    "
+)
+
+```
+
+Isolate plant taxa from tree repeats.
+
+```{r}
+#| eval: TRUE
+#| label: isolate_tree_taxa
+
+tree_repeat <- readr::read_csv(config::get("tree_repeat")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+# filter two mostly empty records that lack taxon information
+tree_repeat <- tree_repeat |>
+  dplyr::filter(
+    new_taxon != "V" | is.na(new_taxon),
+    new_taxon != "." | is.na(new_taxon)
+  )
+
+# Quercus polymorpha and Moringa oleifera are new_taxa but already in the DB
+tree_repeat <- tree_repeat |>
+  dplyr::mutate(
+    taxon = dplyr::case_when(
+      grepl(
+        pattern     = "quercus polymorpha|moringa oleifera",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ new_taxon,
+      TRUE ~ taxon
+    ),
+    new_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "quercus polymorpha|moringa oleifera",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ NA,
+      TRUE ~ new_taxon
+    )
+  )
+
+# Unknown is already in the DB (as unknown)
+tree_repeat <- tree_repeat |>
+  dplyr::mutate(
+    taxon = dplyr::case_when(
+      grepl(
+        pattern     = "unknown",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "unknown",
+      TRUE ~ taxon
+    ),
+    new_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "unknown",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ NA,
+      TRUE ~ new_taxon
+    )
+  )
+
+# the taxa of two records are more finely resolved in the notes
+tree_repeat <- tree_repeat |>
+  dplyr::mutate(
+    taxon = dplyr::case_when(
+      index == 300 ~ observation_note,
+      TRUE ~ taxon
+    ),
+    taxon = dplyr::case_when(
+      index == 626 ~ observation_note,
+      TRUE ~ taxon
+    )
+  )
+
+# move variatal of Caesalpinia cacalaco from taxa field to notes
+tree_repeat <- tree_repeat |>
+  dplyr::mutate(
+    observation_note = dplyr::case_when(
+      grepl(
+        pattern     = "Smoothie",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "Caesalpinia cacalaco 'Smoothie' thornless cultivar",
+      TRUE ~ new_taxon
+    )
+  )
+
+# Malphigia glabra is spelled incorrectly
+tree_repeat <- tree_repeat |>
+  dplyr::mutate(
+    new_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "malphigia glabra",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "Malpighia glabra",
+      TRUE ~ new_taxon
+    )
+  )
+
+```
+
+Check how well are we matching tablet taxa (not new) with the VTL?
+All tablet taxa are matched so we can focus on the new taxa and unknowns!
+
+```{r}
+#| eval: TRUE
+#| label: match_tablet_tree_taxa
+
+# Quercus polymorpha and Moringa oleifera are new_taxa but already in the DB
+
+tree_taxa_matched <- tree_repeat |>
+  dplyr::mutate(
+    taxon = dplyr::case_when(
+      grepl(
+        pattern     = "quercus polymorpha|moringa oleifera",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ new_taxon,
+      TRUE ~ taxon
+    ),
+    new_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "quercus polymorpha|moringa oleifera",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ NA,
+      TRUE ~ new_taxon
+    )
+  ) |>
+  dplyr::filter(
+    !grepl(
+      pattern     = "null",
+      x           = taxon,
+      ignore.case = TRUE
+    )
+  ) |>
+  dplyr::distinct(taxon) |>
+  dplyr::left_join(
+    y  = vtl,
+    by = c("taxon" = "vegetation_scientific_name")
+  )
+
+```
+
+Isolate new tree taxa that need to be added to the VTL.
+
+```{r}
+#| eval: TRUE
+#| label: new_tree_taxa
+
+tree_taxa_unmatched <- tree_repeat |>
+  dplyr::mutate(
+    taxon_edit = dplyr::case_when(
+      grepl(
+        pattern     = "Smoothie",
+        x           = new_taxon,
+        ignore.case = TRUE
+      ) ~ "Caesalpinia cacalaco",
+      TRUE ~ new_taxon
+    )
+  ) |>
+  dplyr::filter(!is.na(taxon_edit)) |>
+  dplyr::left_join(
+    y  = vtl,
+    by = c("taxon_edit" = "vegetation_scientific_name")
+  ) |>
+  dplyr::distinct(
+    vegetation_taxon_id,
+    new_taxon,
+    taxon_edit
+  )
+
+```
+
+THE CONTENT OF THIS CODE BLOCK IS COMMENTED OUT BECAUSE IT WAS A ONE-TIME RUN;
+THE OUTPUT IS STORED IN A FILE THAT IS READ IN THE NEXT CHUNK
+
+```{r}
+#| eval: FALSE
+#| label: resolve_unknown_shrub_taxa
+
+# tree_taxa_unmatched_gbif <- tree_taxa_unmatched |>
+#   dplyr::filter(
+#     !grepl(
+#       pattern     = "unknown",
+#       x           = taxon_edit,
+#       ignore.case = TRUE
+#     )
+#   ) |>
+#   # chilopsis returns two results so addressed separately
+#   dplyr::filter(
+#     !grepl(
+#       pattern     = "chilopsis",
+#       x           = taxon_edit,
+#       ignore.case = TRUE
+#     )
+#   ) |>
+#   dplyr::distinct(taxon_edit) |>
+#   dplyr::mutate(
+#     taxon_edit = dplyr::case_when(
+#       grepl(
+#         pattern     = "Malphigia glabra",
+#         x           = taxon_edit,
+#         ignore.case = TRUE
+#       ) ~ "Malpighia glabra",
+#       TRUE ~ taxon_edit
+#     ),
+#     taxa_db_id = taxadb::get_ids(
+#       names    = taxon_edit,
+#       provider = "gbif",
+#       format   = "bare"
+#     ),
+#     authority = dplyr::case_when(
+#       is.na(taxa_db_id) ~ NA,
+#       TRUE ~ "GBIF"
+#     )
+#   )
+
+# chilopsis returns two results so addressed separately
+
+# tree_taxa_unmatched_gbif <- tree_taxa_unmatched_gbif |>
+#   dplyr::bind_rows(
+#     taxadb::filter_name(
+#       name = "Chilopsis",
+#       provider = "gbif"
+#     ) |>
+#       dplyr::mutate(
+#         authority = "GBIF",
+#         taxa_db_id = stringr::str_extract(taxonID, "\\d+")
+#       ) |>
+#       dplyr::filter(taxonomicStatus == "accepted") |>
+#       dplyr::select(
+#         taxon_edit = scientificName,
+#         taxa_db_id,
+#         authority
+#       )
+#   )
+
+# readr::write_csv(
+#   x    = tree_taxa_unmatched_gbif,
+#   file = "vegetation_taxa/tree_taxa_unmatched_gbif.csv"
+# )
+
+```
+
+Add the new tree taxa to the database. Note that this is part of ongoing editing
+to the `vegetation_taxon_list`.
+
+```{r}
+#| eval: TRUE
+#| label: add_new_tree_taxa
+
+tree_taxa_unmatched_gbif <- readr::read_csv("vegetation_taxa/tree_taxa_unmatched_gbif.csv")
+
+new_tree_taxa_query <- tree_taxa_unmatched_gbif |>
+  dplyr::distinct(
+    taxon_edit,
+    authority,
+    taxa_db_id
+  ) |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_taxon_list (
+      vegetation_scientific_name,
+      authority,
+      authority_id
+    ) VALUES (
+      { taxon_edit },
+      { authority },
+      { taxa_db_id }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = new_tree_taxa_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+re-pull the VTL with new taxa added
+
+```{r}
+#| eval: TRUE
+#| label: VTL_for_trees_again
+
+vtl <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_taxon_id,
+      vegetation_scientific_name
+    FROM survey200.vegetation_taxon_list
+    ;
+    "
+)
+
+```
+
+Now that we have all the taxa in the VTL, we can match the new tree taxa to the
+survey records.
+
+```{r}
+#| eval: TRUE
+#| label: add_tree_tax_id
+
+tree_taxa_newly_matched <- vtl |>
+  dplyr::right_join(
+    y = tree_taxa_unmatched |>
+      dplyr::select(-vegetation_taxon_id),
+    by = c("vegetation_scientific_name" = "taxon_edit")
+  )
+
+tree_repeat_with_tax_id <- tree_repeat |>
+  dplyr::left_join(
+    y = vtl |>
+      dplyr::select(
+        vegetation_taxon_id,
+        vegetation_scientific_name
+      ),
+    by = c("taxon" = "vegetation_scientific_name")
+  ) |>
+  dplyr::left_join(
+    y  = tree_taxa_newly_matched,
+    by = c("new_taxon" = "new_taxon")
+  ) |>
+  dplyr::mutate(
+    vegetation_taxon_id = dplyr::case_when(
+      !is.na(vegetation_taxon_id.x) ~ vegetation_taxon_id.x,
+      !is.na(vegetation_taxon_id.y) ~ vegetation_taxon_id.y
+    )
+  ) |>
+  # dplyr::filter(!is.na(vegetation_taxon_id))
+  pointblank::col_vals_not_null(
+    columns = c(vegetation_taxon_id),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(tree_repeat),
+    actions = pointblank::stop_on_fail()
+  )
+
+```
+
+Add better timestamping to the trees table.
+
+```{r}
+#| eval: TRUE
+#| label: trees_better_timestamping
+
+databaseDevelopmentTools::add_timestamping(
+  schema = "survey200",
+  table  = "vegetation_survey_trees"
+)
+
+```
+
+## address trees in both plots and parcels
+
+Some trees are in both plots and parcels. We need to address this by duplicating
+those records where the tree is in both plots and parcels. The original record,
+of course, is a parcel that we will duplicate as a plot.
+
+```{r}
+#| eval: TRUE
+#| label: trees_in_plots_and_parcels
+
+tree_survey_repeat <- readr::read_csv(config::get("tree_survey")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x)))) |>
+  dplyr::left_join(
+    # save the index from the repeat data for images at a later step
+    y = tree_repeat_with_tax_id |>
+      dplyr::rename(repeat_index = index),
+    by = c(
+      "uuid"  = "submission_uuid",
+      "index" = "parent_index"
+    )
+  )
+
+parcels_to_plots <- tree_survey_repeat |>
+  dplyr::filter(is_the_tree_in_the_plot_also == "yes") |>
+  dplyr::mutate(
+    survey_type   = "plot",
+    front_or_back = NA_character_
+  )
+
+tree_survey_repeat <- dplyr::bind_rows(
+  tree_survey_repeat,
+  parcels_to_plots
+) |>
+  # kobo indices are no longer unique so create a new arbitrary idx
+  dplyr::rename(parent_index = index) |>
+  tibble::rownames_to_column("index") |>
+  dplyr::mutate(dplyr::across(tidyselect::contains("index"), as.integer))
+
+se_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      sampling_events.survey_id,
+      sampling_events.site_id,
+      sampling_events.samp_date,
+      sites.site_code,
+      sites.research_focus
+    FROM survey200.sampling_events
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    WHERE EXTRACT(year FROM samp_date) = 2023
+    ;
+    "
+)
+
+tree_survey_repeat <- tree_survey_repeat |>
+  dplyr::left_join(
+    y = se_db |>
+      dplyr::select(
+        survey_id,
+        site_id,
+        site_code,
+        research_focus
+      ) |>
+      dplyr::mutate(
+        research_focus = dplyr::case_when(
+          grepl(
+            pattern     = "survey200",
+            x           = research_focus,
+            ignore.case = TRUE
+          ) ~ "plot",
+          TRUE ~ research_focus
+        )
+      ),
+    by = c(
+      "site"        = "site_code",
+      "survey_type" = "research_focus"
+    )
+  ) |>
+  dplyr::mutate(
+    start = format(start, "%H:%M:%S"),
+    end   = format(end, "%H:%M:%S")
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(tree_survey_repeat),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(survey_id, site_id),
+    actions = pointblank::stop_on_fail()
+  )
+
+```
+
+
+## trees to vegetation samples
+
+Reset the temporary index column for keying before modifying as needed and
+inserting into the `vegetation_samples` table.
+
+Prep tree data for adding to vegetation_samples.
+
+```{r}
+#| eval: TRUE
+#| label: trees_to_vs
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.vegetation_samples
+  SET index = NULL
+  ;
+  "
+)
+
+add_trees_vs_query <- tree_survey_repeat |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_samples (
+      herbarium_voucher_code,
+      sample_identified,
+      vegetation_taxon_id,
+      survey_type,
+      tablet_taxon_note,
+      uuid,
+      index
+    ) VALUES (
+      { voucher }::BOOLEAN,
+      { identified }::BOOLEAN,
+      { vegetation_taxon_id },
+      'tree',
+      { observation_note },
+      { uuid },
+      { index }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_trees_vs_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+tree_survey_repeat |>
+  pointblank::row_count_match(
+    count = DBI::dbGetQuery(
+      conn      = pg,
+      statement = "
+    SELECT
+      COUNT(*)
+    FROM survey200.vegetation_samples
+    WHERE index IS NOT NULL
+    ;
+    "
+    )$count,
+    actions = pointblank::stop_on_fail()
+  )
+
+```
+
+The vegetation_samples_id is now available, pull it and add it to the tree data
+for adding to other tables.
+
+```{r}
+#| eval: TRUE
+#| label: trees_vs_id
+
+trees_vs <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_sample_id,
+      index
+    FROM survey200.vegetation_samples
+    WHERE index IS NOT NULL
+    ;
+    "
+) |>
+  dplyr::full_join(
+    y = tree_survey_repeat,
+    by = c(
+      "index" = "index"
+    )
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(vegetation_sample_id, uuid, index),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(tree_survey_repeat),
+    actions = pointblank::stop_on_fail()
+  )
+
+```
+
+## trees SEVS
+
+Populate the SEVS table
+
+```{r}
+#| eval: TRUE
+#| label: trees_sevs
+
+add_trees_sevs_query <- trees_vs |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.sampling_events_vegetation_samples (
+      survey_id,
+      vegetation_sample_id
+    ) VALUES (
+      { survey_id },
+      { vegetation_sample_id }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_trees_sevs_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+## trees to trees survey
+
+There is clear conflation in the units of the dimensions of trees. Except for
+the tails, there is not a way to accurately disentangle when the reported value
+is a meter versus centimeter. Here, we enter the data into the database as
+reported without attempting to correct the error. This will be addressed on the
+pull side, likely by not publishing tree dimensions for this survey, and likely
+one or more additional surveys as the data in the database suggest that this was
+a problem in at least one other previous survey as well.
+
+```{r}
+#| eval: TRUE
+#| label: standardize_canopy_condition
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.vegetation_survey_trees
+  SET canopy_condition = lower(canopy_condition)
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.vegetation_survey_trees
+  SET canopy_condition = NULL
+  WHERE canopy_condition = 'n/a'
+  ;
+  "
+)
+
+```
+
+```{r}
+#| eval: FALSE
+#| label: trees_vst
+
+db_shrub_class <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_classification_id,
+      vegetation_classification_code
+    FROM survey200.cv_vegetation_classifications
+    ;
+    "
+)
+
+db_shrub_shape <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_shape_id,
+      vegetation_shape_code
+    FROM survey200.cv_vegetation_shapes
+    ;
+    "
+)
+
+add_vst <- trees_vs |>
+  dplyr::mutate(
+    context = dplyr::case_when(
+      grepl(
+        pattern     = "naturally",
+        x           = context_of_tree_in_its_habitat,
+        ignore.case = TRUE
+      ) ~ "naturalized",
+      grepl(
+        pattern     = "accent",
+        x           = context_of_tree_in_its_habitat,
+        ignore.case = TRUE
+      ) ~ "accent",
+      grepl(
+        pattern     = "shade",
+        x           = context_of_tree_in_its_habitat,
+        ignore.case = TRUE
+      ) ~ "shade",
+      grepl(
+        pattern     = "street",
+        x           = context_of_tree_in_its_habitat,
+        ignore.case = TRUE
+      ) ~ "street",
+      grepl(
+        pattern     = "pool",
+        x           = context_of_tree_in_its_habitat,
+        ignore.case = TRUE
+      ) ~ "pool",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  dplyr::left_join(
+    y  = db_shrub_class,
+    by = c("context" = "vegetation_classification_code")
+  ) |>
+  dplyr::left_join(
+    y  = db_shrub_shape,
+    by = c("overall_shape_of_tree" = "vegetation_shape_code")
+  ) |>
+  dplyr::mutate(
+    condition = dplyr::case_when(
+      grepl(
+        pattern     = "excellent",
+        x           = condition_of_the_canopy,
+        ignore.case = TRUE
+      ) ~ "excellent",
+      grepl(
+        pattern     = "good",
+        x           = condition_of_the_canopy,
+        ignore.case = TRUE
+      ) ~ "good",
+      grepl(
+        pattern     = "fair",
+        x           = condition_of_the_canopy,
+        ignore.case = TRUE
+      ) ~ "fair",
+      grepl(
+        pattern     = "poor",
+        x           = condition_of_the_canopy,
+        ignore.case = TRUE
+      ) ~ "poor",
+      grepl(
+        pattern     = "critical",
+        x           = condition_of_the_canopy,
+        ignore.case = TRUE
+      ) ~ "critical",
+      grepl(
+        pattern     = "dying",
+        x           = condition_of_the_canopy,
+        ignore.case = TRUE
+      ) ~ "dying",
+      TRUE ~ condition_of_the_canopy
+    )
+  ) |>
+  dplyr::mutate(
+    front_back = dplyr::case_when(
+      grepl(
+        pattern     = "front",
+        x           = front_or_back,
+        ignore.case = TRUE
+      ) ~ 1,
+      grepl(
+        pattern     = "back",
+        x           = front_or_back,
+        ignore.case = TRUE
+      ) ~ 2,
+      TRUE ~ NA_integer_
+    )
+  )
+
+add_vst_query <- add_vst |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_survey_trees (
+      vegetation_sample_id,
+      vegetation_shape_id,
+      vegetation_classification_id,
+      stem_count,
+      stem_diameter_at,
+      stem_diameter,
+      height_distance,
+      height_degree_down,
+      height_degree_up,
+      height_in_m,
+      crown_width_ns,
+      crown_width_ew,
+      crown_deg_down,
+      bottom_canopy_height,
+      missing_branches,
+      canopy_condition,
+      front_back,
+      latitude,
+      longitude,
+      altitude,
+      accuracy
+    ) VALUES (
+      { vegetation_sample_id },
+      { vegetation_shape_id },
+      { vegetation_classification_id },
+      { number_of_stems_measured },
+      { stem_measurement_height_inches },
+      { stem_diameter_cm },
+      { clinometer_distance_m },
+      { base_of_tree_degree },
+      { top_of_tree_degree },
+      { height_of_tree_m },
+      { tree_canopy_n_s_m },
+      { tree_canopy_w_e_m },
+      { base_of_canopy_degree },
+      { height_to_bottom_of_canopy_m },
+      { per_cent_canopy_absent_from_perfect_circle },
+      { condition },
+      { front_back },
+      { gps_position_of_tree_latitude },
+      { gps_position_of_tree_longitude },
+      { gps_position_of_tree_altitude },
+      { gps_position_of_tree_precision }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_vst_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+## trees images
+
+```{r}
+#| eval: TRUE
+#| label: trees_images
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+    ALTER TABLE survey200.research_media
+    ADD COLUMN index INTEGER
+    ;
+    "
+)
+
+tree_images <- readr::read_csv(config::get("tree_images")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+tree_images_vs <- tree_images |>
+  # expect many-to-many owing to trees in both plots and parcels
+  dplyr::left_join(
+    y = trees_vs |>
+      dplyr::select(-index, -parent_index),
+    by = c(
+      "submission_uuid" = "uuid",
+      "parent_index"    = "repeat_index"
+    ),
+    relationship = "many-to-many"
+  ) |>
+  # kobo indices are no longer unique so create a new arbitrary idx
+  dplyr::select(-tidyselect::contains("index")) |>
+  tibble::rownames_to_column("index") |>
+  dplyr::mutate(index = as.integer(index)) |>
+  pointblank::col_vals_not_null(
+    columns = c(vegetation_sample_id, tree_photo, submission_uuid),
+    actions = pointblank::stop_on_fail()
+  )
+
+add_tree_images_research_media <- tree_images_vs |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media (
+      media_type_id,
+      media_title,
+      uuid,
+      index
+    ) VALUES (
+      '2023'::INTEGER,
+      { tree_photo },
+      { submission_uuid },
+      { index }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_tree_images_research_media,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+tree_images_media_id <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      media_id,
+      uuid,
+      index::integer AS index
+    FROM survey200.research_media
+    WHERE index IS NOT NULL
+    ;
+    "
+)
+
+add_tree_rmvs <- tree_images_media_id |>
+  dplyr::inner_join(
+    y  = tree_images_vs,
+    by = c("index")
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(media_id, vegetation_sample_id),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media_vegetation_samples (
+      media_id,
+      vegetation_sample_id
+    ) VALUES (
+      { media_id },
+      { vegetation_sample_id }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_tree_rmvs,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+# Here we are explicit to remove the index column from the research_media table
+# so as to avoid confusion because, in this case, it does not actually reflect
+# the index data in the Kobo form but rather an arbitrary number to facilitate
+# the join.
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.research_media
+  DROP COLUMN index
+  ;
+  "
+)
+
+```
+
+# TRANSITION IV
+
+`survey200_20241118.bak` and dumps (approximately immediately) prior reflect the
+database UP TO TRANSITION III.
+
+`survey200_20241118` and after reflects the database THROUGH TRANSITION IV.
+
+# annuals
+
+## annuals taxa
+
+Pull the VTL for next steps.
+
+```{r}
+#| eval: TRUE
+#| label: VTL_for_annuals
+
+vtl <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_taxon_id,
+      vegetation_scientific_name
+    FROM survey200.vegetation_taxon_list
+    ;
+    "
+)
+
+```
+
+Isolate annuals taxa from annuals repeats.
+
+```{r}
+#| eval: TRUE
+#| label: isolate_annuals_taxa
+
+annuals_repeat <- readr::read_csv(config::get("annuals_repeat")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+# Oncosiphon is mispelled in Kobo
+annuals_repeat <- annuals_repeat |>
+  dplyr::mutate(
+    annual_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "Oncosiphon piluliferum",
+        x           = annual_taxon,
+        ignore.case = TRUE
+      ) ~ "Oncosiphon pilulifer",
+      TRUE ~ annual_taxon
+    )
+  )
+
+# standardize unknowns and move iterations (e.g., unknown 1, unknown 2) to notes
+annuals_repeat <- annuals_repeat |>
+  dplyr::mutate(
+    observation_note = dplyr::case_when(
+      grepl(
+        pattern     = "unknown",
+        x           = new_annual_taxon,
+        ignore.case = TRUE
+      ) ~ ifelse(
+        test = is.na(observation_note),
+        yes  = new_annual_taxon,
+        no   = paste0(observation_note, "; ", new_annual_taxon)
+      ),
+      TRUE ~ observation_note
+    ),
+    annual_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "unknown",
+        x           = new_annual_taxon,
+        ignore.case = TRUE
+      ) ~ "unknown",
+      TRUE ~ annual_taxon
+    ),
+    new_annual_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "unknown",
+        x           = new_annual_taxon,
+        ignore.case = TRUE
+      ) ~ NA,
+      TRUE ~ new_annual_taxon
+    )
+  )
+
+# move "possibly" taxa to notes and change the taxon to unknown
+annuals_repeat <- annuals_repeat |>
+  dplyr::mutate(
+    observation_note = dplyr::case_when(
+      grepl(
+        pattern     = "possibly",
+        x           = new_annual_taxon,
+        ignore.case = TRUE
+      ) ~ ifelse(
+        test = is.na(observation_note),
+        yes  = new_annual_taxon,
+        no   = paste0(observation_note, "; ", new_annual_taxon)
+      ),
+      TRUE ~ observation_note
+    ),
+    annual_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "possibly",
+        x           = new_annual_taxon,
+        ignore.case = TRUE
+      ) ~ "unknown",
+      TRUE ~ annual_taxon
+    ),
+    new_annual_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "possibly",
+        x           = new_annual_taxon,
+        ignore.case = TRUE
+      ) ~ NA,
+      TRUE ~ new_annual_taxon
+    )
+  )
+
+# SELAGINELLA is all caps in Kobo
+annuals_repeat <- annuals_repeat |>
+  dplyr::mutate(
+    new_annual_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "SELAGINELLA SP",
+        x           = new_annual_taxon,
+        ignore.case = TRUE
+      ) ~ "Selaginella",
+      TRUE ~ new_annual_taxon
+    )
+  )
+
+# clean *sp* and "." from new taxon names
+annuals_repeat <- annuals_repeat |>
+  dplyr::mutate(
+    new_annual_taxon = gsub(
+      pattern           = "\\s+sp|\\.",
+      replacement       = "",
+      x                 = new_annual_taxon,
+      ignore.case       = TRUE
+    )
+  )
+
+# Sisymbrium irio; Uropappus lindleyi; Dalea are in the VTL
+annuals_repeat <- annuals_repeat |>
+  dplyr::mutate(
+    annual_taxon = dplyr::case_when(
+      new_annual_taxon == "Sisymbrium irio" ~ "Sisymbrium irio",
+      new_annual_taxon == "Uropappus lindleyi" ~ "Uropappus lindleyi",
+      new_annual_taxon == "Dalea" ~ "Dalea",
+      TRUE ~ annual_taxon
+    ),
+    new_annual_taxon = dplyr::case_when(
+      new_annual_taxon == "Sisymbrium irio" ~ NA,
+      new_annual_taxon == "Uropappus lindleyi" ~ NA,
+      new_annual_taxon == "Dalea" ~ NA,
+      TRUE ~ new_annual_taxon
+    )
+  )
+
+# add unknown to sparse record
+annuals_repeat <- annuals_repeat |>
+  dplyr::mutate(
+    annual_taxon = dplyr::case_when(
+      grepl(
+        pattern     = "Camissonia or caulanthus",
+        x           = observation_note,
+        ignore.case = TRUE
+      ) ~ "unknown",
+      TRUE ~ annual_taxon
+    )
+  )
+
+```
+
+Check how well are we matching tablet taxa (not new) with the VTL?
+All tablet taxa are matched so we can focus on the new taxa and unknowns!
+
+```{r}
+#| eval: TRUE
+#| label: match_tablet_annual_taxa
+
+annual_taxa_matched <- annuals_repeat |>
+  dplyr::distinct(annual_taxon) |>
+  dplyr::left_join(
+    y  = vtl,
+    by = c("annual_taxon" = "vegetation_scientific_name")
+  )
+
+```
+
+Isolate new annuals taxa that need to be added to the VTL.
+
+```{r}
+#| eval: TRUE
+#| label: new_annuals_taxa
+
+annuals_taxa_unmatched <- annuals_repeat |>
+  dplyr::filter(!is.na(new_annual_taxon)) |>
+  dplyr::left_join(
+    y  = vtl,
+    by = c("new_annual_taxon" = "vegetation_scientific_name")
+  ) |>
+  dplyr::distinct(
+    vegetation_taxon_id,
+    new_annual_taxon
+  )
+
+```
+
+THE CONTENT OF THIS CODE BLOCK IS COMMENTED OUT BECAUSE IT WAS A ONE-TIME RUN;
+THE OUTPUT IS STORED IN A FILE THAT IS READ IN THE NEXT CHUNK
+
+```{r}
+#| eval: FALSE
+#| label: resolve_unknown_shrub_taxa
+
+# annuals_taxa_unmatched_gbif <- annuals_taxa_unmatched |>
+#   # several taxa return two results - address separately
+#   dplyr::filter(
+#     new_annual_taxon != "Erigeron divergens",
+#     new_annual_taxon != "Erigeron canadensis",
+#     new_annual_taxon != "Euphorbia maculata",
+#     new_annual_taxon != "Erigeron bonarensis",
+#     new_annual_taxon != "Neptunia"
+#   ) |>
+#   dplyr::mutate(
+#     taxon_edit = dplyr::case_when(
+#       grepl(
+#         pattern     = "Sporobilus",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Sporobolus",
+#       grepl(
+#         pattern     = "Physaria terella",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Physaria tenella",
+#       grepl(
+#         pattern     = "Cryptantha circumcissa",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Greeneocharis circumscissa",
+#       grepl(
+#         pattern     = "Loggia arizonica|Loggia arizoica",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Logfia arizonica",
+#       grepl(
+#         pattern     = "Tomostina cuneifolia",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Tomostima cuneifolia",
+#       grepl(
+#         pattern     = "Centaurs melitensis",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Centaurea melitensis",
+#       grepl(
+#         pattern     = "Camisonia confusa",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Camissonia confusa",
+#       grepl(
+#         pattern     = "Coleus scuttelariodes",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Coleus scutellarioides",
+#       grepl(
+#         pattern     = "Erigeron bonarensis",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Erigeron bonariensis",
+#       grepl(
+#         pattern     = "Descurania sophia",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Descurainia sophia",
+#       grepl(
+#         pattern     = "Dataram discolor",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Datura discolor",
+#       grepl(
+#         pattern     = "Euphoria opthalmica",
+#         x           = new_annual_taxon,
+#         ignore.case = TRUE
+#       ) ~ "Euphorbia ophthalmica",
+#       TRUE ~ new_annual_taxon
+#     )
+#   ) |>
+#   dplyr::mutate(
+#     taxa_db_id = taxadb::get_ids(
+#       names    = taxon_edit,
+#       provider = "gbif",
+#       format   = "bare"
+#     ),
+#     authority = "GBIF"
+#   )
+
+# taxa that return two results - addressed here
+
+# select_accepted <- function(species) {
+#   accepted <- taxadb::filter_name(
+#     name = species,
+#     provider = "gbif"
+#   ) |>
+#     dplyr::mutate(
+#       authority = "GBIF",
+#       taxa_db_id = stringr::str_extract(taxonID, "\\d+")
+#     ) |>
+#     dplyr::filter(taxonomicStatus == "accepted") |>
+#     dplyr::select(
+#       taxon_edit = scientificName,
+#       taxa_db_id,
+#       authority
+#     )
+
+#   return(accepted)
+# }
+
+# multiple_matches <- c(
+#   "Erigeron divergens",
+#   "Erigeron canadensis",
+#   "Euphorbia maculata",
+#   "Erigeron bonarensis",
+#   "Neptunia",
+#   "Erigeron bonariensis"
+# )
+
+# multiple_matched <- purrr::map(
+#   .x = multiple_matches,
+#   .f = ~ select_accepted(.x)
+# ) |>
+#   dplyr::bind_rows() |>
+#   dplyr::mutate(
+#     new_annual_taxon = dplyr::case_when(
+#       grepl(
+#         pattern     = "Erigeron bonariensis",
+#         x           = taxon_edit,
+#         ignore.case = TRUE
+#       ) ~ "Erigeron bonarensis",
+#       TRUE ~ taxon_edit
+#     )
+#   )
+
+# annuals_taxa_unmatched_gbif |>
+#   dplyr::distinct(
+#     new_annual_taxon,
+#     taxon_edit,
+#     taxa_db_id
+#   )
+
+# annuals_taxa_unmatched_gbif <- annuals_taxa_unmatched_gbif |>
+#   dplyr::bind_rows(multiple_matched)
+
+# readr::write_csv(
+#   x    = annuals_taxa_unmatched_gbif,
+#   file = "vegetation_taxa/annuals_taxa_unmatched_gbif.csv"
+# )
+
+```
+
+Add the new annuals taxa to the database. Note that this is part of ongoing
+editing to the `vegetation_taxon_list`.
+
+```{r}
+#| eval: TRUE
+#| label: add_new_annuals_taxa
+
+annuals_taxa_unmatched_gbif <- readr::read_csv("vegetation_taxa/annuals_taxa_unmatched_gbif.csv")
+
+new_annuals_taxa_query <- annuals_taxa_unmatched_gbif |>
+  dplyr::distinct(
+    taxon_edit,
+    authority,
+    taxa_db_id
+  ) |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_taxon_list (
+      vegetation_scientific_name,
+      authority,
+      authority_id
+    ) VALUES (
+      { taxon_edit },
+      { authority },
+      { taxa_db_id }
+    )
+    ;",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = new_annuals_taxa_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+re-pull the VTL with new taxa added
+
+```{r}
+#| eval: TRUE
+#| label: VTL_for_annuals_again
+
+vtl <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_taxon_id,
+      vegetation_scientific_name
+    FROM survey200.vegetation_taxon_list
+    ;
+    "
+)
+
+```
+
+Now that we have all the taxa in the VTL, we can match the new annuals taxa to
+the survey records.
+
+```{r}
+#| eval: TRUE
+#| label: add_annuals_tax_id
+
+annuals_taxa_newly_matched <- vtl |>
+  dplyr::right_join(
+    y = annuals_taxa_unmatched_gbif |>
+      dplyr::select(-vegetation_taxon_id),
+    by = c("vegetation_scientific_name" = "taxon_edit")
+  )
+
+annuals_repeat_with_tax_id <- annuals_repeat |>
+  dplyr::left_join(
+    y = vtl |>
+      dplyr::select(
+        vegetation_taxon_id,
+        vegetation_scientific_name
+      ),
+    by = c("annual_taxon" = "vegetation_scientific_name")
+  ) |>
+  dplyr::left_join(
+    y  = annuals_taxa_newly_matched,
+    by = c("new_annual_taxon" = "new_annual_taxon")
+  ) |>
+  dplyr::mutate(
+    vegetation_taxon_id = dplyr::case_when(
+      !is.na(vegetation_taxon_id.x) ~ vegetation_taxon_id.x,
+      !is.na(vegetation_taxon_id.y) ~ vegetation_taxon_id.y
+    )
+  ) |>
+  # three empty records
+  dplyr::filter(!is.na(vegetation_taxon_id)) |>
+  pointblank::row_count_match(
+    count   = nrow(annuals_repeat) - 3,
+    actions = pointblank::stop_on_fail()
+  )
+
+```
+
+## annuals to vegetation samples
+
+Reset the temporary index column for keying before modifying as needed and
+inserting into the `vegetation_samples` table.
+
+Prep annuals data for adding to vegetation_samples.
+
+```{r}
+#| eval: TRUE
+#| label: annuals_to_vs
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.vegetation_samples
+  SET index = NULL
+  ;
+  "
+)
+
+add_annuals_vs_query <- annuals_repeat_with_tax_id |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.vegetation_samples (
+      herbarium_voucher_code,
+      sample_identified,
+      vegetation_taxon_id,
+      survey_type,
+      tablet_taxon_note,
+      uuid,
+      index
+    ) VALUES (
+      { voucher }::BOOLEAN,
+      { identified }::BOOLEAN,
+      { vegetation_taxon_id },
+      'annual',
+      { observation_note },
+      { submission_uuid },
+      { index }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_annuals_vs_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+annuals_repeat_with_tax_id |>
+  pointblank::row_count_match(
+    count = DBI::dbGetQuery(
+      conn      = pg,
+      statement = "
+    SELECT
+      COUNT(*)
+    FROM survey200.vegetation_samples
+    WHERE index IS NOT NULL
+    ;
+    "
+    )$count,
+    actions = pointblank::stop_on_fail()
+  )
+
+```
+
+The vegetation_samples_id is now available, pull it and add it to the annuals
+data for adding to the SEVS table.
+
+```{r}
+#| eval: TRUE
+#| label: annuals_vs_id
+
+annuals_vs <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      vegetation_sample_id,
+      index
+    FROM survey200.vegetation_samples
+    WHERE index IS NOT NULL
+    ;
+    "
+) |>
+  dplyr::full_join(
+    y = annuals_repeat_with_tax_id,
+    by = c(
+      "index" = "index"
+    )
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(vegetation_sample_id, submission_uuid, index),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(annuals_repeat_with_tax_id),
+    actions = pointblank::stop_on_fail()
+  )
+
+```
+
+## annuals SEVS
+
+First, add a unique constraint to the SEVS table (which should have been
+established from the outset)
+
+```{r}
+#| eval: TRUE
+#| label: SEVS_unique_constraint
+    
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  CREATE UNIQUE INDEX unique_sampling_events_vegetation_samples_survey_vegetation_id
+  ON survey200.sampling_events_vegetation_samples (survey_id, vegetation_sample_id)
+  ;
+  ")
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.sampling_events_vegetation_samples ADD CONSTRAINT
+  unique_sampling_events_vegetation_samples_survey_vegetation_id UNIQUE USING INDEX
+  unique_sampling_events_vegetation_samples_survey_vegetation_id
+  ;
+  ")
+
+```
+
+Populate the SEVS table
+
+```{r}
+#| eval: TRUE
+#| label: annuals_sevs
+
+annuals_survey <- readr::read_csv(config::get("annuals_survey")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+# fix: AF14/AF12 and AC20/AC22 are mislabeled
+
+annuals_survey <- annuals_survey |>
+  dplyr::mutate(
+    site = dplyr::case_when(
+      site == "AF14" & date == "2023-04-07" ~ "AF12",
+      site == "AC20" & date == "2023-05-30" ~ "AC22",
+      TRUE ~ site
+    )
+  )
+
+annuals_vs_survey <- annuals_survey |>
+  dplyr::rename(survey_index = index) |>
+  dplyr::full_join(
+    y = annuals_vs,
+    by = c(
+      "uuid"         = "submission_uuid",
+      "survey_index" = "parent_index"
+    )
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(
+      site,
+      date,
+      index,
+      vegetation_sample_id
+    ),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(annuals_vs),
+    actions = pointblank::stop_on_fail()
+  )
+
+se_db <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      sampling_events.survey_id,
+      sampling_events.site_id,
+      sampling_events.samp_date,
+      sites.site_code,
+      sites.research_focus
+    FROM survey200.sampling_events
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    WHERE
+    EXTRACT(year FROM samp_date) = 2023 AND
+    research_focus ~~* '%survey%'
+    ;
+    "
+)
+
+# missing annuals data for:
+# Q12
+# Q16
+# V13
+
+annuals_vs_sevs <- annuals_vs_survey |>
+  dplyr::left_join(
+    y  = se_db,
+    # erroneous annuals survey date values - join on site only
+    by = c("site" = "site_code")
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(survey_id),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(annuals_vs_survey),
+    actions = pointblank::stop_on_fail()
+  )
+
+add_annuals_sevs_query <- annuals_vs_sevs |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.sampling_events_vegetation_samples (
+      survey_id,
+      vegetation_sample_id
+    ) VALUES (
+      { survey_id },
+      { vegetation_sample_id }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_annuals_sevs_query,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+```
+
+## annuals images
+
+```{r}
+#| eval: TRUE
+#| label: annuals_images
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+    ALTER TABLE survey200.research_media
+    ADD COLUMN index INTEGER
+    ;
+    "
+)
+
+annuals_images <- readr::read_csv(config::get("annuals_images")) |>
+  dplyr::mutate(
+    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),
+    across(where(is.character), ~ gsub("[\r\n]", "", .))
+  ) |>
+  janitor::clean_names() |>
+  dplyr::select(tidyselect::where(~ any(!is.na(.x))))
+
+annuals_images_vs <- annuals_images |>
+  dplyr::left_join(
+    y = annuals_vs_sevs,
+    by = c(
+      "submission_uuid" = "uuid",
+      "parent_index"    = "index"
+    )
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(
+      vegetation_sample_id,
+      annual_plant_image,
+      submission_uuid, index
+    ),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(annuals_images),
+    actions = pointblank::stop_on_fail()
+  )
+
+add_annuals_images_research_media <- annuals_images_vs |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media (
+      media_type_id,
+      media_title,
+      uuid,
+      index
+    ) VALUES (
+      '2023'::INTEGER,
+      { annual_plant_image },
+      { submission_uuid },
+      { index }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_annuals_images_research_media,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+annuals_images_media_id <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+    SELECT
+      media_id,
+      uuid,
+      index::integer AS index
+    FROM survey200.research_media
+    WHERE index IS NOT NULL
+    ;
+    "
+)
+
+add_annuals_rmvs <- annuals_images_media_id |>
+  dplyr::inner_join(
+    y  = annuals_images_vs,
+    by = c("index")
+  ) |>
+  pointblank::col_vals_not_null(
+    columns = c(media_id, vegetation_sample_id),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  pointblank::row_count_match(
+    count   = nrow(annuals_images_media_id),
+    actions = pointblank::stop_on_fail()
+  ) |>
+  glue::glue_data_sql("
+    INSERT INTO survey200.research_media_vegetation_samples (
+      media_id,
+      vegetation_sample_id
+    ) VALUES (
+      { media_id },
+      { vegetation_sample_id }
+    )
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_annuals_rmvs,
+      .f = ~ DBI::dbExecute(
+        conn      = pg,
+        statement = .x
+      )
+    )
+  }
+)
+
+# here we are explicit to remove the index column from the research_media table
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.research_media
+  DROP COLUMN index
+  ;
+  "
+)
+
+```
+
+# VTL: vegetation taxon list
+
+In addition to addition and changes to the vegetation_taxon_list addressed to
+this point, here we focus on improving the composition of the
+vegetation_taxon_list. This will include:
+
+1. Repair or recode obvious misspellings, misidentifications, or otherwise
+   uninformative taxa names. An initial pass of resolving the VTL against GBIF
+   highlights many of the problems.
+2. As per recent surveys, recode iterative identifications (e.g., aloe1, aloe2)
+   to the actual taxa (i.e., aloe) and store the information detailing that
+   there are, for example, two different aloes in the tablet_taxon_note field.
+3. Add authority details (here GBIF) to taxa that can be matched.
+
+There is still a lot of work to be done to get the list into good shape that
+will require guidance from a botanist.
+
+Add an archive column to VTL. Commented code is to create a unique constraint
+on authority details but this could not be implemented as taxon synonyms
+resulted in the same authority_id for different taxa in the list. This is
+something that will have to be resolved with help from a botanist.
+
+```{r}
+#| eval: FALSE
+#| label: VTL_unique_constraint
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.vegetation_taxon_list
+  ADD COLUMN archive BOOLEAN DEFAULT FALSE
+  ;
+  "
+)
+
+# DBI::dbExecute(
+#   conn      = pg,
+#   statement = "
+#   CREATE UNIQUE INDEX unique_vegetation_taxon_list_authority_authority_id_archive
+#   ON survey200.vegetation_taxon_list (authority, authority_id, archive)
+#   ;
+#   ")
+
+# DBI::dbExecute(
+#   conn      = pg,
+#   statement = "
+#   ALTER TABLE survey200.vegetation_taxon_list ADD CONSTRAINT
+#   unique_vegetation_taxon_list_authority_authority_id_archive UNIQUE USING INDEX
+#   unique_vegetation_taxon_list_authority_authority_id_archive
+#   ;
+#   ")
+```
+
+Delete two records from both SEVS and VS where the VS records do not have a
+valid taxon. Once that is addressed, we can add a foreign key constraint
+between VS and VTL and a not null constraint on the VS vegetation_taxon_id each
+of which should have been established from the outset
+
+```{r}
+#| eval: TRUE
+#| label: VS_fk_not_null
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  DELETE FROM survey200.sampling_events_vegetation_samples
+  WHERE vegetation_sample_id IN (
+    SELECT
+    vegetation_samples.vegetation_sample_id
+    FROM survey200.vegetation_samples
+    WHERE vegetation_taxon_id NOT IN (
+      SELECT vegetation_taxon_id
+      FROM survey200.vegetation_taxon_list
+    )
+  )
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  DELETE FROM survey200.vegetation_samples
+  WHERE vegetation_taxon_id NOT IN (
+    SELECT vegetation_taxon_id
+    FROM survey200.vegetation_taxon_list
+  )
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.vegetation_samples
+  ADD CONSTRAINT vegetation_samples_fk_vegetation_taxon_id
+  FOREIGN KEY (vegetation_taxon_id) REFERENCES survey200.vegetation_taxon_list(vegetation_taxon_id)
+  ;
+  "
+)
+
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  ALTER TABLE survey200.vegetation_samples
+  ALTER COLUMN vegetation_taxon_id
+  SET NOT NULL
+  ;
+  "
+)
+```
+
+From a quick pass against GBIF (commented code), we can see a few clear cases
+of misspellings and misidentifications that can be recoded in the VTL and where
+those taxa are referenced in `vegetation_samples` and `sweepnet_samples`.
+
+```{r}
+#| eval: TRUE
+#| label: recode_selected_vtl_taxa
+
+# safe_get_ids <- purrr::possibly(
+#   .f        = taxadb::get_ids,
+#   otherwise = NULL
+# )
+
+# matched_taxa <- DBI::dbGetQuery(
+#   conn      = pg,
+#   statement = "
+#     SELECT
+#       vegetation_taxon_id,
+#       vegetation_scientific_name,
+#       archive
+#     FROM
+#       survey200.vegetation_taxon_list
+# ;
+# "
+# ) |>
+#   dplyr::mutate(
+#     taxa_db_id = safe_get_ids(
+#       names    = vegetation_scientific_name,
+#       provider = "gbif",
+#       format   = "bare",
+#       warn     = TRUE
+#     ),
+#     authority = dplyr::case_when(
+#       is.na(taxa_db_id) ~ NA,
+#       TRUE ~ "GBIF"
+#     )
+#   )
+
+recode_taxon <- function(
+    old_code,
+    new_code
+    ) {
+
+  recode_vs <- glue::glue_sql("
+  UPDATE survey200.vegetation_samples
+  SET vegetation_taxon_id = { new_code }
+  WHERE vegetation_taxon_id = { old_code }
+  ;
+  ",
+    .con = DBI::ANSI()
+  )
+
+  recode_ss <- glue::glue_sql("
+  UPDATE survey200.sweepnet_samples
+  SET vegetation_taxon_id = { new_code }
+  WHERE vegetation_taxon_id = { old_code }
+  ;
+  ",
+    .con = DBI::ANSI()
+  )
+
+  vtl_archive <- glue::glue_sql("
+  UPDATE survey200.vegetation_taxon_list
+  SET archive = TRUE
+  WHERE vegetation_taxon_id = { old_code }
+  ;
+  ",
+    .con = DBI::ANSI()
+  )
+
+  updates <- c(
+    recode_vs,
+    recode_ss,
+    vtl_archive
+  )
+
+  DBI::dbWithTransaction(
+    conn = pg,
+    {
+      purrr::walk(
+        .x = updates,
+        .f = ~ DBI::dbExecute(
+          statement = .x,
+          conn      = pg
+        )
+      )
+    }
+  )
+
+}
+
+recode_taxon(61,   2534) # Acacia constricta
+recode_taxon(1383, 4064) # Amsinckia tessellata
+recode_taxon(2683, 4213) # Aristida adscensionis
+recode_taxon(2957, 3948) # Carpobrotus
+recode_taxon(2775, 3780) # Citrus (??)
+recode_taxon(3781, 3780) # Citrus (x)
+recode_taxon(292,  4228) # Hardenbergia violacea
+recode_taxon(4272, 4077) # Lycianthes rantonnetii
+recode_taxon(3983, 3835) # Lycium A or B
+recode_taxon(3984, 3835) # Lycium E or F
+recode_taxon(4238, 1539) # Melilotus indicus
+recode_taxon(180,  2903) # Myoporum parvifolium
+recode_taxon(1835, 3895) # Pennisetum ciliare
+recode_taxon(3960, 2772) # Vauquelinia californica
+recode_taxon(2850, 4125) # Vitex agnus-castus
+recode_taxon(3961, 4210) # Iceplant to Aizoaceae
+recode_taxon(799,  4117) # Euphorbia tirucali to Euphorbia tirucalli
+
+# formerly Vitex agnus-castus I think this is okay
+# DBI::dbExecute(
+#   conn      = pg,
+#   statement = "
+#   UPDATE survey200.vegetation_taxon_list
+#   SET vegetation_scientific_name = 'Vitex agnus-castus'
+#   WHERE vegetation_taxon_id = 4125
+#   ;
+#   "
+# )
+
+# formerly Euonymus japonica
+DBI::dbExecute(
+  conn      = pg,
+  statement = "
+  UPDATE survey200.vegetation_taxon_list
+  SET vegetation_scientific_name = 'Euonymus japonicus'
+  WHERE vegetation_taxon_id = 21
+  ;
+  "
+)
+```
+
+In keeping with how taxa in recent surveys are handled, move information about
+the iterations of taxa (for example, aloe1, aloe2) to the tablet_taxon_note
+field in the vegetation_samples table and then recode the iterations to their
+appropriate reference (e.g., aloe1 to aloe in this example).
+
+```{r}
+#| eval: TRUE
+#| label: condense_taxa_iterations
+
+recode_iterative_taxons <- function(
+    old_code,
+    new_code
+    ) {
+
+  old_note_query <- glue::glue_sql("
+  SELECT
+  vegetation_scientific_name
+  FROM survey200.vegetation_taxon_list
+  WHERE vegetation_taxon_id = { old_code }
+  ;
+  ",
+    .con = DBI::ANSI()
+  )
+
+  old_note <- DBI::dbGetQuery(
+    conn      = pg,
+    statement = old_note_query
+  )
+
+  add_note <- glue::glue_sql("
+  UPDATE survey200.vegetation_samples
+  SET tablet_taxon_note = { old_note$vegetation_scientific_name }
+  WHERE vegetation_taxon_id = { old_code }
+  ;
+  ",
+    .con = DBI::ANSI()
+  )
+
+  recode_vs <- glue::glue_sql("
+  UPDATE survey200.vegetation_samples
+  SET vegetation_taxon_id = { new_code }
+  WHERE vegetation_taxon_id = { old_code }
+  ;
+  ",
+    .con = DBI::ANSI()
+  )
+
+  recode_ss <- glue::glue_sql("
+  UPDATE survey200.sweepnet_samples
+  SET vegetation_taxon_id = { new_code }
+  WHERE vegetation_taxon_id = { old_code }
+  ;
+  ",
+    .con = DBI::ANSI()
+  )
+
+  vtl_archive <- glue::glue_sql("
+  UPDATE survey200.vegetation_taxon_list
+  SET archive = TRUE
+  WHERE vegetation_taxon_id = { old_code }
+  ;
+  ",
+    .con = DBI::ANSI()
+  )
+
+  updates <- c(
+    add_note,
+    recode_vs,
+    recode_ss,
+    vtl_archive
+  )
+
+  DBI::dbWithTransaction(
+    conn = pg,
+    {
+      purrr::walk(
+        .x = updates,
+        .f = ~ DBI::dbExecute(
+          statement = .x,
+          conn      = pg
+        )
+      )
+    }
+  )
+
+}
+
+# Acacia
+recode_iterative_taxons(4191, 3372)
+recode_iterative_taxons(4192, 3372)
+# Agave
+recode_iterative_taxons(4148, 2944)
+recode_iterative_taxons(4149, 2944)
+recode_iterative_taxons(4151, 2944)
+recode_iterative_taxons(4152, 2944)
+recode_iterative_taxons(4153, 2944)
+recode_iterative_taxons(4154, 2944)
+# Aloe
+recode_iterative_taxons(4155, 2962)
+recode_iterative_taxons(4156, 2962)
+recode_iterative_taxons(4157, 2962)
+# Bougainvillea
+recode_iterative_taxons(4054, 3583)
+# Cactaceae
+recode_iterative_taxons(4113, 4218)
+recode_iterative_taxons(4114, 4218)
+recode_iterative_taxons(4115, 4218)
+recode_iterative_taxons(3902, 4218)
+recode_iterative_taxons(3904, 4218)
+# Cereus
+recode_iterative_taxons(4119, 3236)
+recode_iterative_taxons(4120, 3236)
+# Crassulaceae
+recode_iterative_taxons(4181, 4086)
+recode_iterative_taxons(4182, 4086)
+# Cupressaceae
+recode_iterative_taxons(4082, 3985)
+recode_iterative_taxons(4081, 3985)
+# Cylindropuntia
+recode_iterative_taxons(4163, 3241)
+recode_iterative_taxons(4164, 3241)
+# Eucalyptus
+recode_iterative_taxons(4188, 3571)
+recode_iterative_taxons(4189, 3571)
+# Ferocactus
+recode_iterative_taxons(4140, 3246)
+recode_iterative_taxons(4141, 3246)
+# Jasminum
+recode_iterative_taxons(4169, 3590)
+recode_iterative_taxons(4170, 3590)
+# Lycium
+recode_iterative_taxons(4073, 3835)
+recode_iterative_taxons(4074, 3835)
+recode_iterative_taxons(4075, 3835)
+# Opuntia
+recode_iterative_taxons(4048, 3255)
+recode_iterative_taxons(4049, 3255)
+# Poaceae
+recode_iterative_taxons(4100, 3888)
+recode_iterative_taxons(4101, 3888)
+recode_iterative_taxons(4102, 3888)
+recode_iterative_taxons(4103, 3888)
+recode_iterative_taxons(4208, 3888)
+# Sphaeralcea
+recode_iterative_taxons(4058, 3553)
+recode_iterative_taxons(4059, 3553)
+# Yucca
+recode_iterative_taxons(4196, 2955)
+recode_iterative_taxons(4197, 2955)
+# unknown
+recode_iterative_taxons(3906, 4376)
+recode_iterative_taxons(3890, 4376)
+recode_iterative_taxons(3891, 4376)
+recode_iterative_taxons(3892, 4376)
+recode_iterative_taxons(3940, 4376)
+recode_iterative_taxons(3964, 4376)
+recode_iterative_taxons(4201, 4376)
+recode_iterative_taxons(4055, 4376)
+recode_iterative_taxons(4056, 4376)
+```
+
+
+```{r}
+#| eval: TRUE
+#| label: add_authority_to_vtl
+
+safe_filter_name <- purrr::possibly(
+  .f        = taxadb::filter_name,
+  otherwise = NULL
+)
+
+VTL <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    vegetation_taxon_id,
+    vegetation_scientific_name,
+    archive
+  FROM
+    survey200.vegetation_taxon_list
+  WHERE
+    archive = FALSE AND
+    authority_id IS NULL
+  ;
+  "
+)
+
+VTL_gbif <- VTL |>
+  split(VTL$vegetation_taxon_id) |>
+  {
+    \(df) purrr::map_dfr(
+      .x = df,
+      .f = ~ safe_filter_name(
+        name     = .x$vegetation_scientific_name,
+        provider = "gbif"
+      ) |>
+        dplyr::mutate(
+          authority  = "GBIF",
+          taxa_db_id = stringr::str_extract(taxonID, "\\d+")
+        ) |>
+        dplyr::filter(
+          taxonomicStatus == "accepted",
+          kingdom         == "Plantae"
+        ) |>
+        dplyr::select(
+          vegetation_scientific_name = scientificName,
+          taxa_db_id,
+          authority
+        )
+    )
+  }()
+
+# add taxa authority ids to the VTL taxa table
+
+add_authority <- VTL |>
+  dplyr::inner_join(
+    y  = VTL_gbif,
+    by = c("vegetation_scientific_name" = "vegetation_scientific_name")
+  ) |>
+  dplyr::filter(!is.na(taxa_db_id)) |>
+  glue::glue_data_sql("
+    UPDATE survey200.vegetation_taxon_list
+    SET authority_id          = { taxa_db_id },
+    authority                 = { authority }
+    WHERE vegetation_taxon_id = { vegetation_taxon_id }
+    ;
+    ",
+    .con = DBI::ANSI()
+  )
+
+DBI::dbWithTransaction(
+  conn = pg,
+  {
+    purrr::walk(
+      .x = add_authority,
+      .f = ~ DBI::dbExecute(
+        statement = .x,
+        conn = pg
+      )
+    )
+  }
+)
+```
+
+# TRANSITION V
+
+`survey200_20241202.bak` (and `survey200_20241223.bak`) and dumps (approximately
+immediately) prior reflect the database UP TO TRANSITION IV.
+
+`survey200_20241223` and after reflects the database THROUGH TRANSITION V.
+
+# deprecate vegetation_survey_cacti_succ
+
+`vegetation_survey_cacti_succ` has not been populated since 2010. In subsequent
+surveys, _Carnegiea_ was treated as a tree and all other cacti were treated as
+shrubs. Codify that appoach in earlier surveys by moving all data from
+`vegetation_survey_cacti_succ` to `vegetation_survey_shrub_perennials` and
+`vegetation_survey_trees` as appropriate.
+
+This exercise highlighted a lot of problems with the data, such as:
+
+1. The 2010 _Carnegiea_ recorded in parcels do not have a front-back designation
+2. Many, many observations are missing height and/or width data
+3. There are many instances where a taxa has a count but not a corresponding
+shrub, tree, or cacti record with measurements; or vice versa where there is a
+shrub, tree, or cactus record without a corresponding count.
+4. Cacti, both _Carnegiea_ and otherwise, are double-counted in 2010 parcels,
+occurring in both the cacti, and tree or shrub tables so these are not included
+in the transfer.
+
+1431 is _Carnegiea gigantea_ and 3235 is _Carnegiea_ BUT _gigantea_ is the ONLY
+species of _Carnegiea_
+
+```{r}
+#| eval: TRUE
+#| label: recode_carnegiea
+
+recode_taxon(3235, 1431) # Carnegiea
+```
+
+```{r}
+#| eval: TRUE
+#| label: cacti_to_shrubs
+
+insert_shrubs_query <- "
+  INSERT INTO survey200.vegetation_survey_shrub_perennials (
+    vegetation_sample_id,
+    vegetation_classification_id,
+    height,
+    height_distance,
+    height_degree_up,
+    height_degree_down,
+    width_ns,
+    width_ew,
+    distance_ns,
+    direction_ns,
+    distance_ew,
+    direction_ew
+  )
+  SELECT
+    vegetation_sample_id,
+    vegetation_classification_id,
+    height,
+    height_distance,
+    height_degree_down,
+    height_degree_up,
+    width_ns,
+    width_ew,
+    distance_ns,
+    direction_ns,
+    distance_ew,
+    direction_ew
+  FROM survey200.vegetation_survey_cacti_succ
+  WHERE cacti_id IN (
+    SELECT
+      vegetation_survey_cacti_succ.cacti_id
+    FROM
+      survey200.vegetation_survey_cacti_succ
+    JOIN survey200.vegetation_samples ON (vegetation_survey_cacti_succ.vegetation_sample_id = vegetation_samples.vegetation_sample_id)
+    JOIN survey200.sampling_events_vegetation_samples ON (vegetation_samples.vegetation_sample_id = sampling_events_vegetation_samples.vegetation_sample_id)
+    JOIN survey200.sampling_events ON (sampling_events_vegetation_samples.survey_id = sampling_events.survey_id)
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    JOIN survey200.vegetation_taxon_list ON (vegetation_samples.vegetation_taxon_id = vegetation_taxon_list.vegetation_taxon_id)
+    WHERE
+      vegetation_taxon_list.vegetation_taxon_id != 1431 AND
+      sites.research_focus ~~* 'survey200'
+    )
+  ;
+  "
+
+DBI::dbWithTransaction(
+  conn = pg,
+  code = DBI::dbExecute(
+    conn      = pg,
+    statement = insert_shrubs_query
+  )
+)
+```
+
+
+```{r}
+#| eval: TRUE
+#| label: carniegea_to_trees
+
+insert_trees_query <- "
+  INSERT INTO survey200.vegetation_survey_trees (
+    vegetation_sample_id,
+    vegetation_classification_id,
+    stem_diameter_at,
+    stem_diameter,
+    height_distance,
+    height_degree_down,
+    height_degree_up,
+    height_in_m,
+    crown_width_ns,
+    crown_width_ew,
+    distance_ns,
+    direction_ns,
+    distance_ew,
+    direction_ew
+  )
+  SELECT
+    vegetation_sample_id,
+    vegetation_classification_id,
+    stem_height,
+    stem_diameter,
+    height_distance,
+    height_degree_down,
+    height_degree_up,
+    height,
+    width_ns,
+    width_ew,
+    distance_ns,
+    direction_ns,
+    distance_ew,
+    direction_ew
+  FROM survey200.vegetation_survey_cacti_succ
+  WHERE cacti_id IN (
+    SELECT
+      vegetation_survey_cacti_succ.cacti_id
+    FROM
+      survey200.vegetation_survey_cacti_succ
+    JOIN survey200.vegetation_samples ON (vegetation_survey_cacti_succ.vegetation_sample_id = vegetation_samples.vegetation_sample_id)
+    JOIN survey200.sampling_events_vegetation_samples ON (vegetation_samples.vegetation_sample_id = sampling_events_vegetation_samples.vegetation_sample_id)
+    JOIN survey200.sampling_events ON (sampling_events_vegetation_samples.survey_id = sampling_events.survey_id)
+    JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+    JOIN survey200.vegetation_taxon_list ON (vegetation_samples.vegetation_taxon_id = vegetation_taxon_list.vegetation_taxon_id)
+    WHERE
+      vegetation_taxon_list.vegetation_taxon_id = 1431 AND
+      sites.research_focus ~~* 'survey200'
+    )
+  ;
+  "
+
+DBI::dbWithTransaction(
+  conn = pg,
+  code = DBI::dbExecute(
+    conn      = pg,
+    statement = insert_trees_query
+    )
+)
+```

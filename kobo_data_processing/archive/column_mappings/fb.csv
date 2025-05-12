@@ -1,0 +1,75 @@
+name,value
+front or back yard,front
+yard upkeep and appearance,good
+yard orderliness (placement of plants riverbed etc),highly structured or designed
+features in the yard,front porch light post vegetation litter like leaves litter or refuse on the ground chairs or tables landscaped rock or river bed pet or animal waste
+features in the yard/bird feeder,0
+features in the yard/water feature,0
+features in the yard/front porch,1
+features in the yard/cats,0
+features in the yard/dogs,0
+features in the yard/pet or animal waste,1
+features in the yard/religious ornaments or statues,0
+features in the yard/flagpole,0
+features in the yard/cars in yard but not in the driveway,0
+features in the yard/potted plants,0
+features in the yard/play equipment,0
+features in the yard/lawn ornaments,0
+features in the yard/chairs or tables,1
+features in the yard/landscaped rock or river bed,1
+features in the yard/created yard topography,0
+features in the yard/litter or refuse on the ground,1
+features in the yard/vegetation litter like leaves,1
+features in the yard/yard maintenance tools,0
+features in the yard/light post,1
+features in the yard/other,0
+watering regimes,hand watering drip or trickle overhead spray
+watering regimes/hand watering,1
+watering regimes/drip or trickle,1
+watering regimes/overhead spray,1
+watering regimes/flood,0
+watering regimes/not irrigated,0
+predominant landscape type,xeric
+describe the landscape,
+amount of grass,none
+percent of weeds in non-grass or xeric areas,less than 10 percent
+are there weeds in other areas of the yard such as flowerbeds or the driveway,yes
+evidence of tree pruning such as cut branches,yes
+evidence of shrub pruning such as shaped shrubs,yes
+estimate to the nearest 5 per cent,
+percent living grass,0
+percent bare ground,75
+percent dead or dormant grass,0
+percent weeds,5
+percent other,20
+hip_parcel_composition_calc,100
+total composition,100
+estimate to the nearest 5 per cent,
+percent very green grass,
+percent moderately green grass,
+percent greenish-yellow grass,
+percent yellowish grass,
+percent brownish grass,
+hip_parcel_grass_color_calc,
+total composition,
+percent of weeds IN grass area,
+grass patchiness,
+rate the overall lawn color (including grass and weeds),
+overall lawn quality,
+lawn edges trimmed?,
+recently mowed?,
+grass height (cm),
+weed height (cm),
+notable comment about the yard,
+_index,12
+_parent_table_name,ESCA_parcel
+_parent_index,7
+_submission__id,238730379
+_submission__uuid,e4dd68f3-530e-41f3-8fa0-4e9ba7eb4855
+_submission__submission_time,2023-05-16 22:45:38
+_submission__validation_status,
+_submission__notes,
+_submission__status,submitted_via_web
+_submission__submitted_by,caplter_leia
+_submission___version__,vGeDo5CSVHgBAZSoYL6DEX
+_submission__tags,

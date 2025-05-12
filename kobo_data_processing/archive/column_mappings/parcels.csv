@@ -1,0 +1,42 @@
+table,name,value
+,start,2023-04-27 14:32:30
+,end,2023-04-27 15:05:46
+,today,2023-04-27
+,audit,audit.csv
+,audit_url,https://kc.kobotoolbox.org/media/original?media_file=caplter%2Fattachments%2F8ec22ffb22e74407b9ae6093334d6918%2F973092fd-91a1-4b3d-8761-64162e226dc7%2Faudit.csv
+SE,site,AB19
+SE,date,2023-04-27
+HI,brief_description_of_the_parcel,Residential home
+HS,parcel_street_address,97 N Honeysuckle Ln Gilbert AZ 85234
+,lse_total_calc,100
+,total_landuse_should_sum_to_100,100
+HI,does_the_landscape_appear_well_maintained,yes
+HI,is_the_landscape_maintained_professionally,do_not_know
+HI,are_there_symptoms_or_signs_of_abiotic_or_biotic_injury,yes
+HI,are_the_plants_healthy_and_vigorous,yes
+,indicate_visible_signs_of_human_cultivation,ground cover: trees ground cover: shrubs ground cover: cacti or succulents ground cover: lawn
+HI,indicate_visible_signs_of_human_cultivation_ground_cover_open_ground,0
+HI,indicate_visible_signs_of_human_cultivation_ground_cover_trees,1
+HI,indicate_visible_signs_of_human_cultivation_ground_cover_shrubs,1
+HI,indicate_visible_signs_of_human_cultivation_ground_cover_cacti_or_succulents,1
+HI,indicate_visible_signs_of_human_cultivation_ground_cover_lawn,1
+HI,indicate_visible_signs_of_human_cultivation_ground_cover_herbaceous_ground_cover,0
+HI,indicate_visible_signs_of_human_cultivation_ground_cover_other_vegetation_types,0
+,indicate_visible_signs_of_human_added_irrigation,irrigation: drip water irrigation: hand water
+HI,indicate_visible_signs_of_human_added_irrigation_irrigation_hand_water,1
+HI,indicate_visible_signs_of_human_added_irrigation_irrigation_drip_water,1
+HI,indicate_visible_signs_of_human_added_irrigation_irrigation_overhead_water,0
+HI,indicate_visible_signs_of_human_added_irrigation_irrigation_flood_water,0
+HI,indicate_visible_signs_of_human_added_irrigation_irrigation_subterranean_water,0
+HI,indicate_visible_signs_of_human_added_irrigation_irrigation_no_water,0
+HI,indicate_visible_signs_of_human_added_irrigation_irrigation_pervious_irrigation,0
+HIP,indicate_type_of_residence,single family
+HI,approximate_perceived_social_class_of_the_neighborhood,middle
+,id,234475997
+,uuid,973092fd-91a1-4b3d-8761-64162e226dc7
+,submission_time,2023-04-27 23:50:48
+,status,submitted_via_web
+,submitted_by,caplter_leia
+,version,vGeDo5CSVHgBAZSoYL6DEX
+,index,1
+,survey_id,1157

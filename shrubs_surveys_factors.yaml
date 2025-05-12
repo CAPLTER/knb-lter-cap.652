@@ -1,0 +1,35 @@
+|
+  - attribute:
+      attributeName: vegetation_classification_code
+      levels:
+      - code: accent
+        definition: accent
+      - code: foundation
+        definition: foundation
+      - code: naturalized
+        definition: naturalized
+      - code: pool
+        definition: pool
+      - code: shade
+        definition: shade
+  - attribute:
+      attributeName: vegetation_shape_code
+      levels:
+      - code: box
+        definition: box
+      - code: columnar
+        definition: columnar
+      - code: elliptic
+        definition: elliptic
+      - code: hedged
+        definition: hedged
+      - code: natural
+        definition: natural
+      - code: pyramidal
+        definition: pyramidal
+      - code: rounded
+        definition: rounded
+      - code: spreading
+        definition: spreading
+      - code: upright
+        definition: upright

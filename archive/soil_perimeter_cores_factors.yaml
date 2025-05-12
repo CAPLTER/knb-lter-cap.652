@@ -6,3 +6,7 @@
         definition: 'bottom-layer of the sample core: 10-30 centimeters'
       - code: top
         definition: 'top-layer of the sample core: 0-10 centimeters'
+      - code: unknownA
+        definition: 'unknown sample designated A'
+      - code: unknownB
+        definition: 'unknown sample designated B'

@@ -1,0 +1,135 @@
+|
+  - attribute:
+      attributeName: appears_maintained
+      levels:
+      - code: do_not_know
+        definition: do_not_know
+      - code: 'no'
+        definition: 'no'
+      - code: 'yes'
+        definition: 'yes'
+  - attribute:
+      attributeName: appears_professional
+      levels:
+      - code: do_not_know
+        definition: do_not_know
+      - code: 'no'
+        definition: 'no'
+      - code: 'yes'
+        definition: 'yes'
+  - attribute:
+      attributeName: appears_healthy
+      levels:
+      - code: do_not_know
+        definition: do_not_know
+      - code: 'no'
+        definition: 'no'
+      - code: 'yes'
+        definition: 'yes'
+  - attribute:
+      attributeName: appears_injured
+      levels:
+      - code: do_not_know
+        definition: do_not_know
+      - code: 'no'
+        definition: 'no'
+      - code: 'yes'
+        definition: 'yes'
+  - attribute:
+      attributeName: presence_of_open_ground
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_trees
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_shrubs
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_cacti_succ
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_lawn
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_herbaceous_ground
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_other
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_hand_water
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_drip_water
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_overhead_water
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_flood_water
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_subterranean_water
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_no_water
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'
+  - attribute:
+      attributeName: presence_of_pervious_irrigation
+      levels:
+      - code: 'FALSE'
+        definition: 'FALSE'
+      - code: 'TRUE'
+        definition: 'TRUE'

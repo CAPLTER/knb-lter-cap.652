@@ -1,0 +1,663 @@
+## setup
+
+```{r}
+#| eval: true
+#| label: capeml
+
+devtools::load_all("~/localRepos/capeml/")
+```
+
+```{r}
+#| eval: true
+#| label: connection
+
+source("~/Documents/localSettings/pg_local.R")
+pg <- pg_local_connect("caplter")
+```
+
+```{r}
+#| eval: true
+#| label: queries
+
+source("esca_sql_queries.R")
+```
+
+
+## human indicators
+
+```{r}
+#| eval: true
+#| label: human_indicators
+
+human_indicators <- get_human_indicators('survey200')
+
+human_indicators <- human_indicators |>
+  dplyr::mutate(
+    human_presence_of_path    = as.factor(human_presence_of_path),
+    human_footprints          = as.factor(human_footprints),
+    human_bike_tracks         = as.factor(human_bike_tracks),
+    human_off_road_vehicle    = as.factor(human_off_road_vehicle),
+    human_small_litter        = as.factor(human_small_litter),
+    human_dumped_trash_bags   = as.factor(human_dumped_trash_bags),
+    human_abandoned_vehicles  = as.factor(human_abandoned_vehicles),
+    human_graffiti            = as.factor(human_graffiti),
+    human_injured_plants      = as.factor(human_injured_plants),
+    human_informal_play       = as.factor(human_informal_play),
+    human_informal_recreation = as.factor(human_informal_recreation),
+    human_informal_living     = as.factor(human_informal_living),
+    human_sports_equipment    = as.factor(human_sports_equipment),
+    human_social_class        = as.factor(human_social_class)
+  )
+
+try({
+  capeml::write_attributes(human_indicators, overwrite = FALSE)
+  capeml::write_factors(human_indicators, overwrite = FALSE)
+})
+```
+
+
+## landscape irrigation
+
+```{r}
+#| eval: true
+#| label: landscape_irrigation
+
+landscape_irrigation <- get_landscape_irrigation("survey200")
+
+landscape_irrigation <- landscape_irrigation |>
+  dplyr::mutate(
+    appears_maintained              = as.factor(appears_maintained),
+    appears_professional            = as.factor(appears_professional),
+    appears_healthy                 = as.factor(appears_healthy),
+    appears_injured                 = as.factor(appears_injured),
+    presence_of_open_ground         = as.factor(presence_of_open_ground),
+    presence_of_trees               = as.factor(presence_of_trees),
+    presence_of_shrubs              = as.factor(presence_of_shrubs),
+    presence_of_cacti_succ          = as.factor(presence_of_cacti_succ),
+    presence_of_lawn                = as.factor(presence_of_lawn),
+    presence_of_herbaceous_ground   = as.factor(presence_of_herbaceous_ground),
+    presence_of_other               = as.factor(presence_of_other),
+    presence_of_hand_water          = as.factor(presence_of_hand_water),
+    presence_of_drip_water          = as.factor(presence_of_drip_water),
+    presence_of_overhead_water      = as.factor(presence_of_overhead_water),
+    presence_of_flood_water         = as.factor(presence_of_flood_water),
+    presence_of_subterranean_water  = as.factor(presence_of_subterranean_water),
+    presence_of_no_water            = as.factor(presence_of_no_water),
+    presence_of_pervious_irrigation = as.factor(presence_of_pervious_irrigation)
+  )
+
+try({
+  capeml::write_attributes(landscape_irrigation, overwrite = FALSE)
+  capeml::write_factors(landscape_irrigation, overwrite = FALSE)
+})
+```
+
+
+## annuals
+
+```{r}
+#| eval: true
+#| label: annuals
+
+annuals <- get_annuals() |>
+  dplyr::mutate(
+    vegetation_rope_length = dplyr::case_when(
+      vegetation_rope_length > 60 ~ 60,
+      TRUE ~ vegetation_rope_length
+    )
+  )
+
+try({
+  capeml::write_attributes(annuals, overwrite = FALSE)
+})
+```
+
+
+## shrub surveys
+
+```{r}
+#| eval: true
+#| label: shrub_surveys
+
+shrubs_surveys <- get_shrub_surveys() |>
+  dplyr::mutate(
+    vegetation_shape_code          = as.factor(vegetation_shape_code),
+    vegetation_classification_code = as.factor(vegetation_classification_code)
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    vegetation_scientific_name,
+    vegetation_classification_code,
+    vegetation_shape_code,
+    height,
+    width_ns,
+    width_ew
+  )
+
+try({
+  capeml::write_attributes(shrubs_surveys, overwrite = FALSE)
+  capeml::write_factors(shrubs_surveys, overwrite = FALSE)
+})
+
+# dplyr::mutate(
+#   calc = dplyr::case_when(
+#     height_degree_down < 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance,
+#     height_degree_down > 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance
+#   )
+
+```
+
+
+## trees
+
+```{r}
+#| eval: true
+#| label: trees
+
+trees <- get_trees("survey200") |>
+  dplyr::mutate(
+    vegetation_shape_code          = as.factor(vegetation_shape_code),
+    vegetation_classification_code = as.factor(vegetation_classification_code),
+    canopy_condition               = as.factor(canopy_condition)
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    vegetation_scientific_name,
+    vegetation_classification_code,
+    vegetation_shape_code,
+    height = height_in_m,
+    crown_width_ns,
+    crown_width_ew,
+    stem_diameter,
+    stem_height = stem_diameter_at,
+    stem_count,
+    missing_branches,
+    canopy_condition
+  )
+
+try({
+  capeml::write_attributes(trees, overwrite = FALSE)
+  capeml::write_factors(trees, overwrite = FALSE)
+})
+
+# investigating height via clinometer
+
+# trees <- get_trees("survey200") |>
+#   dplyr::mutate(
+#     vegetation_shape_code          = as.factor(vegetation_shape_code),
+#     vegetation_classification_code = as.factor(vegetation_classification_code),
+#     canopy_condition               = as.factor(canopy_condition)
+#   ) |>
+# dplyr::mutate(
+#   calc = dplyr::case_when(
+#     !is.na(height_degree_down) & !is.na(height_degree_down) & !is.na(height_degree_down) ~ (tan(height_distance) - tan(height_degree_down)) * height_distance,
+#     height_degree_down < 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance,
+#     height_degree_down > 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance
+#   )
+# )
+```
+
+## perennials
+
+Some 2015 counts appear to be duplicated as evidenced by identical values in
+each quadrant for each taxa. One instance from each of the duplicates,
+documented below, is excluded from the query. Note that this is not a database
+or query issue as the duplication is reflected in the tablet output. Because the
+issue cannot be resolved unequivocally, the records are removed from the query
+rather than removed from the database.
+
+```
+site_code ,samp_date  ,vegetation_scientific_name                             ,vegetation_sample_id
+AB10      ,2015-04-09 ,Acacia constricta                                      ,               28952
+AB10      ,2015-04-09 ,Acacia greggii                                         ,               28951
+AB10      ,2015-04-09 ,Calliandra eriophylla                                  ,               28949
+AB10      ,2015-04-09 ,Celtis pallida                                         ,               28950
+AB10      ,2015-04-09 ,Cylindropuntia acanthocarpa                            ,               28944
+AB10      ,2015-04-09 ,Krameria grayi                                         ,               28946
+AB10      ,2015-04-09 ,Leucophyllum laevigatum                                ,               28943
+AB10      ,2015-04-09 ,Phoradendron californicum                              ,               28953
+AB10      ,2015-04-09 ,Senna covesii                                          ,               28947
+AB10      ,2015-04-09 ,Sphaeralcea ambigua                                    ,               28948
+AB10      ,2015-04-09 ,Viguiera deltoidea var. parishii (Greene) Vasey & Rose ,               28945
+F8        ,2015-04-06 ,Ambrosia deltoidea                                     ,               28587
+F8        ,2015-04-06 ,Larrea tridentata                                      ,               28586
+V7        ,2015-04-08 ,Acacia greggii                                         ,               28028
+V7        ,2015-04-08 ,Ambrosia deltoidea                                     ,               28025
+V7        ,2015-04-08 ,Baccharis                                              ,               28031
+V7        ,2015-04-08 ,Cylindropuntia acanthocarpa                            ,               28027
+V7        ,2015-04-08 ,Ferocactus cylindraceus                                ,               28023
+V7        ,2015-04-08 ,Larrea tridentata                                      ,               28026
+V7        ,2015-04-08 ,Lycium                                                 ,               28024
+V7        ,2015-04-08 ,Lycium                                                 ,               29344
+V7        ,2015-04-08 ,Lycium andersonii                                      ,               28032
+V7        ,2015-04-08 ,Ziziphus obtusifolia                                   ,               28029
+```
+
+```{r}
+#| eval: true
+#| label: perennials
+
+number_perennials <- get_perennials()
+
+try({
+  capeml::write_attributes(number_perennials, overwrite = FALSE)
+})
+```
+
+## hedges
+
+```{r}
+#| eval: true
+#| label: hedges
+
+hedges <- get_hedges() |>
+  dplyr::mutate(
+    vegetation_shape_code = as.factor(vegetation_shape_code),
+    hedge_condition       = tolower(hedge_condition),
+    hedge_condition       = as.factor(hedge_condition)
+  )
+
+try({
+  capeml::write_attributes(hedges, overwrite = FALSE)
+  capeml::write_factors(hedges, overwrite = FALSE)
+})
+```
+
+## landuse
+
+```{r}
+#| eval: true
+#| label: landuse
+
+landuse <- get_landuse("survey200")
+
+try({
+  capeml::write_attributes(landuse, overwrite = FALSE)
+})
+```
+
+## neighborhood_characteristics
+
+```{r}
+#| eval: true
+#| label: neighborhood_characteristics
+
+neighborhood_characteristics <- get_neighborhood_characteristics("survey200") |>
+  dplyr::mutate(
+    neigh_social_class_poor                     = as.factor(neigh_social_class_poor),
+    neigh_social_class_rich                     = as.factor(neigh_social_class_rich),
+    neigh_social_class_upper_middle             = as.factor(neigh_social_class_upper_middle),
+    neigh_social_class_working_lower            = as.factor(neigh_social_class_working_lower),
+    neigh_buildings_residential                 = as.factor(neigh_buildings_residential),
+    neigh_buildings_commercial                  = as.factor(neigh_buildings_commercial),
+    neigh_buildings_institutional               = as.factor(neigh_buildings_institutional),
+    neigh_buildings_industrial                  = as.factor(neigh_buildings_industrial),
+    neigh_residence_apartments                  = as.factor(neigh_residence_apartments),
+    neigh_residence_multi_family                = as.factor(neigh_residence_multi_family),
+    neigh_residence_single_family               = as.factor(neigh_residence_single_family),
+    neigh_irrigation_drip_trickle               = as.factor(neigh_irrigation_drip_trickle),
+    neigh_irrigation_flood_hand                 = as.factor(neigh_irrigation_flood_hand),
+    neigh_irrigation_overhead_spray             = as.factor(neigh_irrigation_overhead_spray),
+    neigh_yard_upkeep_good                      = as.factor(neigh_yard_upkeep_good),
+    neigh_yard_upkeep_poor                      = as.factor(neigh_yard_upkeep_poor),
+    neigh_yard_upkeep_professionally_maintained = as.factor(neigh_yard_upkeep_professionally_maintained),
+    neigh_landscape_mesic                       = as.factor(neigh_landscape_mesic),
+    neigh_landscape_mixed                       = as.factor(neigh_landscape_mixed),
+    neigh_landscape_xeric                       = as.factor(neigh_landscape_xeric),
+    neigh_landscape_turf_present                = as.factor(neigh_landscape_turf_present),
+    neigh_traffic_collector_street              = as.factor(neigh_traffic_collector_street),
+    neigh_traffic_cul_de_sac                    = as.factor(neigh_traffic_cul_de_sac),
+    neigh_traffic_dirt_road                     = as.factor(neigh_traffic_dirt_road),
+    neigh_traffic_freeway_expressway            = as.factor(neigh_traffic_freeway_expressway),
+    neigh_traffic_highway                       = as.factor(neigh_traffic_highway),
+    neigh_traffic_major_city_road               = as.factor(neigh_traffic_major_city_road),
+    neigh_traffic_none                          = as.factor(neigh_traffic_none),
+    neigh_traffic_paved_local_street            = as.factor(neigh_traffic_paved_local_street)
+  )
+
+try({
+  capeml::write_attributes(neighborhood_characteristics, overwrite = FALSE)
+  capeml::write_factors(neighborhood_characteristics, overwrite = FALSE)
+})
+```
+
+## structures
+
+```{r}
+#| eval: true
+#| label: structures
+
+structures <- get_structures("survey200") |>
+  dplyr::mutate(
+    structure_use = dplyr::case_when(
+      grepl(
+        pattern     = "agave",
+        x           = structure_use,
+        ignore.case = TRUE
+      ) ~ "house",
+      TRUE ~ structure_use
+    )
+  )
+
+try({
+  capeml::write_attributes(structures, overwrite = FALSE)
+})
+```
+
+## sampling_events
+
+```{r}
+#| eval: true
+#| label: sampling_events
+
+sampling_events <- get_sampling_events('survey200')
+
+try({
+  capeml::write_attributes(sampling_events, overwrite = FALSE)
+})
+```
+
+## soil_perimeter_core
+
+```{r}
+#| eval: true
+#| label: soil_perimeter_cores
+
+perimeter <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    sampling_events.samp_date AS sample_date,
+    sites.site_code,
+    soil_perimeter_cores.*
+  FROM survey200.soil_perimeter_cores
+  JOIN survey200.soil_samples ON (soil_samples.soil_sample_id = soil_perimeter_cores.soil_sample_id)
+  JOIN survey200.sampling_events ON (sampling_events.survey_id = soil_samples.survey_id)
+  JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+  -- omit conflated 2005 F19 sample data
+  WHERE
+    soil_perimeter_cores.soil_sample_id NOT IN
+    (
+        SELECT
+          soil_sample_id
+        FROM survey200.soil_samples
+        JOIN survey200.sampling_events ON (sampling_events.survey_id = soil_samples.survey_id)
+        JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+        WHERE
+          sites.site_code = 'F19' AND
+          EXTRACT(YEAR FROM sampling_events.samp_date) = 2005
+    )
+  ORDER BY
+    EXTRACT (YEAR FROM sampling_events.samp_date),
+    sites.site_code
+  ;
+  "
+)
+
+soil_perimeter_cores <- perimeter |>
+  dplyr::mutate(
+    dw = dplyr::case_when(
+      is.na(pan_plus_dw60) | is.na(pan) ~ NA_real_,
+      TRUE ~ pan_plus_dw60 - pan
+    ),
+    dw_fw = dplyr::case_when(
+      is.na(dw) | is.na(pan_plus_fw) | is.na(pan) ~ NA_real_,
+      TRUE ~ dw / (pan_plus_fw - pan)
+    ),
+    # mg NH4 / kg dry soil
+    mass_ratio_nh4 = dplyr::case_when(
+      is.na(nh4_n) | is.na(n_extract_volume) | is.na(soil_n_fw) | is.na(dw_fw) ~ NA_real_,
+      TRUE ~ (nh4_n * n_extract_volume) / (soil_n_fw * dw_fw)
+    ),
+    # mg NO3 / kg dry soil
+    mass_ratio_n03 = dplyr::case_when(
+      is.na(no3_n) | is.na(n_extract_volume) | is.na(soil_n_fw) | is.na(dw_fw) ~ NA_real_,
+      TRUE ~ (no3_n * n_extract_volume) / (soil_n_fw * dw_fw)
+    ),
+    # mg PO4 / kg dry soil
+    mass_ratio_p04 = dplyr::case_when(
+      is.na(po4_p) | is.na(p_extract_volume) | is.na(soil_p_fw) | is.na(dw_fw) ~ NA_real_,
+      TRUE ~ (po4_p * p_extract_volume) / (soil_p_fw * dw_fw)
+    ),
+    # soil moisture percentage
+    soil_moisture = dplyr::case_when(
+      is.na(pan_plus_fw) | is.na(pan_plus_dw60) | is.na(dw) ~ NA_real_,
+      TRUE ~ ((pan_plus_fw - pan_plus_dw60) / dw) * 100
+    ),
+    # organic matter percentage
+    soil_organic_matter = dplyr::case_when(
+      is.na(pan_plus_dw60) | is.na(pan_plus_aw) | is.na(dw) ~ NA_real_,
+      TRUE ~ ((pan_plus_dw60 - pan_plus_aw) / dw) * 100
+    ),
+    deep_core_type = as.factor(deep_core_type)
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    deep_core_type,
+    mass_ratio_nh4,
+    mass_ratio_n03,
+    mass_ratio_p04,
+    soil_moisture,
+    soil_organic_matter,
+    tidyselect::contains("percent")
+  )
+
+
+try({
+  capeml::write_attributes(soil_perimeter_cores, overwrite = FALSE)
+  capeml::write_factors(soil_perimeter_cores, overwrite = FALSE)
+})
+```
+
+## soil_center_cores
+
+be sure to add the notes about duplicates and misidentifications that are in the
+note field to the metadata for sure and maybe in the database as well
+
+```{r}
+#| eval: true
+#| label: soil_center_cores
+
+center <- DBI::dbGetQuery(
+  conn      = pg,
+  statement = "
+  SELECT
+    sampling_events.samp_date AS sample_date,
+    sites.site_code,
+    soil_center_cores.*
+  FROM survey200.soil_center_cores
+  JOIN survey200.soil_samples ON (soil_samples.soil_sample_id = soil_center_cores.soil_sample_id)
+  JOIN survey200.sampling_events ON (sampling_events.survey_id = soil_samples.survey_id)
+  JOIN survey200.sites ON (sites.site_id = sampling_events.site_id)
+  ORDER BY
+    EXTRACT (YEAR FROM sampling_events.samp_date),
+    sites.site_code
+  ;
+  "
+)
+
+soil_center_cores <- center |>
+  dplyr::mutate(
+    # g/cm^3
+    bulk_density = dplyr::case_when(
+      is.na(dw_more_2_mm) | is.na(dw_less_2_mm) | is.na(core_height_cm) ~ NA_real_,
+      TRUE ~ (dw_more_2_mm + dw_less_2_mm) / (3.14 * (2.4^2) * core_height_cm)
+    ),
+    notes = dplyr::case_when(
+      notes == "" ~ NA_character_,
+      TRUE ~ notes
+    )
+  ) |>
+  dplyr::filter(
+    !(is.na(conductivity) & is.na(ph_value) & is.na(bulk_density))
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    notes,
+    conductivity,
+    ph_value,
+    bulk_density
+  )
+
+texture <- readxl::read_excel(
+  path  = "~/Dropbox/development/esca_working/soils/ESCA soil texture_BAB_Feb2025.xlsx",
+  sheet = "Texture Calcs",
+  na    = c("NA", "N/A", "n/a", "n.a.", "n.a", "")
+) |>
+  janitor::clean_names() |>
+  dplyr::mutate(
+    sample_date = as.Date(sample_date),
+    analysis_date = as.Date(analysis_date),
+    p2_clay = dplyr::case_when(
+      grepl("increases", becky_notes, ignore.case = TRUE) &
+        !grepl("slightly", becky_notes, ignore.case = TRUE) ~ NA,
+      TRUE ~ p2_clay
+    ),
+    sand = dplyr::case_when(
+      grepl("increases", becky_notes, ignore.case = TRUE) &
+        !grepl("slightly", becky_notes, ignore.case = TRUE) ~ NA,
+      TRUE ~ sand
+    ),
+    silt = dplyr::case_when(
+      grepl("increases", becky_notes, ignore.case = TRUE) &
+        !grepl("slightly", becky_notes, ignore.case = TRUE) ~ NA,
+      TRUE ~ silt
+    ),
+    site_code = stringr::str_remove(site_code, "1$")
+  ) |>
+  dplyr::filter(
+    lubridate::year(sample_date) != 2000,
+    # using c05 as a proxy for valid sample
+    # may need to revisit when 2023 data are available
+    !is.na(c05)
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    p2_clay = p2_clay,
+    sand,
+    silt,
+    texture_notes = notes,
+    becky_notes
+  ) |>
+  dplyr::arrange(
+    sample_date,
+    site_code
+  )
+
+soil_center_cores <- soil_center_cores |>
+  dplyr::full_join(
+    y = texture,
+    by = c(
+      "sample_date",
+      "site_code"
+    )
+  ) |>
+  dplyr::mutate(
+    notes = dplyr::case_when(
+      is.na(notes) ~ texture_notes, # If `notes.x` is NA, use `notes.y`
+      is.na(texture_notes) ~ notes, # If `notes.y` is NA, use `notes.x`
+      notes == texture_notes ~ notes, # If both are the same, keep one
+      TRUE ~ paste(notes, texture_notes, sep = ". ") # If different, concatenate with a semicolon
+    ),
+    notes = dplyr::case_when(
+      is.na(notes) ~ becky_notes,
+      is.na(becky_notes) ~ notes,
+      TRUE ~ paste(notes, becky_notes, sep = ". ")
+    )
+  ) |>
+  dplyr::arrange(
+    sample_date,
+    site_code
+  ) |>
+  dplyr::select(
+    sample_date,
+    site_code,
+    conductivity,
+    pH = ph_value,
+    bulk_density,
+    p2_clay,
+    sand,
+    silt,
+    notes
+  )
+
+try({
+  capeml::write_attributes(soil_center_cores, overwrite = FALSE)
+})
+
+```
+
+
+## arthropods
+
+```{r}
+#| eval: true
+#| label: arthropods
+
+arthropods <- get_arthropods() |>
+  dplyr::mutate(sweepnet_sample_type = as.factor(sweepnet_sample_type))
+
+try({
+  capeml::write_attributes(arthropods, overwrite = FALSE)
+  capeml::write_factors(arthropods, overwrite = FALSE)
+})
+```
+
+```{r}
+#| eval: TRUE
+#| label: coverages
+
+coverage <- EML::set_coverage(
+  begin                 = as.character(as.Date(min(sampling_events$sample_date))),
+  end                   = as.character(as.Date(max(sampling_events$sample_date))),
+  geographicDescription = capeml::read_package_configuration()[["geographic_description"]],
+  west                  = -112.783,
+  east                  = -111.579,
+  north                 = 33.8267,
+  south                 = 33.2186
+)
+```
+
+```{r}
+#| eval: TRUE
+#| label: build
+
+# devtools::load_all("~/localRepos/capeml")
+
+dataset <- capeml::create_dataset()
+eml     <- capeml::create_eml()
+
+EML::eml_validate(eml)
+capeml::write_cap_eml()
+
+source("~/Documents/localSettings/aws.s3")
+
+lapply(
+  X   = list.files(pattern = "652_"),
+  FUN = capeml::data_to_amz
+)
+
+source("~/Documents/localSettings/edi.R")
+capeml::get_package_evaluation(full_report = FALSE)
+
+report <- capeml::get_package_evaluation(full_report = TRUE)
+xml2::write_xml(report, "/tmp/report.xml")
+
+capeml::create_package(environment = "production")
+
+EDIutils::logout()
+```
+
+```{r}
+#| eval: TRUE
+#| label: clean
+
+file.remove(c(list.files(pattern = "^652.+csv$")))
+capeml::eml_to_amz(list.files(pattern = "knb.+xml"))
+file.copy(list.files(pattern = "knb.+xml"), "/home/srearl/localRepos/cap-metadata/cap-data-eml/")
+```

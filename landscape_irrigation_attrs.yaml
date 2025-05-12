@@ -1,0 +1,163 @@
+|
+  sample_date:
+    attributeName: sample_date
+    attributeDefinition: 'survey datesurvey datesurvey date'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: Date
+    formatString: YYYY-MM-DD
+  site_code:
+    attributeName: site_code
+    attributeDefinition: 'location codelocation codelocation code'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: character
+    definition: ''
+  appears_maintained:
+    attributeName: appears_maintained
+    attributeDefinition: 'landscape maintenance qualitylandscape maintenance qualitylandscape maintenance quality'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  appears_professional:
+    attributeName: appears_professional
+    attributeDefinition: 'indication of professional landscapingindication of professional landscapingindication of professional landscaping'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  appears_healthy:
+    attributeName: appears_healthy
+    attributeDefinition: 'were the plants healthywere the plants healthywere the plants healthy'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  appears_injured:
+    attributeName: appears_injured
+    attributeDefinition: 'presence of injury to plantspresence of injury to plantspresence of injury to plants'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_open_ground:
+    attributeName: presence_of_open_ground
+    attributeDefinition: 'presence of bare soil in the plotpresence of bare soil in the plotpresence of bare soil in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_trees:
+    attributeName: presence_of_trees
+    attributeDefinition: 'presence of trees in the plotpresence of trees in the plotpresence of trees in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_shrubs:
+    attributeName: presence_of_shrubs
+    attributeDefinition: 'presence of shrubs in the plotpresence of shrubs in the plotpresence of shrubs in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_cacti_succ:
+    attributeName: presence_of_cacti_succ
+    attributeDefinition: 'presence of cacti or succulents in the plotpresence of cacti or succulents in the plotpresence of cacti or succulents in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_lawn:
+    attributeName: presence_of_lawn
+    attributeDefinition: 'presence of turf in the plotpresence of turf in the plotpresence of turf in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_herbaceous_ground:
+    attributeName: presence_of_herbaceous_ground
+    attributeDefinition: 'presence of herbaceous ground cover in the plotpresence of herbaceous ground cover in the plotpresence of herbaceous ground cover in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_other:
+    attributeName: presence_of_other
+    attributeDefinition: 'presence of other types of ground cover in the plotpresence of other types of ground cover in the plotpresence of other types of ground cover in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_hand_water:
+    attributeName: presence_of_hand_water
+    attributeDefinition: 'indication of hand watering in the plotindication of hand watering in the plotindication of hand watering in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_drip_water:
+    attributeName: presence_of_drip_water
+    attributeDefinition: 'indication of drip irrigation in the plotindication of drip irrigation in the plotindication of drip irrigation in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_overhead_water:
+    attributeName: presence_of_overhead_water
+    attributeDefinition: 'indication of overhead watering in the plotindication of overhead watering in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_flood_water:
+    attributeName: presence_of_flood_water
+    attributeDefinition: 'indication of flood irrigation in the plotindication of flood irrigation in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_subterranean_water:
+    attributeName: presence_of_subterranean_water
+    attributeDefinition: 'indication of subterranean irrigation in the plotindication of subterranean irrigation in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_no_water:
+    attributeName: presence_of_no_water
+    attributeDefinition: 'indication of no irrigation at the plotindication of no irrigation at the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor
+  presence_of_pervious_irrigation:
+    attributeName: presence_of_pervious_irrigation
+    attributeDefinition: 'indication of pervious irrigation in the plotindication of pervious irrigation in the plot'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    columnClasses: factor

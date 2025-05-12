@@ -1,0 +1,48 @@
+|
+  - attribute:
+      attributeName: vegetation_classification_code
+      levels:
+      - code: accent
+        definition: accent
+      - code: foundation
+        definition: foundation
+      - code: naturalized
+        definition: naturalized
+      - code: pool
+        definition: pool
+      - code: shade
+        definition: shade
+      - code: street
+        definition: street
+  - attribute:
+      attributeName: vegetation_shape_code
+      levels:
+      - code: columnar
+        definition: columnar
+      - code: natural
+        definition: natural
+      - code: pyramidal
+        definition: pyramidal
+      - code: rounded
+        definition: rounded
+      - code: spreading
+        definition: spreading
+      - code: upright
+        definition: upright
+  - attribute:
+      attributeName: canopy_condition
+      levels:
+      - code: critical
+        definition: critical
+      - code: dead
+        definition: dead
+      - code: dying
+        definition: dying
+      - code: excellent
+        definition: excellent
+      - code: fair
+        definition: fair
+      - code: good
+        definition: good
+      - code: poor
+        definition: poor
