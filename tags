@@ -10,6 +10,7 @@
 !_TAG_FIELD_DESCRIPTION	typeref	/Type and name of a variable or typedef/
 !_TAG_FIELD_DESCRIPTION!Python	nameref	/the original name for the tag/
 !_TAG_FIELD_DESCRIPTION!R	constructor	/function used for making value assigned to the nameattr tag/
+!_TAG_FIELD_DESCRIPTION!XML	uri	/uri associated with name prefix/
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
 !_TAG_KIND_DESCRIPTION!Markdown	S,subsection	/level 2 sections/
@@ -37,6 +38,36 @@
 !_TAG_KIND_DESCRIPTION!R	n,nameattr	/names attribtes in vectors, lists, or dataframes/
 !_TAG_KIND_DESCRIPTION!R	s,source	/sources/
 !_TAG_KIND_DESCRIPTION!R	v,functionVar	/function variables having values other than function()/
+!_TAG_KIND_DESCRIPTION!SQL	C,ccflag	/PLSQL_CCFLAGS/
+!_TAG_KIND_DESCRIPTION!SQL	D,domain	/domains/
+!_TAG_KIND_DESCRIPTION!SQL	E,field	/record fields/
+!_TAG_KIND_DESCRIPTION!SQL	L,label	/block label/
+!_TAG_KIND_DESCRIPTION!SQL	P,package	/packages/
+!_TAG_KIND_DESCRIPTION!SQL	R,service	/services/
+!_TAG_KIND_DESCRIPTION!SQL	S,schema	/schemas/
+!_TAG_KIND_DESCRIPTION!SQL	T,trigger	/triggers/
+!_TAG_KIND_DESCRIPTION!SQL	U,publication	/publications/
+!_TAG_KIND_DESCRIPTION!SQL	V,view	/views/
+!_TAG_KIND_DESCRIPTION!SQL	b,database	/database/
+!_TAG_KIND_DESCRIPTION!SQL	c,cursor	/cursors/
+!_TAG_KIND_DESCRIPTION!SQL	e,event	/events/
+!_TAG_KIND_DESCRIPTION!SQL	f,function	/functions/
+!_TAG_KIND_DESCRIPTION!SQL	i,index	/indexes/
+!_TAG_KIND_DESCRIPTION!SQL	n,synonym	/synonyms/
+!_TAG_KIND_DESCRIPTION!SQL	p,procedure	/procedures/
+!_TAG_KIND_DESCRIPTION!SQL	s,subtype	/subtypes/
+!_TAG_KIND_DESCRIPTION!SQL	t,table	/tables/
+!_TAG_KIND_DESCRIPTION!SQL	v,variable	/variables/
+!_TAG_KIND_DESCRIPTION!SQL	x,mltable	/MobiLink Table Scripts/
+!_TAG_KIND_DESCRIPTION!SQL	y,mlconn	/MobiLink Conn Scripts/
+!_TAG_KIND_DESCRIPTION!SQL	z,mlprop	/MobiLink Properties/
+!_TAG_KIND_DESCRIPTION!Sh	a,alias	/aliases/
+!_TAG_KIND_DESCRIPTION!Sh	f,function	/functions/
+!_TAG_KIND_DESCRIPTION!Sh	h,heredoc	/label for here document/
+!_TAG_KIND_DESCRIPTION!Sh	s,script	/script files/
+!_TAG_KIND_DESCRIPTION!XML	i,id	/id attributes/
+!_TAG_KIND_DESCRIPTION!XML	n,nsprefix	/namespace prefixes/
+!_TAG_KIND_DESCRIPTION!XML	r,root	/root elements/
 !_TAG_KIND_DESCRIPTION!Yaml	a,anchor	/anchors/
 !_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
@@ -46,6 +77,9 @@
 !_TAG_PARSER_VERSION!Python	0.0	/current.age/
 !_TAG_PARSER_VERSION!Quarto	0.0	/current.age/
 !_TAG_PARSER_VERSION!R	0.0	/current.age/
+!_TAG_PARSER_VERSION!SQL	0.0	/current.age/
+!_TAG_PARSER_VERSION!Sh	0.0	/current.age/
+!_TAG_PARSER_VERSION!XML	0.0	/current.age/
 !_TAG_PARSER_VERSION!Yaml	0.0	/current.age/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
 !_TAG_PROC_CWD	/home/srearl/localRepos/knb-lter-cap.652/	//
@@ -61,39 +95,293 @@
 !_TAG_ROLE_DESCRIPTION!R!library	library	/library attached by library function/
 !_TAG_ROLE_DESCRIPTION!R!library	require	/library attached by require function/
 !_TAG_ROLE_DESCRIPTION!R!source	source	/source loaded by source fucntion/
+!_TAG_ROLE_DESCRIPTION!Sh!heredoc	endmarker	/end marker/
+!_TAG_ROLE_DESCRIPTION!Sh!script	loaded	/loaded/
 !_TAG_ROLE_DESCRIPTION!Yaml!anchor	alias	/alias/
+"kobo_uuid"	kobo_data_processing/archive/esca_working.R	/^  by = c("kobo_uuid" = "uuid")$/;"	n	vector:by
+"land_use_class"	kobo_data_processing/archive/esca_working.R	/^    by = c("land_use_class" = "landuse_label")$/;"	g
+"name_immature"	kobo_data_processing/archive/esca_working.R	/^    by = c("name_immature" = "insect_scientific_name")$/;"	n	vector:by
+"plant_taxon_from_which_arthropods_were_collected"	kobo_data_processing/archive/esca_working.R	/^    by = c("plant_taxon_from_which_arthropods_were_collected" = "vegetation_scientific_name")$/;"	n	vector:by
+"site"	kobo_data_processing/archive/esca_working.R	/^    by = c("site" = "site_code")$/;"	n	vector:by
+"site"	kobo_data_processing/archive/thursday.R	/^            "site" = "site_code",$/;"	n	vector:by
+"site"	kobo_data_processing/archive/thursday.R	/^        "site" = "site_code",$/;"	n	vector:by
 "site_code"	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(coreMoistureContent[,c(1:6)], by = c("site_code" = "site")) %>%  $/;"	n	vector:anonVec93c98be80706
 "site_code"	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(phCond[,c(1,3:4)], by = c("site_code" = "Site")) %>% $/;"	n	vector:anonVec93c98be80506
 "site_code"	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(soilSamples[,c("soil_sample_id", "site_code")], bulkDensity[,c(1,3:7)], by = c("sit/;"	n	vector:anonVec93c98be80306
 "site_code"	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(texture[,c(1,3:24)], by = c("site_code" = "Sample#"))$/;"	n	vector:anonVec93c98be80906
+"site_code"	kobo_data_processing/archive/thursday.R	/^        by = c("site_code" = "site")$/;"	n	vector:by
 "species"	archive/esca_taxonomic_coverage.R	/^        x <- list(list("species" = as.character(sci_name)))$/;"	n	list:anonListe9373b0e0207
+"submission_uuid"	kobo_data_processing/archive/esca_working.R	/^    by = c("submission_uuid" = "kobo_uuid")$/;"	g
+"submission_uuid"	kobo_data_processing/archive/esca_working.R	/^    by = c("submission_uuid" = "kobo_uuid")$/;"	n	vector:by
+"survey_type"	kobo_data_processing/archive/thursday.R	/^            "survey_type" = "research_focus"$/;"	n	vector:by
+"survey_type"	kobo_data_processing/archive/thursday.R	/^        "survey_type" = "research_focus"$/;"	n	vector:by
+"uuid"	kobo_data_processing/archive/esca_working.R	/^    by = c("uuid" = "kobo_uuid")$/;"	n	vector:by
+"uuid"	kobo_data_processing/archive/esca_working.R	/^  by = c("uuid" = "submission_uuid")$/;"	g
+"vegetation_scientific_name"	kobo_data_processing/vtl_taxa_match.R	/^    by = c("vegetation_scientific_name" = "vegetation_scientific_name")$/;"	n	vector:by
 .con	esca_sql_queries.R	/^    .con = DBI::ANSI()$/;"	v	function:get_annuals
 .con	esca_sql_queries.R	/^    .con = DBI::ANSI()$/;"	v	function:get_shrub_surveys
 .con	esca_sql_queries.R	/^    .con = DBI::ANSI()$/;"	v	function:get_trees
+.con	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^        .con = DBI::ANSI()$/;"	g
+.con	kobo_data_processing/archive/esca_working.R	/^    .con = DBI::ANSI()$/;"	g
+.con	kobo_data_processing/archive/esca_working.R	/^    .con = DBI::ANSI()$/;"	v	function:kobo_fetch
+.con	kobo_data_processing/archive/esca_working.R	/^    .con = DBI::ANSI()$/;"	v	function:kobo_fetch.query_sampling_events
+.con	kobo_data_processing/archive/thursday.R	/^    .con = DBI::ANSI()$/;"	g
+.con	kobo_data_processing/vtl_taxa_match.R	/^    .con = DBI::ANSI()$/;"	g
+.con	kobo_data_processing/vtl_taxa_match.R	/^    .con = DBI::ANSI()$/;"	v	function:recode_iterative_taxons
+.con	kobo_data_processing/vtl_taxa_match.R	/^    .con = DBI::ANSI()$/;"	v	function:recode_taxon
+.f	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^            .f = ~ DBI::dbExecute($/;"	g
+.f	kobo_data_processing/archive/esca_working.R	/^      .f = ~ DBI::dbExecute($/;"	g
+.f	kobo_data_processing/archive/esca_working.R	/^      .f = ~ DBI::dbExecute($/;"	v	function:kobo_fetch
+.f	kobo_data_processing/archive/esca_working.R	/^      .f = ~ DBI::dbExecute(statement = .x, conn = pg)$/;"	g
+.f	kobo_data_processing/vtl_taxa_match.R	/^        .f = ~ DBI::dbExecute($/;"	v	function:recode_iterative_taxons
+.f	kobo_data_processing/vtl_taxa_match.R	/^        .f = ~ DBI::dbExecute($/;"	v	function:recode_taxon
+.f	kobo_data_processing/vtl_taxa_match.R	/^      .f = ~ DBI::dbExecute($/;"	g
+.f	kobo_data_processing/vtl_taxa_match.R	/^      .f = ~ safe_filter_name($/;"	g
+.f	kobo_data_processing/vtl_taxa_match.R	/^  .f        = taxadb::filter_name,$/;"	g
+.f	kobo_data_processing/vtl_taxa_match.R	/^  .f        = taxadb::get_ids,$/;"	g
+.x	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^            .x = array_insert,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_hin_data,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_parcel_surveys,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_plot_hs,$/;"	v	function:kobo_fetch
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_plot_surveys,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_plots_data,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_rm_plot_center,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_rm_synoptic,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_rmse_plot_center,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_rmse_synoptic,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = add_ss_data,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = nas_to_null,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = new_taxa_query,$/;"	g
+.x	kobo_data_processing/archive/esca_working.R	/^      .x = sweepnet_samples_query,$/;"	g
+.x	kobo_data_processing/vtl_taxa_match.R	/^        .x = updates,$/;"	v	function:recode_iterative_taxons
+.x	kobo_data_processing/vtl_taxa_match.R	/^        .x = updates,$/;"	v	function:recode_taxon
+.x	kobo_data_processing/vtl_taxa_match.R	/^      .x = add_authority,$/;"	g
+.x	kobo_data_processing/vtl_taxa_match.R	/^      .x = df,$/;"	g
+16a9adc93ba647d448bcfb9b02e751cb_1	knb-lter-cap.652.5.xml	/^        <attribute id="16a9adc93ba647d448bcfb9b02e751cb_1">$/;"	i
+16a9adc93ba647d448bcfb9b02e751cb_2	knb-lter-cap.652.5.xml	/^        <attribute id="16a9adc93ba647d448bcfb9b02e751cb_2">$/;"	i
+16a9adc93ba647d448bcfb9b02e751cb_3	knb-lter-cap.652.5.xml	/^        <attribute id="16a9adc93ba647d448bcfb9b02e751cb_3">$/;"	i
+16a9adc93ba647d448bcfb9b02e751cb_4	knb-lter-cap.652.5.xml	/^        <attribute id="16a9adc93ba647d448bcfb9b02e751cb_4">$/;"	i
+16c0047fb7ef332861f7bdf46b0679fc_1	knb-lter-cap.652.5.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_1">$/;"	i
+16c0047fb7ef332861f7bdf46b0679fc_2	knb-lter-cap.652.5.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_2">$/;"	i
+16c0047fb7ef332861f7bdf46b0679fc_3	knb-lter-cap.652.5.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_3">$/;"	i
+16c0047fb7ef332861f7bdf46b0679fc_4	knb-lter-cap.652.5.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_4">$/;"	i
+48c16971808bd14e483a4e4feb474b2e_1	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_1">$/;"	i
+48c16971808bd14e483a4e4feb474b2e_2	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_2">$/;"	i
+48c16971808bd14e483a4e4feb474b2e_3	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_3">$/;"	i
+48c16971808bd14e483a4e4feb474b2e_4	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_4">$/;"	i
+48c16971808bd14e483a4e4feb474b2e_5	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_5">$/;"	i
+48c16971808bd14e483a4e4feb474b2e_6	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_6">$/;"	i
+48c16971808bd14e483a4e4feb474b2e_7	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_7">$/;"	i
+48c16971808bd14e483a4e4feb474b2e_8	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_8">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_1	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_1">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_2	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_2">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_3	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_3">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_4	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_4">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_5	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_5">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_6	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_6">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_7	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_7">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_1	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_1">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_10	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_10">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_11	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_11">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_12	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_12">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_13	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_13">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_14	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_14">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_15	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_15">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_16	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_16">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_17	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_17">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_18	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_18">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_19	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_19">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_2	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_2">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_20	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_20">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_21	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_21">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_3	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_3">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_4	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_4">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_5	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_5">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_6	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_6">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_7	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_7">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_8	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_8">$/;"	i
+5b2c73166c59de3bfe1b965fb20a53a3_9	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_9">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_1	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_1">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_10	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_10">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_11	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_11">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_12	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_12">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_13	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_13">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_14	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_14">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_15	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_15">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_16	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_16">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_17	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_17">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_18	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_18">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_19	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_19">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_2	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_2">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_20	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_20">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_21	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_21">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_22	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_22">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_23	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_23">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_24	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_24">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_25	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_25">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_26	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_26">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_27	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_27">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_28	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_28">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_29	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_29">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_3	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_3">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_30	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_30">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_31	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_31">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_32	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_32">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_4	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_4">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_5	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_5">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_6	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_6">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_7	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_7">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_8	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_8">$/;"	i
+5d9a679554809fb94b5cbdd0cf12dfe4_9	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_9">$/;"	i
+5da1f27e7a475813a6c4caa2583bd6d5_1	knb-lter-cap.652.5.xml	/^        <attribute id="5da1f27e7a475813a6c4caa2583bd6d5_1">$/;"	i
+5da1f27e7a475813a6c4caa2583bd6d5_2	knb-lter-cap.652.5.xml	/^        <attribute id="5da1f27e7a475813a6c4caa2583bd6d5_2">$/;"	i
+5da1f27e7a475813a6c4caa2583bd6d5_3	knb-lter-cap.652.5.xml	/^        <attribute id="5da1f27e7a475813a6c4caa2583bd6d5_3">$/;"	i
+652_annuals.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_annuals.csv">$/;"	i
+652_arthropods.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_arthropods.csv">$/;"	i
+652_hedges.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_hedges.csv">$/;"	i
+652_human_indicators.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_human_indicators.csv">$/;"	i
+652_landscape_irrigation.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_landscape_irrigation.csv">$/;"	i
+652_landuse.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_landuse.csv">$/;"	i
+652_neighborhood_characteristics.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_neighborhood_characteristics.csv">$/;"	i
+652_number_perennials.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_number_perennials.csv">$/;"	i
+652_sampling_events.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_sampling_events.csv">$/;"	i
+652_shrubs_surveys.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_shrubs_surveys.csv">$/;"	i
+652_soil_center_cores.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_soil_center_cores.csv">$/;"	i
+652_soil_perimeter_cores.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_soil_perimeter_cores.csv">$/;"	i
+652_structures.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_structures.csv">$/;"	i
+652_trees.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_trees.csv">$/;"	i
+86385dd3a15c0bbe6d920a1815b2d284_1	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_1">$/;"	i
+86385dd3a15c0bbe6d920a1815b2d284_2	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_2">$/;"	i
+86385dd3a15c0bbe6d920a1815b2d284_3	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_3">$/;"	i
+86385dd3a15c0bbe6d920a1815b2d284_4	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_4">$/;"	i
+86385dd3a15c0bbe6d920a1815b2d284_5	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_5">$/;"	i
+86385dd3a15c0bbe6d920a1815b2d284_6	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_6">$/;"	i
+86385dd3a15c0bbe6d920a1815b2d284_7	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_7">$/;"	i
+86385dd3a15c0bbe6d920a1815b2d284_8	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_8">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_1	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_1">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_10	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_10">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_11	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_11">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_2	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_2">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_3	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_3">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_4	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_4">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_5	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_5">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_6	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_6">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_7	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_7">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_8	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_8">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_9	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_9">$/;"	i
 CAP LTER Ecological Survey of Central Arizona (ESCA)	README.md	/^## CAP LTER Ecological Survey of Central Arizona (ESCA)$/;"	s
 CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)	methods.md	/^## CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protoco/;"	s
 CAP LTER particle size analysis	methods.md	/^### CAP LTER particle size analysis$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 CentiM	annotations.yaml	/^- name: CentiM$/;"	p
 CentiM	custom_units.yaml	/^- name: CentiM$/;"	p
+CentiM	knb-lter-cap.652.5.xml	/^        <unit id="CentiM">$/;"	i
 DEG	annotations.yaml	/^- name: DEG$/;"	p
 DEG	custom_units.yaml	/^- name: DEG$/;"	p
+DEG	knb-lter-cap.652.5.xml	/^        <unit id="DEG">$/;"	i
+David edits	kobo_data_processing/esca.qmd	/^## David edits$/;"	s	chapter:arthropod taxa
 ESCA soil prep step-by-step instructions	methods.md	/^### ESCA soil prep step-by-step instructions$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 ESCA-related dataset inventory:	README.md	/^### ESCA-related dataset inventory:$/;"	S	section:CAP LTER Ecological Survey of Central Arizona (ESCA)
 GM-PER-CentiM3	annotations.yaml	/^- name: GM-PER-CentiM3$/;"	p
 GM-PER-CentiM3	custom_units.yaml	/^- name: GM-PER-CentiM3$/;"	p
+GM-PER-CentiM3	knb-lter-cap.652.5.xml	/^        <unit id="GM-PER-CentiM3">$/;"	i
+HI parcels	kobo_data_processing/esca.qmd	/^## HI parcels$/;"	s	chapter:human indicators
+HI plots	kobo_data_processing/esca.qmd	/^## HI plots$/;"	s	chapter:human indicators
+HI unique constraint: survey_id	kobo_data_processing/esca.qmd	/^## HI unique constraint: survey_id$/;"	s	chapter:human indicators
+HIN	kobo_data_processing/archive/esca_working.R	/^HIN <- DBI::dbGetQuery($/;"	g
+HIN unique constraint: survey_id	kobo_data_processing/esca.qmd	/^## HIN unique constraint: survey_id$/;"	s	chapter:human indicators neighborhoods
 M	annotations.yaml	/^- name: M$/;"	p
 M	custom_units.yaml	/^- name: M$/;"	p
+M	knb-lter-cap.652.5.xml	/^        <unit id="M">$/;"	i
 MicroS-PER-CentiM	annotations.yaml	/^- name: MicroS-PER-CentiM$/;"	p
 MicroS-PER-CentiM	custom_units.yaml	/^- name: MicroS-PER-CentiM$/;"	p
+MicroS-PER-CentiM	knb-lter-cap.652.5.xml	/^        <unit id="MicroS-PER-CentiM">$/;"	i
 MilliGM-PER-KiloGM	annotations.yaml	/^- name: MilliGM-PER-KiloGM$/;"	p
 MilliGM-PER-KiloGM	custom_units.yaml	/^- name: MilliGM-PER-KiloGM$/;"	p
+MilliGM-PER-KiloGM	knb-lter-cap.652.5.xml	/^        <unit id="MilliGM-PER-KiloGM">$/;"	i
 NUM	annotations.yaml	/^- name: NUM$/;"	p
 NUM	custom_units.yaml	/^- name: NUM$/;"	p
+NUM	knb-lter-cap.652.5.xml	/^        <unit id="NUM">$/;"	i
 PERCENT	annotations.yaml	/^- name: PERCENT$/;"	p
 PERCENT	custom_units.yaml	/^- name: PERCENT$/;"	p
+PERCENT	knb-lter-cap.652.5.xml	/^        <unit id="PERCENT">$/;"	i
 PH	annotations.yaml	/^- name: PH$/;"	p
 PH	custom_units.yaml	/^- name: PH$/;"	p
+PH	knb-lter-cap.652.5.xml	/^        <unit id="PH">$/;"	i
+RMSE check constraint	kobo_data_processing/esca.qmd	/^## RMSE check constraint$/;"	s	chapter:photos: center, synoptic
+SEVS_unique_constraint	kobo_data_processing/esca.qmd	/^#| label: SEVS_unique_constraint$/;"	l
 SIMPLIFY	archive/esca_taxonomic_coverage.R	/^    }, classifications, names(classifications), SIMPLIFY = FALSE)$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0100
+Standardize existing HIP data.	kobo_data_processing/esca.qmd	/^## Standardize existing HIP data.$/;"	s	chapter:human indicators parcels
+TRANSITION I	kobo_data_processing/esca.qmd	/^# TRANSITION I$/;"	c
+TRANSITION II	kobo_data_processing/esca.qmd	/^# TRANSITION II$/;"	c
+TRANSITION III	kobo_data_processing/esca.qmd	/^# TRANSITION III$/;"	c
+TRANSITION IV	kobo_data_processing/esca.qmd	/^# TRANSITION IV$/;"	c
+TRANSITION V	kobo_data_processing/esca.qmd	/^# TRANSITION V$/;"	c
+VS_fk_not_null	kobo_data_processing/esca.qmd	/^#| label: VS_fk_not_null$/;"	l
+VTL	kobo_data_processing/vtl_taxa_match.R	/^VTL <- DBI::dbGetQuery($/;"	g
+VTL: vegetation taxon list	kobo_data_processing/esca.qmd	/^# VTL: vegetation taxon list$/;"	c
+VTL_again	kobo_data_processing/esca.qmd	/^#| label: VTL_again$/;"	l
+VTL_for_annuals	kobo_data_processing/esca.qmd	/^#| label: VTL_for_annuals$/;"	l
+VTL_for_annuals_again	kobo_data_processing/esca.qmd	/^#| label: VTL_for_annuals_again$/;"	l
+VTL_for_shrubs	kobo_data_processing/esca.qmd	/^#| label: VTL_for_shrubs$/;"	l
+VTL_for_trees	kobo_data_processing/esca.qmd	/^#| label: VTL_for_trees$/;"	l
+VTL_for_trees_again	kobo_data_processing/esca.qmd	/^#| label: VTL_for_trees_again$/;"	l
+VTL_gbif	kobo_data_processing/vtl_taxa_match.R	/^VTL_gbif <- VTL |>$/;"	g
+VTL_setup_tax_cleanr	kobo_data_processing/esca.qmd	/^#| label: VTL_setup_tax_cleanr$/;"	l
+VTL_unique_constraint	kobo_data_processing/esca.qmd	/^#| label: VTL_unique_constraint$/;"	l
+__anon2b79dbe00400	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe00800	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe00900	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe00b00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe00c00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe00d00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe00e00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01000	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01100	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01200	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01300	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01400	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01500	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01700	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01d00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01e00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe01f00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02000	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02100	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02200	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02300	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02400	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02600	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02700	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02800	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02900	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02a00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02b00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02c00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02d00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02e00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe02f00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe03000	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+__anon2b79dbe03100	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
+a13a7e16706c67e13158227947179bf9_1	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_1">$/;"	i
+a13a7e16706c67e13158227947179bf9_10	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_10">$/;"	i
+a13a7e16706c67e13158227947179bf9_11	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_11">$/;"	i
+a13a7e16706c67e13158227947179bf9_12	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_12">$/;"	i
+a13a7e16706c67e13158227947179bf9_13	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_13">$/;"	i
+a13a7e16706c67e13158227947179bf9_14	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_14">$/;"	i
+a13a7e16706c67e13158227947179bf9_15	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_15">$/;"	i
+a13a7e16706c67e13158227947179bf9_16	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_16">$/;"	i
+a13a7e16706c67e13158227947179bf9_17	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_17">$/;"	i
+a13a7e16706c67e13158227947179bf9_18	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_18">$/;"	i
+a13a7e16706c67e13158227947179bf9_19	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_19">$/;"	i
+a13a7e16706c67e13158227947179bf9_2	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_2">$/;"	i
+a13a7e16706c67e13158227947179bf9_20	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_20">$/;"	i
+a13a7e16706c67e13158227947179bf9_3	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_3">$/;"	i
+a13a7e16706c67e13158227947179bf9_4	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_4">$/;"	i
+a13a7e16706c67e13158227947179bf9_5	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_5">$/;"	i
+a13a7e16706c67e13158227947179bf9_6	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_6">$/;"	i
+a13a7e16706c67e13158227947179bf9_7	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_7">$/;"	i
+a13a7e16706c67e13158227947179bf9_8	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_8">$/;"	i
+a13a7e16706c67e13158227947179bf9_9	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_9">$/;"	i
 abstract	archive/knb-lter-cap.652.R	/^abstract <- as(set_TextType("abstract.md"), "abstract")$/;"	g
 actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_annuals
 actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_human_indicators
@@ -102,15 +390,68 @@ actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;
 actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_perennials
 actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_trees
 actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail(),$/;"	v	function:get_shrub_surveys
+actions	kobo_data_processing/archive/esca_working.R	/^      actions = pointblank::stop_on_fail()$/;"	v	function:kobo_fetch
+actions	kobo_data_processing/archive/esca_working.R	/^    actions = pointblank::stop_on_fail()$/;"	g
+add AC20 and V18 as parcel sites	kobo_data_processing/esca.qmd	/^## add AC20 and V18 as parcel sites$/;"	s	chapter:parcel sampling events
+add S9 parcel sampling event	kobo_data_processing/esca.qmd	/^# add S9 parcel sampling event$/;"	c
+add authority data	kobo_data_processing/esca.qmd	/^## add authority data$/;"	s	chapter:arthropod taxa
+add authority details to taxa	kobo_data_processing/esca.qmd	/^## add authority details to taxa$/;"	s	chapter:arthropod taxa
+add check constraint to research type	kobo_data_processing/esca.qmd	/^## add check constraint to research type$/;"	s	chapter:parcel sampling events
+add human_indicators constraints	kobo_data_processing/esca.qmd	/^## add human_indicators constraints$/;"	s	chapter:human indicators
+add parcel sampling events	kobo_data_processing/esca.qmd	/^## add parcel sampling events$/;"	s	chapter:parcel sampling events
+add plot center photos to RM and RMSE	kobo_data_processing/esca.qmd	/^## add plot center photos to RM and RMSE$/;"	s	chapter:photos: center, synoptic
+add sweepnet samples	kobo_data_processing/esca.qmd	/^# add sweepnet samples$/;"	c
+add timestamping to sampling events	kobo_data_processing/esca.qmd	/^# add timestamping to sampling events$/;"	c
+add timestamping to sites	kobo_data_processing/esca.qmd	/^## add timestamping to sites$/;"	s	chapter:parcel sampling events
+add trigger_set_timestamp	kobo_data_processing/esca.qmd	/^## add trigger_set_timestamp$/;"	s	chapter:utilities
+add-timestamping-HIP	kobo_data_processing/esca.qmd	/^#| label: add-timestamping-HIP$/;"	l
+add_S9_parcel	kobo_data_processing/esca.qmd	/^#| label: add_S9_parcel$/;"	l
+add_annuals_tax_id	kobo_data_processing/esca.qmd	/^#| label: add_annuals_tax_id$/;"	l
+add_authority	kobo_data_processing/vtl_taxa_match.R	/^add_authority <- VTL |>$/;"	g
+add_authority_to_vtl	kobo_data_processing/esca.qmd	/^#| label: add_authority_to_vtl$/;"	l
+add_hin_data	kobo_data_processing/archive/esca_working.R	/^add_hin_data <- plot_data |> $/;"	g
+add_hsse	kobo_data_processing/archive/esca_working.R	/^add_hsse <- dplyr::inner_join($/;"	v	function:kobo_fetch
+add_lse_plots	kobo_data_processing/archive/esca_working.R	/^add_lse_plots <- lse_plots |> $/;"	v	function:kobo_fetch
+add_new_annuals_taxa	kobo_data_processing/esca.qmd	/^#| label: add_new_annuals_taxa$/;"	l
+add_new_shrub_taxa	kobo_data_processing/esca.qmd	/^#| label: add_new_shrub_taxa$/;"	l
+add_new_tree_taxa	kobo_data_processing/esca.qmd	/^#| label: add_new_tree_taxa$/;"	l
+add_note	kobo_data_processing/vtl_taxa_match.R	/^  add_note <- glue::glue_sql("$/;"	v	function:recode_iterative_taxons
+add_parcel_sites	kobo_data_processing/esca.qmd	/^#| label: add_parcel_sites$/;"	l
+add_parcel_surveys	kobo_data_processing/archive/esca_working.R	/^add_parcel_surveys <- se_parcel_data |> $/;"	g
+add_parcel_surveys	kobo_data_processing/esca.qmd	/^#| label: add_parcel_surveys$/;"	l
+add_plot_hs	kobo_data_processing/archive/esca_working.R	/^add_plot_hs <- plot_hs |> $/;"	v	function:kobo_fetch
+add_plot_surveys	kobo_data_processing/archive/esca_working.R	/^add_plot_surveys <- se_plot_data |> $/;"	g
+add_plots_data	kobo_data_processing/archive/esca_working.R	/^add_plots_data <- plot_data |> $/;"	g
+add_rm_plot_center	kobo_data_processing/archive/esca_working.R	/^add_rm_plot_center <- plot_data |> $/;"	g
+add_rm_synoptic	kobo_data_processing/archive/esca_working.R	/^add_rm_synoptic <- synoptic_data |> $/;"	g
+add_rmse_plot_center	kobo_data_processing/archive/esca_working.R	/^add_rmse_plot_center <- dplyr::inner_join($/;"	g
+add_rmse_synoptic	kobo_data_processing/archive/esca_working.R	/^add_rmse_synoptic <- dplyr::inner_join($/;"	g
+add_shrub_tax_id	kobo_data_processing/esca.qmd	/^#| label: add_shrub_tax_id$/;"	l
+add_ss_data	kobo_data_processing/archive/esca_working.R	/^add_ss_data <- plot_data |> $/;"	g
+add_tree_tax_id	kobo_data_processing/esca.qmd	/^#| label: add_tree_tax_id$/;"	l
+add_vs_id	kobo_data_processing/esca.qmd	/^#| label: add_vs_id$/;"	l
+additional crew members	kobo_data_processing/esca.qmd	/^# additional crew members$/;"	c
+address trees in both plots and parcels	kobo_data_processing/esca.qmd	/^## address trees in both plots and parcels$/;"	s	chapter:trees
+adjust social class	kobo_data_processing/esca.qmd	/^## adjust social class$/;"	s	chapter:human indicators
 all_taxa	archive/esca_taxonomic_coverage.R	/^all_taxa <- identify_resolvable_taxa(esca_taxa)$/;"	g
 allow_cap	archive/knb-lter-cap.652.R	/^allow_cap <- new("allow",$/;"	g
 allow_public	archive/knb-lter-cap.652.R	/^allow_public <- new("allow",$/;"	g
+alpha	kobo_data_processing/archive/esca_working.R	/^alpha <- dplyr::inner_join($/;"	v	function:kobo_fetch
 annuals	archive/knb-lter-cap.652.R	/^annuals <- get_annuals()$/;"	g
 annuals	esca_sql_queries.R	/^  annuals <- DBI::dbGetQuery($/;"	v	function:get_annuals
 annuals	knb-lter-cap.652.qmd	/^## annuals$/;"	s
 annuals	knb-lter-cap.652.qmd	/^#| label: annuals$/;"	l
+annuals	kobo_data_processing/esca.qmd	/^# annuals$/;"	c
+annuals SEVS	kobo_data_processing/esca.qmd	/^## annuals SEVS$/;"	s	chapter:annuals
+annuals images	kobo_data_processing/esca.qmd	/^## annuals images$/;"	s	chapter:annuals
+annuals taxa	kobo_data_processing/esca.qmd	/^## annuals taxa$/;"	s	chapter:annuals
+annuals to vegetation samples	kobo_data_processing/esca.qmd	/^## annuals to vegetation samples$/;"	s	chapter:annuals
 annuals_DT	archive/knb-lter-cap.652.R	/^annuals_DT <- createDTFF(dfname = annuals,$/;"	g
 annuals_desc	archive/knb-lter-cap.652.R	/^annuals_desc <- "Catalog of all annual plants identified within the study plot."$/;"	g
+annuals_images	kobo_data_processing/esca.qmd	/^#| label: annuals_images$/;"	l
+annuals_sevs	kobo_data_processing/esca.qmd	/^#| label: annuals_sevs$/;"	l
+annuals_to_vs	kobo_data_processing/esca.qmd	/^#| label: annuals_to_vs$/;"	l
+annuals_vs_id	kobo_data_processing/esca.qmd	/^#| label: annuals_vs_id$/;"	l
 anonDataFrame9b656b410908	archive/knb-lter-cap.652.R	/^  data.frame(id = "voltSecond",$/;"	d
 anonFunc9b656b410100	archive/knb-lter-cap.652.R	/^  apply(dataframe[,-which(names(dataframe) == "sample_date")], 2, function(x) { unique(x) })$/;"	f	function:unique_values
 anonFunce9373b0e0100	archive/esca_taxonomic_coverage.R	/^    sci_names <- mapply(function(cls, sci_name) {$/;"	f	function:set_taxonomicCoverage
@@ -148,7 +489,11 @@ anonVec93c98be81206	esca_soils_processing_data/soil_processing_2015.R	/^    sepa
 anonVec93c98be81306	esca_soils_processing_data/soil_processing_2015.R	/^      separate(code_layer, into = c("site_code", "deep_core_type"), sep = " ") %>% $/;"	c	function:tidy_raw_lachat
 anonVec93c98be81e06	esca_soils_processing_data/soil_processing_2015.R	/^  dbWriteTable(pg, c('survey200', 'temp_lachat'), value = dataname, row.names = F)$/;"	c
 anonVec93c98be82906	esca_soils_processing_data/soil_processing_2015.R	/^  dbWriteTable(pg, c('survey200', 'perimeter_cores'), value = perimeter_cores, row.names = F) $/;"	c
+araneae	kobo_data_processing/archive/esca_working.R	/^araneae <- readr::read_csv("taxa_map.csv") |> $/;"	g
+array_insert	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^array_insert <- tibble::tribble($/;"	g
 arriving at the site: first steps	methods.md	/^### arriving at the site: first steps$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
+arthropod taxa	kobo_data_processing/esca.qmd	/^# arthropod taxa$/;"	c
+arthropod_taxa_cleanr	kobo_data_processing/esca.qmd	/^#| label: arthropod_taxa_cleanr$/;"	l
 arthropods	archive/knb-lter-cap.652.R	/^arthropods <- get_arthropods() %>% $/;"	g
 arthropods	knb-lter-cap.652.qmd	/^## arthropods$/;"	s
 arthropods	knb-lter-cap.652.qmd	/^#| label: arthropods$/;"	l
@@ -158,17 +503,62 @@ arthropods_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_arthropods
 arthropods_data	esca_sql_queries.R	/^  arthropods_data <- DBI::dbGetQuery($/;"	v	function:get_arthropods
 arthropods_desc	archive/knb-lter-cap.652.R	/^arthropods_desc <- "Arthropods collected in sweepnet samples at survey plots. Sweepnet samples a/;"	g
 arthropods_query	esca_sql_queries.R	/^  arthropods_query <- DBI::sqlInterpolate($/;"	v	function:get_arthropods
+arthros_reference	kobo_data_processing/archive/esca_working.R	/^arthros_reference <- DBI::dbGetQuery($/;"	g
+authority	kobo_data_processing/archive/esca_working.R	/^    authority = dplyr::case_when($/;"	g
+authority	kobo_data_processing/vtl_taxa_match.R	/^          authority  = "GBIF",$/;"	g
+authority	kobo_data_processing/vtl_taxa_match.R	/^    authority = dplyr::case_when($/;"	g
+authority_id	kobo_data_processing/archive/esca_working.R	/^    authority_id = dplyr::case_when($/;"	g
 availableNitrogen	esca_soils_processing_data/soil_processing_2015.R	/^  availableNitrogen <- read_excel('s200 2015 avail N.xlsx') %>% # sheet D$/;"	g
+base_query	kobo_data_processing/archive/esca_working.R	/^  base_query <- glue::glue_sql("$/;"	v	function:kobo_fetch.query_sampling_events
+base_query	kobo_data_processing/insects/verify_insect_data.R	/^  "  $/;"	g
 before leaving the site	methods.md	/^### before leaving the site$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 begindate	archive/knb-lter-cap.652.R	/^begindate <- as.character(min(sampling_events$sample_date))$/;"	g
+boolean_voucher_code	kobo_data_processing/esca.qmd	/^#| label: boolean_voucher_code$/;"	l
+build	knb-lter-cap.652.qmd	/^## build$/;"	s
 build	knb-lter-cap.652.qmd	/^#| label: build$/;"	l
 bulkDensity	esca_soils_processing_data/soil_processing_2015.R	/^bulkDensity <- read_excel('s200 2015 bulk density.xlsx', sheet = 1, skip = 1) %>% # sheet E$/;"	g
+by	kobo_data_processing/archive/esca_working.R	/^      by = this_by$/;"	v	function:kobo_fetch
+by	kobo_data_processing/archive/esca_working.R	/^    by = c("name_immature" = "insect_scientific_name")$/;"	c
+by	kobo_data_processing/archive/esca_working.R	/^    by = c("plant_taxon_from_which_arthropods_were_collected" = "vegetation_scientific_name")$/;"	c
+by	kobo_data_processing/archive/esca_working.R	/^    by = c("site" = "site_code")$/;"	c
+by	kobo_data_processing/archive/esca_working.R	/^    by = c("submission_uuid" = "kobo_uuid")$/;"	c
+by	kobo_data_processing/archive/esca_working.R	/^    by = c("uuid" = "kobo_uuid")$/;"	c
+by	kobo_data_processing/archive/esca_working.R	/^  by = c("kobo_uuid" = "uuid")$/;"	c
+by	kobo_data_processing/archive/esca_working.R	/^  by = c("uuid", "media_title")$/;"	c
+by	kobo_data_processing/archive/thursday.R	/^        by = "site"$/;"	g
+by	kobo_data_processing/archive/thursday.R	/^        by = c("site_code" = "site")$/;"	c
+by	kobo_data_processing/archive/thursday.R	/^        by = c($/;"	c
+by	kobo_data_processing/archive/thursday.R	/^    by = c($/;"	c
+by	kobo_data_processing/insects/verify_insect_data.R	/^  by = c("insect_count_id"),$/;"	c
+by	kobo_data_processing/insects/verify_insect_data.R	/^  by = c("sample_date", "site_code"),$/;"	c
+by	kobo_data_processing/vtl_taxa_match.R	/^    by = c("vegetation_scientific_name" = "vegetation_scientific_name")$/;"	c
+c67c585ff74c0b8db557f19d717ec15f_1	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_1">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_10	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_10">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_11	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_11">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_2	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_2">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_3	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_3">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_4	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_4">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_5	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_5">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_6	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_6">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_7	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_7">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_8	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_8">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_9	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_9">$/;"	i
+cacti_to_shrubs	kobo_data_processing/esca.qmd	/^#| label: cacti_to_shrubs$/;"	l
 capeml	knb-lter-cap.652.qmd	/^#| label: capeml$/;"	l
 carbonNitrogen	esca_soils_processing_data/soil_processing_2015.R	/^  carbonNitrogen <- read_excel('S200 2015 CN.xlsx') %>% # sheet H$/;"	g
 carbon_nitrogen_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^carbon_nitrogen_sites <- unique(perimeterMoistureContent$site_code) %>% $/;"	g
+carniegea_to_trees	kobo_data_processing/esca.qmd	/^#| label: carniegea_to_trees$/;"	l
 center_cores	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(soilSamples[,c("soil_sample_id", "site_code")], bulkDensity[,c(1,3:7)], by = c("sit/;"	g
 chrisMartin	archive/knb-lter-cap.652.R	/^chrisMartin <- addCreator('chr', 'martin')$/;"	g
 classifications	archive/esca_taxonomic_coverage.R	/^    classifications <- taxize::classification(sci_names, db = db)$/;"	v	function:set_taxonomicCoverage
+clean	knb-lter-cap.652.qmd	/^## clean$/;"	s
+clean	knb-lter-cap.652.qmd	/^#| label: clean$/;"	l
+col	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^  col  = "vegetation_scientific_name"$/;"	g
+col	kobo_data_processing/archive/esca_working.R	/^  col  = "tax_name"$/;"	g
+col	kobo_data_processing/archive/esca_working.R	/^  col  = "taxa_raw"$/;"	g
+coll_date	kobo_data_processing/archive/thursday.R	/^        coll_date = as.Date($/;"	g
+coll_date	kobo_data_processing/archive/thursday.R	/^        coll_date = dplyr::case_when($/;"	g
+cols	kobo_data_processing/archive/esca_working.R	/^    cols      = contains("photo"),$/;"	g
 columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_annuals
 columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_human_indicators
 columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_landscape_irrigation
@@ -176,6 +566,14 @@ columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_neighbo
 columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_perennials
 columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_shrub_surveys
 columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_trees
+columns	kobo_data_processing/archive/esca_working.R	/^      columns = c(survey_id),$/;"	c	function:kobo_fetch
+columns	kobo_data_processing/archive/esca_working.R	/^    columns = c("survey_id")$/;"	c
+columns	kobo_data_processing/archive/esca_working.R	/^    columns = c("vegetation_taxon_id")$/;"	c
+columns	kobo_data_processing/archive/esca_working.R	/^    columns = c($/;"	c
+columns	kobo_data_processing/archive/esca_working.R	/^    columns = c(survey_id),$/;"	c
+condense_taxa_iterations	kobo_data_processing/esca.qmd	/^#| label: condense_taxa_iterations$/;"	l
+config	kobo_data_processing/archive/esca_working.R	/^this_config <- config::get(config = "default")$/;"	v	function:kobo_fetch
+configuration	kobo_data_processing/esca.qmd	/^## configuration$/;"	s	chapter:utilities
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_hedges
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_human_indicators
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_landscape_irrigation
@@ -194,16 +592,56 @@ conn	esca_sql_queries.R	/^    conn = DBI::ANSI(),$/;"	v	function:get_soil_lachat
 conn	esca_sql_queries.R	/^    conn = DBI::ANSI(),$/;"	v	function:get_soil_perimeter_cores
 conn	esca_sql_queries.R	/^    conn = DBI::ANSI(),$/;"	v	function:get_soil_texture_2000
 conn	esca_sql_queries.R	/^    conn = DBI::ANSI(),$/;"	v	function:get_soil_traacs
+conn	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^                conn      = pg$/;"	g
+conn	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^    conn      = pg,$/;"	g
+conn	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^    conn = pg,$/;"	g
+conn	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^  conn      = pg,$/;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^        conn      = pg$/;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^        conn      = pg,$/;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^      .f = ~ DBI::dbExecute(statement = .x, conn = pg)$/;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^      conn      = pg,$/;"	v	function:kobo_fetch
+conn	kobo_data_processing/archive/esca_working.R	/^    conn      = pg,$/;"	v	function:kobo_fetch.query_sampling_events
+conn	kobo_data_processing/archive/esca_working.R	/^  conn      = pg,$/;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^  conn = pg,$/;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.differe/;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.rank   /;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.score  /;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_ra/;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_re/;"	g
+conn	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_tr/;"	g
+conn	kobo_data_processing/archive/thursday.R	/^    conn      = pg,$/;"	g
+conn	kobo_data_processing/archive/thursday.R	/^  conn      = pg,$/;"	g
+conn	kobo_data_processing/helper_load_schema.R	/^      conn      = pg,$/;"	v	function:helper_reload_schema
+conn	kobo_data_processing/vtl_taxa_match.R	/^        conn = pg$/;"	g
+conn	kobo_data_processing/vtl_taxa_match.R	/^    conn      = pg,$/;"	v	function:recode_iterative_taxons
+conn	kobo_data_processing/vtl_taxa_match.R	/^    conn = pg,$/;"	v	function:recode_taxon
+conn	kobo_data_processing/vtl_taxa_match.R	/^  conn      = pg,$/;"	g
+conn	kobo_data_processing/vtl_taxa_match.R	/^  conn = pg,$/;"	g
 connection	knb-lter-cap.652.qmd	/^#| label: connection$/;"	l
+controlled-vocabulary-HIP	kobo_data_processing/esca.qmd	/^#| label: controlled-vocabulary-HIP$/;"	l
 coreMoistureContent	esca_soils_processing_data/soil_processing_2015.R	/^coreMoistureContent <- read_excel('s200 2015 bulk density.xlsx', sheet = 2, skip = 1) %>% # shee/;"	g
 corinnaGries	archive/knb-lter-cap.652.R	/^corinnaGries <- addMetadataProvider('c', 'gries')$/;"	g
+count	kobo_data_processing/archive/esca_working.R	/^      count   = nrow(subject_data),$/;"	v	function:kobo_fetch
+count	kobo_data_processing/archive/esca_working.R	/^    count   = nrow(plot_data),$/;"	g
+count	kobo_data_processing/archive/esca_working.R	/^    count   = nrow(synoptic_data),$/;"	g
 coverage	archive/knb-lter-cap.652.R	/^coverage <- set_coverage(begin = begindate,$/;"	g
+coverages	knb-lter-cap.652.qmd	/^## coverages$/;"	s
 coverages	knb-lter-cap.652.qmd	/^#| label: coverages$/;"	l
 creators	archive/knb-lter-cap.652.R	/^creators <- c(as(danChilders, 'creator'),$/;"	c
+current	kobo_data_processing/insects/verify_insect_data.R	/^current <- DBI::dbGetQuery(pg, base_query)$/;"	g
 custom_units	archive/knb-lter-cap.652.R	/^custom_units <- rbind($/;"	g
+cv_type_to_flag	kobo_data_processing/esca.qmd	/^#| label: cv_type_to_flag$/;"	l
 danChilders	archive/knb-lter-cap.652.R	/^danChilders <- addCreator('d', 'childers')$/;"	g
+data	kobo_data_processing/archive/esca_workflow.md	/^## data$/;"	s
 data entities:	README.md	/^### data entities:$/;"	S	section:CAP LTER Ecological Survey of Central Arizona (ESCA)
+data.sources	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^  data.sources = c(3, 11)$/;"	c
+data.sources	kobo_data_processing/archive/esca_working.R	/^  data.sources = c(3, 11)$/;"	c
 dataToAmz	archive/knb-lter-cap.652.R	/^dataToAmz <- function(fileToUpload) {$/;"	f
+data_check	kobo_data_processing/archive/esca_working.R	/^data_check <- DBI::dbGetQuery($/;"	g
+data_check	kobo_data_processing/archive/esca_working.R	/^data_check <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
+data_check_new	kobo_data_processing/archive/esca_working.R	/^data_check_new <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
+database maintenance	kobo_data_processing/archive/esca_workflow.md	/^## database maintenance$/;"	s
+database structural changes	kobo_data_processing/esca.qmd	/^## database structural changes$/;"	s	chapter:arthropod taxa
 dataname	esca_soils_processing_data/soil_processing_2000.R	/^  dataname <- raw_traacs_ammonium  $/;"	g
 dataname	esca_soils_processing_data/soil_processing_2000.R	/^dataname <- raw_traacs_nitrate  $/;"	g
 dataname	esca_soils_processing_data/soil_processing_2000.R	/^dataname <- raw_traacs_phosphorus $/;"	g
@@ -216,20 +654,66 @@ dataname	esca_soils_processing_data/soil_processing_2015.R	/^  dataname <- raw_l
 dataname	esca_soils_processing_data/soil_processing_2015.R	/^  dataname <- raw_lachat_phosphorus$/;"	g
 dataset	archive/knb-lter-cap.652.R	/^dataset <- new("dataset",$/;"	g
 dateRangeField	archive/knb-lter-cap.652.R	/^  dateRangeField = "sample_date",$/;"	g
+dates_from_soils	kobo_data_processing/archive/thursday.R	/^dates_from_soils <- dates_from_soils |>$/;"	g
+dates_from_soils	kobo_data_processing/archive/thursday.R	/^dates_from_soils <- readr::read_csv("~\/Dropbox\/development\/esca_working\/dates_from_soils.csv/;"	g
+dates_se	kobo_data_processing/archive/thursday.R	/^dates_se <- se_db |>$/;"	g
+dates_shrubs	kobo_data_processing/archive/thursday.R	/^dates_shrubs <- shrub_survey |>$/;"	g
 davidFleming	archive/knb-lter-cap.652.R	/^davidFleming <- addMetadataProvider('d', 'fleming')$/;"	g
+db maintenance	kobo_data_processing/esca.qmd	/^## db maintenance$/;"	s	chapter:shrubs
+db-configuration_local	kobo_data_processing/esca.qmd	/^#| label: db-configuration_local$/;"	l
+db-configuration_production	kobo_data_processing/esca.qmd	/^#| label: db-configuration_production$/;"	l
+db_info	kobo_data_processing/helper_load_schema.R	/^  db_info <- DBI::dbGetInfo(connection)$/;"	v	function:helper_reload_schema
+dd038531a228d8f7054d9c63bafcc0e0_1	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_1">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_2	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_2">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_3	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_3">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_4	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_4">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_5	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_5">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_6	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_6">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_7	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_7">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_8	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_8">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_9	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_9">$/;"	i
 deep_core_type	archive/knb-lter-cap.652.R	/^  dplyr::mutate(deep_core_type = as.factor(deep_core_type))$/;"	g
+delete_double_counted_shrubs	kobo_data_processing/esca.qmd	/^#| label: delete_double_counted_shrubs$/;"	l
+deprecate vegetation_survey_cacti_succ	kobo_data_processing/esca.qmd	/^# deprecate vegetation_survey_cacti_succ$/;"	c
 description	archive/knb-lter-cap.652.R	/^             description = "Lachat output area under the curve as volts*second")$/;"	n	dataframe:anonDataFrame9b656b410908
 description	archive/knb-lter-cap.652.R	/^  description    = soil_perimeter_cores_desc,$/;"	g
 dfname	archive/knb-lter-cap.652.R	/^  dfname         = soil_perimeter_cores,$/;"	g
 dianeHope	archive/knb-lter-cap.652.R	/^dianeHope <- addCreator('d', 'hope')$/;"	g
+e007d801a112c0aae92f7d1335208873_1	knb-lter-cap.652.5.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_1">$/;"	i
+e007d801a112c0aae92f7d1335208873_2	knb-lter-cap.652.5.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_2">$/;"	i
+e007d801a112c0aae92f7d1335208873_3	knb-lter-cap.652.5.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_3">$/;"	i
+e007d801a112c0aae92f7d1335208873_4	knb-lter-cap.652.5.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_4">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_1	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_1">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_10	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_10">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_11	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_11">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_12	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_12">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_13	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_13">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_2	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_2">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_3	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_3">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_4	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_4">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_5	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_5">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_6	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_6">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_7	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_7">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_8	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_8">$/;"	i
+e0efe65852efde3f83f722eca4df56f6_9	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_9">$/;"	i
 eml	archive/knb-lter-cap.652.R	/^eml <- new("eml",$/;"	g
+eml	knb-lter-cap.652.5.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:https://eml.ecoinformatics.org/eml-2.2.0
 emlToAmz	archive/knb-lter-cap.652.R	/^emlToAmz <- function(fileToUpload) {$/;"	f
+enable_vs_timestamping	kobo_data_processing/esca.qmd	/^#| label: enable_vs_timestamping$/;"	l
+end	kobo_data_processing/archive/esca_working.R	/^    end   = format(end, "%H:%M:%S")$/;"	g
+end	kobo_data_processing/archive/thursday.R	/^        end   = format(end, "%H:%M:%S")$/;"	g
 enddate	archive/knb-lter-cap.652.R	/^enddate <- as.character(max(sampling_events$sample_date))$/;"	g
 escaTaxa	archive/esca_taxonomic_coverage.R	/^escaTaxa <- set_taxonomicCoverage(resolved_taxa, expand = T, db = 'itis')$/;"	g
 esca_taxa	archive/esca_taxonomic_coverage.R	/^esca_taxa <- bind_rows($/;"	g
 esca_taxa	archive/esca_taxonomic_coverage.R	/^esca_taxa <- read_csv('esca_taxa.csv') %>% $/;"	g
 file_path	archive/update_yaml.py	/^    file_path = '\/home\/srearl\/localRepos\/knb-lter-cap.652\/neighborhood_characteristics_fact/;"	v
+final_taxa	kobo_data_processing/archive/esca_working.R	/^final_taxa <- round_i |> $/;"	g
+fix the date problem	kobo_data_processing/esca.qmd	/^# fix the date problem$/;"	c
+fix_dates	kobo_data_processing/esca.qmd	/^#| label: fix_dates$/;"	l
+fn add_constraint	kobo_data_processing/esca.qmd	/^## fn add_constraint$/;"	s	chapter:human indicators
+fn update_values	kobo_data_processing/esca.qmd	/^## fn update_values$/;"	s	chapter:human indicators
 formRecursiveTree	archive/esca_taxonomic_coverage.R	/^formRecursiveTree <- function(listOfelements) {$/;"	f
+format_front_back	kobo_data_processing/esca.qmd	/^#| label: format_front_back$/;"	l
 fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_r05 = zoo::na.locf(cal_r05, fromLast = T)) %>% $/;"	g
 fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_r1 = zoo::na.locf(cal_r1, fromLast = T)) %>% $/;"	g
 fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_r1440 = zoo::na.locf(cal_r1440, fromLast = T)) %>% $/;"	g
@@ -240,6 +724,9 @@ fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_t1440 
 fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_t90 = zoo::na.locf(cal_t90, fromLast = T)) %>% $/;"	g
 fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_temp = zoo::na.locf(cal_temp, fromLast = T)) %>% $/;"	g
 fromLast	esca_soils_processing_data/soil_processing_2015.R	/^  mutate(cal_texture_fw = zoo::na.locf(cal_texture_fw, fromLast = T)) %>% $/;"	g
+from_db	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^from_db <- DBI::dbGetQuery(pg, "SELECT * FROM contacts ;")$/;"	g
+front_back_insert	kobo_data_processing/esca.qmd	/^#| label: front_back_insert$/;"	l
+front_shrub_counts	kobo_data_processing/esca.qmd	/^#| label: front_shrub_counts$/;"	l
 geographicDescription	archive/knb-lter-cap.652.R	/^geographicDescription <- "CAP LTER study area"$/;"	g
 get_annuals	esca_sql_queries.R	/^get_annuals <- function() {$/;"	f
 get_annuals_base_query	esca_sql_queries.R	/^  get_annuals_base_query <- glue::glue_sql("$/;"	v	function:get_annuals
@@ -262,6 +749,7 @@ get_soil_traacs	esca_sql_queries.R	/^get_soil_traacs <- function() {$/;"	f
 get_structures	esca_sql_queries.R	/^get_structures <- function(research_focus) {$/;"	f
 get_trees	esca_sql_queries.R	/^get_trees <- function(research_focus = "survey200") {$/;"	f
 get_trees_base_query	esca_sql_queries.R	/^  get_trees_base_query <- glue::glue_sql("$/;"	v	function:get_trees
+harvest HIP CV data	kobo_data_processing/esca.qmd	/^## harvest HIP CV data$/;"	s	chapter:human indicators parcels
 hedges	archive/knb-lter-cap.652.R	/^hedges <- get_hedges('survey200') %>% $/;"	g
 hedges	knb-lter-cap.652.qmd	/^## hedges$/;"	s
 hedges	knb-lter-cap.652.qmd	/^#| label: hedges$/;"	l
@@ -270,20 +758,39 @@ hedges_base_query	esca_sql_queries.R	/^  "$/;"	v	function:get_hedges
 hedges_data	esca_sql_queries.R	/^  hedges_data <- DBI::dbGetQuery($/;"	v	function:get_hedges
 hedges_desc	archive/knb-lter-cap.652.R	/^hedges_desc <- "Biovolume and characteristics of hedges within study plots; up to five hedges of/;"	g
 hedges_query	esca_sql_queries.R	/^  hedges_query <- DBI::sqlInterpolate($/;"	v	function:get_hedges
+helper_reload_schema	kobo_data_processing/helper_load_schema.R	/^helper_reload_schema <- function(connection = pg) {$/;"	f
+helpers	kobo_data_processing/esca.qmd	/^# helpers$/;"	c
+hi_unique_survey_id	kobo_data_processing/esca.qmd	/^#| label: hi_unique_survey_id$/;"	l
+hs	kobo_data_processing/archive/esca_working.R	/^hs <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
+hs_db	kobo_data_processing/archive/esca_working.R	/^hs_db <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
 human indicators	knb-lter-cap.652.qmd	/^## human indicators$/;"	s
+human indicators	kobo_data_processing/esca.qmd	/^# human indicators$/;"	c
+human indicators neighborhoods	kobo_data_processing/esca.qmd	/^# human indicators neighborhoods$/;"	c
+human indicators parcels	kobo_data_processing/esca.qmd	/^# human indicators parcels$/;"	c
 human_indicators	archive/knb-lter-cap.652.R	/^human_indicators <- get_human_indicators('survey200')$/;"	g
 human_indicators	archive/knb-lter-cap.652.R	/^human_indicators <- human_indicators %>% $/;"	g
 human_indicators	knb-lter-cap.652.qmd	/^#| label: human_indicators$/;"	l
+human_indicators	kobo_data_processing/archive/esca_working.R	/^human_indicators <- DBI::dbGetQuery($/;"	g
+human_indicators	kobo_data_processing/archive/esca_working.R	/^human_indicators <- human_indicators_bak$/;"	g
 human_indicators_DT	archive/knb-lter-cap.652.R	/^human_indicators_DT <- createDTFF(dfname = human_indicators,$/;"	g
+human_indicators_bak	kobo_data_processing/archive/esca_working.R	/^human_indicators_bak <- human_indicators$/;"	g
 human_indicators_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_human_indicators
 human_indicators_data	esca_sql_queries.R	/^  human_indicators_data <- DBI::dbGetQuery($/;"	v	function:get_human_indicators
 human_indicators_desc	archive/knb-lter-cap.652.R	/^human_indicators_desc <- "The presence of features or characteristics that are reflective of hum/;"	g
 human_indicators_query	esca_sql_queries.R	/^  human_indicators_query <- DBI::sqlInterpolate($/;"	v	function:get_human_indicators
+human_social_class_oe	kobo_data_processing/archive/esca_working.R	/^      human_social_class_oe = human_social_class,$/;"	v	function:kobo_fetch
 i	archive/esca_taxonomic_coverage.R	/^  for (i in 1:length(taxa_list)){$/;"	v	function:identify_resolvable_taxa
 id	archive/knb-lter-cap.652.R	/^  data.frame(id = "voltSecond",$/;"	n	dataframe:anonDataFrame9b656b410908
+id	kobo_data_processing/archive/esca_working.R	/^    id = NA_integer_,$/;"	g
+id	kobo_data_processing/archive/esca_working.R	/^    id = seq_along(survey_id)$/;"	g
+id_immature	kobo_data_processing/archive/esca_working.R	/^    id_immature = insect_taxon_id,$/;"	g
+identify immatures	kobo_data_processing/esca.qmd	/^## identify immatures$/;"	s	chapter:arthropod taxa
 identify_resolvable_taxa	archive/esca_taxonomic_coverage.R	/^identify_resolvable_taxa <- function(taxa_list) {$/;"	f
+indicator_data	kobo_data_processing/archive/esca_working.R	/^indicator_data <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
 info	archive/esca_taxonomic_coverage.R	/^    info <- suppressWarnings(get_tsn(searchterm = taxa_list[i],$/;"	v	function:identify_resolvable_taxa
 input_file	archive/update_yaml_definitions.py	/^        input_file = sys.argv[1]$/;"	v
+insect_taxon_edits	kobo_data_processing/archive/esca_working.R	/^insect_taxon_edits <- tibble::tribble($/;"	g
+insert_HIP	kobo_data_processing/esca.qmd	/^#| label: insert_HIP$/;"	l
 insert_center_cores_query	esca_soils_processing_data/soil_processing_2015.R	/^);'$/;"	g
 insert_lachat_2010_query	esca_soils_processing_data/soil_processing_2010.R	/^);'$/;"	g
 insert_lachat_2015_query	esca_soils_processing_data/soil_processing_2015.R	/^  );'$/;"	g
@@ -292,9 +799,15 @@ insert_traacs_2000_query	esca_soils_processing_data/soil_processing_2000.R	/^);'
 insert_traacs_2005_query	esca_soils_processing_data/soil_processing_2005.R	/^  );'$/;"	g
 insert_traacs_2005_query	esca_soils_processing_data/soil_processing_2005.R	/^);'$/;"	g
 insert_traacs_2010_query	esca_soils_processing_data/soil_processing_2010.R	/^);'$/;"	g
+isolate_annuals_taxa	kobo_data_processing/esca.qmd	/^#| label: isolate_annuals_taxa$/;"	l
+isolate_shrub_taxa	kobo_data_processing/esca.qmd	/^#| label: isolate_shrub_taxa$/;"	l
+isolate_tree_taxa	kobo_data_processing/esca.qmd	/^#| label: isolate_tree_taxa$/;"	l
 jasonKaye	archive/knb-lter-cap.652.R	/^jasonKaye <- addCreator('j', 'kaye')$/;"	g
 jeanStutz	archive/knb-lter-cap.652.R	/^jeanStutz <- addCreator('j', 'stutz')$/;"	g
+key_col	kobo_data_processing/archive/esca_working.R	/^    key_col <- "uuid"$/;"	v	function:kobo_fetch
 keywordSet	archive/knb-lter-cap.652.R	/^  c(new("keywordSet",$/;"	c
+kobo_fetch	kobo_data_processing/archive/esca_working.R	/^kobo_fetch <- function(subject) {$/;"	f
+kobo_fetch	kobo_data_processing/esca.qmd	/^#| label: kobo_fetch$/;"	l
 label	esca_sql_queries.R	/^      label         = "checking for unique shrub_perennial_id" # label works?$/;"	v	function:get_shrub_surveys
 lachatData	esca_soils_processing_data/soil_processing_2010.R	/^    lachatData <- read_excel(datafile)$/;"	v	function:tidy_raw_lachat
 lachatData	esca_soils_processing_data/soil_processing_2015.R	/^      lachatData <- read_excel(datafile)$/;"	v	function:tidy_raw_lachat
@@ -318,14 +831,34 @@ landuse_data	esca_sql_queries.R	/^  landuse_data <- DBI::dbGetQuery($/;"	v	funct
 landuse_desc	archive/knb-lter-cap.652.R	/^landuse_desc <- "Estimated land use or land cover in the study plot. Plots may consist of multip/;"	g
 landuse_query	esca_sql_queries.R	/^  landuse_query <- DBI::sqlInterpolate($/;"	v	function:get_landuse
 lauraDugan	archive/knb-lter-cap.652.R	/^lauraDugan <- addMetadataProvider('l', 'dugan')$/;"	g
+lse	kobo_data_processing/esca.qmd	/^# lse$/;"	c
+lse_classes	kobo_data_processing/archive/esca_working.R	/^lse_classes <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
+lse_plots	kobo_data_processing/archive/esca_working.R	/^lse_plots <- readr::read_csv("kobo\/ESCA_plot_2024-04-22-18-29-03-lse_repeat.csv") |>$/;"	v	function:kobo_fetch
 lter_access	archive/knb-lter-cap.652.R	/^lter_access <- new("access",$/;"	g
 maggieTseng	archive/knb-lter-cap.652.R	/^maggieTseng <- addMetadataProvider('m', 'tseng')$/;"	g
+match_tablet_annual_taxa	kobo_data_processing/esca.qmd	/^#| label: match_tablet_annual_taxa$/;"	l
+match_tablet_taxa	kobo_data_processing/esca.qmd	/^#| label: match_tablet_taxa$/;"	l
+match_tablet_tree_taxa	kobo_data_processing/esca.qmd	/^#| label: match_tablet_tree_taxa$/;"	l
+matched_taxa	kobo_data_processing/vtl_taxa_match.R	/^matched_taxa <- DBI::dbGetQuery($/;"	g
+matched_taxa_II	kobo_data_processing/vtl_taxa_match.R	/^matched_taxa_II <- DBI::dbGetQuery($/;"	g
+media	kobo_data_processing/archive/esca_working.R	/^media <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
+media_title	kobo_data_processing/archive/esca_working.R	/^    media_title    = synoptic_photo_of_the_plot,$/;"	g
 metadataProvider	archive/knb-lter-cap.652.R	/^metadataProvider <-c(as(lauraDugan, 'metadataProvider'),$/;"	c
 metadata_dist	archive/knb-lter-cap.652.R	/^metadata_dist <- new("distribution",$/;"	g
 methods	archive/knb-lter-cap.652.R	/^methods <- set_methods("esca_methods.md")$/;"	g
+mismatched_dates_sites	kobo_data_processing/archive/thursday.R	/^mismatched_dates_sites <- dplyr::full_join($/;"	g
 multiplierToSI	archive/knb-lter-cap.652.R	/^             multiplierToSI = "unknown",$/;"	n	dataframe:anonDataFrame9b656b410908
+my_path	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^my_path <- getwd()$/;"	g
+my_path	kobo_data_processing/archive/esca_working.R	/^my_path <- getwd()$/;"	g
+n	kobo_data_processing/archive/esca_working.R	/^  n       = 2$/;"	g
+name	kobo_data_processing/archive/esca_working.R	/^  dplyr::mutate(name = stringr::str_trim(name, side = c("both"))) |> $/;"	g
+name_immature	kobo_data_processing/archive/esca_working.R	/^    name_immature = name,$/;"	g
+names_to	kobo_data_processing/archive/esca_working.R	/^    names_to  = "context",$/;"	g
 nancyGrimm	archive/knb-lter-cap.652.R	/^nancyGrimm <- addCreator('n', 'grimm')$/;"	g
 nancyMcIntyre	archive/knb-lter-cap.652.R	/^nancyMcIntyre <- addCreator('n', 'mcintyre')$/;"	g
+nas	kobo_data_processing/archive/esca_working.R	/^nas <- human_indicators |> $/;"	g
+nas_cols	kobo_data_processing/archive/esca_working.R	/^  nas_cols = colnames(nas)$/;"	g
+nas_to_null	kobo_data_processing/archive/esca_working.R	/^nas_to_null <- tibble::tibble($/;"	g
 neighborhood_characteristics	archive/knb-lter-cap.652.R	/^neighborhood_characteristics <- get_neighborhood_characteristics('survey200') %>% mutate($/;"	g
 neighborhood_characteristics	knb-lter-cap.652.qmd	/^## neighborhood_characteristics$/;"	s
 neighborhood_characteristics	knb-lter-cap.652.qmd	/^#| label: neighborhood_characteristics$/;"	l
@@ -335,22 +868,54 @@ neighborhood_characterization_base_query	esca_sql_queries.R	/^    "$/;"	v	functi
 neighborhood_characterization_data	esca_sql_queries.R	/^  neighborhood_characterization_data <- DBI::dbGetQuery($/;"	v	function:get_neighborhood_characteristics
 neighborhood_characterization_query	esca_sql_queries.R	/^  neighborhood_characterization_query <- DBI::sqlInterpolate($/;"	v	function:get_neighborhood_characteristics
 new	archive/esca_taxonomic_coverage.R	/^    new <- as.data.frame(t(sci_names))$/;"	v	function:set_taxonomicCoverage
+new_annuals_taxa	kobo_data_processing/esca.qmd	/^#| label: new_annuals_taxa$/;"	l
+new_shrub_taxa	kobo_data_processing/esca.qmd	/^#| label: new_shrub_taxa$/;"	l
+new_sweepnet_vegetation_taxon	kobo_data_processing/archive/esca_working.R	/^    new_sweepnet_vegetation_taxon = dplyr::case_when($/;"	g
+new_sweepnet_vegetation_taxon	kobo_data_processing/archive/esca_working.R	/^    new_sweepnet_vegetation_taxon = gsub("sp.", "", new_sweepnet_vegetation_taxon),$/;"	g
+new_sweepnet_vegetation_taxon	kobo_data_processing/archive/esca_working.R	/^    new_sweepnet_vegetation_taxon = stringr::str_trim(new_sweepnet_vegetation_taxon, side = c("b/;"	g
+new_taxa	kobo_data_processing/archive/esca_working.R	/^new_taxa <- tibble::tibble($/;"	g
+new_taxa_query	kobo_data_processing/archive/esca_working.R	/^new_taxa_query <- new_taxa_refs |> $/;"	g
+new_taxa_refs	kobo_data_processing/archive/esca_working.R	/^new_taxa_refs <- readr::read_csv("taxa_map.csv")$/;"	g
+new_tree_taxa	kobo_data_processing/esca.qmd	/^#| label: new_tree_taxa$/;"	l
+notes_regarding_sweepnet_sample	kobo_data_processing/archive/esca_working.R	/^    notes_regarding_sweepnet_sample = dplyr::case_when($/;"	g
 number_perennials	archive/knb-lter-cap.652.R	/^number_perennials <- get_number_perennials('survey200') $/;"	g
 number_perennials_DT	archive/knb-lter-cap.652.R	/^number_perennials_DT <- createDTFF(dfname = number_perennials,$/;"	g
 number_perennials_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_perennials
 number_perennials_data	esca_sql_queries.R	/^  number_perennials_data <- DBI::dbGetQuery($/;"	v	function:get_perennials
 number_perennials_desc	archive/knb-lter-cap.652.R	/^number_perennials_desc <- "The number of perennial plants in the study plot, except Saguaros and/;"	g
 number_perennials_query	esca_sql_queries.R	/^  number_perennials_query <- DBI::sqlInterpolate($/;"	v	function:get_perennials
+old	kobo_data_processing/insects/verify_insect_data.R	/^old     <- DBI::dbGetQuery(pgOLD, base_query)$/;"	g
+old_date_query	kobo_data_processing/archive/thursday.R	/^old_date_query <- glue::glue_sql("$/;"	g
+old_dates	kobo_data_processing/archive/thursday.R	/^old_dates <- DBI::dbGetQuery($/;"	g
+old_note	kobo_data_processing/vtl_taxa_match.R	/^  old_note <- DBI::dbGetQuery($/;"	v	function:recode_iterative_taxons
+old_note_query	kobo_data_processing/vtl_taxa_match.R	/^  old_note_query <- glue::glue_sql("$/;"	v	function:recode_iterative_taxons
+otherwise	kobo_data_processing/vtl_taxa_match.R	/^  otherwise = NULL$/;"	g
 output_file	archive/update_yaml_definitions.py	/^        output_file = sys.argv[2]$/;"	v
+overview	kobo_data_processing/esca.qmd	/^# overview$/;"	c
 overwrite	archive/knb-lter-cap.652.R	/^  capeml::write_attributes(soil_perimeter_cores, overwrite = FALSE)$/;"	g
 overwrite	archive/knb-lter-cap.652.R	/^  capeml::write_factors(soil_perimeter_cores, overwrite = FALSE)$/;"	g
 overwrite	archive/knb-lter-cap.652.R	/^  overwrite      = TRUE,$/;"	g
+owner	kobo_data_processing/archive/esca_working.R	/^  owner  = "srearl"$/;"	g
 packageIdent	archive/knb-lter-cap.652.R	/^packageIdent <- 'knb-lter-cap.652.2'$/;"	g
+parcel sampling events	kobo_data_processing/esca.qmd	/^# parcel sampling events$/;"	c
 parcel survey	methods.md	/^### parcel survey$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
+parcel synoptic photos	kobo_data_processing/esca.qmd	/^## parcel synoptic photos$/;"	s	chapter:photos: center, synoptic
 parcel_characteristics_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_parcel_characteristics
 parcel_characteristics_data	esca_sql_queries.R	/^  parcel_characteristics_data <- DBI::dbGetQuery($/;"	v	function:get_parcel_characteristics
 parcel_characteristics_query	esca_sql_queries.R	/^  parcel_characteristics_query <- DBI::sqlInterpolate($/;"	v	function:get_parcel_characteristics
+parcel_shrub_count_hedges	kobo_data_processing/esca.qmd	/^#| label: parcel_shrub_count_hedges$/;"	l
+parcel_social_class_oe	kobo_data_processing/archive/esca_working.R	/^      parcel_social_class_oe = parcel_social_class$/;"	v	function:kobo_fetch
+parcel_with_hs	kobo_data_processing/archive/esca_working.R	/^parcel_with_hs <- dplyr::inner_join($/;"	v	function:kobo_fetch
+parcels	kobo_data_processing/esca.qmd	/^## parcels$/;"	s	chapter:lse
+parcels	kobo_data_processing/esca.qmd	/^## parcels$/;"	s	chapter:structures
+parcels_synoptic	kobo_data_processing/archive/esca_working.R	/^parcels_synoptic <- dplyr::inner_join($/;"	v	function:kobo_fetch
 parentSI	archive/knb-lter-cap.652.R	/^             parentSI = "unknown",$/;"	n	dataframe:anonDataFrame9b656b410908
+path	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^  path         = my_path,$/;"	g
+path	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^  path = my_path,$/;"	g
+path	kobo_data_processing/archive/esca_working.R	/^  path         = my_path,$/;"	g
+path	kobo_data_processing/archive/esca_working.R	/^  path = my_path,$/;"	g
+pattern	kobo_data_processing/archive/esca_working.R	/^  pattern = "\\\\(",$/;"	g
+people	kobo_data_processing/archive/esca_working.R	/^people <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
 perennials	knb-lter-cap.652.qmd	/^## perennials$/;"	s
 perennials	knb-lter-cap.652.qmd	/^#| label: perennials$/;"	l
 perimeterMoistureContent	esca_soils_processing_data/soil_processing_2015.R	/^  perimeterMoistureContent <- read_excel('s200 2015 core samples.xls', sheet = 2, skip = 2) %>% /;"	g
@@ -369,9 +934,25 @@ pg	esca_soils_processing_data/soil_processing_2015.R	/^pg <- pg_local$/;"	g
 pg	esca_soils_processing_data/soil_processing_2015.R	/^pg <- pg_prod$/;"	g
 pg	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^pg <- pg_local$/;"	g
 pg	esca_soils_processing_data/soils_tablet_data_table_edits.R	/^pg <- pg_prod$/;"	g
+pg	kobo_data_processing/archive/esca_working.R	/^pg <- pg_local_connect(db = "caplter")$/;"	g
+pg	kobo_data_processing/insects/verify_insect_data.R	/^pg    <- pg_local_connect("caplter")$/;"	g
+pg	kobo_data_processing/vtl_taxa_match.R	/^pg <- pg_local_connect("caplter")$/;"	g
+pgOLD	kobo_data_processing/insects/verify_insect_data.R	/^pgOLD <- pg_local_connect()$/;"	g
 phCond	esca_soils_processing_data/soil_processing_2015.R	/^phCond <- read_excel('s200 2015 soil pH and conductivity.xls', skip = 2) %>% # sheet G$/;"	g
+phones_array	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^    dplyr::summarise(phones_array = paste0(phones, collapse = ",")) |>$/;"	g
 phosphorus	esca_soils_processing_data/soil_processing_2015.R	/^  phosphorus <- read_excel('S200 2015 SRP.xlsx') %>% # sheet J$/;"	g
 photographs	methods.md	/^### photographs$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
+photos: center, synoptic	kobo_data_processing/esca.qmd	/^# photos: center, synoptic$/;"	c
+plant_taxon_from_which_arthropods_were_collected	kobo_data_processing/archive/esca_working.R	/^    plant_taxon_from_which_arthropods_were_collected = dplyr::case_when($/;"	g
+plot sampling events	kobo_data_processing/esca.qmd	/^# plot sampling events$/;"	c
+plot synoptic photos	kobo_data_processing/esca.qmd	/^## plot synoptic photos$/;"	s	chapter:photos: center, synoptic
+plot_data	kobo_data_processing/archive/esca_working.R	/^plot_data <- plot_data |> $/;"	g
+plot_data	kobo_data_processing/archive/esca_working.R	/^plot_data <- readr::read_csv("kobo\/ESCA_plot_2024-04-22-18-29-03-ESCA_plot.csv") |>$/;"	g
+plot_hs	kobo_data_processing/archive/esca_working.R	/^plot_hs <- kobo_fetch("plot_hs")$/;"	v	function:kobo_fetch
+plots	kobo_data_processing/esca.qmd	/^## plots$/;"	s	chapter:lse
+plots	kobo_data_processing/esca.qmd	/^## plots$/;"	s	chapter:structures
+plots_empty_cols	kobo_data_processing/archive/esca_working.R	/^plots_empty_cols <- readr::read_csv("kobo\/ESCA_plot_2024-04-22-18-29-03-ESCA_plot.csv") |>$/;"	g
+plots_shrub_counts	kobo_data_processing/esca.qmd	/^#| label: plots_shrub_counts$/;"	l
 preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(sample_date, site_code),$/;"	v	function:get_annuals
 preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(sample_date, site_code),$/;"	v	function:get_human_indicators
 preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(sample_date, site_code),$/;"	v	function:get_landscape_irrigation
@@ -383,8 +964,11 @@ prod	archive/knb-lter-cap.652.R	/^prod <- mysql_prod$/;"	g
 projectNaming	archive/knb-lter-cap.652.R	/^  projectNaming  = TRUE$/;"	g
 projectid	archive/knb-lter-cap.652.R	/^projectid <- 652$/;"	g
 pubDate	archive/knb-lter-cap.652.R	/^pubDate <- '2018-02-19'$/;"	g
+pull sites table	kobo_data_processing/esca.qmd	/^## pull sites table$/;"	s	chapter:plot sampling events
 queries	knb-lter-cap.652.qmd	/^#| label: queries$/;"	l
+query_sampling_events	kobo_data_processing/archive/esca_working.R	/^query_sampling_events <- function() {$/;"	f	function:kobo_fetch
 quincyStewart	archive/knb-lter-cap.652.R	/^quincyStewart <- addMetadataProvider('q', 'stewart')$/;"	g
+rank	kobo_data_processing/archive/esca_working.R	/^    rank = dplyr::case_when($/;"	g
 raw_lachat_nitrogen	esca_soils_processing_data/soil_processing_2010.R	/^raw_lachat_nitrogen <- bind_rows($/;"	g
 raw_lachat_nitrogen	esca_soils_processing_data/soil_processing_2015.R	/^  raw_lachat_nitrogen <- bind_rows($/;"	g
 raw_lachat_phosphorus	esca_soils_processing_data/soil_processing_2015.R	/^  raw_lachat_phosphorus <- bind_rows($/;"	g
@@ -402,6 +986,23 @@ raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2005.R	/^raw_tr
 raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2005.R	/^raw_traacs_phosphorus <- raw_traacs_phosphorus %>% $/;"	g
 raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2010.R	/^raw_traacs_phosphorus <- bind_rows($/;"	g
 raw_traacs_phosphorus	esca_soils_processing_data/soil_processing_2010.R	/^raw_traacs_phosphorus <- raw_traacs_phosphorus %>% $/;"	g
+read kobo and add survey_id	kobo_data_processing/esca.qmd	/^## read kobo and add survey_id$/;"	s	chapter:helpers
+rear_shrub_counts	kobo_data_processing/esca.qmd	/^#| label: rear_shrub_counts$/;"	l
+recode taxa with adult and immature variants	kobo_data_processing/esca.qmd	/^## recode taxa with adult and immature variants$/;"	s	chapter:arthropod taxa
+recode_carnegiea	kobo_data_processing/esca.qmd	/^#| label: recode_carnegiea$/;"	l
+recode_immatures	kobo_data_processing/archive/esca_working.R	/^recode_immatures <- taxa_immature |> $/;"	g
+recode_iterative_taxons	kobo_data_processing/vtl_taxa_match.R	/^recode_iterative_taxons <- function($/;"	f
+recode_selected_vtl_taxa	kobo_data_processing/esca.qmd	/^#| label: recode_selected_vtl_taxa$/;"	l
+recode_ss	kobo_data_processing/vtl_taxa_match.R	/^  recode_ss <- glue::glue_sql("$/;"	v	function:recode_iterative_taxons
+recode_ss	kobo_data_processing/vtl_taxa_match.R	/^  recode_ss <- glue::glue_sql("$/;"	v	function:recode_taxon
+recode_taxon	kobo_data_processing/vtl_taxa_match.R	/^recode_taxon <- function($/;"	f
+recode_vs	kobo_data_processing/vtl_taxa_match.R	/^  recode_vs <- glue::glue_sql("$/;"	v	function:recode_iterative_taxons
+recode_vs	kobo_data_processing/vtl_taxa_match.R	/^  recode_vs <- glue::glue_sql("$/;"	v	function:recode_taxon
+recorded_taxa	kobo_data_processing/archive/esca_working.R	/^recorded_taxa <- DBI::dbGetQuery($/;"	g
+reload the schema	kobo_data_processing/esca.qmd	/^## reload the schema$/;"	s	chapter:utilities
+reload_the_schema	kobo_data_processing/esca.qmd	/^#| label: reload_the_schema$/;"	l
+remove_site_code_trailing_1	kobo_data_processing/esca.qmd	/^#| label: remove_site_code_trailing_1$/;"	l
+rename_immatures	kobo_data_processing/archive/esca_working.R	/^rename_immatures <- taxa_immature |> $/;"	g
 reported_n_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^reported_n_sites <- unique(availableNitrogen$site_code) %>% $/;"	g
 reported_p_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^reported_p_sites <- unique(phosphorus$site_code) %>% $/;"	g
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_hedges
@@ -412,9 +1013,18 @@ researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	func
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_parcel_characteristics
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_sampling_events
 researchFocus	esca_sql_queries.R	/^    researchFocus = research_focus$/;"	v	function:get_structures
+research_focus	kobo_data_processing/archive/thursday.R	/^                research_focus = dplyr::case_when($/;"	g
+research_focus	kobo_data_processing/archive/thursday.R	/^        research_focus = dplyr::case_when($/;"	g
+research_focus_constraint	kobo_data_processing/esca.qmd	/^#| label: research_focus_constraint$/;"	l
+research_media	kobo_data_processing/archive/esca_working.R	/^research_media <- DBI::dbGetQuery($/;"	g
+research_scope	kobo_data_processing/archive/esca_working.R	/^    research_scope = dplyr::case_when($/;"	g
+research_scope	kobo_data_processing/archive/esca_working.R	/^  dplyr::mutate(research_scope = "synoptic") |> $/;"	g
 resolve	archive/esca_taxonomic_coverage.R	/^  resolved_taxa <- data.frame(taxon = NA, resolve = NA)$/;"	n	dataframe:identify_resolvable_taxa.resolved_taxa
+resolve_unknown_shrub_taxa	kobo_data_processing/esca.qmd	/^#| label: resolve_unknown_shrub_taxa$/;"	l
 resolved_taxa	archive/esca_taxonomic_coverage.R	/^  resolved_taxa <- data.frame(taxon = NA, resolve = NA)$/;"	d	function:identify_resolvable_taxa
 resolved_taxa	archive/esca_taxonomic_coverage.R	/^resolved_taxa <- c(all_taxa[!is.na(all_taxa$resolve),]$taxon)$/;"	c
+round_i	kobo_data_processing/archive/esca_working.R	/^round_i <- readr::read_csv("taxa_map.insects.itis.csv")$/;"	g
+round_ii	kobo_data_processing/archive/esca_working.R	/^round_ii <- readr::read_csv("taxa_map.insects.ii.csv") |> $/;"	g
 row.names	esca_soils_processing_data/soil_processing_2000.R	/^  dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c8ea422906
 row.names	esca_soils_processing_data/soil_processing_2000.R	/^dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c8ea420406
 row.names	esca_soils_processing_data/soil_processing_2000.R	/^dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c8ea421706
@@ -428,16 +1038,32 @@ row.names	esca_soils_processing_data/soil_processing_2015.R	/^  dbWriteTable(pg,
 row.names	esca_soils_processing_data/soil_processing_2015.R	/^dbWriteTable(pg, c('survey200', 'center_cores'), value = center_cores, row.names = F) $/;"	n	vector:anonVec93c98be80c06
 royErickson	archive/knb-lter-cap.652.R	/^royErickson <- addMetadataProvider('r', 'erickson')$/;"	g
 s	archive/esca_taxonomic_coverage.R	/^      s <- strsplit(sci_name, " ")[[1]]$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0300
+safe_filter_name	kobo_data_processing/vtl_taxa_match.R	/^safe_filter_name <- purrr::possibly($/;"	g
+safe_get_ids	kobo_data_processing/vtl_taxa_match.R	/^safe_get_ids <- purrr::possibly($/;"	g
 sallyWittlinger	archive/knb-lter-cap.652.R	/^sallyWittlinger <- addMetadataProvider('s', 'wittlinger')$/;"	g
 sample_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^sample_sites <- unique(soilSamples$site_code) %>% $/;"	g
 sampling_events	archive/knb-lter-cap.652.R	/^sampling_events <- get_sampling_events('survey200')$/;"	g
 sampling_events	knb-lter-cap.652.qmd	/^## sampling_events$/;"	s
 sampling_events	knb-lter-cap.652.qmd	/^#| label: sampling_events$/;"	l
+sampling_events	kobo_data_processing/archive/esca_working.R	/^    sampling_events <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
+sampling_events	kobo_data_processing/archive/esca_working.R	/^  sampling_events <- DBI::dbGetQuery($/;"	v	function:kobo_fetch.query_sampling_events
+sampling_events	kobo_data_processing/archive/esca_working.R	/^sampling_events <- DBI::dbGetQuery($/;"	g
 sampling_events_DT	archive/knb-lter-cap.652.R	/^sampling_events_DT <- createDTFF(dfname = sampling_events,$/;"	g
 sampling_events_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_sampling_events
 sampling_events_data	esca_sql_queries.R	/^  sampling_events_data <- DBI::dbGetQuery($/;"	v	function:get_sampling_events
 sampling_events_desc	archive/knb-lter-cap.652.R	/^sampling_events_desc <- "Date of survey and general characteristics of the study plot, including/;"	g
 sampling_events_query	esca_sql_queries.R	/^  sampling_events_query <- DBI::sqlInterpolate($/;"	v	function:get_sampling_events
+sampling_events_timestamping	kobo_data_processing/esca.qmd	/^#| label: sampling_events_timestamping$/;"	l
+schema	kobo_data_processing/archive/esca_working.R	/^  schema = "survey200",$/;"	g
+se_db	kobo_data_processing/archive/thursday.R	/^se_db <- DBI::dbGetQuery($/;"	g
+se_db_research_focus	kobo_data_processing/archive/thursday.R	/^                se_db_research_focus = research_focus$/;"	g
+se_db_site_code	kobo_data_processing/archive/thursday.R	/^                se_db_site_code = site_code,$/;"	g
+se_parcel_data	kobo_data_processing/archive/esca_working.R	/^se_parcel_data <- readr::read_csv("kobo\/ESCA_parcel_2024-04-22-18-38-10-ESCA_parcel.csv") |>$/;"	g
+se_parcel_data	kobo_data_processing/archive/esca_working.R	/^se_parcel_data <- se_parcel_data |>$/;"	g
+se_plot_data	kobo_data_processing/archive/esca_working.R	/^se_plot_data <- readr::read_csv("ESCA_plot_2024-04-22-18-29-03-ESCA_plot.csv") |>$/;"	g
+se_plot_data	kobo_data_processing/archive/esca_working.R	/^se_plot_data <- readr::read_csv("kobo\/ESCA_plot_2024-04-22-18-29-03-ESCA_plot.csv") |>$/;"	g
+se_plot_data	kobo_data_processing/archive/esca_working.R	/^se_plot_data <- se_plot_data |>$/;"	g
+se_plot_db	kobo_data_processing/archive/esca_working.R	/^se_plot_db <- DBI::dbGetQuery($/;"	g
 sep	esca_soils_processing_data/soil_processing_2000.R	/^  separate(code_layer, into = c("site_code", "deep_core_type"), sep = " ") %>% $/;"	n	vector:anonVec93c8ea420106
 sep	esca_soils_processing_data/soil_processing_2000.R	/^  separate(code_layer, into = c("site_code", "deep_core_type"), sep = " ") %>% $/;"	n	vector:anonVec93c8ea421406
 sep	esca_soils_processing_data/soil_processing_2000.R	/^  separate(code_layer, into = c("site_code", "deep_core_type"), sep = " ") %>% $/;"	n	vector:anonVec93c8ea422606
@@ -453,13 +1079,45 @@ sep	esca_soils_processing_data/soil_processing_2015.R	/^    separate(col = `Samp
 sep	esca_soils_processing_data/soil_processing_2015.R	/^    separate(col = sample, into = c("site_code", "deep_core_type"), sep = " ") %>% $/;"	n	vector:anonVec93c98be80f06
 set_taxonomicCoverage	archive/esca_taxonomic_coverage.R	/^set_taxonomicCoverage <- function(sci_names, expand=FALSE, db = 'itis') {$/;"	f
 setup	knb-lter-cap.652.qmd	/^## setup$/;"	s
+shrub images	kobo_data_processing/esca.qmd	/^## shrub images$/;"	s	chapter:shrubs
 shrub surveys	knb-lter-cap.652.qmd	/^## shrub surveys$/;"	s
+shrub taxa	kobo_data_processing/esca.qmd	/^## shrub taxa$/;"	s	chapter:shrubs
+shrub_survey	kobo_data_processing/archive/thursday.R	/^shrub_survey <- readr::read_csv(config::get("shrub_survey")) |> $/;"	g
+shrub_survey	kobo_data_processing/archive/thursday.R	/^shrub_survey <- shrub_survey |>$/;"	g
 shrub_surveys	esca_sql_queries.R	/^  shrub_surveys <- DBI::dbGetQuery($/;"	v	function:get_shrub_surveys
 shrub_surveys	knb-lter-cap.652.qmd	/^#| label: shrub_surveys$/;"	l
+shrub_uuid	kobo_data_processing/esca.qmd	/^#| label: shrub_uuid$/;"	l
+shrubs	kobo_data_processing/esca.qmd	/^# shrubs$/;"	c
+shrubs SEVS	kobo_data_processing/esca.qmd	/^## shrubs SEVS$/;"	s	chapter:shrubs
+shrubs to plant counts	kobo_data_processing/esca.qmd	/^## shrubs to plant counts$/;"	s	chapter:shrubs
+shrubs to shrubs survey	kobo_data_processing/esca.qmd	/^## shrubs to shrubs survey$/;"	s	chapter:shrubs
+shrubs to vegetation samples	kobo_data_processing/esca.qmd	/^## shrubs to vegetation samples$/;"	s	chapter:shrubs
 shrubs_cacti_succulents	archive/knb-lter-cap.652.R	/^shrubs_cacti_succulents <- get_shrubs_cacti_succulents('survey200') %>% $/;"	g
 shrubs_cacti_succulents_DT	archive/knb-lter-cap.652.R	/^shrubs_cacti_succulents_DT <- createDTFF(dfname = shrubs_cacti_succulents,$/;"	g
 shrubs_cacti_succulents_desc	archive/knb-lter-cap.652.R	/^shrubs_cacti_succulents_desc <- "Biovolume and characteristics of shrubs and succulent plants wi/;"	g
+shrubs_hedges	kobo_data_processing/esca.qmd	/^#| label: shrubs_hedges$/;"	l
+shrubs_images	kobo_data_processing/esca.qmd	/^#| label: shrubs_images$/;"	l
+shrubs_sampling_events	kobo_data_processing/esca.qmd	/^#| label: shrubs_sampling_events$/;"	l
+shrubs_sevs	kobo_data_processing/esca.qmd	/^#| label: shrubs_sevs$/;"	l
+shrubs_to_vs	kobo_data_processing/esca.qmd	/^#| label: shrubs_to_vs$/;"	l
+shrubs_vssp	kobo_data_processing/esca.qmd	/^#| label: shrubs_vssp$/;"	l
+side	kobo_data_processing/archive/esca_working.R	/^      across(where(is.character), ~ stringr::str_trim(., side = c("both"))),$/;"	c	function:kobo_fetch
+side	kobo_data_processing/archive/esca_working.R	/^    across(where(is.character), ~ stringr::str_trim(., side = c("both"))),$/;"	c
+side	kobo_data_processing/archive/esca_working.R	/^    new_sweepnet_vegetation_taxon = stringr::str_trim(new_sweepnet_vegetation_taxon, side = c("b/;"	c
+side	kobo_data_processing/archive/esca_working.R	/^  dplyr::mutate(name = stringr::str_trim(name, side = c("both"))) |> $/;"	c
+side	kobo_data_processing/archive/thursday.R	/^        across(where(is.character), ~ stringr::str_trim(., side = c("both"))),$/;"	c
+site_code	kobo_data_processing/archive/esca_working.R	/^  dplyr::mutate(site_code = gsub("1$", "", site_code))$/;"	g
+site_code	kobo_data_processing/insects/verify_insect_data.R	/^      site_code = gsub("1$", "", site_code)$/;"	g
+sites	kobo_data_processing/archive/esca_working.R	/^  sites <- query_sampling_events() |> $/;"	v	function:kobo_fetch
+sites geography	kobo_data_processing/esca.qmd	/^# sites geography$/;"	c
+sites_add_timestamping	kobo_data_processing/esca.qmd	/^#| label: sites_add_timestamping$/;"	l
+sites_db	kobo_data_processing/archive/esca_working.R	/^sites_db <- DBI::dbGetQuery($/;"	g
+sites_db	kobo_data_processing/archive/thursday.R	/^sites_db <- DBI::dbGetQuery($/;"	g
+sites_db	kobo_data_processing/esca.qmd	/^#| label: sites_db$/;"	l
+sites_geography	kobo_data_processing/archive/esca_working.R	/^sites_geography <- dplyr::right_join($/;"	g
+sites_geography	kobo_data_processing/esca.qmd	/^#| label: sites_geography$/;"	l
 soil sample and analyses protocol	methods.md	/^### soil sample and analyses protocol$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
+soil samples	kobo_data_processing/esca.qmd	/^# soil samples$/;"	c
 soil sampling	methods.md	/^### soil sampling$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 soilSamples	esca_soils_processing_data/soil_processing_2005.R	/^soilSamples <- dbGetQuery(pg, "$/;"	g
 soilSamples	esca_soils_processing_data/soil_processing_2010.R	/^soilSamples <- dbGetQuery(pg, "$/;"	g
@@ -478,6 +1136,7 @@ soil_lachat_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_soil_lachat
 soil_lachat_data	esca_sql_queries.R	/^  soil_lachat_data <- DBI::dbGetQuery($/;"	v	function:get_soil_lachat
 soil_lachat_desc	archive/knb-lter-cap.652.R	/^soil_lachat_desc <- "Raw soil core chemistry (nitrate-nitrogen, ammonium-nitrogen, phosphate). A/;"	g
 soil_lachat_query	esca_sql_queries.R	/^  soil_lachat_query <- DBI::sqlInterpolate($/;"	v	function:get_soil_lachat
+soil_locs	kobo_data_processing/archive/esca_working.R	/^soil_locs <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
 soil_perimeter_core	knb-lter-cap.652.qmd	/^## soil_perimeter_core$/;"	s
 soil_perimeter_cores	archive/knb-lter-cap.652.R	/^soil_perimeter_cores <- get_soil_perimeter_cores() |>$/;"	g
 soil_perimeter_cores	knb-lter-cap.652.qmd	/^#| label: soil_perimeter_cores$/;"	l
@@ -495,6 +1154,8 @@ soil_traacs_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_soil_traacs
 soil_traacs_data	esca_sql_queries.R	/^  soil_traacs_data <- DBI::dbGetQuery($/;"	v	function:get_soil_traacs
 soil_traacs_desc	archive/knb-lter-cap.652.R	/^soil_traacs_desc <- "Raw soil nutrient data as analyzed by Traacs for soil samples collected in /;"	g
 soil_traacs_query	esca_sql_queries.R	/^  soil_traacs_query <- DBI::sqlInterpolate($/;"	v	function:get_soil_traacs
+source	kobo_data_processing/insects/verify_insect_data.R	/^      source = "old",$/;"	g
+source	kobo_data_processing/insects/verify_insect_data.R	/^    dplyr::mutate(source = "current"),$/;"	g
 sql	esca_sql_queries.R	/^    sql           = hedges_base_query,$/;"	v	function:get_hedges
 sql	esca_sql_queries.R	/^    sql           = human_indicators_base_query,$/;"	v	function:get_human_indicators
 sql	esca_sql_queries.R	/^    sql           = landscape_irrigation_base_query,$/;"	v	function:get_landscape_irrigation
@@ -510,6 +1171,16 @@ sql	esca_sql_queries.R	/^    sql  = soil_lachat_base_query$/;"	v	function:get_so
 sql	esca_sql_queries.R	/^    sql  = soil_perimeter_cores_base_query$/;"	v	function:get_soil_perimeter_cores
 sql	esca_sql_queries.R	/^    sql  = soil_texture_2000_base_query$/;"	v	function:get_soil_texture_2000
 sql	esca_sql_queries.R	/^    sql  = soil_traacs_base_query$/;"	v	function:get_soil_traacs
+ss_date	kobo_data_processing/archive/thursday.R	/^        ss_date = date,$/;"	g
+ss_focus	kobo_data_processing/archive/thursday.R	/^        ss_focus = survey_type$/;"	g
+ss_site	kobo_data_processing/archive/thursday.R	/^        ss_site = site,$/;"	g
+standardize residence_type	kobo_data_processing/esca.qmd	/^## standardize residence_type$/;"	s	chapter:human indicators
+standardize social classes	kobo_data_processing/esca.qmd	/^# standardize social classes$/;"	c
+standardize-HIP	kobo_data_processing/esca.qmd	/^#| label: standardize-HIP$/;"	l
+standardize-social-classes	kobo_data_processing/esca.qmd	/^#| label: standardize-social-classes$/;"	l
+standardize_canopy_condition	kobo_data_processing/esca.qmd	/^#| label: standardize_canopy_condition$/;"	l
+start	kobo_data_processing/archive/esca_working.R	/^    start = format(start, "%H:%M:%S"),$/;"	g
+start	kobo_data_processing/archive/thursday.R	/^        start = format(start, "%H:%M:%S"),$/;"	g
 statement	esca_sql_queries.R	/^    statement = arthropods_query$/;"	v	function:get_arthropods
 statement	esca_sql_queries.R	/^    statement = get_annuals_base_query$/;"	v	function:get_annuals
 statement	esca_sql_queries.R	/^    statement = get_shrub_surveys_base_query$/;"	v	function:get_shrub_surveys
@@ -528,37 +1199,111 @@ statement	esca_sql_queries.R	/^    statement = soil_perimeter_cores_query$/;"	v	
 statement	esca_sql_queries.R	/^    statement = soil_texture_2000_query$/;"	v	function:get_soil_texture_2000
 statement	esca_sql_queries.R	/^    statement = soil_traacs_query$/;"	v	function:get_soil_traacs
 statement	esca_sql_queries.R	/^    statement = structures_query$/;"	v	function:get_structures
+statement	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^                statement = .x,$/;"	g
+statement	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^    "$/;"	g
+statement	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^  "$/;"	g
+statement	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^"$/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^        statement = .x$/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^        statement = .x,$/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^      "$/;"	v	function:kobo_fetch
+statement	kobo_data_processing/archive/esca_working.R	/^      .f = ~ DBI::dbExecute(statement = .x, conn = pg)$/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^    statement = base_query$/;"	v	function:kobo_fetch.query_sampling_events
+statement	kobo_data_processing/archive/esca_working.R	/^  "$/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^  ;"$/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^  statement = "DROP VIEW IF EXISTS survey200.public_lens_survey200_human_indicators CASCADE ;"$/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^  statement = "SELECT * FROM survey200.insect_taxon_list ;"$/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^  statement = "SELECT * FROM survey200.vegetation_taxon_list ;"$/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.differe/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.rank   /;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.score  /;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_ra/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_re/;"	g
+statement	kobo_data_processing/archive/esca_working.R	/^DBI::dbExecute(conn = pg, statement = "COMMENT ON COLUMN survey200.vegetation_taxon_list.taxa_tr/;"	g
+statement	kobo_data_processing/archive/thursday.R	/^    statement = old_date_query$/;"	g
+statement	kobo_data_processing/archive/thursday.R	/^  "$/;"	g
+statement	kobo_data_processing/helper_load_schema.R	/^      statement = "DROP SCHEMA IF EXISTS survey200 CASCADE ;"$/;"	v	function:helper_reload_schema
+statement	kobo_data_processing/vtl_taxa_match.R	/^          statement = .x,$/;"	v	function:recode_taxon
+statement	kobo_data_processing/vtl_taxa_match.R	/^        statement = .x,$/;"	g
+statement	kobo_data_processing/vtl_taxa_match.R	/^    statement = old_note_query$/;"	v	function:recode_iterative_taxons
+statement	kobo_data_processing/vtl_taxa_match.R	/^  "$/;"	g
+statement	kobo_data_processing/vtl_taxa_match.R	/^"$/;"	g
 stevanEarl	archive/knb-lter-cap.652.R	/^stevanEarl <- addMetadataProvider('s', 'earl')$/;"	g
+still_unresolved	kobo_data_processing/archive/esca_working.R	/^still_unresolved <- tibble::tribble($/;"	g
+stmml	knb-lter-cap.652.5.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:http://www.xml-cml.org/schema/stmml-1.2
+string	kobo_data_processing/archive/esca_working.R	/^  string  = taxa_db[["insect_scientific_name"]],$/;"	g
 structures	archive/knb-lter-cap.652.R	/^structures <- get_structures('survey200') %>% $/;"	g
 structures	knb-lter-cap.652.qmd	/^## structures$/;"	s
 structures	knb-lter-cap.652.qmd	/^#| label: structures$/;"	l
+structures	kobo_data_processing/esca.qmd	/^# structures$/;"	c
 structures_DT	archive/knb-lter-cap.652.R	/^structures_DT <- createDTFF(dfname = structures,$/;"	g
 structures_base_query	esca_sql_queries.R	/^    "$/;"	v	function:get_structures
 structures_data	esca_sql_queries.R	/^  structures_data <- DBI::dbGetQuery($/;"	v	function:get_structures
 structures_desc	archive/knb-lter-cap.652.R	/^structures_desc <- "Type and height of any structures within the study plot."$/;"	g
 structures_query	esca_sql_queries.R	/^  structures_query <- DBI::sqlInterpolate($/;"	v	function:get_structures
+subject_data	kobo_data_processing/archive/esca_working.R	/^  subject_data <- readr::read_csv(config::get(subject)) |> $/;"	v	function:kobo_fetch
+suffix	kobo_data_processing/insects/verify_insect_data.R	/^  suffix = c("_x", "_y")$/;"	c
+sweepnet_sample_type	kobo_data_processing/archive/esca_working.R	/^    sweepnet_sample_type = gsub("_", " ", sweepnet_sample_type)$/;"	g
+sweepnet_samples_data	kobo_data_processing/archive/esca_working.R	/^sweepnet_samples_data <- readr::read_csv("ESCA_plot_2024-04-22-18-29-03-sweepnet_samples_repeat./;"	g
+sweepnet_samples_data	kobo_data_processing/archive/esca_working.R	/^sweepnet_samples_data <- sweepnet_samples_data |> $/;"	g
+sweepnet_samples_query	kobo_data_processing/archive/esca_working.R	/^sweepnet_samples_query <- sweepnet_samples_data |> $/;"	g
+synoptic_data	kobo_data_processing/archive/esca_working.R	/^synoptic_data <- readr::read_csv("kobo\/ESCA_plot_2024-04-22-18-29-03-synoptic_photos_repeat.csv/;"	g
+synoptic_data	kobo_data_processing/archive/esca_working.R	/^synoptic_data <- synoptic_data |> $/;"	g
+table	kobo_data_processing/archive/esca_working.R	/^  table  = "sites_geography"$/;"	g
+table	kobo_data_processing/archive/esca_working.R	/^  table  = "sites_geography",$/;"	g
+table	kobo_data_processing/archive/esca_working.R	/^  table  = "vegetation_taxon_list"$/;"	g
+tag immatures and isolated name changes	kobo_data_processing/esca.qmd	/^## tag immatures and isolated name changes$/;"	s	chapter:arthropod taxa
+tax_name	kobo_data_processing/archive/esca_working.R	/^  tax_name = c($/;"	c
 taxa	archive/esca_taxonomic_coverage.R	/^      taxa <- lapply(taxonRankNames, function(name) {$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0700
 taxa	archive/esca_taxonomic_coverage.R	/^    taxa <- lapply(sci_names, function(sci_name) {$/;"	v	function:set_taxonomicCoverage
+taxa	kobo_data_processing/archive/esca_workflow.md	/^## taxa$/;"	s
+taxa_david_edits	kobo_data_processing/archive/esca_working.R	/^taxa_david_edits <- readr::read_csv("ESCA Taxonomic Thesaurus - ESCA datasheet.csv")$/;"	g
+taxa_db	kobo_data_processing/archive/esca_working.R	/^taxa_db <- DBI::dbGetQuery($/;"	g
+taxa_db_id	kobo_data_processing/vtl_taxa_match.R	/^          taxa_db_id = stringr::str_extract(taxonID, "\\\\d+")$/;"	g
+taxa_db_id	kobo_data_processing/vtl_taxa_match.R	/^    taxa_db_id = safe_get_ids($/;"	g
+taxa_immature	kobo_data_processing/archive/esca_working.R	/^taxa_immature <- taxa_db |> $/;"	g
 taxon	archive/esca_taxonomic_coverage.R	/^  resolved_taxa <- data.frame(taxon = NA, resolve = NA)$/;"	n	dataframe:identify_resolvable_taxa.resolved_taxa
 taxonRankNames	archive/esca_taxonomic_coverage.R	/^      taxonRankNames <- as.list(names(sci_name))$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0700
 taxon_classification	archive/esca_taxonomic_coverage.R	/^    taxon_classification <- colnames(sci_names)$/;"	v	function:set_taxonomicCoverage
 tc	archive/esca_taxonomic_coverage.R	/^      tc <- lapply(taxon_classification, function(name) {$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0500
 texture	esca_soils_processing_data/soil_processing_2015.R	/^texture <- read_excel('S200 2015 Soil Texture Analysis.xlsx') %>% # sheet I$/;"	g
 texture	esca_soils_processing_data/soil_processing_2015.R	/^texture <- texture %>%$/;"	g
+this_by	kobo_data_processing/archive/esca_working.R	/^  this_by <- dplyr::join_by(!!key_col == kobo_uuid)$/;"	v	function:kobo_fetch
+this_config	kobo_data_processing/archive/esca_working.R	/^this_config <- config::get(config = "default")$/;"	v	function:kobo_fetch
 tidy_raw_lachat	esca_soils_processing_data/soil_processing_2010.R	/^tidy_raw_lachat <- function(datafile) {$/;"	f
 tidy_raw_lachat	esca_soils_processing_data/soil_processing_2015.R	/^  tidy_raw_lachat <- function(datafile) {$/;"	f
 title	archive/knb-lter-cap.652.R	/^title <- 'Ecological Survey of Central Arizona: a survey of key ecological indicators in the gre/;"	g
+tree taxa	kobo_data_processing/esca.qmd	/^## tree taxa$/;"	s	chapter:trees
 trees	archive/knb-lter-cap.652.R	/^trees <- get_trees('survey200') %>% $/;"	g
 trees	esca_sql_queries.R	/^  trees <- DBI::dbGetQuery($/;"	v	function:get_trees
 trees	knb-lter-cap.652.qmd	/^## trees$/;"	s
 trees	knb-lter-cap.652.qmd	/^#| label: trees$/;"	l
+trees	kobo_data_processing/esca.qmd	/^# trees$/;"	c
+trees SEVS	kobo_data_processing/esca.qmd	/^## trees SEVS$/;"	s	chapter:trees
+trees images	kobo_data_processing/esca.qmd	/^## trees images$/;"	s	chapter:trees
+trees to trees survey	kobo_data_processing/esca.qmd	/^## trees to trees survey$/;"	s	chapter:trees
+trees to vegetation samples	kobo_data_processing/esca.qmd	/^## trees to vegetation samples$/;"	s	chapter:trees
 trees_DT	archive/knb-lter-cap.652.R	/^trees_DT <- createDTFF(dfname = trees,$/;"	g
+trees_better_timestamping	kobo_data_processing/esca.qmd	/^#| label: trees_better_timestamping$/;"	l
 trees_desc	archive/knb-lter-cap.652.R	/^trees_desc <- "Size and characteristics of trees and Saguaros (Carnegiea gigantea) within study /;"	g
+trees_images	kobo_data_processing/esca.qmd	/^#| label: trees_images$/;"	l
+trees_in_plots_and_parcels	kobo_data_processing/esca.qmd	/^#| label: trees_in_plots_and_parcels$/;"	l
+trees_sevs	kobo_data_processing/esca.qmd	/^#| label: trees_sevs$/;"	l
+trees_to_vs	kobo_data_processing/esca.qmd	/^#| label: trees_to_vs$/;"	l
+trees_vs_id	kobo_data_processing/esca.qmd	/^#| label: trees_vs_id$/;"	l
+trees_vst	kobo_data_processing/esca.qmd	/^#| label: trees_vst$/;"	l
 unique_values	archive/knb-lter-cap.652.R	/^unique_values <- function(dataframe) {$/;"	f
 unitList	archive/knb-lter-cap.652.R	/^unitList <- set_unitList(custom_units)$/;"	g
 unitType	archive/knb-lter-cap.652.R	/^             unitType = "unknown",$/;"	n	dataframe:anonDataFrame9b656b410908
+unresolved	kobo_data_processing/archive/esca_working.R	/^unresolved <- readr::read_csv("taxa_map.insects.itis.csv") |> $/;"	g
+unused_taxa	kobo_data_processing/archive/esca_working.R	/^unused_taxa <- recorded_taxa |> $/;"	g
+update human_indicators	kobo_data_processing/esca.qmd	/^## update human_indicators$/;"	s	chapter:human indicators
 update_definitions	archive/update_yaml.py	/^def update_definitions(file_path):$/;"	f
 update_definitions	archive/update_yaml_definitions.py	/^def update_definitions(yaml_file_path, output_file_path):$/;"	f
+update_sites_query	kobo_data_processing/archive/thursday.R	/^update_sites_query <- glue::glue_sql("$/;"	g
+updates	kobo_data_processing/vtl_taxa_match.R	/^  updates <- c($/;"	c	function:recode_iterative_taxons
+updates	kobo_data_processing/vtl_taxa_match.R	/^  updates <- c($/;"	c	function:recode_taxon
+utilities	kobo_data_processing/esca.qmd	/^# utilities$/;"	c
+uuid	kobo_data_processing/archive/esca_working.R	/^    uuid           = submission_uuid,$/;"	g
 value	esca_soils_processing_data/soil_processing_2000.R	/^  dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c8ea422906
 value	esca_soils_processing_data/soil_processing_2000.R	/^dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c8ea420406
 value	esca_soils_processing_data/soil_processing_2000.R	/^dbWriteTable(pg, c('survey200', 'temp_traacs'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c8ea421706
@@ -577,7 +1322,39 @@ value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_neighborh
 value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_perennials
 value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_shrub_surveys
 value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_trees
+values_to	kobo_data_processing/archive/esca_working.R	/^    values_to = "media_title"$/;"	g
+veg_taxa	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^veg_taxa <- DBI::dbGetQuery($/;"	g
 vegetation	methods.md	/^### vegetation $/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
+vegetation taxon list	kobo_data_processing/esca.qmd	/^# vegetation taxon list$/;"	c
+vegetation_scientific_name	kobo_data_processing/vtl_taxa_match.R	/^          vegetation_scientific_name = scientificName,$/;"	g
+vegetation_taxon_list	kobo_data_processing/archive/esca_working.R	/^vegetation_taxon_list <- DBI::dbGetQuery($/;"	g
 version history	README.md	/^### version history$/;"	S	section:CAP LTER Ecological Survey of Central Arizona (ESCA)
+vs	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^vs <- DBI::dbGetQuery(pg, "SELECT * FROM survey200.vegetation_samples ;")$/;"	g
+vsn	kobo_data_processing/archive/esca_working.R	/^      dplyr::mutate(vsn = vegetation_scientific_name) |> $/;"	g
+vtl_archive	kobo_data_processing/vtl_taxa_match.R	/^  vtl_archive <- glue::glue_sql("$/;"	v	function:recode_iterative_taxons
+vtl_archive	kobo_data_processing/vtl_taxa_match.R	/^  vtl_archive <- glue::glue_sql("$/;"	v	function:recode_taxon
 x	archive/esca_taxonomic_coverage.R	/^        x <- as.list(cls[["name"]])$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0100
+x	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^  x    = veg_taxa,$/;"	g
+x	kobo_data_processing/archive/esca_working.R	/^  x    = new_taxa,$/;"	g
+x	kobo_data_processing/archive/esca_working.R	/^  x    = still_unresolved,$/;"	g
+x	kobo_data_processing/archive/esca_working.R	/^  x    = unresolved,$/;"	g
+x	kobo_data_processing/archive/esca_working.R	/^  x  = plot_data,$/;"	g
+x	kobo_data_processing/archive/esca_working.R	/^  x  = plot_hs,$/;"	v	function:kobo_fetch
+x	kobo_data_processing/archive/esca_working.R	/^  x  = sampling_events,$/;"	g
+x	kobo_data_processing/archive/esca_working.R	/^  x  = synoptic_data,$/;"	g
+x	kobo_data_processing/archive/thursday.R	/^    x = dates_shrubs,$/;"	g
 xml_url	archive/knb-lter-cap.652.R	/^  xml_url <- new("online",$/;"	g
+xsi	knb-lter-cap.652.5.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:http://www.w3.org/2001/XMLSchema-instance
+y	kobo_data_processing/archive/esca_working.R	/^      y  = sampling_events,$/;"	v	function:kobo_fetch
+y	kobo_data_processing/archive/esca_working.R	/^    y  = sampling_events,$/;"	g
+y	kobo_data_processing/archive/esca_working.R	/^    y  = se_plot_db,$/;"	g
+y	kobo_data_processing/archive/esca_working.R	/^    y  = vegetation_taxon_list |> $/;"	g
+y	kobo_data_processing/archive/esca_working.R	/^    y = sites_db |>$/;"	g
+y	kobo_data_processing/archive/esca_working.R	/^    y = taxa_db |> $/;"	g
+y	kobo_data_processing/archive/esca_working.R	/^  y  = reserach_media,$/;"	g
+y	kobo_data_processing/archive/esca_working.R	/^  y  = se_plot_data,$/;"	g
+y	kobo_data_processing/archive/thursday.R	/^        y  = dates_from_soils,$/;"	g
+y	kobo_data_processing/archive/thursday.R	/^        y  = mismatched_dates_sites,$/;"	g
+y	kobo_data_processing/archive/thursday.R	/^        y = se_db |>$/;"	g
+y	kobo_data_processing/archive/thursday.R	/^    y = dates_se,$/;"	g
+y	kobo_data_processing/vtl_taxa_match.R	/^    y  = VTL_gbif,$/;"	g

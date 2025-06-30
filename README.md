@@ -2,6 +2,15 @@
 
 ### version history
 
+- knb-lter-cap.652.6 2025-0x-xx
+
+  - standardizes social classes to poor, working_lower, middle, upper_middle,
+  and rich; and adds corresponding table constraints
+  - convert the four, separate boolean neighborhood social class variables (ca.
+  rich, poor, middle, lower) to a single
+  `human_indicators_neighborhoods.neigh_social_class` text variable
+
+
 - knb-lter-cap.652.5 2025-05-12
 
   - Updated with 2023 survey data, except arthropod and soils data, which are

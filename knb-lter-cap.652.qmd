@@ -2,13 +2,6 @@
 
 ```{r}
 #| eval: true
-#| label: capeml
-
-devtools::load_all("~/localRepos/capeml/")
-```
-
-```{r}
-#| eval: true
 #| label: connection
 
 source("~/Documents/localSettings/pg_local.R")
@@ -608,6 +601,8 @@ try({
 })
 ```
 
+## coverages
+
 ```{r}
 #| eval: TRUE
 #| label: coverages
@@ -622,6 +617,10 @@ coverage <- EML::set_coverage(
   south                 = 33.2186
 )
 ```
+
+need taxonomy!!!
+
+## build
 
 ```{r}
 #| eval: TRUE
@@ -652,6 +651,8 @@ capeml::create_package(environment = "production")
 
 EDIutils::logout()
 ```
+
+## clean
 
 ```{r}
 #| eval: TRUE

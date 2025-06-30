@@ -32,3 +32,8 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 .Rproj.user
+
+knb-lter-cap\.652\.\d\.xml
+^652_.*
+annotations.yaml
+custom_units.yaml

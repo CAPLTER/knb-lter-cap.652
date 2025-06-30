@@ -1,37 +1,51 @@
 ## CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 Version 2015
 
-These methods were adapted from the CAP LTER Ecological Survey of Central Arizona field and lab protocol. This protocol was based initially on the UFORE FOREST SURVEY devised by Dave Nowak (BES), and has been updated with input from CAP LTER PIs and field experience. The methods described here are most recently based primarily on the 2015 survey, which for the first time, employed the use of digital tablets for data collection in the field. As such, the methods reference entering data at key locations in tablet forms but are otherwise identical in practice to protocols of previous surveys.
+These methods were adapted from the CAP LTER Ecological Survey of Central
+Arizona field and lab protocol. This protocol was based initially on the UFORE
+FOREST SURVEY devised by Dave Nowak (BES), and has been updated with input from
+CAP LTER PIs and field experience. The methods described here are most recently
+based primarily on the 2015 survey, which for the first time, employed the use
+of digital tablets for data collection in the field. As such, the methods
+reference entering data at key locations in tablet forms but are otherwise
+identical in practice to protocols of previous surveys.
 
 ### arriving at the site: first steps
 
-Upon arriving at a site, use a high-resolution GPS unit to locate the plot center (locate the nail if present (desert sites only)). Create a new folder in the GPS for the site, and record the location of the plot center. If present, always use the center nail as plot center and record this location as plot center in the GPS. Use high-resolution GPS unit to identify the plot corners and mid-points - mark these with flags or cones. At plots with relatively little topography, it may be easier to use pre-measured 30-m ropes laid along the N-S and E-W axes of the plot to delineate the plot boundary.
+Upon arriving at a site, use a high-resolution GPS unit to locate the plot
+center (locate the nail if present (desert sites only)). Create a new folder in
+the GPS for the site, and record the location of the plot center. If present,
+always use the center nail as plot center and record this location as plot
+center in the GPS. Use high-resolution GPS unit to identify the plot corners
+and mid-points - mark these with flags or cones. At plots with relatively
+little topography, it may be easier to use pre-measured 30-m ropes laid along
+the N-S and E-W axes of the plot to delineate the plot boundary.
 
 **general plot information**
 
-* Note the plot ID (e.g., 'V12')
-* Note plot (see parcel instructions below for parcels)
-* Crew members: check all that are present, and note additional crew members not included in the list (add a new 'AdditionalCrew' group) 
-* Inclination: identify the steepest section of the plot; one person stands at top while another person stands some distance downhill; person at top uses clinometer to measure angle (in degrees) down to eye level of the other person
-* Exposure: note predominant aspect of the plot (if there is any slope)
-* Provide a brief description of the plot. Limit description to \~20 words and use keywords, such as desert, creosote flat, residential neighborhood, strip mall parking lot, etc.
-* Quantify land use of the plot (only of the plot; add 'landuses\_sampling\_event' group): percent of the plot area that is in the land use using the LTER land use categories 1 through 6. This will often be 100% (e.g., desert sites) but some plots will cover multiple categories (e.g., 60% residential, 40% street). Make sure percentages sum to 100%. Identify categories using supplied codes (e.g., 1B1 for institutional (schools, churches, etc)) sites.
-* Note the use of buildings on the plot
-* Record heights of buildings if present (add 'Plot structures' group): record the slope (in degrees) to the highest point and bottom of the structure from a known distance.
-* Note surrounding transportation infrastructure that best reflects conditions at the plot
-* Note current weather
-* Note if it has rained and what evidence if so
-* Visible human activity (not applicable in private back yards): excluding conditions in private back yards, note signs of human activity within the plot corresponding to the checklist.
-* Evaluation of surrounding neighborhood: excluding outlying desert areas, note general characteristics of the surrounding neighborhood.
-* Note whether the plot center nail was located and whether one was left
-* Note landscape practices (skip for desert plots)
-    + Does the landscape have a natural or manicured appearance?
-    + Is the landscape maintained professionally?
-    + Are plants in the landscape healthy and vigorous?
-    + Are there any symptoms or signs of abiotic or biotic injury?
-    + Watering regimes: drip or trickle, overhead spray, flood, hand watering, or not irrigated
-    + Estimate % of pervious area irrigated.
-    + Veg types present: soil / trees / shrubs / succulents / herbaceous groundcover / other groundcover
+- Note the plot ID (e.g., 'V12')
+- Note plot (see parcel instructions below for parcels)
+- Crew members: check all that are present, and note additional crew members not included in the list (add a new 'AdditionalCrew' group) 
+- Inclination: identify the steepest section of the plot; one person stands at top while another person stands some distance downhill; person at top uses clinometer to measure angle (in degrees) down to eye level of the other person
+- Exposure: note predominant aspect of the plot (if there is any slope)
+- Provide a brief description of the plot. Limit description to \~20 words and use keywords, such as desert, creosote flat, residential neighborhood, strip mall parking lot, etc.
+- Quantify land use of the plot (only of the plot; add 'landuses\_sampling\_event' group): percent of the plot area that is in the land use using the LTER land use categories 1 through 6. This will often be 100% (e.g., desert sites) but some plots will cover multiple categories (e.g., 60% residential, 40% street). Make sure percentages sum to 100%. Identify categories using supplied codes (e.g., 1B1 for institutional (schools, churches, etc)) sites.
+- Note the use of buildings on the plot
+- Record heights of buildings if present (add 'Plot structures' group): record the slope (in degrees) to the highest point and bottom of the structure from a known distance. Note that the type of structure was changed from a free text entry to a categorical variable beginning with the 2015 survey.
+- Note surrounding transportation infrastructure that best reflects conditions at the plot
+- Note current weather
+- Note if it has rained and what evidence if so
+- Visible human activity (not applicable in private back yards): excluding conditions in private back yards, note signs of human activity within the plot corresponding to the checklist.
+- Evaluation of surrounding neighborhood: excluding outlying desert areas, note general characteristics of the surrounding neighborhood.
+- Note whether the plot center nail was located and whether one was left
+- Note landscape practices (skip for desert plots)
+  + Does the landscape have a natural or manicured appearance?
+  + Is the landscape maintained professionally?
+  + Are plants in the landscape healthy and vigorous?
+  + Are there any symptoms or signs of abiotic or biotic injury?
+  + Watering regimes: drip or trickle, overhead spray, flood, hand watering, or not irrigated
+  + Estimate % of pervious area irrigated.
+  + Veg types present: soil / trees / shrubs / succulents / herbaceous groundcover / other groundcover
 
 ### photographs
 
@@ -75,7 +89,9 @@ Upon arriving at a site, use a high-resolution GPS unit to locate the plot cente
 
 **shrubs, perennial groundcover, and cacti other than Saguaros**
 
-*shrub count: ALL shrubs and cacti in the plot are counted by species, segregated by quadrant (optional; to aid counting). Note that this does not include Saguaros, which are treated like trees.*
+*shrub count: ALL shrubs and cacti in the plot are counted by species,
+segregated by quadrant (optional; to aid counting). Note that this does not
+include Saguaros, which are treated like trees.*
 
 * Note the plot ID (e.g., 'V12')
 * Note plot (see parcel instructions below for parcels)
@@ -87,7 +103,10 @@ Upon arriving at a site, use a high-resolution GPS unit to locate the plot cente
 
 *shrub survey*
 
-The characteristics of at least 5 representative individuals of each shrub and cacti species (at least 1 from each quadrant if relevant) are recorded in the s200\_shrub\_survey form. As with the shrub count, this does not include Saguaros, which are addressed with the trees.
+The characteristics of at least 5 representative individuals of each shrub and
+cacti species (at least 1 from each quadrant if relevant) are recorded in the
+s200\_shrub\_survey form. As with the shrub count, this does not include
+Saguaros, which are addressed with the trees.
 
 * Note the plot ID (for example, 'V12')
 * Add a 'Survey data for taxon' group for each taxon in the plot
@@ -104,9 +123,15 @@ The characteristics of at least 5 representative individuals of each shrub and c
 
 **hedges (urban plots only)**
 
-A hedge versus a shrub is an arbitrary distinction to be made by the crew on site. Typically, we consider a shrub or shrubs(s) a hedge if it or, most often, they are positioned and manicured to create a distinct border, and if the growth of the plants is dense.
+A hedge versus a shrub is an arbitrary distinction to be made by the crew on
+site. Typically, we consider a shrub or shrubs(s) a hedge if it or, most often,
+they are positioned and manicured to create a distinct border, and if the
+growth of the plants is dense.
 
-The taxon, size, and shape of ALL hedges is recorded in the Hedges box of the vegetation data sheets. The number of hedges at each site should correspond to the number of entries on this sheet (i.e., there is not a separate hedge count sheet as there is for shrubs).
+The taxon, size, and shape of ALL hedges is recorded in the Hedges box of the
+vegetation data sheets. The number of hedges at each site should correspond to
+the number of entries on this sheet (i.e., there is not a separate hedge count
+sheet as there is for shrubs).
 
 * Note the plot ID (e.g., 'V12')
 * Add a 'Survey data for taxon' group for each taxon in the plot
@@ -220,7 +245,10 @@ Conduct ground sweeps at sites where only turf or weeds are present. In the abse
 
 ### parcel survey
 
-At all residential sites, survey characteristics of the parcel that most overlaps with the 30 x 30m study plot – if not accessible, survey the parcel that is most accessible. Data are to be collected for both the front and back yards if accessible.
+At all residential sites, survey characteristics of the parcel that most
+overlaps with the 30 x 30m study plot – if not accessible, survey the parcel
+that is most accessible. Data are to be collected for both the front and back
+yards if accessible.
 
 **General parcel information**
 

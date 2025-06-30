@@ -7597,3 +7597,143 @@ DBI::dbWithTransaction(
     )
 )
 ```
+
+# standardize social classes
+
+Not reflected until knb-lter-cap.652.6 and knb-lter-cap.653.3 are additional
+standarizations of social class. Below we standardize the existing data and
+future allowable values. `human_indicators.plot_social_class` (note updated
+name) data for 2023 are applied to
+`human_indicators_parcels.parcel_social_class` as appropriate since social
+class data were not collected for parcels in 2023. For neighborhood data, we
+convert the four, separate boolean variables (ca. rich, poor, middle, lower) to
+a single `human_indicators_neighborhoods.neigh_social_class` variable.
+
+social class data among parcels (HIP), plots (HI), and neighborhoods (HIN):
+
+| year | HIP     | HI | HIN |
+|------|---------|----|-----|
+| 2010 | X       | X  | X   |
+| 2015 | X       |    |     |
+| 2023 | from HI | X  |     |
+
+
+```{sql}
+#| eval: TRUE
+#| label: standardize-social-classes
+
+-- human indicators
+
+UPDATE survey200.human_indicators
+SET human_social_class = CASE
+  WHEN human_social_class  = 'middle class' THEN 'middle'
+  WHEN human_social_class  = 'wealthy' THEN 'rich'
+  WHEN human_social_class  ~~* '%working%' THEN 'working_lower'
+  WHEN human_social_class  ~~* '%upper%' THEN 'upper_middle'
+  ELSE human_social_class
+END
+;
+
+ALTER TABLE survey200.human_indicators
+RENAME COLUMN human_social_class TO plot_social_class
+;
+
+UPDATE survey200.human_indicators 
+SET plot_social_class = NULLIF(plot_social_class, '')
+;
+
+ALTER TABLE survey200.human_indicators 
+ADD CONSTRAINT check_plot_social_class
+CHECK (
+  plot_social_class IN (
+    'poor',
+    'working_lower',
+    'middle',
+    'upper_middle',
+    'rich'
+  )
+)
+;
+
+-- human indicators neighborhoods
+
+ALTER TABLE survey200.human_indicators_neighborhoods
+ADD COLUMN neigh_social_class text
+;
+
+UPDATE survey200.human_indicators_neighborhoods
+SET neigh_social_class = array_to_string(
+  ARRAY[
+    CASE WHEN neigh_social_class_poor = TRUE THEN 'poor' ELSE NULL END,
+    CASE WHEN neigh_social_class_rich = TRUE THEN 'rich' ELSE NULL END,
+    CASE WHEN neigh_social_class_upper_middle = TRUE THEN 'upper_middle' ELSE NULL END,
+    CASE WHEN neigh_social_class_working_lower = TRUE THEN 'working_lower' ELSE NULL END
+  ],
+  ','
+);
+
+ALTER TABLE survey200.human_indicators_neighborhoods
+  DROP COLUMN neigh_social_class_poor,
+  DROP COLUMN neigh_social_class_rich,
+  DROP COLUMN neigh_social_class_upper_middle,
+  DROP COLUMN neigh_social_class_working_lower
+;
+
+UPDATE survey200.human_indicators_neighborhoods 
+SET neigh_social_class = NULLIF(neigh_social_class, '')
+;
+
+ALTER TABLE survey200.human_indicators_neighborhoods
+ADD CONSTRAINT check_neigh_social_class
+CHECK (
+  neigh_social_class IN (
+    'poor',
+    'working_lower',
+    'middle',
+    'upper_middle',
+    'rich'
+  )
+)
+;
+
+-- human indicators parcels
+
+UPDATE survey200.human_indicators_parcels
+SET parcel_social_class = NULLIF(parcel_social_class, '')
+;
+
+UPDATE survey200.human_indicators_parcels
+SET parcel_social_class = human_indicators.plot_social_class
+FROM survey200.human_indicators
+JOIN survey200.sampling_events ON human_indicators.survey_id = sampling_events.survey_id
+JOIN survey200.sites ON sampling_events.site_id = sites.site_id
+WHERE human_indicators_parcels.survey_id = human_indicators.survey_id
+  AND human_indicators_parcels.parcel_social_class IS NULL
+  AND human_indicators.plot_social_class IS NOT NULL
+  AND sites.research_focus = 'parcel'
+  AND EXTRACT(YEAR FROM sampling_events.samp_date) = 2023
+;
+
+
+UPDATE survey200.human_indicators_parcels
+SET parcel_social_class = CASE
+  WHEN parcel_social_class  ~~* '%working%' THEN 'working_lower'
+  WHEN parcel_social_class  ~~* '%upper%' THEN 'upper_middle'
+  ELSE parcel_social_class 
+END
+;
+
+ALTER TABLE survey200.human_indicators_parcels 
+ADD CONSTRAINT check_parcel_social_class
+CHECK (
+  parcel_social_class IN (
+    'poor',
+    'working_lower',
+    'middle',
+    'upper_middle',
+    'rich'
+  )
+)
+;
+
+```
