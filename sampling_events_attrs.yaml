@@ -77,3 +77,15 @@
     valueLabel: ''
     columnClasses: character
     definition: ''
+  vegetation_rope_length:
+    attributeName: vegetation_rope_length
+    attributeDefinition: 'length of N-S and E-W plot center axes that are in contact with any annual plant (serves as an approximation for cover of annual plots in the plot); maximum value of 60 m (30x30 m plot)'
+    propertyURI: ''
+    propertyLabel: ''
+    valueURI: ''
+    valueLabel: ''
+    unit: 'M'
+    numberType: real
+    minimum: 0.0
+    maximum: 60.0
+    columnClasses: numeric

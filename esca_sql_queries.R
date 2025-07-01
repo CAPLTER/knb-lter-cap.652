@@ -127,7 +127,7 @@ get_human_indicators <- function(research_focus) {
     hi.human_number_bycicles AS human_number_bicycles,
     hi.human_number_houses,
     hi.human_number_rvs,
-    hi.human_social_class --,
+    hi.plot_social_class --,
     -- hi.weather_on_the_day,
     -- hi.weather_recent_rain_notes --,
     -- hi.general_description
@@ -256,8 +256,8 @@ get_annuals <- function() {
   SELECT
     unique_annuals.sample_date,
     unique_annuals.site_code,
-    unique_annuals.vegetation_scientific_name,
-    human_indicators.vegetation_rope_length
+    unique_annuals.vegetation_scientific_name
+    -- human_indicators.vegetation_rope_length
   FROM unique_annuals
   LEFT JOIN survey200.human_indicators ON (human_indicators.survey_id = unique_annuals.survey_id) 
   ;
@@ -270,13 +270,13 @@ get_annuals <- function() {
     statement = get_annuals_base_query
   )
  
-  annuals |>
-    pointblank::col_vals_equal(
-      columns       = n,
-      value         = 1,
-      preconditions = \(x) x |> dplyr::count(sample_date, site_code),
-      actions       = pointblank::warn_on_fail()
-    )
+  # annuals |>
+  #   pointblank::col_vals_equal(
+  #     columns       = n,
+  #     value         = 1,
+  #     preconditions = \(x) x |> dplyr::count(sample_date, site_code),
+  #     actions       = pointblank::warn_on_fail()
+  #   )
 
   return(annuals)
 
@@ -543,7 +543,6 @@ get_landuse <- function(research_focus) {
     s.site_code
     ;
     "
-  
 
   landuse_query <- DBI::sqlInterpolate(
     conn          = DBI::ANSI(),
@@ -680,30 +679,30 @@ get_structures <- function(research_focus) {
 }
 
 
-
 # sampling_events -------------------------------------------------
 
 get_sampling_events <- function(research_focus) {
   
   sampling_events_base_query <- "
-  SELECT
-    sampling_events.samp_date AS sample_date,
-    sites.site_code,
-    sites.elevation,
-    sites_geography.slope,
-    sites_geography.aspect,
-    hi.weather_on_the_day,
-    hi.weather_recent_rain_notes,
-    hi.general_description
-  FROM survey200.sampling_events
-  JOIN survey200.sites ON (sampling_events.site_id = sites.site_id)
-  JOIN survey200.human_indicators hi ON (sampling_events.survey_id = hi.survey_id)
-  LEFT JOIN survey200.sites_geography ON (sites_geography.survey_id = sampling_events.survey_id)
-  WHERE
-    sites.research_focus::text = ?researchFocus
-  ORDER BY
-    EXTRACT (YEAR FROM sampling_events.samp_date),
-    sites.site_code
+    SELECT
+      sampling_events.samp_date AS sample_date,
+      sites.site_code,
+      sites.elevation,
+      sites_geography.slope,
+      sites_geography.aspect,
+      hi.weather_on_the_day,
+      hi.weather_recent_rain_notes,
+      hi.general_description,
+      hi.vegetation_rope_length
+    FROM survey200.sampling_events
+    JOIN survey200.sites ON (sampling_events.site_id = sites.site_id)
+    LEFT JOIN survey200.human_indicators hi ON (sampling_events.survey_id = hi.survey_id)
+    LEFT JOIN survey200.sites_geography ON (sites_geography.survey_id = sampling_events.survey_id)
+    WHERE
+      sites.research_focus::text = ?researchFocus
+    ORDER BY
+      EXTRACT (YEAR FROM sampling_events.samp_date),
+      sites.site_code
     ;
     "
   

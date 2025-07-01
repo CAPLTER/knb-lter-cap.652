@@ -6,6 +6,7 @@
 
 source("~/Documents/localSettings/pg_local.R")
 pg <- pg_local_connect("caplter")
+
 ```
 
 ```{r}
@@ -13,6 +14,8 @@ pg <- pg_local_connect("caplter")
 #| label: queries
 
 source("esca_sql_queries.R")
+source("esca_sites_grid.R")
+
 ```
 
 
@@ -22,30 +25,36 @@ source("esca_sql_queries.R")
 #| eval: true
 #| label: human_indicators
 
-human_indicators <- get_human_indicators('survey200')
+human_indicators <- get_human_indicators("survey200")
 
 human_indicators <- human_indicators |>
   dplyr::mutate(
-    human_presence_of_path    = as.factor(human_presence_of_path),
-    human_footprints          = as.factor(human_footprints),
-    human_bike_tracks         = as.factor(human_bike_tracks),
-    human_off_road_vehicle    = as.factor(human_off_road_vehicle),
-    human_small_litter        = as.factor(human_small_litter),
-    human_dumped_trash_bags   = as.factor(human_dumped_trash_bags),
-    human_abandoned_vehicles  = as.factor(human_abandoned_vehicles),
-    human_graffiti            = as.factor(human_graffiti),
-    human_injured_plants      = as.factor(human_injured_plants),
-    human_informal_play       = as.factor(human_informal_play),
-    human_informal_recreation = as.factor(human_informal_recreation),
-    human_informal_living     = as.factor(human_informal_living),
-    human_sports_equipment    = as.factor(human_sports_equipment),
-    human_social_class        = as.factor(human_social_class)
+    dplyr::across(
+      c(
+        human_presence_of_path,
+        human_footprints,
+        human_bike_tracks,
+        human_off_road_vehicle,
+        human_small_litter,
+        human_dumped_trash_bags,
+        human_abandoned_vehicles,
+        human_graffiti,
+        human_injured_plants,
+        human_informal_play,
+        human_informal_recreation,
+        human_informal_living,
+        human_sports_equipment,
+        plot_social_class
+      ),
+      ~ if (all(is.na(.x))) as.character(.x) else as.factor(.x)
+    )
   )
 
 try({
   capeml::write_attributes(human_indicators, overwrite = FALSE)
   capeml::write_factors(human_indicators, overwrite = FALSE)
 })
+
 ```
 
 
@@ -83,6 +92,7 @@ try({
   capeml::write_attributes(landscape_irrigation, overwrite = FALSE)
   capeml::write_factors(landscape_irrigation, overwrite = FALSE)
 })
+
 ```
 
 
@@ -92,17 +102,10 @@ try({
 #| eval: true
 #| label: annuals
 
-annuals <- get_annuals() |>
-  dplyr::mutate(
-    vegetation_rope_length = dplyr::case_when(
-      vegetation_rope_length > 60 ~ 60,
-      TRUE ~ vegetation_rope_length
-    )
-  )
+annuals <- get_annuals()
 
-try({
-  capeml::write_attributes(annuals, overwrite = FALSE)
-})
+try({ capeml::write_attributes(annuals, overwrite = FALSE) })
+
 ```
 
 
@@ -190,6 +193,7 @@ try({
 #     height_degree_down > 0 ~ (tan(height_degree_up) - tan(height_degree_down)) * height_distance
 #   )
 # )
+
 ```
 
 ## perennials
@@ -234,9 +238,8 @@ V7        ,2015-04-08 ,Ziziphus obtusifolia                                   , 
 
 number_perennials <- get_perennials()
 
-try({
-  capeml::write_attributes(number_perennials, overwrite = FALSE)
-})
+try({ capeml::write_attributes(number_perennials, overwrite = FALSE) })
+
 ```
 
 ## hedges
@@ -256,6 +259,7 @@ try({
   capeml::write_attributes(hedges, overwrite = FALSE)
   capeml::write_factors(hedges, overwrite = FALSE)
 })
+
 ```
 
 ## landuse
@@ -266,9 +270,8 @@ try({
 
 landuse <- get_landuse("survey200")
 
-try({
-  capeml::write_attributes(landuse, overwrite = FALSE)
-})
+try({ capeml::write_attributes(landuse, overwrite = FALSE) })
+
 ```
 
 ## neighborhood_characteristics
@@ -279,10 +282,7 @@ try({
 
 neighborhood_characteristics <- get_neighborhood_characteristics("survey200") |>
   dplyr::mutate(
-    neigh_social_class_poor                     = as.factor(neigh_social_class_poor),
-    neigh_social_class_rich                     = as.factor(neigh_social_class_rich),
-    neigh_social_class_upper_middle             = as.factor(neigh_social_class_upper_middle),
-    neigh_social_class_working_lower            = as.factor(neigh_social_class_working_lower),
+    neigh_social_class                          = as.factor(neigh_social_class),
     neigh_buildings_residential                 = as.factor(neigh_buildings_residential),
     neigh_buildings_commercial                  = as.factor(neigh_buildings_commercial),
     neigh_buildings_institutional               = as.factor(neigh_buildings_institutional),
@@ -314,6 +314,7 @@ try({
   capeml::write_attributes(neighborhood_characteristics, overwrite = FALSE)
   capeml::write_factors(neighborhood_characteristics, overwrite = FALSE)
 })
+
 ```
 
 ## structures
@@ -334,9 +335,8 @@ structures <- get_structures("survey200") |>
     )
   )
 
-try({
-  capeml::write_attributes(structures, overwrite = FALSE)
-})
+try({ capeml::write_attributes(structures, overwrite = FALSE) })
+
 ```
 
 ## sampling_events
@@ -345,11 +345,16 @@ try({
 #| eval: true
 #| label: sampling_events
 
-sampling_events <- get_sampling_events('survey200')
+sampling_events <- get_sampling_events("survey200") |>
+  dplyr::mutate(
+    vegetation_rope_length = dplyr::case_when(
+      vegetation_rope_length > 60 ~ 60,
+      TRUE ~ vegetation_rope_length
+    )
+  )
 
-try({
-  capeml::write_attributes(sampling_events, overwrite = FALSE)
-})
+try({ capeml::write_attributes(sampling_events, overwrite = FALSE) })
+
 ```
 
 ## soil_perimeter_core
@@ -443,6 +448,7 @@ try({
   capeml::write_attributes(soil_perimeter_cores, overwrite = FALSE)
   capeml::write_factors(soil_perimeter_cores, overwrite = FALSE)
 })
+
 ```
 
 ## soil_center_cores
@@ -579,9 +585,7 @@ soil_center_cores <- soil_center_cores |>
     notes
   )
 
-try({
-  capeml::write_attributes(soil_center_cores, overwrite = FALSE)
-})
+try({ capeml::write_attributes(soil_center_cores, overwrite = FALSE) })
 
 ```
 
@@ -599,7 +603,28 @@ try({
   capeml::write_attributes(arthropods, overwrite = FALSE)
   capeml::write_factors(arthropods, overwrite = FALSE)
 })
+
 ```
+
+
+## locations as grid cells
+
+```{r}
+#| eval: TRUE
+#| label: locations
+
+try({capeml::write_attributes(cells_with_points, overwrite = FALSE)})
+
+cells_with_points_desc <- "Geospatial file detailing the approximate locations of ESCA sampling sites in the CAP LTER study area encompassing the greater Phoenix metropolitan area and immediately surrounding Sonoran desert region. Polygons reflect a bounded area in which the study plot is located. This spatial resource is designed to provide the user with the general area of the study plot without disclosing the precise location. Precise sampling locations are available upon request to the CAP LTER Information Manager."
+
+cells_with_points_SV <- capemlGIS::create_vector(
+  vector_name = cells_with_points,
+  description = cells_with_points_desc,
+  driver      = "GeoJSON"
+)
+
+```
+
 
 ## coverages
 
@@ -610,23 +635,63 @@ try({
 coverage <- EML::set_coverage(
   begin                 = as.character(as.Date(min(sampling_events$sample_date))),
   end                   = as.character(as.Date(max(sampling_events$sample_date))),
-  geographicDescription = capeml::read_package_configuration()[["geographic_description"]],
-  west                  = -112.783,
-  east                  = -111.579,
-  north                 = 33.8267,
-  south                 = 33.2186
+  geographicDescription = capeml::read_package_configuration()[[
+    "geographic_description"
+  ]],
+  west                  = sf::st_bbox(cells_with_points)[["xmin"]],
+  east                  = sf::st_bbox(cells_with_points)[["xmax"]],
+  north                 = sf::st_bbox(cells_with_points)[["ymax"]],
+  south                 = sf::st_bbox(cells_with_points)[["ymin"]]
 )
+
 ```
 
-need taxonomy!!!
+
+### taxonomic coverage
+
+```{r}
+#| eval: TRUE
+#| label: taxonomic-coverage
+
+my_path <- getwd()
+
+taxa <- dplyr::bind_rows(
+  annuals |>
+    dplyr::distinct(vegetation_scientific_name),
+  shrubs_surveys |>
+    dplyr::distinct(vegetation_scientific_name),
+  trees |>
+    dplyr::distinct(vegetation_scientific_name),
+  number_perennials |>
+    dplyr::distinct(vegetation_scientific_name),
+  hedges |>
+    dplyr::distinct(vegetation_scientific_name)
+) |>
+  as.data.frame()
+
+taxonomyCleanr::create_taxa_map(
+  path = my_path,
+  x    = taxa,
+  col  = "vegetation_scientific_name"
+)
+
+taxonomyCleanr::resolve_sci_taxa(
+  path         = my_path,
+  data.sources = c(3, 11)
+)
+
+taxaCoverage <- taxonomyCleanr::make_taxonomicCoverage(path = my_path)
+
+coverage$taxonomicCoverage <- taxaCoverage
+
+```
+
 
 ## build
 
 ```{r}
 #| eval: TRUE
 #| label: build
-
-# devtools::load_all("~/localRepos/capeml")
 
 dataset <- capeml::create_dataset()
 eml     <- capeml::create_eml()
@@ -650,6 +715,7 @@ xml2::write_xml(report, "/tmp/report.xml")
 capeml::create_package(environment = "production")
 
 EDIutils::logout()
+
 ```
 
 ## clean
@@ -661,4 +727,5 @@ EDIutils::logout()
 file.remove(c(list.files(pattern = "^652.+csv$")))
 capeml::eml_to_amz(list.files(pattern = "knb.+xml"))
 file.copy(list.files(pattern = "knb.+xml"), "/home/srearl/localRepos/cap-metadata/cap-data-eml/")
+
 ```

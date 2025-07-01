@@ -7737,3 +7737,26 @@ CHECK (
 ;
 
 ```
+
+
+# standardize `stem_diameter_at`
+
+```sql
+
+UPDATE caplter.survey200.vegetation_survey_trees
+SET stem_diameter_at = 
+CASE
+  WHEN TRIM(stem_diameter_at) IN ('g', 'dgh') THEN '0'
+  WHEN TRIM(stem_diameter_at) IN ('dbh', 'b') THEN '54'
+  WHEN TRIM(stem_diameter_at) = 'n' THEN NULL
+  WHEN TRIM(stem_diameter_at) = '' THEN NULL
+  ELSE stem_diameter_at
+END
+;
+
+ALTER TABLE caplter.survey200.vegetation_survey_trees
+ALTER COLUMN stem_diameter_at TYPE integer
+USING stem_diameter_at::integer
+;
+
+```
