@@ -656,29 +656,29 @@ coverage <- EML::set_coverage(
 my_path <- getwd()
 
 taxa <- dplyr::bind_rows(
-  annuals |>
-    dplyr::distinct(vegetation_scientific_name),
-  shrubs_surveys |>
-    dplyr::distinct(vegetation_scientific_name),
-  trees |>
-    dplyr::distinct(vegetation_scientific_name),
-  number_perennials |>
-    dplyr::distinct(vegetation_scientific_name),
-  hedges |>
-    dplyr::distinct(vegetation_scientific_name)
+  annuals["vegetation_scientific_name"],
+  shrubs_surveys["vegetation_scientific_name"],
+  trees["vegetation_scientific_name"],
+  number_perennials["vegetation_scientific_name"],
+  hedges["vegetation_scientific_name"],
+  arthropods |>
+    dplyr::distinct(arthropod_scientific_name) |>
+    dplyr::rename(vegetation_scientific_name = arthropod_scientific_name)
 ) |>
+  dplyr::rename(scientific_name = vegetation_scientific_name) |>
+  dplyr::distinct(scientific_name) |>
   as.data.frame()
 
-taxonomyCleanr::create_taxa_map(
-  path = my_path,
-  x    = taxa,
-  col  = "vegetation_scientific_name"
-)
+# taxonomyCleanr::create_taxa_map(
+#   path = my_path,
+#   x    = taxa,
+#   col  = "scientific_name"
+# )
 
-taxonomyCleanr::resolve_sci_taxa(
-  path         = my_path,
-  data.sources = c(3, 11)
-)
+# taxonomyCleanr::resolve_sci_taxa(
+#   path         = my_path,
+#   data.sources = c(3, 11)
+# )
 
 taxaCoverage <- taxonomyCleanr::make_taxonomicCoverage(path = my_path)
 
