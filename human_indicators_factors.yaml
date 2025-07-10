@@ -107,6 +107,7 @@
       - code: none
         definition: none
       - code: some
+        definition: some 
   - attribute:
       attributeName: plot_social_class
       levels:

@@ -2,13 +2,22 @@
 
 ### version history
 
-- knb-lter-cap.652.6 2025-0x-xx
+- knb-lter-cap.652.7 2025-0x-xx
+
+  be sure cells_with_points is included as this did not make it into v6    
+
+
+- knb-lter-cap.652.6 2025-07-10
 
   - standardizes social classes to poor, working_lower, middle, upper_middle,
   and rich; and adds corresponding table constraints
   - convert the four, separate boolean neighborhood social class variables (ca.
   rich, poor, middle, lower) to a single
   `human_indicators_neighborhoods.neigh_social_class` text variable
+  - to help avoid confusion, moves `vegetation_rope_length` to
+  `sampling_events` so that only a single value or rope length is presented for
+  a given sampling_event
+  - adds previously omitted <taxonomicCoverage>
 
 
 - knb-lter-cap.652.5 2025-05-12

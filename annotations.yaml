@@ -1,91 +1,91 @@
 - name: NUM
   valueLabel: Number
   valueURI: http://qudt.org/vocab/unit/NUM
-  references: 5b2c73166c59de3bfe1b965fb20a53a3_16
+  references: 6d3f001754bad5916ccc05302187eeeb_16
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: NUM
   valueLabel: Number
   valueURI: http://qudt.org/vocab/unit/NUM
-  references: 5b2c73166c59de3bfe1b965fb20a53a3_17
+  references: 6d3f001754bad5916ccc05302187eeeb_17
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: NUM
   valueLabel: Number
   valueURI: http://qudt.org/vocab/unit/NUM
-  references: 5b2c73166c59de3bfe1b965fb20a53a3_18
+  references: 6d3f001754bad5916ccc05302187eeeb_18
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: NUM
   valueLabel: Number
   valueURI: http://qudt.org/vocab/unit/NUM
-  references: 5b2c73166c59de3bfe1b965fb20a53a3_19
+  references: 6d3f001754bad5916ccc05302187eeeb_19
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: NUM
   valueLabel: Number
   valueURI: http://qudt.org/vocab/unit/NUM
-  references: 5b2c73166c59de3bfe1b965fb20a53a3_20
+  references: 6d3f001754bad5916ccc05302187eeeb_20
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: M
   valueLabel: Meter
   valueURI: http://qudt.org/vocab/unit/M
-  references: 16a9adc93ba647d448bcfb9b02e751cb_4
+  references: f8b9cd75eec5c900eb85c0b8b346012c_6
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: M
   valueLabel: Meter
   valueURI: http://qudt.org/vocab/unit/M
-  references: 86385dd3a15c0bbe6d920a1815b2d284_6
+  references: f8b9cd75eec5c900eb85c0b8b346012c_7
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: M
   valueLabel: Meter
   valueURI: http://qudt.org/vocab/unit/M
-  references: 86385dd3a15c0bbe6d920a1815b2d284_7
+  references: f8b9cd75eec5c900eb85c0b8b346012c_8
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
-- name: M
-  valueLabel: Meter
-  valueURI: http://qudt.org/vocab/unit/M
-  references: 86385dd3a15c0bbe6d920a1815b2d284_8
+- name: IN
+  valueLabel: Inch
+  valueURI: http://qudt.org/vocab/unit/IN
+  references: 67dfc21be36ee7b16ccd93e98b540ef1_10
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: NUM
   valueLabel: Number
   valueURI: http://qudt.org/vocab/unit/NUM
-  references: e0efe65852efde3f83f722eca4df56f6_11
+  references: 67dfc21be36ee7b16ccd93e98b540ef1_11
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: PERCENT
   valueLabel: Percent
   valueURI: http://qudt.org/vocab/unit/PERCENT
-  references: e0efe65852efde3f83f722eca4df56f6_12
+  references: 67dfc21be36ee7b16ccd93e98b540ef1_12
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: M
   valueLabel: Meter
   valueURI: http://qudt.org/vocab/unit/M
-  references: e0efe65852efde3f83f722eca4df56f6_6
+  references: 67dfc21be36ee7b16ccd93e98b540ef1_6
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: M
   valueLabel: Meter
   valueURI: http://qudt.org/vocab/unit/M
-  references: e0efe65852efde3f83f722eca4df56f6_7
+  references: 67dfc21be36ee7b16ccd93e98b540ef1_7
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: M
   valueLabel: Meter
   valueURI: http://qudt.org/vocab/unit/M
-  references: e0efe65852efde3f83f722eca4df56f6_8
+  references: 67dfc21be36ee7b16ccd93e98b540ef1_8
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: CentiM
   valueLabel: Centimeter
   valueURI: http://qudt.org/vocab/unit/CentiM
-  references: e0efe65852efde3f83f722eca4df56f6_9
+  references: 67dfc21be36ee7b16ccd93e98b540ef1_9
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: NUM
@@ -133,13 +133,19 @@
 - name: M
   valueLabel: Meter
   valueURI: http://qudt.org/vocab/unit/M
-  references: 48c16971808bd14e483a4e4feb474b2e_3
+  references: 663039f2957405be28148f92b1c0a535_3
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: DEG
   valueLabel: Degree
   valueURI: http://qudt.org/vocab/unit/DEG
-  references: 48c16971808bd14e483a4e4feb474b2e_4
+  references: 663039f2957405be28148f92b1c0a535_4
+  propertyLabel: has unit
+  propertyURI: http://qudt.org/schema/qudt/hasUnit
+- name: M
+  valueLabel: Meter
+  valueURI: http://qudt.org/vocab/unit/M
+  references: 663039f2957405be28148f92b1c0a535_9
   propertyLabel: has unit
   propertyURI: http://qudt.org/schema/qudt/hasUnit
 - name: PERCENT

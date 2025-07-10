@@ -1,0 +1,16 @@
+taxa_clean,taxonID,taxonRank,acceptedNameUsageID,taxonomicStatus,update_date,kingdom,phylum,class,order,family,genus,specificEpithet,infraspecificEpithet,vernacularName,duplicate
+Chamaesyce maculata,ITIS:565061,species,ITIS:28034,synonym,2017-04-25,Plantae,NA,Magnoliopsida,Malpighiales,Euphorbiaceae,Euphorbia,maculata,,spotted spurge,TRUE
+Gilia,ITIS:719013,genus,ITIS:719013,accepted,2007-03-13,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Veronica anagallis,ITIS:33410,species,ITIS:565594,synonym,2011-09-22,Plantae,NA,Magnoliopsida,Lamiales,Plantaginaceae,Veronica,anagallis,aquatica,water speedwell,TRUE
+Baileya,ITIS:937067,genus,ITIS:937067,accepted,2014-05-28,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Cynodon,ITIS:639169,genus,ITIS:639169,accepted,2004-09-15,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Iris,ITIS:666592,genus,ITIS:666592,accepted,2005-03-09,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Janusia,ITIS:872300,genus,ITIS:872300,accepted,2012-04-26,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Cereus peruvianus,ITIS:909697,species,ITIS:908214,synonym,2013-06-12,Plantae,NA,Magnoliopsida,Caryophyllales,Cactaceae,Cereus,repandus,,NA,TRUE
+Ficus,ITIS:73159,genus,ITIS:73159,accepted,2014-08-27,NA,NA,NA,NA,NA,NA,,,figsnails,TRUE
+Eremophila,ITIS:834082,genus,ITIS:834082,accepted,2011-09-22,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Olea,ITIS:77997,genus,ITIS:77997,accepted,2000-03-31,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Cereus,ITIS:204189,genus,ITIS:204189,accepted,2002-07-03,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Morus,ITIS:174698,genus,ITIS:174698,accepted,2011-09-22,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Collembola,ITIS:914185,class,ITIS:914185,accepted,2013-11-04,NA,NA,NA,NA,NA,NA,,,NA,TRUE
+Mantodea,ITIS:666589,suborder,ITIS:666589,accepted,2013-11-04,NA,NA,NA,NA,NA,NA,,,NA,TRUE

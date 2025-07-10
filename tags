@@ -157,156 +157,132 @@
 .x	kobo_data_processing/vtl_taxa_match.R	/^        .x = updates,$/;"	v	function:recode_taxon
 .x	kobo_data_processing/vtl_taxa_match.R	/^      .x = add_authority,$/;"	g
 .x	kobo_data_processing/vtl_taxa_match.R	/^      .x = df,$/;"	g
-16a9adc93ba647d448bcfb9b02e751cb_1	knb-lter-cap.652.5.xml	/^        <attribute id="16a9adc93ba647d448bcfb9b02e751cb_1">$/;"	i
-16a9adc93ba647d448bcfb9b02e751cb_2	knb-lter-cap.652.5.xml	/^        <attribute id="16a9adc93ba647d448bcfb9b02e751cb_2">$/;"	i
-16a9adc93ba647d448bcfb9b02e751cb_3	knb-lter-cap.652.5.xml	/^        <attribute id="16a9adc93ba647d448bcfb9b02e751cb_3">$/;"	i
-16a9adc93ba647d448bcfb9b02e751cb_4	knb-lter-cap.652.5.xml	/^        <attribute id="16a9adc93ba647d448bcfb9b02e751cb_4">$/;"	i
-16c0047fb7ef332861f7bdf46b0679fc_1	knb-lter-cap.652.5.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_1">$/;"	i
-16c0047fb7ef332861f7bdf46b0679fc_2	knb-lter-cap.652.5.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_2">$/;"	i
-16c0047fb7ef332861f7bdf46b0679fc_3	knb-lter-cap.652.5.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_3">$/;"	i
-16c0047fb7ef332861f7bdf46b0679fc_4	knb-lter-cap.652.5.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_4">$/;"	i
-48c16971808bd14e483a4e4feb474b2e_1	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_1">$/;"	i
-48c16971808bd14e483a4e4feb474b2e_2	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_2">$/;"	i
-48c16971808bd14e483a4e4feb474b2e_3	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_3">$/;"	i
-48c16971808bd14e483a4e4feb474b2e_4	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_4">$/;"	i
-48c16971808bd14e483a4e4feb474b2e_5	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_5">$/;"	i
-48c16971808bd14e483a4e4feb474b2e_6	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_6">$/;"	i
-48c16971808bd14e483a4e4feb474b2e_7	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_7">$/;"	i
-48c16971808bd14e483a4e4feb474b2e_8	knb-lter-cap.652.5.xml	/^        <attribute id="48c16971808bd14e483a4e4feb474b2e_8">$/;"	i
-53c83dac17d2a52b07c9773686bc2f56_1	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_1">$/;"	i
-53c83dac17d2a52b07c9773686bc2f56_2	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_2">$/;"	i
-53c83dac17d2a52b07c9773686bc2f56_3	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_3">$/;"	i
-53c83dac17d2a52b07c9773686bc2f56_4	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_4">$/;"	i
-53c83dac17d2a52b07c9773686bc2f56_5	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_5">$/;"	i
-53c83dac17d2a52b07c9773686bc2f56_6	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_6">$/;"	i
-53c83dac17d2a52b07c9773686bc2f56_7	knb-lter-cap.652.5.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_7">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_1	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_1">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_10	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_10">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_11	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_11">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_12	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_12">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_13	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_13">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_14	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_14">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_15	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_15">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_16	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_16">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_17	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_17">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_18	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_18">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_19	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_19">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_2	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_2">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_20	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_20">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_21	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_21">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_3	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_3">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_4	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_4">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_5	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_5">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_6	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_6">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_7	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_7">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_8	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_8">$/;"	i
-5b2c73166c59de3bfe1b965fb20a53a3_9	knb-lter-cap.652.5.xml	/^        <attribute id="5b2c73166c59de3bfe1b965fb20a53a3_9">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_1	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_1">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_10	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_10">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_11	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_11">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_12	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_12">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_13	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_13">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_14	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_14">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_15	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_15">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_16	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_16">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_17	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_17">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_18	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_18">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_19	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_19">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_2	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_2">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_20	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_20">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_21	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_21">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_22	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_22">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_23	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_23">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_24	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_24">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_25	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_25">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_26	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_26">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_27	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_27">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_28	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_28">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_29	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_29">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_3	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_3">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_30	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_30">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_31	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_31">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_32	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_32">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_4	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_4">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_5	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_5">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_6	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_6">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_7	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_7">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_8	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_8">$/;"	i
-5d9a679554809fb94b5cbdd0cf12dfe4_9	knb-lter-cap.652.5.xml	/^        <attribute id="5d9a679554809fb94b5cbdd0cf12dfe4_9">$/;"	i
-5da1f27e7a475813a6c4caa2583bd6d5_1	knb-lter-cap.652.5.xml	/^        <attribute id="5da1f27e7a475813a6c4caa2583bd6d5_1">$/;"	i
-5da1f27e7a475813a6c4caa2583bd6d5_2	knb-lter-cap.652.5.xml	/^        <attribute id="5da1f27e7a475813a6c4caa2583bd6d5_2">$/;"	i
-5da1f27e7a475813a6c4caa2583bd6d5_3	knb-lter-cap.652.5.xml	/^        <attribute id="5da1f27e7a475813a6c4caa2583bd6d5_3">$/;"	i
-652_annuals.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_annuals.csv">$/;"	i
-652_arthropods.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_arthropods.csv">$/;"	i
-652_hedges.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_hedges.csv">$/;"	i
-652_human_indicators.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_human_indicators.csv">$/;"	i
-652_landscape_irrigation.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_landscape_irrigation.csv">$/;"	i
-652_landuse.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_landuse.csv">$/;"	i
-652_neighborhood_characteristics.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_neighborhood_characteristics.csv">$/;"	i
-652_number_perennials.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_number_perennials.csv">$/;"	i
-652_sampling_events.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_sampling_events.csv">$/;"	i
-652_shrubs_surveys.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_shrubs_surveys.csv">$/;"	i
-652_soil_center_cores.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_soil_center_cores.csv">$/;"	i
-652_soil_perimeter_cores.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_soil_perimeter_cores.csv">$/;"	i
-652_structures.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_structures.csv">$/;"	i
-652_trees.csv	knb-lter-cap.652.5.xml	/^    <dataTable id="652_trees.csv">$/;"	i
-86385dd3a15c0bbe6d920a1815b2d284_1	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_1">$/;"	i
-86385dd3a15c0bbe6d920a1815b2d284_2	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_2">$/;"	i
-86385dd3a15c0bbe6d920a1815b2d284_3	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_3">$/;"	i
-86385dd3a15c0bbe6d920a1815b2d284_4	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_4">$/;"	i
-86385dd3a15c0bbe6d920a1815b2d284_5	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_5">$/;"	i
-86385dd3a15c0bbe6d920a1815b2d284_6	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_6">$/;"	i
-86385dd3a15c0bbe6d920a1815b2d284_7	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_7">$/;"	i
-86385dd3a15c0bbe6d920a1815b2d284_8	knb-lter-cap.652.5.xml	/^        <attribute id="86385dd3a15c0bbe6d920a1815b2d284_8">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_1	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_1">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_10	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_10">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_11	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_11">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_2	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_2">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_3	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_3">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_4	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_4">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_5	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_5">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_6	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_6">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_7	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_7">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_8	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_8">$/;"	i
-8eb7347cad1f9a429590681d6bf78866_9	knb-lter-cap.652.5.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_9">$/;"	i
+16c0047fb7ef332861f7bdf46b0679fc_1	knb-lter-cap.652.6.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_1">$/;"	i
+16c0047fb7ef332861f7bdf46b0679fc_2	knb-lter-cap.652.6.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_2">$/;"	i
+16c0047fb7ef332861f7bdf46b0679fc_3	knb-lter-cap.652.6.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_3">$/;"	i
+16c0047fb7ef332861f7bdf46b0679fc_4	knb-lter-cap.652.6.xml	/^        <attribute id="16c0047fb7ef332861f7bdf46b0679fc_4">$/;"	i
+373b0755e53dc9806f5509f0c32417b9_1	knb-lter-cap.652.6.xml	/^        <attribute id="373b0755e53dc9806f5509f0c32417b9_1">$/;"	i
+373b0755e53dc9806f5509f0c32417b9_2	knb-lter-cap.652.6.xml	/^        <attribute id="373b0755e53dc9806f5509f0c32417b9_2">$/;"	i
+373b0755e53dc9806f5509f0c32417b9_3	knb-lter-cap.652.6.xml	/^        <attribute id="373b0755e53dc9806f5509f0c32417b9_3">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_1	knb-lter-cap.652.6.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_1">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_2	knb-lter-cap.652.6.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_2">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_3	knb-lter-cap.652.6.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_3">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_4	knb-lter-cap.652.6.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_4">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_5	knb-lter-cap.652.6.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_5">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_6	knb-lter-cap.652.6.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_6">$/;"	i
+53c83dac17d2a52b07c9773686bc2f56_7	knb-lter-cap.652.6.xml	/^        <attribute id="53c83dac17d2a52b07c9773686bc2f56_7">$/;"	i
+5da1f27e7a475813a6c4caa2583bd6d5_1	knb-lter-cap.652.6.xml	/^        <attribute id="5da1f27e7a475813a6c4caa2583bd6d5_1">$/;"	i
+5da1f27e7a475813a6c4caa2583bd6d5_2	knb-lter-cap.652.6.xml	/^        <attribute id="5da1f27e7a475813a6c4caa2583bd6d5_2">$/;"	i
+5da1f27e7a475813a6c4caa2583bd6d5_3	knb-lter-cap.652.6.xml	/^        <attribute id="5da1f27e7a475813a6c4caa2583bd6d5_3">$/;"	i
+652_annuals.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_annuals.csv">$/;"	i
+652_arthropods.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_arthropods.csv">$/;"	i
+652_hedges.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_hedges.csv">$/;"	i
+652_human_indicators.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_human_indicators.csv">$/;"	i
+652_landscape_irrigation.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_landscape_irrigation.csv">$/;"	i
+652_landuse.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_landuse.csv">$/;"	i
+652_neighborhood_characteristics.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_neighborhood_characteristics.csv">$/;"	i
+652_number_perennials.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_number_perennials.csv">$/;"	i
+652_sampling_events.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_sampling_events.csv">$/;"	i
+652_shrubs_surveys.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_shrubs_surveys.csv">$/;"	i
+652_soil_center_cores.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_soil_center_cores.csv">$/;"	i
+652_soil_perimeter_cores.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_soil_perimeter_cores.csv">$/;"	i
+652_structures.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_structures.csv">$/;"	i
+652_trees.csv	knb-lter-cap.652.6.xml	/^    <dataTable id="652_trees.csv">$/;"	i
+663039f2957405be28148f92b1c0a535_1	knb-lter-cap.652.6.xml	/^        <attribute id="663039f2957405be28148f92b1c0a535_1">$/;"	i
+663039f2957405be28148f92b1c0a535_2	knb-lter-cap.652.6.xml	/^        <attribute id="663039f2957405be28148f92b1c0a535_2">$/;"	i
+663039f2957405be28148f92b1c0a535_3	knb-lter-cap.652.6.xml	/^        <attribute id="663039f2957405be28148f92b1c0a535_3">$/;"	i
+663039f2957405be28148f92b1c0a535_4	knb-lter-cap.652.6.xml	/^        <attribute id="663039f2957405be28148f92b1c0a535_4">$/;"	i
+663039f2957405be28148f92b1c0a535_5	knb-lter-cap.652.6.xml	/^        <attribute id="663039f2957405be28148f92b1c0a535_5">$/;"	i
+663039f2957405be28148f92b1c0a535_6	knb-lter-cap.652.6.xml	/^        <attribute id="663039f2957405be28148f92b1c0a535_6">$/;"	i
+663039f2957405be28148f92b1c0a535_7	knb-lter-cap.652.6.xml	/^        <attribute id="663039f2957405be28148f92b1c0a535_7">$/;"	i
+663039f2957405be28148f92b1c0a535_8	knb-lter-cap.652.6.xml	/^        <attribute id="663039f2957405be28148f92b1c0a535_8">$/;"	i
+663039f2957405be28148f92b1c0a535_9	knb-lter-cap.652.6.xml	/^        <attribute id="663039f2957405be28148f92b1c0a535_9">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_1	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_1">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_10	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_10">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_11	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_11">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_12	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_12">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_13	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_13">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_2	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_2">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_3	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_3">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_4	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_4">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_5	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_5">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_6	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_6">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_7	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_7">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_8	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_8">$/;"	i
+67dfc21be36ee7b16ccd93e98b540ef1_9	knb-lter-cap.652.6.xml	/^        <attribute id="67dfc21be36ee7b16ccd93e98b540ef1_9">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_1	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_1">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_10	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_10">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_11	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_11">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_12	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_12">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_13	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_13">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_14	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_14">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_15	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_15">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_16	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_16">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_17	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_17">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_18	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_18">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_19	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_19">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_2	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_2">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_20	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_20">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_21	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_21">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_3	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_3">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_4	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_4">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_5	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_5">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_6	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_6">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_7	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_7">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_8	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_8">$/;"	i
+6d3f001754bad5916ccc05302187eeeb_9	knb-lter-cap.652.6.xml	/^        <attribute id="6d3f001754bad5916ccc05302187eeeb_9">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_1	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_1">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_10	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_10">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_11	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_11">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_2	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_2">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_3	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_3">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_4	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_4">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_5	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_5">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_6	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_6">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_7	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_7">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_8	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_8">$/;"	i
+8eb7347cad1f9a429590681d6bf78866_9	knb-lter-cap.652.6.xml	/^        <attribute id="8eb7347cad1f9a429590681d6bf78866_9">$/;"	i
 CAP LTER Ecological Survey of Central Arizona (ESCA)	README.md	/^## CAP LTER Ecological Survey of Central Arizona (ESCA)$/;"	s
 CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)	methods.md	/^## CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protoco/;"	s
 CAP LTER particle size analysis	methods.md	/^### CAP LTER particle size analysis$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 CentiM	annotations.yaml	/^- name: CentiM$/;"	p
 CentiM	custom_units.yaml	/^- name: CentiM$/;"	p
-CentiM	knb-lter-cap.652.5.xml	/^        <unit id="CentiM">$/;"	i
+CentiM	knb-lter-cap.652.6.xml	/^        <unit id="CentiM">$/;"	i
 DEG	annotations.yaml	/^- name: DEG$/;"	p
 DEG	custom_units.yaml	/^- name: DEG$/;"	p
-DEG	knb-lter-cap.652.5.xml	/^        <unit id="DEG">$/;"	i
+DEG	knb-lter-cap.652.6.xml	/^        <unit id="DEG">$/;"	i
 David edits	kobo_data_processing/esca.qmd	/^## David edits$/;"	s	chapter:arthropod taxa
 ESCA soil prep step-by-step instructions	methods.md	/^### ESCA soil prep step-by-step instructions$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 ESCA-related dataset inventory:	README.md	/^### ESCA-related dataset inventory:$/;"	S	section:CAP LTER Ecological Survey of Central Arizona (ESCA)
 GM-PER-CentiM3	annotations.yaml	/^- name: GM-PER-CentiM3$/;"	p
 GM-PER-CentiM3	custom_units.yaml	/^- name: GM-PER-CentiM3$/;"	p
-GM-PER-CentiM3	knb-lter-cap.652.5.xml	/^        <unit id="GM-PER-CentiM3">$/;"	i
+GM-PER-CentiM3	knb-lter-cap.652.6.xml	/^        <unit id="GM-PER-CentiM3">$/;"	i
 HI parcels	kobo_data_processing/esca.qmd	/^## HI parcels$/;"	s	chapter:human indicators
 HI plots	kobo_data_processing/esca.qmd	/^## HI plots$/;"	s	chapter:human indicators
 HI unique constraint: survey_id	kobo_data_processing/esca.qmd	/^## HI unique constraint: survey_id$/;"	s	chapter:human indicators
 HIN	kobo_data_processing/archive/esca_working.R	/^HIN <- DBI::dbGetQuery($/;"	g
 HIN unique constraint: survey_id	kobo_data_processing/esca.qmd	/^## HIN unique constraint: survey_id$/;"	s	chapter:human indicators neighborhoods
+IN	annotations.yaml	/^- name: IN$/;"	p
+IN	custom_units.yaml	/^- name: IN$/;"	p
+IN	knb-lter-cap.652.6.xml	/^        <unit id="IN">$/;"	i
 M	annotations.yaml	/^- name: M$/;"	p
 M	custom_units.yaml	/^- name: M$/;"	p
-M	knb-lter-cap.652.5.xml	/^        <unit id="M">$/;"	i
+M	knb-lter-cap.652.6.xml	/^        <unit id="M">$/;"	i
 MicroS-PER-CentiM	annotations.yaml	/^- name: MicroS-PER-CentiM$/;"	p
 MicroS-PER-CentiM	custom_units.yaml	/^- name: MicroS-PER-CentiM$/;"	p
-MicroS-PER-CentiM	knb-lter-cap.652.5.xml	/^        <unit id="MicroS-PER-CentiM">$/;"	i
+MicroS-PER-CentiM	knb-lter-cap.652.6.xml	/^        <unit id="MicroS-PER-CentiM">$/;"	i
 MilliGM-PER-KiloGM	annotations.yaml	/^- name: MilliGM-PER-KiloGM$/;"	p
 MilliGM-PER-KiloGM	custom_units.yaml	/^- name: MilliGM-PER-KiloGM$/;"	p
-MilliGM-PER-KiloGM	knb-lter-cap.652.5.xml	/^        <unit id="MilliGM-PER-KiloGM">$/;"	i
+MilliGM-PER-KiloGM	knb-lter-cap.652.6.xml	/^        <unit id="MilliGM-PER-KiloGM">$/;"	i
 NUM	annotations.yaml	/^- name: NUM$/;"	p
 NUM	custom_units.yaml	/^- name: NUM$/;"	p
-NUM	knb-lter-cap.652.5.xml	/^        <unit id="NUM">$/;"	i
+NUM	knb-lter-cap.652.6.xml	/^        <unit id="NUM">$/;"	i
 PERCENT	annotations.yaml	/^- name: PERCENT$/;"	p
 PERCENT	custom_units.yaml	/^- name: PERCENT$/;"	p
-PERCENT	knb-lter-cap.652.5.xml	/^        <unit id="PERCENT">$/;"	i
+PERCENT	knb-lter-cap.652.6.xml	/^        <unit id="PERCENT">$/;"	i
 PH	annotations.yaml	/^- name: PH$/;"	p
 PH	custom_units.yaml	/^- name: PH$/;"	p
-PH	knb-lter-cap.652.5.xml	/^        <unit id="PH">$/;"	i
+PH	knb-lter-cap.652.6.xml	/^        <unit id="PH">$/;"	i
 RMSE check constraint	kobo_data_processing/esca.qmd	/^## RMSE check constraint$/;"	s	chapter:photos: center, synoptic
 SEVS_unique_constraint	kobo_data_processing/esca.qmd	/^#| label: SEVS_unique_constraint$/;"	l
 SIMPLIFY	archive/esca_taxonomic_coverage.R	/^    }, classifications, names(classifications), SIMPLIFY = FALSE)$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0100
@@ -362,28 +338,7 @@ __anon2b79dbe02e00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
 __anon2b79dbe02f00	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
 __anon2b79dbe03000	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
 __anon2b79dbe03100	kobo_data_processing/esca.qmd	/^```{r}$/;"	l
-a13a7e16706c67e13158227947179bf9_1	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_1">$/;"	i
-a13a7e16706c67e13158227947179bf9_10	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_10">$/;"	i
-a13a7e16706c67e13158227947179bf9_11	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_11">$/;"	i
-a13a7e16706c67e13158227947179bf9_12	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_12">$/;"	i
-a13a7e16706c67e13158227947179bf9_13	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_13">$/;"	i
-a13a7e16706c67e13158227947179bf9_14	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_14">$/;"	i
-a13a7e16706c67e13158227947179bf9_15	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_15">$/;"	i
-a13a7e16706c67e13158227947179bf9_16	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_16">$/;"	i
-a13a7e16706c67e13158227947179bf9_17	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_17">$/;"	i
-a13a7e16706c67e13158227947179bf9_18	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_18">$/;"	i
-a13a7e16706c67e13158227947179bf9_19	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_19">$/;"	i
-a13a7e16706c67e13158227947179bf9_2	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_2">$/;"	i
-a13a7e16706c67e13158227947179bf9_20	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_20">$/;"	i
-a13a7e16706c67e13158227947179bf9_3	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_3">$/;"	i
-a13a7e16706c67e13158227947179bf9_4	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_4">$/;"	i
-a13a7e16706c67e13158227947179bf9_5	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_5">$/;"	i
-a13a7e16706c67e13158227947179bf9_6	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_6">$/;"	i
-a13a7e16706c67e13158227947179bf9_7	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_7">$/;"	i
-a13a7e16706c67e13158227947179bf9_8	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_8">$/;"	i
-a13a7e16706c67e13158227947179bf9_9	knb-lter-cap.652.5.xml	/^        <attribute id="a13a7e16706c67e13158227947179bf9_9">$/;"	i
 abstract	archive/knb-lter-cap.652.R	/^abstract <- as(set_TextType("abstract.md"), "abstract")$/;"	g
-actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_annuals
 actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_human_indicators
 actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_landscape_irrigation
 actions	esca_sql_queries.R	/^      actions       = pointblank::warn_on_fail()$/;"	v	function:get_neighborhood_characteristics
@@ -511,6 +466,7 @@ authority_id	kobo_data_processing/archive/esca_working.R	/^    authority_id = dp
 availableNitrogen	esca_soils_processing_data/soil_processing_2015.R	/^  availableNitrogen <- read_excel('s200 2015 avail N.xlsx') %>% # sheet D$/;"	g
 base_query	kobo_data_processing/archive/esca_working.R	/^  base_query <- glue::glue_sql("$/;"	v	function:kobo_fetch.query_sampling_events
 base_query	kobo_data_processing/insects/verify_insect_data.R	/^  "  $/;"	g
+bbox	esca_sites_grid.R	/^bbox    <- sf::st_bbox(sites_lat_long)$/;"	g
 before leaving the site	methods.md	/^### before leaving the site$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 begindate	archive/knb-lter-cap.652.R	/^begindate <- as.character(min(sampling_events$sample_date))$/;"	g
 boolean_voucher_code	kobo_data_processing/esca.qmd	/^#| label: boolean_voucher_code$/;"	l
@@ -532,22 +488,53 @@ by	kobo_data_processing/archive/thursday.R	/^    by = c($/;"	c
 by	kobo_data_processing/insects/verify_insect_data.R	/^  by = c("insect_count_id"),$/;"	c
 by	kobo_data_processing/insects/verify_insect_data.R	/^  by = c("sample_date", "site_code"),$/;"	c
 by	kobo_data_processing/vtl_taxa_match.R	/^    by = c("vegetation_scientific_name" = "vegetation_scientific_name")$/;"	c
-c67c585ff74c0b8db557f19d717ec15f_1	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_1">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_10	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_10">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_11	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_11">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_2	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_2">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_3	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_3">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_4	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_4">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_5	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_5">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_6	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_6">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_7	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_7">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_8	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_8">$/;"	i
-c67c585ff74c0b8db557f19d717ec15f_9	knb-lter-cap.652.5.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_9">$/;"	i
+c2a55149ea26d978c25a517930ab7625_1	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_1">$/;"	i
+c2a55149ea26d978c25a517930ab7625_10	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_10">$/;"	i
+c2a55149ea26d978c25a517930ab7625_11	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_11">$/;"	i
+c2a55149ea26d978c25a517930ab7625_12	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_12">$/;"	i
+c2a55149ea26d978c25a517930ab7625_13	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_13">$/;"	i
+c2a55149ea26d978c25a517930ab7625_14	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_14">$/;"	i
+c2a55149ea26d978c25a517930ab7625_15	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_15">$/;"	i
+c2a55149ea26d978c25a517930ab7625_16	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_16">$/;"	i
+c2a55149ea26d978c25a517930ab7625_17	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_17">$/;"	i
+c2a55149ea26d978c25a517930ab7625_18	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_18">$/;"	i
+c2a55149ea26d978c25a517930ab7625_19	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_19">$/;"	i
+c2a55149ea26d978c25a517930ab7625_2	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_2">$/;"	i
+c2a55149ea26d978c25a517930ab7625_20	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_20">$/;"	i
+c2a55149ea26d978c25a517930ab7625_21	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_21">$/;"	i
+c2a55149ea26d978c25a517930ab7625_22	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_22">$/;"	i
+c2a55149ea26d978c25a517930ab7625_23	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_23">$/;"	i
+c2a55149ea26d978c25a517930ab7625_24	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_24">$/;"	i
+c2a55149ea26d978c25a517930ab7625_25	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_25">$/;"	i
+c2a55149ea26d978c25a517930ab7625_26	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_26">$/;"	i
+c2a55149ea26d978c25a517930ab7625_27	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_27">$/;"	i
+c2a55149ea26d978c25a517930ab7625_28	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_28">$/;"	i
+c2a55149ea26d978c25a517930ab7625_29	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_29">$/;"	i
+c2a55149ea26d978c25a517930ab7625_3	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_3">$/;"	i
+c2a55149ea26d978c25a517930ab7625_4	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_4">$/;"	i
+c2a55149ea26d978c25a517930ab7625_5	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_5">$/;"	i
+c2a55149ea26d978c25a517930ab7625_6	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_6">$/;"	i
+c2a55149ea26d978c25a517930ab7625_7	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_7">$/;"	i
+c2a55149ea26d978c25a517930ab7625_8	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_8">$/;"	i
+c2a55149ea26d978c25a517930ab7625_9	knb-lter-cap.652.6.xml	/^        <attribute id="c2a55149ea26d978c25a517930ab7625_9">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_1	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_1">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_10	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_10">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_11	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_11">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_2	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_2">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_3	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_3">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_4	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_4">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_5	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_5">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_6	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_6">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_7	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_7">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_8	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_8">$/;"	i
+c67c585ff74c0b8db557f19d717ec15f_9	knb-lter-cap.652.6.xml	/^        <attribute id="c67c585ff74c0b8db557f19d717ec15f_9">$/;"	i
 cacti_to_shrubs	kobo_data_processing/esca.qmd	/^#| label: cacti_to_shrubs$/;"	l
-capeml	knb-lter-cap.652.qmd	/^#| label: capeml$/;"	l
 carbonNitrogen	esca_soils_processing_data/soil_processing_2015.R	/^  carbonNitrogen <- read_excel('S200 2015 CN.xlsx') %>% # sheet H$/;"	g
 carbon_nitrogen_sites	esca_soils_processing_data/soils2015/identify_mislabeled_samples.R	/^carbon_nitrogen_sites <- unique(perimeterMoistureContent$site_code) %>% $/;"	g
 carniegea_to_trees	kobo_data_processing/esca.qmd	/^#| label: carniegea_to_trees$/;"	l
+cells_with_points	esca_sites_grid.R	/^cells_with_points <- sf::st_join($/;"	g
+cells_with_points	esca_sites_grid.R	/^cells_with_points <- sites_grid[lengths(grid_points_intersection) > 0] |>$/;"	g
+cellsize	esca_sites_grid.R	/^  cellsize = 0.015$/;"	g
 center_cores	esca_soils_processing_data/soil_processing_2015.R	/^  inner_join(soilSamples[,c("soil_sample_id", "site_code")], bulkDensity[,c(1,3:7)], by = c("sit/;"	g
 chrisMartin	archive/knb-lter-cap.652.R	/^chrisMartin <- addCreator('chr', 'martin')$/;"	g
 classifications	archive/esca_taxonomic_coverage.R	/^    classifications <- taxize::classification(sci_names, db = db)$/;"	v	function:set_taxonomicCoverage
@@ -559,7 +546,6 @@ col	kobo_data_processing/archive/esca_working.R	/^  col  = "taxa_raw"$/;"	g
 coll_date	kobo_data_processing/archive/thursday.R	/^        coll_date = as.Date($/;"	g
 coll_date	kobo_data_processing/archive/thursday.R	/^        coll_date = dplyr::case_when($/;"	g
 cols	kobo_data_processing/archive/esca_working.R	/^    cols      = contains("photo"),$/;"	g
-columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_annuals
 columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_human_indicators
 columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_landscape_irrigation
 columns	esca_sql_queries.R	/^      columns       = n,$/;"	v	function:get_neighborhood_characteristics
@@ -574,6 +560,7 @@ columns	kobo_data_processing/archive/esca_working.R	/^    columns = c(survey_id)
 condense_taxa_iterations	kobo_data_processing/esca.qmd	/^#| label: condense_taxa_iterations$/;"	l
 config	kobo_data_processing/archive/esca_working.R	/^this_config <- config::get(config = "default")$/;"	v	function:kobo_fetch
 configuration	kobo_data_processing/esca.qmd	/^## configuration$/;"	s	chapter:utilities
+conn	esca_sites_grid.R	/^  conn      = pg,$/;"	g
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_hedges
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_human_indicators
 conn	esca_sql_queries.R	/^    conn          = DBI::ANSI(),$/;"	v	function:get_landscape_irrigation
@@ -619,6 +606,7 @@ conn	kobo_data_processing/vtl_taxa_match.R	/^  conn      = pg,$/;"	g
 conn	kobo_data_processing/vtl_taxa_match.R	/^  conn = pg,$/;"	g
 connection	knb-lter-cap.652.qmd	/^#| label: connection$/;"	l
 controlled-vocabulary-HIP	kobo_data_processing/esca.qmd	/^#| label: controlled-vocabulary-HIP$/;"	l
+coords	esca_sites_grid.R	/^    coords = c($/;"	c
 coreMoistureContent	esca_soils_processing_data/soil_processing_2015.R	/^coreMoistureContent <- read_excel('s200 2015 bulk density.xlsx', sheet = 2, skip = 1) %>% # shee/;"	g
 corinnaGries	archive/knb-lter-cap.652.R	/^corinnaGries <- addMetadataProvider('c', 'gries')$/;"	g
 count	kobo_data_processing/archive/esca_working.R	/^      count   = nrow(subject_data),$/;"	v	function:kobo_fetch
@@ -628,9 +616,30 @@ coverage	archive/knb-lter-cap.652.R	/^coverage <- set_coverage(begin = begindate
 coverages	knb-lter-cap.652.qmd	/^## coverages$/;"	s
 coverages	knb-lter-cap.652.qmd	/^#| label: coverages$/;"	l
 creators	archive/knb-lter-cap.652.R	/^creators <- c(as(danChilders, 'creator'),$/;"	c
+crs	esca_sites_grid.R	/^    crs = 4326$/;"	g
 current	kobo_data_processing/insects/verify_insect_data.R	/^current <- DBI::dbGetQuery(pg, base_query)$/;"	g
 custom_units	archive/knb-lter-cap.652.R	/^custom_units <- rbind($/;"	g
 cv_type_to_flag	kobo_data_processing/esca.qmd	/^#| label: cv_type_to_flag$/;"	l
+d9e1ee78ae71709d7d62696a2eb3a1db_1	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_1">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_10	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_10">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_11	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_11">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_12	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_12">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_13	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_13">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_14	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_14">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_15	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_15">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_16	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_16">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_17	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_17">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_18	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_18">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_19	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_19">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_2	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_2">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_20	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_20">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_3	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_3">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_4	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_4">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_5	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_5">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_6	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_6">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_7	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_7">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_8	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_8">$/;"	i
+d9e1ee78ae71709d7d62696a2eb3a1db_9	knb-lter-cap.652.6.xml	/^        <attribute id="d9e1ee78ae71709d7d62696a2eb3a1db_9">$/;"	i
 danChilders	archive/knb-lter-cap.652.R	/^danChilders <- addCreator('d', 'childers')$/;"	g
 data	kobo_data_processing/archive/esca_workflow.md	/^## data$/;"	s
 data entities:	README.md	/^### data entities:$/;"	S	section:CAP LTER Ecological Survey of Central Arizona (ESCA)
@@ -663,15 +672,15 @@ db maintenance	kobo_data_processing/esca.qmd	/^## db maintenance$/;"	s	chapter:s
 db-configuration_local	kobo_data_processing/esca.qmd	/^#| label: db-configuration_local$/;"	l
 db-configuration_production	kobo_data_processing/esca.qmd	/^#| label: db-configuration_production$/;"	l
 db_info	kobo_data_processing/helper_load_schema.R	/^  db_info <- DBI::dbGetInfo(connection)$/;"	v	function:helper_reload_schema
-dd038531a228d8f7054d9c63bafcc0e0_1	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_1">$/;"	i
-dd038531a228d8f7054d9c63bafcc0e0_2	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_2">$/;"	i
-dd038531a228d8f7054d9c63bafcc0e0_3	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_3">$/;"	i
-dd038531a228d8f7054d9c63bafcc0e0_4	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_4">$/;"	i
-dd038531a228d8f7054d9c63bafcc0e0_5	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_5">$/;"	i
-dd038531a228d8f7054d9c63bafcc0e0_6	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_6">$/;"	i
-dd038531a228d8f7054d9c63bafcc0e0_7	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_7">$/;"	i
-dd038531a228d8f7054d9c63bafcc0e0_8	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_8">$/;"	i
-dd038531a228d8f7054d9c63bafcc0e0_9	knb-lter-cap.652.5.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_9">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_1	knb-lter-cap.652.6.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_1">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_2	knb-lter-cap.652.6.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_2">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_3	knb-lter-cap.652.6.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_3">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_4	knb-lter-cap.652.6.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_4">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_5	knb-lter-cap.652.6.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_5">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_6	knb-lter-cap.652.6.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_6">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_7	knb-lter-cap.652.6.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_7">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_8	knb-lter-cap.652.6.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_8">$/;"	i
+dd038531a228d8f7054d9c63bafcc0e0_9	knb-lter-cap.652.6.xml	/^        <attribute id="dd038531a228d8f7054d9c63bafcc0e0_9">$/;"	i
 deep_core_type	archive/knb-lter-cap.652.R	/^  dplyr::mutate(deep_core_type = as.factor(deep_core_type))$/;"	g
 delete_double_counted_shrubs	kobo_data_processing/esca.qmd	/^#| label: delete_double_counted_shrubs$/;"	l
 deprecate vegetation_survey_cacti_succ	kobo_data_processing/esca.qmd	/^# deprecate vegetation_survey_cacti_succ$/;"	c
@@ -679,25 +688,13 @@ description	archive/knb-lter-cap.652.R	/^             description = "Lachat outp
 description	archive/knb-lter-cap.652.R	/^  description    = soil_perimeter_cores_desc,$/;"	g
 dfname	archive/knb-lter-cap.652.R	/^  dfname         = soil_perimeter_cores,$/;"	g
 dianeHope	archive/knb-lter-cap.652.R	/^dianeHope <- addCreator('d', 'hope')$/;"	g
-e007d801a112c0aae92f7d1335208873_1	knb-lter-cap.652.5.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_1">$/;"	i
-e007d801a112c0aae92f7d1335208873_2	knb-lter-cap.652.5.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_2">$/;"	i
-e007d801a112c0aae92f7d1335208873_3	knb-lter-cap.652.5.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_3">$/;"	i
-e007d801a112c0aae92f7d1335208873_4	knb-lter-cap.652.5.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_4">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_1	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_1">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_10	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_10">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_11	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_11">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_12	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_12">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_13	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_13">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_2	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_2">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_3	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_3">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_4	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_4">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_5	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_5">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_6	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_6">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_7	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_7">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_8	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_8">$/;"	i
-e0efe65852efde3f83f722eca4df56f6_9	knb-lter-cap.652.5.xml	/^        <attribute id="e0efe65852efde3f83f722eca4df56f6_9">$/;"	i
+e007d801a112c0aae92f7d1335208873_1	knb-lter-cap.652.6.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_1">$/;"	i
+e007d801a112c0aae92f7d1335208873_2	knb-lter-cap.652.6.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_2">$/;"	i
+e007d801a112c0aae92f7d1335208873_3	knb-lter-cap.652.6.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_3">$/;"	i
+e007d801a112c0aae92f7d1335208873_4	knb-lter-cap.652.6.xml	/^        <attribute id="e007d801a112c0aae92f7d1335208873_4">$/;"	i
 eml	archive/knb-lter-cap.652.R	/^eml <- new("eml",$/;"	g
-eml	knb-lter-cap.652.5.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:https://eml.ecoinformatics.org/eml-2.2.0
+eml	knb-lter-cap.652.6.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:https://eml.ecoinformatics.org/eml-2.2.0
+eml	taxonomicCoverage.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:https://eml.ecoinformatics.org/eml-2.2.0
 emlToAmz	archive/knb-lter-cap.652.R	/^emlToAmz <- function(fileToUpload) {$/;"	f
 enable_vs_timestamping	kobo_data_processing/esca.qmd	/^#| label: enable_vs_timestamping$/;"	l
 end	kobo_data_processing/archive/esca_working.R	/^    end   = format(end, "%H:%M:%S")$/;"	g
@@ -706,6 +703,15 @@ enddate	archive/knb-lter-cap.652.R	/^enddate <- as.character(max(sampling_events
 escaTaxa	archive/esca_taxonomic_coverage.R	/^escaTaxa <- set_taxonomicCoverage(resolved_taxa, expand = T, db = 'itis')$/;"	g
 esca_taxa	archive/esca_taxonomic_coverage.R	/^esca_taxa <- bind_rows($/;"	g
 esca_taxa	archive/esca_taxonomic_coverage.R	/^esca_taxa <- read_csv('esca_taxa.csv') %>% $/;"	g
+expand	esca_sites_grid.R	/^expand  <- 0.001 # small buffer$/;"	g
+f8b9cd75eec5c900eb85c0b8b346012c_1	knb-lter-cap.652.6.xml	/^        <attribute id="f8b9cd75eec5c900eb85c0b8b346012c_1">$/;"	i
+f8b9cd75eec5c900eb85c0b8b346012c_2	knb-lter-cap.652.6.xml	/^        <attribute id="f8b9cd75eec5c900eb85c0b8b346012c_2">$/;"	i
+f8b9cd75eec5c900eb85c0b8b346012c_3	knb-lter-cap.652.6.xml	/^        <attribute id="f8b9cd75eec5c900eb85c0b8b346012c_3">$/;"	i
+f8b9cd75eec5c900eb85c0b8b346012c_4	knb-lter-cap.652.6.xml	/^        <attribute id="f8b9cd75eec5c900eb85c0b8b346012c_4">$/;"	i
+f8b9cd75eec5c900eb85c0b8b346012c_5	knb-lter-cap.652.6.xml	/^        <attribute id="f8b9cd75eec5c900eb85c0b8b346012c_5">$/;"	i
+f8b9cd75eec5c900eb85c0b8b346012c_6	knb-lter-cap.652.6.xml	/^        <attribute id="f8b9cd75eec5c900eb85c0b8b346012c_6">$/;"	i
+f8b9cd75eec5c900eb85c0b8b346012c_7	knb-lter-cap.652.6.xml	/^        <attribute id="f8b9cd75eec5c900eb85c0b8b346012c_7">$/;"	i
+f8b9cd75eec5c900eb85c0b8b346012c_8	knb-lter-cap.652.6.xml	/^        <attribute id="f8b9cd75eec5c900eb85c0b8b346012c_8">$/;"	i
 file_path	archive/update_yaml.py	/^    file_path = '\/home\/srearl\/localRepos\/knb-lter-cap.652\/neighborhood_characteristics_fact/;"	v
 final_taxa	kobo_data_processing/archive/esca_working.R	/^final_taxa <- round_i |> $/;"	g
 fix the date problem	kobo_data_processing/esca.qmd	/^# fix the date problem$/;"	c
@@ -749,6 +755,7 @@ get_soil_traacs	esca_sql_queries.R	/^get_soil_traacs <- function() {$/;"	f
 get_structures	esca_sql_queries.R	/^get_structures <- function(research_focus) {$/;"	f
 get_trees	esca_sql_queries.R	/^get_trees <- function(research_focus = "survey200") {$/;"	f
 get_trees_base_query	esca_sql_queries.R	/^  get_trees_base_query <- glue::glue_sql("$/;"	v	function:get_trees
+grid_points_intersection	esca_sites_grid.R	/^grid_points_intersection <- sf::st_intersects($/;"	g
 harvest HIP CV data	kobo_data_processing/esca.qmd	/^## harvest HIP CV data$/;"	s	chapter:human indicators parcels
 hedges	archive/knb-lter-cap.652.R	/^hedges <- get_hedges('survey200') %>% $/;"	g
 hedges	knb-lter-cap.652.qmd	/^## hedges$/;"	s
@@ -804,6 +811,7 @@ isolate_shrub_taxa	kobo_data_processing/esca.qmd	/^#| label: isolate_shrub_taxa$
 isolate_tree_taxa	kobo_data_processing/esca.qmd	/^#| label: isolate_tree_taxa$/;"	l
 jasonKaye	archive/knb-lter-cap.652.R	/^jasonKaye <- addCreator('j', 'kaye')$/;"	g
 jeanStutz	archive/knb-lter-cap.652.R	/^jeanStutz <- addCreator('j', 'stutz')$/;"	g
+join	esca_sites_grid.R	/^  join = sf::st_intersects$/;"	g
 key_col	kobo_data_processing/archive/esca_working.R	/^    key_col <- "uuid"$/;"	v	function:kobo_fetch
 keywordSet	archive/knb-lter-cap.652.R	/^  c(new("keywordSet",$/;"	c
 kobo_fetch	kobo_data_processing/archive/esca_working.R	/^kobo_fetch <- function(subject) {$/;"	f
@@ -831,6 +839,8 @@ landuse_data	esca_sql_queries.R	/^  landuse_data <- DBI::dbGetQuery($/;"	v	funct
 landuse_desc	archive/knb-lter-cap.652.R	/^landuse_desc <- "Estimated land use or land cover in the study plot. Plots may consist of multip/;"	g
 landuse_query	esca_sql_queries.R	/^  landuse_query <- DBI::sqlInterpolate($/;"	v	function:get_landuse
 lauraDugan	archive/knb-lter-cap.652.R	/^lauraDugan <- addMetadataProvider('l', 'dugan')$/;"	g
+locations	knb-lter-cap.652.qmd	/^#| label: locations$/;"	l
+locations as grid cells	knb-lter-cap.652.qmd	/^## locations as grid cells$/;"	s
 lse	kobo_data_processing/esca.qmd	/^# lse$/;"	c
 lse_classes	kobo_data_processing/archive/esca_working.R	/^lse_classes <- DBI::dbGetQuery($/;"	v	function:kobo_fetch
 lse_plots	kobo_data_processing/archive/esca_working.R	/^lse_plots <- readr::read_csv("kobo\/ESCA_plot_2024-04-22-18-29-03-lse_repeat.csv") |>$/;"	v	function:kobo_fetch
@@ -953,7 +963,6 @@ plots	kobo_data_processing/esca.qmd	/^## plots$/;"	s	chapter:lse
 plots	kobo_data_processing/esca.qmd	/^## plots$/;"	s	chapter:structures
 plots_empty_cols	kobo_data_processing/archive/esca_working.R	/^plots_empty_cols <- readr::read_csv("kobo\/ESCA_plot_2024-04-22-18-29-03-ESCA_plot.csv") |>$/;"	g
 plots_shrub_counts	kobo_data_processing/esca.qmd	/^#| label: plots_shrub_counts$/;"	l
-preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(sample_date, site_code),$/;"	v	function:get_annuals
 preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(sample_date, site_code),$/;"	v	function:get_human_indicators
 preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(sample_date, site_code),$/;"	v	function:get_landscape_irrigation
 preconditions	esca_sql_queries.R	/^      preconditions = \\(x) x |> dplyr::count(shrub_perennial_id),$/;"	v	function:get_shrub_surveys
@@ -1116,6 +1125,9 @@ sites_db	kobo_data_processing/archive/thursday.R	/^sites_db <- DBI::dbGetQuery($
 sites_db	kobo_data_processing/esca.qmd	/^#| label: sites_db$/;"	l
 sites_geography	kobo_data_processing/archive/esca_working.R	/^sites_geography <- dplyr::right_join($/;"	g
 sites_geography	kobo_data_processing/esca.qmd	/^#| label: sites_geography$/;"	l
+sites_grid	esca_sites_grid.R	/^sites_grid <- sf::st_make_grid($/;"	g
+sites_lat_long	esca_sites_grid.R	/^sites_lat_long <- DBI::dbGetQuery($/;"	g
+sites_lat_long	esca_sites_grid.R	/^sites_lat_long <- sites_lat_long |>$/;"	g
 soil sample and analyses protocol	methods.md	/^### soil sample and analyses protocol$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
 soil samples	kobo_data_processing/esca.qmd	/^# soil samples$/;"	c
 soil sampling	methods.md	/^### soil sampling$/;"	S	section:CAP LTER Ecological Survey of Central Arizona methods (adapted from the field and lab protocol)
@@ -1174,6 +1186,7 @@ sql	esca_sql_queries.R	/^    sql  = soil_traacs_base_query$/;"	v	function:get_so
 ss_date	kobo_data_processing/archive/thursday.R	/^        ss_date = date,$/;"	g
 ss_focus	kobo_data_processing/archive/thursday.R	/^        ss_focus = survey_type$/;"	g
 ss_site	kobo_data_processing/archive/thursday.R	/^        ss_site = site,$/;"	g
+standardize `stem_diameter_at`	kobo_data_processing/esca.qmd	/^# standardize `stem_diameter_at`$/;"	c
 standardize residence_type	kobo_data_processing/esca.qmd	/^## standardize residence_type$/;"	s	chapter:human indicators
 standardize social classes	kobo_data_processing/esca.qmd	/^# standardize social classes$/;"	c
 standardize-HIP	kobo_data_processing/esca.qmd	/^#| label: standardize-HIP$/;"	l
@@ -1181,6 +1194,7 @@ standardize-social-classes	kobo_data_processing/esca.qmd	/^#| label: standardize
 standardize_canopy_condition	kobo_data_processing/esca.qmd	/^#| label: standardize_canopy_condition$/;"	l
 start	kobo_data_processing/archive/esca_working.R	/^    start = format(start, "%H:%M:%S"),$/;"	g
 start	kobo_data_processing/archive/thursday.R	/^        start = format(start, "%H:%M:%S"),$/;"	g
+statement	esca_sites_grid.R	/^  "$/;"	g
 statement	esca_sql_queries.R	/^    statement = arthropods_query$/;"	v	function:get_arthropods
 statement	esca_sql_queries.R	/^    statement = get_annuals_base_query$/;"	v	function:get_annuals
 statement	esca_sql_queries.R	/^    statement = get_shrub_surveys_base_query$/;"	v	function:get_shrub_surveys
@@ -1229,7 +1243,8 @@ statement	kobo_data_processing/vtl_taxa_match.R	/^  "$/;"	g
 statement	kobo_data_processing/vtl_taxa_match.R	/^"$/;"	g
 stevanEarl	archive/knb-lter-cap.652.R	/^stevanEarl <- addMetadataProvider('s', 'earl')$/;"	g
 still_unresolved	kobo_data_processing/archive/esca_working.R	/^still_unresolved <- tibble::tribble($/;"	g
-stmml	knb-lter-cap.652.5.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:http://www.xml-cml.org/schema/stmml-1.2
+stmml	knb-lter-cap.652.6.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:http://www.xml-cml.org/schema/stmml-1.2
+stmml	taxonomicCoverage.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:http://www.xml-cml.org/schema/stmml-1.2
 string	kobo_data_processing/archive/esca_working.R	/^  string  = taxa_db[["insect_scientific_name"]],$/;"	g
 structures	archive/knb-lter-cap.652.R	/^structures <- get_structures('survey200') %>% $/;"	g
 structures	knb-lter-cap.652.qmd	/^## structures$/;"	s
@@ -1264,6 +1279,8 @@ taxa_immature	kobo_data_processing/archive/esca_working.R	/^taxa_immature <- tax
 taxon	archive/esca_taxonomic_coverage.R	/^  resolved_taxa <- data.frame(taxon = NA, resolve = NA)$/;"	n	dataframe:identify_resolvable_taxa.resolved_taxa
 taxonRankNames	archive/esca_taxonomic_coverage.R	/^      taxonRankNames <- as.list(names(sci_name))$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0700
 taxon_classification	archive/esca_taxonomic_coverage.R	/^    taxon_classification <- colnames(sci_names)$/;"	v	function:set_taxonomicCoverage
+taxonomic coverage	knb-lter-cap.652.qmd	/^### taxonomic coverage$/;"	S	section:coverages
+taxonomic-coverage	knb-lter-cap.652.qmd	/^#| label: taxonomic-coverage$/;"	l
 tc	archive/esca_taxonomic_coverage.R	/^      tc <- lapply(taxon_classification, function(name) {$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0500
 texture	esca_soils_processing_data/soil_processing_2015.R	/^texture <- read_excel('S200 2015 Soil Texture Analysis.xlsx') %>% # sheet I$/;"	g
 texture	esca_soils_processing_data/soil_processing_2015.R	/^texture <- texture %>%$/;"	g
@@ -1315,7 +1332,6 @@ value	esca_soils_processing_data/soil_processing_2010.R	/^dbWriteTable(pg, c('su
 value	esca_soils_processing_data/soil_processing_2015.R	/^  dbWriteTable(pg, c('survey200', 'perimeter_cores'), value = perimeter_cores, row.names = F) $/;"	n	vector:anonVec93c98be82906
 value	esca_soils_processing_data/soil_processing_2015.R	/^  dbWriteTable(pg, c('survey200', 'temp_lachat'), value = dataname, row.names = F)$/;"	n	vector:anonVec93c98be81e06
 value	esca_soils_processing_data/soil_processing_2015.R	/^dbWriteTable(pg, c('survey200', 'center_cores'), value = center_cores, row.names = F) $/;"	n	vector:anonVec93c98be80c06
-value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_annuals
 value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_human_indicators
 value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_landscape_irrigation
 value	esca_sql_queries.R	/^      value         = 1,$/;"	v	function:get_neighborhood_characteristics
@@ -1334,6 +1350,9 @@ vsn	kobo_data_processing/archive/esca_working.R	/^      dplyr::mutate(vsn = vege
 vtl_archive	kobo_data_processing/vtl_taxa_match.R	/^  vtl_archive <- glue::glue_sql("$/;"	v	function:recode_iterative_taxons
 vtl_archive	kobo_data_processing/vtl_taxa_match.R	/^  vtl_archive <- glue::glue_sql("$/;"	v	function:recode_taxon
 x	archive/esca_taxonomic_coverage.R	/^        x <- as.list(cls[["name"]])$/;"	v	function:set_taxonomicCoverage.anonFunce9373b0e0100
+x	esca_sites_grid.R	/^  x        = sf::st_as_sfc(bbox),$/;"	g
+x	esca_sites_grid.R	/^  x    = cells_with_points,$/;"	g
+x	esca_sites_grid.R	/^  x = sites_grid,$/;"	g
 x	kobo_data_processing/archive/arrays_and_unused_veg_tax.R	/^  x    = veg_taxa,$/;"	g
 x	kobo_data_processing/archive/esca_working.R	/^  x    = new_taxa,$/;"	g
 x	kobo_data_processing/archive/esca_working.R	/^  x    = still_unresolved,$/;"	g
@@ -1344,7 +1363,10 @@ x	kobo_data_processing/archive/esca_working.R	/^  x  = sampling_events,$/;"	g
 x	kobo_data_processing/archive/esca_working.R	/^  x  = synoptic_data,$/;"	g
 x	kobo_data_processing/archive/thursday.R	/^    x = dates_shrubs,$/;"	g
 xml_url	archive/knb-lter-cap.652.R	/^  xml_url <- new("online",$/;"	g
-xsi	knb-lter-cap.652.5.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:http://www.w3.org/2001/XMLSchema-instance
+xsi	knb-lter-cap.652.6.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:http://www.w3.org/2001/XMLSchema-instance
+xsi	taxonomicCoverage.xml	/^<eml:eml xmlns:eml="https:\/\/eml.ecoinformatics.org\/eml-2.2.0" xmlns:xsi="http:\/\/www.w3.org\//;"	n	uri:http://www.w3.org/2001/XMLSchema-instance
+y	esca_sites_grid.R	/^  y    = sites_lat_long,$/;"	g
+y	esca_sites_grid.R	/^  y = sites_lat_long$/;"	g
 y	kobo_data_processing/archive/esca_working.R	/^      y  = sampling_events,$/;"	v	function:kobo_fetch
 y	kobo_data_processing/archive/esca_working.R	/^    y  = sampling_events,$/;"	g
 y	kobo_data_processing/archive/esca_working.R	/^    y  = se_plot_db,$/;"	g

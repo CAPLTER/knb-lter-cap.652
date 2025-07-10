@@ -1,7 +1,7 @@
 |
   sample_date:
     attributeName: sample_date
-    attributeDefinition: ''
+    attributeDefinition: 'survey date'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -10,7 +10,7 @@
     formatString: YYYY-MM-DD
   site_code:
     attributeName: site_code
-    attributeDefinition: ''
+    attributeDefinition: 'location code'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -19,7 +19,7 @@
     definition: ''
   human_presence_of_path:
     attributeName: human_presence_of_path
-    attributeDefinition: ''
+    attributeDefinition: 'indication of the presence of a path through the plot'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -27,7 +27,7 @@
     columnClasses: factor
   human_footprints:
     attributeName: human_footprints
-    attributeDefinition: ''
+    attributeDefinition: 'indication of the presence of foot prints through the plot'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -35,7 +35,7 @@
     columnClasses: factor
   human_bike_tracks:
     attributeName: human_bike_tracks
-    attributeDefinition: ''
+    attributeDefinition: 'indication of the presence of a bicycle tracks through the plot'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -43,7 +43,7 @@
     columnClasses: factor
   human_off_road_vehicle:
     attributeName: human_off_road_vehicle
-    attributeDefinition: ''
+    attributeDefinition: 'indication of the presence of off road vehicle activity in the plot'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -51,7 +51,7 @@
     columnClasses: factor
   human_small_litter:
     attributeName: human_small_litter
-    attributeDefinition: ''
+    attributeDefinition: 'amount of small litter'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -59,7 +59,7 @@
     columnClasses: factor
   human_dumped_trash_bags:
     attributeName: human_dumped_trash_bags
-    attributeDefinition: ''
+    attributeDefinition: 'amount of dumped trash bags'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -67,7 +67,7 @@
     columnClasses: factor
   human_abandoned_vehicles:
     attributeName: human_abandoned_vehicles
-    attributeDefinition: ''
+    attributeDefinition: 'amount of abandoned vehicles at the site'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -75,7 +75,7 @@
     columnClasses: factor
   human_graffiti:
     attributeName: human_graffiti
-    attributeDefinition: ''
+    attributeDefinition: 'amount of graffiti present'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -83,7 +83,7 @@
     columnClasses: factor
   human_injured_plants:
     attributeName: human_injured_plants
-    attributeDefinition: ''
+    attributeDefinition: 'amount of injured plants'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -91,7 +91,7 @@
     columnClasses: factor
   human_informal_play:
     attributeName: human_informal_play
-    attributeDefinition: ''
+    attributeDefinition: 'amount of informal play occurring at the site'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -99,7 +99,7 @@
     columnClasses: factor
   human_informal_recreation:
     attributeName: human_informal_recreation
-    attributeDefinition: ''
+    attributeDefinition: 'amount of informal recreation occurring at the site'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -107,7 +107,7 @@
     columnClasses: factor
   human_informal_living:
     attributeName: human_informal_living
-    attributeDefinition: ''
+    attributeDefinition: 'amount of informal living in the plot (homeless camps'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -115,7 +115,7 @@
     columnClasses: factor
   human_sports_equipment:
     attributeName: human_sports_equipment
-    attributeDefinition: ''
+    attributeDefinition: 'amount of sports equipment used within the site'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
@@ -123,67 +123,67 @@
     columnClasses: factor
   human_number_cars:
     attributeName: human_number_cars
-    attributeDefinition: ''
+    attributeDefinition: 'number of cars within a 50 m radius of the plot'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
     valueLabel: ''
-    unit: ''
+    unit: 'NUM'
     numberType: whole
     minimum: 0
     maximum: 700
     columnClasses: numeric
   human_number_motorcycles:
     attributeName: human_number_motorcycles
-    attributeDefinition: ''
+    attributeDefinition: 'number of motorcycles within a 50 m radius of the plot'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
     valueLabel: ''
-    unit: ''
+    unit: 'NUM'
     numberType: whole
     minimum: 0
     maximum: 6
     columnClasses: numeric
   human_number_bicycles:
     attributeName: human_number_bicycles
-    attributeDefinition: ''
+    attributeDefinition: 'number of bicycles within a 50 m radius of the plot'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
     valueLabel: ''
-    unit: ''
+    unit: 'NUM'
     numberType: whole
     minimum: 0
     maximum: 90
     columnClasses: numeric
   human_number_houses:
     attributeName: human_number_houses
-    attributeDefinition: ''
+    attributeDefinition: 'number of houses within a 50 m radius of the plot'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
     valueLabel: ''
-    unit: ''
+    unit: 'NUM'
     numberType: whole
     minimum: 0
     maximum: 35
     columnClasses: numeric
   human_number_rvs:
     attributeName: human_number_rvs
-    attributeDefinition: ''
+    attributeDefinition: 'number of recreational vehicles within a 50 m radius of the plot'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''
     valueLabel: ''
-    unit: ''
+    unit: 'NUM'
     numberType: whole
     minimum: 0
     maximum: 8
     columnClasses: numeric
   plot_social_class:
     attributeName: plot_social_class
-    attributeDefinition: ''
+    attributeDefinition: 'approximate (perceived) social class of the surrounding area'
     propertyURI: ''
     propertyLabel: ''
     valueURI: ''

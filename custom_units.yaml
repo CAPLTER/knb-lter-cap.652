@@ -2,6 +2,8 @@
   description: Number
 - name: M
   description: Meter
+- name: IN
+  description: Inch
 - name: PERCENT
   description: Percent
 - name: CentiM
