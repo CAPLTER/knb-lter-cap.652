@@ -1,0 +1,385 @@
+﻿sample_date,site_code,sweepnet_sample_type,substratum,arthropod_scientific_name,number_of_arthropods,number_immature,number_winged,notes
+4/27/2023,AB19,plant,Buxus sempervirens,Thysanoptera,6,0,3,
+5/25/2023,P8,plant,Larrea tridentata,Trombidiformes,19,0,0,Cresote#1
+5/25/2023,P8,plant,Larrea tridentata,Hemiptera,2,0,1,Cresote#1; 2 Homoptera
+5/25/2023,O9,plant,Ambrosia deltoidea,Hemiptera,3,0,1,3 Homoptera
+5/25/2023,O9,plant,Ambrosia deltoidea,Heteroptera,1,0,0,
+5/24/2023,S12,plant,Pinus eldarica,Thysanoptera,1,0,0,
+5/24/2023,S12,plant,Pinus eldarica,Trombidiformes,5,0,0,
+5/24/2023,S12,plant,Pinus eldarica,Hemiptera,1,0,NA,1 Homoptera
+5/25/2023,P8,plant,Larrea tridentata,Trombidiformes,1,0,0,Cresote#2
+5/25/2023,P8,plant,Larrea tridentata,Araneae,2,0,0,Cresote#2
+5/25/2023,P8,plant,Larrea tridentata,Hymenoptera,1,0,1,Cresote#2
+5/25/2023,P8,plant,Larrea tridentata,Hemiptera,1,0,NA,Cresote#2; 1 Homoptera
+5/25/2023,P8,plant,Larrea tridentata,Coleoptera,1,1,1,Cresote#2
+5/22/2023,M7,plant,Larrea tridentata,Coleoptera,2,1,1,
+5/22/2023,M7,plant,Larrea tridentata,Diptera,1,1,0,
+5/22/2023,M7,plant,Larrea tridentata,Unknown,1,0,NA,
+5/22/2023,M7,plant,Larrea tridentata,Trombidiformes,4,0,0,
+5/22/2023,M7,plant,Larrea tridentata,Araneae,2,0,0,
+5/26/2023,AA17,plant,Acacia farnesiana,Thysanoptera,13,0,8,
+5/26/2023,AA17,plant,Acacia farnesiana,Heteroptera,1,0,NA,
+5/26/2023,AA17,plant,Acacia farnesiana,Hemiptera,1,0,NA,1 Homoptera
+5/25/2023,P8,plant,Larrea tridentata,Araneae,1,0,0,Cresote#3
+5/25/2023,O9,plant,Larrea tridentata,Araneae,5,0,0,
+5/25/2023,O9,plant,Larrea tridentata,Trombidiformes,2,0,0,
+5/25/2023,O9,plant,Larrea tridentata,Hemiptera,6,0,NA,6 Homoptera
+5/25/2023,O9,plant,Larrea tridentata,Thysanoptera,1,0,0,
+5/25/2023,O9,plant,Larrea tridentata,Heteroptera,2,0,NA,
+5/25/2023,O9,plant,Larrea tridentata,Opiliones,1,0,0,
+5/24/2023,V11,plant,Larrea tridentata,Trombidiformes,48,0,0,
+5/24/2023,V11,plant,Larrea tridentata,Opiliones,1,0,0,
+5/24/2023,V11,plant,Larrea tridentata,Coleoptera,1,1,0,
+5/24/2023,V11,plant,Larrea tridentata,Hemiptera,3,0,NA,3 Homoptera
+5/24/2023,V11,plant,Larrea tridentata,Neuroptera,1,1,1,
+5/24/2023,V11,plant,Larrea tridentata,Araneae,1,0,0,
+5/24/2023,V11,plant,Larrea tridentata,Thysanoptera,1,0,1,
+5/26/2023,AA17,plant,Hesperaloe parviflora,Thysanoptera,33,0,19,
+5/26/2023,AA17,plant,Hesperaloe parviflora,Araneae,1,0,0,
+5/26/2023,AA17,plant,Hesperaloe parviflora,Trombidiformes,1,0,0,
+4/19/2023,U6,plant,Lycium fremontii,Thysanoptera,21,0,13,
+4/19/2023,U6,plant,Lycium fremontii,Araneae,1,0,0,
+4/19/2023,U6,plant,Lycium fremontii,Coleoptera,3,1,2,
+4/19/2023,U6,plant,Lycium fremontii,Hemiptera,39,32,NA,39 Homoptera
+4/19/2023,U6,plant,Lycium fremontii,Diptera,1,0,1,
+4/19/2023,U6,plant,Lycium fremontii,Neuroptera,1,0,1,
+4/19/2023,U6,plant,Ambrosia deltoidea,Heteroptera,5,0,NA,
+4/19/2023,U6,plant,Ambrosia deltoidea,Hemiptera,6,3,NA,6 Homoptera
+4/19/2023,U6,plant,Ambrosia deltoidea,Thysanoptera,2,0,1,
+4/19/2023,U8,plant,Larrea tridentata,Araneae,5,0,0,creosote #1
+4/19/2023,U8,plant,Larrea tridentata,Coleoptera,4,0,4,creosote #1
+4/19/2023,U8,plant,Larrea tridentata,Thysanoptera,93,0,90,creosote #1
+4/19/2023,U8,plant,Larrea tridentata,Heteroptera,1,0,NA,creosote #1
+4/19/2023,U8,plant,Larrea tridentata,Coleoptera,1,0,1,creosote #2
+4/19/2023,U8,plant,Larrea tridentata,Thysanoptera,14,0,12,creosote #2
+4/19/2023,U8,plant,Larrea tridentata,Hemiptera,3,0,NA,creosote #2; 3 Homoptera
+4/19/2023,U8,plant,Larrea tridentata,Lepidoptera,3,3,0,creosote #2
+4/19/2023,U8,plant,Larrea tridentata,Araneae,2,0,0,creosote #2
+4/19/2023,U8,plant,Larrea tridentata,Heteroptera,2,0,NA,creosote #2
+4/20/2023,AC7,plant,Calliandra eriophylla,Coleoptera,1,1,0,
+4/20/2023,AC7,plant,Calliandra eriophylla,Thysanoptera,3,0,3,
+4/20/2023,AC7,plant,Calliandra eriophylla,Sminthuridae,1,0,0,
+4/20/2023,AC7,plant,Calliandra eriophylla,Hemiptera,3,0,NA,3 Homoptera
+4/20/2023,AC7,plant,Simmondsia chinensis,Thysanoptera,1,0,1,
+4/24/2023,AD10,plant,Simmondsia chinensis,Thysanoptera,2,0,2,
+4/24/2023,AD10,plant,Simmondsia chinensis,Hemiptera,1,0,NA,1 Homoptera
+4/24/2023,AD10,plant,Simmondsia chinensis,Neuroptera,1,0,1,
+4/19/2023,U8,plant,Ambrosia deltoidea,Hemiptera,4,0,NA,4 Homoptera
+4/19/2023,U8,plant,Ambrosia deltoidea,Hymenoptera,1,0,NA,
+4/19/2023,U8,plant,Ambrosia deltoidea,Thysanoptera,13,0,12,
+4/25/2023,AB10,plant,Encelia virginensis,Thysanoptera,20,0,19,
+4/25/2023,AB10,plant,Encelia virginensis,Trombidiformes,1,0,0,
+4/25/2023,AB10,plant,Encelia virginensis,Hemiptera,1,0,NA,1 Homoptera
+4/26/2023,V7,plant,Acacia greggii,Thysanoptera,8,0,7,
+4/26/2023,V7,plant,Acacia greggii,Hymenoptera,1,0,NA,
+4/26/2023,V7,plant,Acacia greggii,Coleoptera,4,1,3,
+4/26/2023,V7,plant,Acacia greggii,Heteroptera,1,0,NA,
+4/25/2023,AB10,plant,Acacia greggii,Trombidiformes,3,0,0,
+4/25/2023,AB10,plant,Acacia greggii,Thysanoptera,1,0,1,
+4/25/2023,AB10,plant,Acacia greggii,Neuroptera,1,0,1,
+4/25/2023,AB10,plant,Acacia greggii,Coleoptera,1,1,0,
+4/24/2023,AD10,plant,Larrea tridentata,Thysanoptera,513,0,508,
+4/24/2023,AD10,plant,Larrea tridentata,Diptera,1,0,1,
+4/24/2023,AD10,plant,Larrea tridentata,Hemiptera,5,0,NA,5 Homoptera
+4/24/2023,AD10,plant,Larrea tridentata,Hymenoptera,1,0,NA,
+4/24/2023,AD10,plant,Larrea tridentata,Trombidiformes,11,0,0,
+4/24/2023,AD10,plant,Larrea tridentata,Lepidoptera,1,1,0,
+4/24/2023,AD10,plant,Larrea tridentata,Unknown,1,0,NA,
+4/24/2023,AD10,plant,Encilia farinosa,Thysanoptera,142,0,141,
+4/24/2023,AD10,plant,Encilia farinosa,Hemiptera,3,0,NA,3 Homoptera
+4/26/2023,V7,plant,Larrea tridentata,Thysanoptera,106,0,101,Creosote#1
+4/26/2023,V7,plant,Larrea tridentata,Hemiptera,2,0,NA,Creosote#1; 2 Homoptera
+4/26/2023,V7,plant,Larrea tridentata,Trombidiformes,35,0,0,Creosote#1
+4/26/2023,V7,plant,Larrea tridentata,Coleoptera,3,1,2,Creosote#1
+4/26/2023,V7,plant,Larrea tridentata,Araneae,1,0,0,Creosote#1
+4/26/2023,V7,plant,Larrea tridentata,Heteroptera,3,0,NA,Creosote#1
+4/26/2023,V7,plant,Larrea tridentata,Lepidoptera,1,1,0,Creosote#1
+4/19/2023,U6,plant,Larrea tridentata,Thysanoptera,115,0,84,
+4/19/2023,U6,plant,Larrea tridentata,Hemiptera,3,0,NA,3 Homoptera
+4/19/2023,U6,plant,Larrea tridentata,Coleoptera,1,1,0,
+4/19/2023,U6,plant,Larrea tridentata,Araneae,3,0,0,
+4/19/2023,U6,plant,Larrea tridentata,Heteroptera,4,0,NA,
+4/19/2023,U6,plant,Larrea tridentata,Lepidoptera,1,1,0,
+4/19/2023,U6,plant,Larrea tridentata,Hymenoptera,1,0,NA,
+4/21/2023,T20,plant,Larrea tridentata,Thysanoptera,17,13,0,Creosote#1
+4/21/2023,T20,plant,Larrea tridentata,Araneae,7,0,0,Creosote#1
+4/21/2023,T20,plant,Larrea tridentata,Hemiptera,1,0,NA,Creosote#1; 1 Homoptera
+4/21/2023,T20,plant,Larrea tridentata,Coleoptera,1,0,1,Creosote#1
+4/21/2023,T20,plant,Larrea tridentata,Lepidoptera,1,1,0,Creosote#1
+4/21/2023,T20,plant,Larrea tridentata,Trombidiformes,1,0,0,Creosote#1
+4/21/2023,T20,plant,Larrea tridentata,Diptera,1,1,0,Creosote#1
+4/25/2023,AB10,plant,Lycium fremontii,Araneae,2,0,0,
+4/25/2023,AB10,plant,Lycium fremontii,Thysanoptera,7,0,6,
+4/25/2023,AB10,plant,Lycium fremontii,Hemiptera,2,0,NA,2 Homoptera
+4/25/2023,AB10,plant,Lycium fremontii,Trombidiformes,7,0,0,
+4/20/2023,AC7,plant,Eriogonum fasciculatum,Thysanoptera,46,0,42,
+4/20/2023,AC7,plant,Eriogonum fasciculatum,Coleoptera,1,1,0,
+4/21/2023,T20,plant,Larrea tridentata,Hemiptera,3,0,NA,Creosote#2; 3 Homoptera
+4/21/2023,T20,plant,Larrea tridentata,Heteroptera,1,0,NA,Creosote#2
+4/21/2023,T20,plant,Larrea tridentata,Araneae,1,0,0,Creosote#2
+4/21/2023,T20,plant,Larrea tridentata,Thysanoptera,5,5,0,Creosote#2
+4/21/2023,T20,plant,Larrea tridentata,Trombidiformes,1,0,0,Creosote#2
+4/21/2023,T20,plant,Larrea tridentata,Lepidoptera,2,2,0,Creosote#2
+4/26/2023,V7,plant,Larrea tridentata,Thysanoptera,284,0,283,Creosote#2
+4/26/2023,V7,plant,Larrea tridentata,Hemiptera,1,0,NA,Creosote#2; 1 Homoptera
+4/26/2023,V7,plant,Larrea tridentata,Heteroptera,3,0,NA,Creosote#2
+4/26/2023,V7,plant,Larrea tridentata,Trombidiformes,3,0,0,Creosote#2
+4/26/2023,V7,plant,Larrea tridentata,Coleoptera,1,1,0,Creosote#2
+4/21/2023,T20,plant,Larrea tridentata,Araneae,4,0,0,Creosote#3
+4/21/2023,T20,plant,Larrea tridentata,Thysanoptera,20,0,18,Creosote#3
+4/21/2023,T20,plant,Larrea tridentata,Trombidiformes,3,0,0,Creosote#3
+4/27/2023,Y19,plant,Hesperaloe parviflora,Thysanoptera,235,0,17,
+4/27/2023,Y19,plant,Hesperaloe parviflora,Trombidiformes,1,0,0,
+4/27/2023,Y19,plant,Hesperaloe parviflora,Hemiptera,1,0,NA,1 Homoptera
+4/27/2023,AB19,plant,Prosopsis sp.,Hemiptera,6,0,NA,6 Homoptera
+4/27/2023,AB19,plant,Prosopsis sp.,Heteroptera,1,0,NA,
+4/27/2023,AB19,plant,Prosopsis sp.,Thysanoptera,13,0,10,
+6/2/2023,AA19,plant,Baccharis sarothroides,Thysanoptera,2,0,0,
+6/2/2023,AA19,plant,Baccharis sarothroides,Trombidiformes,2,0,0,
+6/2/2023,AA19,plant,Baccharis sarothroides,Araneae,1,0,0,
+6/2/2023,AA19,plant,Caesalpinia pulcherrima,Thysanoptera,4,0,3,
+6/2/2023,AA19,plant,Caesalpinia pulcherrima,Araneae,2,0,0,
+6/2/2023,AA19,plant,Caesalpinia pulcherrima,Thysanoptera,1,0,0,
+6/2/2023,AA19,plant,Caesalpinia pulcherrima,Araneae,1,0,0,
+6/2/2023,AA21,plant,Cascabela thevetia,Thysanoptera,13,0,12,
+6/2/2023,AA21,plant,Cascabela thevetia,Araneae,1,0,0,
+6/2/2023,AA21,plant,Cascabela thevetia,Heteroptera,1,0,NA,
+6/2/2023,AA21,plant,Callistemon viminalis,Thysanoptera,4,0,3,
+6/2/2023,AA21,plant,Callistemon viminalis,Araneae,1,0,0,
+6/2/2023,AA21,plant,Tecoma sp.,Thysanoptera,9,0,8,
+6/2/2023,AA21,plant,Tecoma sp.,Araneae,1,0,0,
+6/2/2023,AA21,plant,Tecoma sp.,Neuroptera,1,0,1,
+6/6/2023,AB16,plant,Eriogonum deflexum,Hemiptera,24,0,NA,Edeflexum #1; 24 Homoptera
+6/6/2023,AB16,plant,Eriogonum deflexum,Thysanoptera,2,0,0,Edeflexum #1
+6/6/2023,AB16,plant,Eriogonum deflexum,Unknown,1,0,NA,Edeflexum #1
+6/6/2023,AB16,plant,Eriogonum deflexum,Araneae,1,0,0,Edeflexum #1
+6/5/2023,AC16,plant,Larrea tridentata,Trombidiformes,60,0,0,
+6/5/2023,AC16,plant,Larrea tridentata,Thysanoptera,1,0,1,
+6/7/2023,U21,plant,Larrea tridentata,Hemiptera,1,0,NA,creosote #1; 1 Homoptera
+6/7/2023,U21,plant,Larrea tridentata,Trombidiformes,3,0,0,creosote #1
+6/7/2023,U21,plant,Larrea tridentata,Coleoptera,1,0,1,creosote #1
+6/7/2023,U21,plant,Larrea tridentata,Araneae,1,0,0,creosote #2
+6/7/2023,U21,plant,Larrea tridentata,Trombidiformes,36,0,0,creosote #2
+6/7/2023,U21,plant,Larrea tridentata,Hemiptera,1,0,NA,creosote #2; 1 Homoptera
+6/7/2023,U21,plant,Larrea tridentata,Diptera,2,2,0,creosote #2
+6/8/2023,V9,plant,Larrea tridentata,Hemiptera,2,0,NA,creosote #1; 2 Homoptera
+6/8/2023,V9,plant,Larrea tridentata,Trombidiformes,4,0,0,creosote #1
+6/6/2023,AB16,plant,Eriogonum deflexum,Hemiptera,91,0,NA,Edeflexum #2; 91 Homoptera
+6/6/2023,AB16,plant,Eriogonum deflexum,Thysanoptera,3,0,1,Edeflexum #2
+6/6/2023,AB16,plant,Eriogonum deflexum,Trombidiformes,1,0,0,Edeflexum #2
+6/6/2023,AB16,plant,Eriogonum deflexum,Araneae,4,0,0,Edeflexum #3
+6/6/2023,AB16,plant,Eriogonum deflexum,Trombidiformes,2,0,0,Edeflexum #3
+6/6/2023,AB16,plant,Eriogonum deflexum,Hemiptera,1,0,NA,Edeflexum #3; 1 Homoptera
+6/6/2023,AB16,plant,Eriogonum deflexum,Diptera,1,0,1,Edeflexum #3
+6/6/2023,AB16,plant,Eriogonum deflexum,Oribatida,1,0,0,Edeflexum #3
+6/7/2023,U21,plant,Larrea tridentata,Trombidiformes,6,0,0,creosote #3
+6/7/2023,U21,plant,Larrea tridentata,Hymenoptera,1,0,NA,creosote #3
+6/3/2023,AB17,plant,Thevetia peruviana,Thysanoptera,1,0,1,
+6/3/2023,AB17,plant,Thevetia peruviana,Trombidiformes,1,0,0,
+6/3/2023,AB17,plant,Thevetia peruviana,Hemiptera,1,0,NA,1 Homoptera
+6/3/2023,AB17,plant,Caesalpinia pulcherrima,Araneae,1,0,0,
+6/3/2023,AB17,plant,Caesalpinia pulcherrima,Diptera,1,0,1,
+6/5/2023,AA18,plant,Nerium oleander,Hymenoptera,1,0,NA,
+6/8/2023,V9,plant,Larrea tridentata,Trombidiformes,2,0,0,creosote #2
+6/8/2023,V9,plant,Larrea tridentata,Diptera,1,1,1,creosote #2
+6/8/2023,V9,plant,Larrea tridentata,Hemiptera,1,0,NA,creosote #2; 1 Homoptera
+6/8/2023,V9,plant,Larrea tridentata,Trombidiformes,7,0,0,creosote #3
+6/5/2023,AC16,plant,Hesperaloe parviflora,Araneae,1,0,0,
+6/5/2023,AC16,plant,Hesperaloe parviflora,Thysanoptera,2,0,0,
+6/5/2023,AC16,plant,Hesperaloe parviflora,Trombidiformes,1,0,0,
+5/26/2023,Z17,ground sweep,ground sweep,Hemiptera,2,0,NA,2 Homoptera
+5/26/2023,Z17,ground sweep,ground sweep,Thysanoptera,1,0,1,
+5/26/2023,Z17,plant,Ficus carica,Thysanoptera,2,0,2,
+5/26/2023,Z17,plant,Moringa oleifera,Thysanoptera,4,0,4,
+5/26/2023,Z17,plant,Moringa oleifera,Coleoptera,1,0,1,
+5/26/2023,Z17,plant,Moringa oleifera,Araneae,1,0,0,
+5/26/2023,Z17,plant,Moringa oleifera,Heteroptera,1,0,NA,
+5/31/2022,AB22,plant,Sphaeralcea ambigua,Araneae,2,0,0,
+5/31/2022,AB22,plant,Sphaeralcea ambigua,Hymenoptera,2,0,NA,
+5/31/2023,AB21,ground sweep,ground sweep,Hymenoptera,1,0,NA,
+5/31/2023,AE23,plant,Bougainvillea sp,Hemiptera,1,0,NA,1 Homoptera
+5/31/2023,AE23,plant,Bougainvillea sp,Araneae,3,0,0,
+5/31/2023,AE23,plant,Bougainvillea sp,Thysanoptera,3,0,3,
+5/31/2023,AE23,plant,Bougainvillea sp,Hymenoptera,1,0,NA,
+5/31/2023,AE23,plant,Bougainvillea sp,Heteroptera,1,0,NA,
+5/31/2023,AE23,plant,Bougainvillea sp,Diptera,1,0,1,
+5/31/2023,AE23,plant,Salvia rosmarinus,Heteroptera,2,0,2,
+5/31/2023,AE23,plant,Salvia rosmarinus,Araneae,1,0,0,
+5/31/2023,AE23,plant,Salvia rosmarinus,Thysanoptera,2,0,2,
+5/31/2023,AB21,plant,Medicago sativa,Heteroptera,14,0,7,
+5/31/2023,AB21,plant,Medicago sativa,Hymenoptera,6,0,0,
+5/31/2023,AB21,plant,Medicago sativa,Trombidiformes,3,0,0,
+5/31/2023,AB21,plant,Medicago sativa,Hemiptera,1,0,0,1 Homoptera
+5/31/2023,AB21,plant,Medicago sativa,Araneae,2,0,0,
+5/31/2023,AB21,plant,Medicago sativa,Lepidoptera,1,1,0,
+5/31/2023,AB21,plant,Medicago sativa,Thysanoptera,97,0,93,
+5/31/2022,AB22,plant,Lactuca serriola,None,0,0,0,
+5/31/2023,AE23,plant,Citrus sp,Araneae,1,0,0,
+5/30/2023,AF23,plant,Morus alba,Neuroptera,1,0,1,
+5/30/2023,AF23,plant,Morus alba,Thysanoptera,4,0,4,
+5/30/2023,AF23,plant,Morus alba,Araneae,1,0,0,
+5/30/2023,AF23,plant,Morus alba,Heteroptera,1,0,1,
+5/30/2023,AF23,plant,Morus alba,Coleoptera,1,0,1,
+5/30/2023,AC22,plant,Bougainvillea sp,Coleoptera,1,2,0,
+5/30/2023,AC22,plant,Bougainvillea sp,Thysanoptera,1,0,1,
+5/30/2023,AC22,plant,Bougainvillea sp,Hymenoptera,2,0,2,
+5/30/2023,AC22,plant,Bougainvillea sp,Hemiptera,1,0,1,1 Homoptera
+5/30/2023,AC22,plant,Nerium oleander,Thysanoptera,3,0,3,
+5/30/2023,AF23,plant,Amaranthus sp,Heteroptera,8,0,8,
+5/30/2023,AF23,plant,Amaranthus sp,Thysanoptera,47,0,36,
+5/30/2023,AF23,plant,Amaranthus sp,Hemiptera,2,0,2,2 Homoptera
+5/30/2023,AF23,plant,Amaranthus sp,Araneae,3,0,0,
+5/30/2023,AF23,plant,Amaranthus sp,Hymenoptera,1,0,1,
+5/30/2023,AC22,plant,Tecoma stans,Araneae,1,0,0,
+5/30/2023,AC22,plant,Tecoma stans,Thysanoptera,1,0,1,
+6/1/2023,AC19,plant,Bougainvillea sp,Thysanoptera,1,0,1,
+6/1/2023,AC19,plant,Bougainvillea sp,Unknown,1,0,1,
+6/1/2023,AC20,plant,Bougainvillea sp,Thysanoptera,1,0,0,
+6/1/2023,AC20,plant,Bougainvillea sp,Lepidoptera,15,15,0,
+6/1/2023,AC19,plant,Nerium oleander,Thysanoptera,13,0,12,
+6/1/2023,AC19,plant,Nerium oleander,Heteroptera,1,0,0,Oleander#1
+6/1/2023,AC19,plant,Nerium oleander,Trombidiformes,3,0,0,Oleander#2
+6/1/2023,AC19,plant,Nerium oleander,Heteroptera,2,0,2,
+6/1/2023,AC19,plant,Nerium oleander,Thysanoptera,4,0,2,
+6/1/2023,AC20,plant,Rosa sp,Araneae,1,0,0,
+4/12/2023,I17,plant,Ambrosia salsola,Lepidoptera,8,8,0,
+4/12/2023,I17,plant,Ambrosia salsola,Thysanoptera,27,0,20,
+4/12/2023,I17,plant,Ambrosia salsola,Trombidiformes,1,0,0,
+4/12/2023,I17,plant,Ambrosia salsola,Hemiptera,3,0,0,3 Homoptera
+4/17/2023,AC9,plant,Larrea tridentata,Thysanoptera,34,0,27,
+4/17/2023,AC9,plant,Larrea tridentata,Trombidiformes,36,0,0,
+4/17/2023,AC9,plant,Larrea tridentata,Heteroptera,2,0,1,
+4/17/2023,AC9,plant,Larrea tridentata,Hemiptera,3,0,0,3 Homoptera
+4/14/2023,V20,plant,Larrea tridentata,Thysanoptera,88,0,88,
+4/14/2023,V20,plant,Larrea tridentata,Trombidiformes,3,0,0,
+4/14/2023,V20,plant,Larrea tridentata,Araneae,3,0,0,
+4/14/2023,V20,plant,Larrea tridentata,Hemiptera,1,0,0,1 Homoptera
+4/7/2023,AF12,plant,Ambrosia deltoidea,Thysanoptera,68,0,27,
+4/7/2023,AF12,plant,Ambrosia deltoidea,Hemiptera,5,0,0,5 Homoptera
+4/7/2023,AF12,plant,Ambrosia deltoidea,Diptera,2,0,2,
+4/7/2023,AF12,plant,Larrea tridentata,Thysanoptera,58,0,24,
+4/7/2023,AF12,plant,Larrea tridentata,Diptera,1,0,1,
+4/7/2023,AF12,plant,Larrea tridentata,Trombidiformes,7,0,0,
+4/7/2023,AF12,plant,Larrea tridentata,Lepidoptera,2,2,0,
+4/18/2023,U13,plant,Encelia farinosa,Thysanoptera,43,0,39,
+4/18/2023,U13,plant,Encelia farinosa,Hemiptera,107,0,15,107 Homoptera
+4/18/2023,U13,plant,Encelia farinosa,Coleoptera,1,0,1,
+4/18/2023,U13,plant,Encelia farinosa,Araneae,1,0,0,
+4/18/2023,U13,plant,Encelia farinosa,Trombidiformes,2,0,0,
+4/18/2023,U13,plant,Encelia farinosa,Heteroptera,3,0,3,
+4/18/2023,U13,plant,Encelia farinosa,Unknown,3,0,0,
+4/12/2023,I17,plant,Larrea tridentata,Thysanoptera,63,0,37,
+4/12/2023,I17,plant,Larrea tridentata,Trombidiformes,11,0,0,
+4/12/2023,I17,plant,Larrea tridentata,Hemiptera,2,0,0,2 Homoptera
+4/14/2023,V20,plant,Ambrosia deltoidea,Thysanoptera,11,0,7,
+4/14/2023,V20,plant,Ambrosia deltoidea,Hemiptera,3,0,0,3 Homoptera
+4/14/2023,V20,plant,Ambrosia deltoidea,Heteroptera,1,0,1,
+4/13/2023,X15,plant,Larrea tridentata,Thysanoptera,10,0,9,creosote#1
+4/13/2023,X15,plant,Larrea tridentata,Trombidiformes,1,0,0,creosote#1
+4/13/2023,X15,plant,Larrea tridentata,Lepidoptera,1,1,0,creosote#1
+4/6/2023,V19,plant,Encelia farinosa,Hemiptera,18,0,5,Brittlebush#1; 18 Homoptera
+4/6/2023,V19,plant,Encelia farinosa,Thysanoptera,165,0,151,Brittlebush#1
+4/6/2023,V19,plant,Encelia farinosa,Trombidiformes,1,0,0,Brittlebush#1
+4/6/2023,V19,plant,Encelia farinosa,Collembola,1,0,0,Brittlebush#1
+4/6/2023,V19,plant,Encelia farinosa,Coleoptera,2,2,0,Brittlebush#1
+4/12/2023,I17,plant,Ambrosia deltoidea,Thysanoptera,303,0,39,
+4/12/2023,I17,plant,Ambrosia deltoidea,Araneae,3,0,0,
+4/12/2023,I17,plant,Ambrosia deltoidea,Hemiptera,11,0,3,11 Homoptera
+4/12/2023,I17,plant,Ambrosia deltoidea,Heteroptera,2,0,1,
+4/12/2023,I17,plant,Ambrosia deltoidea,Unknown,1,0,0,
+4/18/2023,U13,plant,Larrea tridentata,Thysanoptera,52,0,51,
+4/18/2023,U13,plant,Larrea tridentata,Trombidiformes,2,0,0,
+4/18/2023,U13,plant,Larrea tridentata,Araneae,1,0,0,
+4/18/2023,U13,plant,Larrea tridentata,Heteroptera,1,0,1,
+4/18/2023,U13,plant,Larrea tridentata,Lepidoptera,1,1,0,
+4/17/2023,AC9,plant,Ambrosia deltoidea,Thysanoptera,78,0,27,
+4/17/2023,AC9,plant,Ambrosia deltoidea,Hemiptera,13,0,4,13 Homoptera
+4/17/2023,AC9,plant,Ambrosia deltoidea,Diptera,1,0,1,
+4/18/2023,U13,plant,Sphaeralcea ambigua,Coleoptera,1,1,0,
+4/18/2023,U13,plant,Sphaeralcea ambigua,Thysanoptera,7,0,1,
+4/18/2023,U13,plant,Sphaeralcea ambigua,Heteroptera,1,0,1,
+4/18/2023,U13,plant,Sphaeralcea ambigua,Trombidiformes,3,0,0,
+4/10/2023,T21,plant,Larrea tridentata,Trombidiformes,30,0,0,creosote#1
+4/10/2023,T21,plant,Larrea tridentata,Thysanoptera,15,0,12,creosote#1
+4/10/2023,T21,plant,Larrea tridentata,Araneae,2,0,0,creosote#1
+4/10/2023,T21,plant,Larrea tridentata,Hymenoptera,1,0,0,creosote#1
+4/10/2023,T21,plant,Larrea tridentata,Hemiptera,3,0,0,creosote#1; 3 Homoptera
+4/7/2023,AF12,plant,Encelia farinosa,Hemiptera,20,0,6,20 Homoptera
+4/7/2023,AF12,plant,Encelia farinosa,Thysanoptera,38,0,37,
+4/7/2023,AF12,plant,Encelia farinosa,Coleoptera,1,0,1,
+4/10/2023,T21,plant,Encelia farinosa,Hemiptera,101,0,40,101 Homoptera
+4/10/2023,T21,plant,Encelia farinosa,Thysanoptera,25,0,22,
+4/10/2023,T21,plant,Encelia farinosa,Isotomidae,1,0,0,
+4/10/2023,T21,plant,Encelia farinosa,Heteroptera,3,0,0,
+4/13/2023,X15,plant,Larrea tridentata,Thysanoptera,65,0,61,creosote#2
+4/13/2023,X15,plant,Larrea tridentata,Hemiptera,3,0,1,creosote#2; 3 Homoptera
+4/13/2023,X15,plant,Larrea tridentata,Coleoptera,2,0,2,creosote#2
+4/13/2023,X15,plant,Larrea tridentata,Araneae,1,0,0,creosote#2
+4/13/2023,X15,plant,Larrea tridentata,Lepidoptera,2,2,0,creosote#2
+4/17/2023,AC9,plant,Encelia farinosa,Thysanoptera,72,0,69,
+4/17/2023,AC9,plant,Encelia farinosa,Hemiptera,4,0,2,4 Homoptera
+4/17/2023,AC9,plant,Encelia farinosa,Trombidiformes,2,0,0,
+4/10/2023,T21,plant,Larrea tridentata,Trombidiformes,9,0,0,creosote#2
+4/10/2023,T21,plant,Larrea tridentata,Thysanoptera,11,0,8,creosote#2
+4/10/2023,T21,plant,Larrea tridentata,Lepidoptera,1,1,0,creosote#2
+4/10/2023,T21,plant,Larrea tridentata,Araneae,3,0,0,creosote#2
+4/10/2023,T21,plant,Larrea tridentata,Hemiptera,3,0,2,creosote#2; 3 Homoptera
+4/6/2023,V19,plant,Encelia farinosa,Hemiptera,18,0,4,Brittlebush#2; 18 Homoptera
+4/6/2023,V19,plant,Encelia farinosa,Thysanoptera,84,0,53,Brittlebush#2
+4/6/2023,V19,plant,Encelia farinosa,Araneae,1,0,0,Brittlebush#2
+4/6/2023,V19,plant,Encelia farinosa,Unknown,1,0,0,Brittlebush#2
+4/19/2023,V20,plant,Encelia farinosa,Thysanoptera,140,0,42,
+4/19/2023,V20,plant,Encelia farinosa,Hemiptera,9,0,2,9 Homoptera
+4/19/2023,V20,plant,Encelia farinosa,Coleoptera,1,0,1,
+4/19/2023,V20,plant,Encelia farinosa,Araneae,1,0,0,
+4/14/2023,X15,plant,Viguiera parishii,Thysanoptera,4,0,1,
+4/14/2023,X15,plant,Viguiera parishii,Hemiptera,4,0,3,3 Homoptera
+4/6/2023,V19,plant,Eriogonum fasciculatum,Heteroptera,2,0,2,
+4/6/2023,V19,plant,Eriogonum fasciculatum,Trombidiformes,1,0,0,
+4/6/2023,V19,plant,Eriogonum fasciculatum,Araneae,1,0,0,
+4/6/2023,V19,plant,Eriogonum fasciculatum,Thysanoptera,13,0,6,
+3/8/2023,W19,plant,Larrea tridentata,Thysanoptera,2,0,0,
+3/8/2023,W19,plant,Larrea tridentata,Hemiptera,1,0,0,1 Homoptera
+3/30/2023,E12,plant,Larrea tridentata,Araneae,1,0,0,Creosote#1
+3/30/2023,E12,plant,Larrea tridentata,Hemiptera,8,0,1,Creosote#1; 8 Homoptera
+3/30/2023,E12,plant,Larrea tridentata,Hymenoptera,3,0,3,Creosote#1
+3/30/2023,E12,plant,Larrea tridentata,Thysanoptera,21,0,9,Creosote#1
+3/30/2023,E12,plant,Larrea tridentata,Trombidiformes,8,0,0,Creosote#1
+4/4/2023,U20,plant,Encelia farinosa,Thysanoptera,60,0,60,
+4/4/2023,U20,plant,Encelia farinosa,Hemiptera,25,0,14,25 Homoptera
+4/4/2023,U20,plant,Encelia farinosa,Lepidoptera,1,1,0,
+4/4/2023,U20,plant,Encelia farinosa,Unknown,3,0,0,
+4/5/2023,AF14,plant,Larrea tridentata,Coccoidea,1,1,0,
+4/5/2023,AF14,plant,Larrea tridentata,Hemiptera,8,1,1,8 Homoptera
+4/5/2023,AF14,plant,Larrea tridentata,Heteroptera,1,0,1,
+4/5/2023,AF14,plant,Larrea tridentata,Lepidoptera,2,2,0,
+4/5/2023,AF14,plant,Larrea tridentata,Trombidiformes,9,0,0,
+4/5/2023,AF14,plant,Larrea tridentata,Thysanoptera,109,0,NA,
+3/8/2023,W19,plant,Encelia farinosa,Trombidiformes,1,0,0,
+3/8/2023,W19,plant,Encelia farinosa,Unknown,1,NA,0,
+3/8/2023,W19,plant,Encelia farinosa,Hemiptera,2,0,0,2 Homoptera
+3/20/2023,E12,plant,Larrea tridentata,Lepidoptera,5,5,0,Creosote#2
+3/20/2023,E12,plant,Larrea tridentata,Hemiptera,3,2,0,creosote#2; 3 Homoptera
+3/20/2023,E12,plant,Larrea tridentata,Thysanoptera,23,0,20,Creosote#2
+3/20/2023,E12,plant,Larrea tridentata,Trombidiformes,2,0,0,Creosote#2
+3/31/2023,E8,plant,Ambrosia deltoidea,Hemiptera,4,1,2,4 Homoptera
+3/31/2023,E8,plant,Ambrosia deltoidea,Thysanoptera,37,0,28,
+4/5/2023,AF14,plant,Simmondsia chinensis,Thysanoptera,1,0,1,
+4/5/2023,AF14,plant,Ambrosia deltoidea,Thysanoptera,9,0,7,
+4/5/2023,AF14,plant,Ambrosia deltoidea,Trichoptera,1,0,1,
+4/5/2023,AF14,plant,Ambrosia deltoidea,Lepidoptera,1,1,0,
+4/5/2023,AF14,plant,Ambrosia deltoidea,Hemiptera,9,0,2,9 Homoptera
+4/4/2023,U20,plant,Larrea tridentata,Thysanoptera,7,0,3,
+3/29/2023,F12,plant,Parkinsonia florida,Diptera,1,0,1,
+3/24/2023,K12,plant,Larrea tridentata,Hemiptera,3,0,3,3 Homoptera
+3/24/2023,K12,plant,Larrea tridentata,Thysanoptera,2,0,2,
+3/24/2023,K12,plant,Larrea tridentata,Trombidiformes,3,0,0,
+5/26/2023,AA17,plant,Nerium oleander,Araneae,1,0,0,
+5/26/2023,AA17,plant,Nerium oleander,Thysanoptera,2,0,1,
+5/26/2023,AA17,plant,Nerium oleander,Trombidiformes,1,0,0,
+3/31/2023,E8,plant,Larrea tridentata,Araneae,2,0,0,
+3/31/2023,E8,plant,Larrea tridentata,Lepidoptera,1,1,0,
+3/31/2023,E8,plant,Larrea tridentata,Trombidiformes,17,0,0,
+3/31/2023,E8,plant,Larrea tridentata,Heteroptera,4,0,2,
+3/31/2023,E8,plant,Larrea tridentata,Thysanoptera,17,0,16,
+3/31/2023,E8,plant,Larrea tridentata,Unknown,2,NA,0,
